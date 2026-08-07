@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ============================================================
+     ARTICLE TEMPLATE — copy this file for each piece.
+     Save as: /writing/<slug>/index.html   →   nickconenna.com/writing/<slug>
+
+     TO USE:
+     1. Replace every ALL-CAPS token below.
+     2. Paste your LinkedIn text into the <article> section.
+        Wrap each paragraph in <p>...</p>. That's the only
+        required markup. Others available: h2, h3, blockquote,
+        ul/li, .pull, .note — samples included, delete them.
+     3. Add the entry to /writing/index.html
+     ============================================================ -->
+
+<title>ARTICLE TITLE — Nick Conenna</title>
+<meta name="description" content="ONE SENTENCE, UNDER 155 CHARS — this is what shows in search and link previews.">
+<link rel="canonical" href="https://nickconenna.com/writing/SLUG">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="ARTICLE TITLE">
+<meta property="og:description" content="SAME ONE SENTENCE AS ABOVE">
+<meta property="og:url" content="https://nickconenna.com/writing/SLUG">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --zinc:#E6E8E3;
+  --plate:#CDD1CA;
+  --plate-hi:#DDE0D9;
+  --ink:#15181B;
+  --oxide:#23474F;
+  --stamp:#7E857D;
+  --rule:#B4B9B1;
+  --hivis:#F26419;
+  --display:'Archivo',system-ui,sans-serif;
+  --body:'IBM Plex Sans',system-ui,sans-serif;
+  --data:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--zinc);color:var(--ink);
+  font-family:var(--body);font-size:18px;line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:720px;margin:0 auto;padding:0 24px}
+
+/* bar */
+.bar{
+  position:sticky;top:0;z-index:10;
+  background:rgba(230,232,227,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule);
+}
+.bar .wrap{
+  display:flex;align-items:center;gap:16px;height:52px;
+  font-family:var(--data);font-size:11px;
+  text-transform:uppercase;letter-spacing:.14em;
+}
+.bar a{color:var(--oxide);text-decoration:none;border-bottom:1px solid var(--rule)}
+.bar a:hover{border-color:var(--oxide)}
+.bar .right{margin-left:auto}
+
+/* title block — the drawing's corner stamp */
+.titleblock{margin:56px 0 40px}
+h1{
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(31px,6.2vw,50px);line-height:1.04;
+  letter-spacing:-.024em;margin-bottom:26px;
+}
+.stamp{
+  display:grid;grid-template-columns:1fr 1fr;
+  border:1px solid var(--rule);border-radius:2px;
+  background:linear-gradient(103deg,var(--plate-hi),var(--plate) 55%,var(--plate-hi));
+}
+.stamp div{padding:11px 14px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.stamp div:nth-child(2n){border-right:0}
+.stamp div:nth-last-child(-n+2){border-bottom:0}
+.stamp dt{
+  font-family:var(--data);font-size:9.5px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.18em;color:var(--stamp);
+  margin-bottom:3px;
+}
+.stamp dd{font-family:var(--data);font-size:12.5px;line-height:1.4;color:var(--ink)}
+
+/* article body */
+article{padding-bottom:16px}
+article > p:first-of-type{font-size:20.5px;line-height:1.6}
+article p{margin-bottom:22px}
+article h2{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(21px,3.6vw,27px);line-height:1.22;
+  letter-spacing:-.014em;margin:46px 0 14px;
+}
+article h3{
+  font-family:var(--body);font-weight:600;font-size:18.5px;
+  margin:32px 0 10px;color:var(--oxide);
+}
+article strong{font-weight:600;color:var(--oxide)}
+article em{font-style:italic}
+article a{color:var(--oxide);text-decoration:none;border-bottom:1px solid var(--rule)}
+article a:hover{border-color:var(--hivis)}
+article ul,article ol{margin:0 0 22px 20px}
+article li{margin-bottom:9px}
+article blockquote{
+  border-left:2px solid var(--oxide);
+  padding:2px 0 2px 20px;margin:28px 0;
+  font-size:19px;line-height:1.55;color:var(--oxide);
+}
+.pull{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(20px,3.6vw,26px);line-height:1.24;
+  letter-spacing:-.012em;color:var(--ink);
+  border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
+  padding:22px 0;margin:38px 0;
+}
+.note{
+  font-family:var(--data);font-size:13px;line-height:1.65;
+  color:var(--stamp);border-left:2px solid var(--rule);
+  padding-left:18px;margin:28px 0;
+}
+hr{border:0;border-top:1px solid var(--rule);margin:40px 0}
+.origin{
+  font-family:var(--data);font-size:11px;text-transform:uppercase;
+  letter-spacing:.14em;color:var(--stamp);
+  border-top:1px solid var(--rule);padding-top:22px;margin-top:44px;
+}
+.origin a{color:var(--stamp)}
+
+/* footer */
+.foot{background:var(--oxide);color:var(--zinc);padding:58px 0 62px;margin-top:52px}
+.foot .k{
+  font-family:var(--data);font-size:10.5px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.24em;
+  color:rgba(230,232,227,.5);margin-bottom:18px;
+}
+.foot h2{
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(22px,4.4vw,32px);letter-spacing:-.02em;
+  margin-bottom:14px;color:#F4F6F1;
+}
+.foot p{color:rgba(230,232,227,.84);max-width:52ch;margin-bottom:22px;font-size:17px}
+.foot a.cta{
+  font-family:var(--data);font-size:12px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.16em;
+  color:#F4F6F1;text-decoration:none;
+  border-bottom:2px solid var(--hivis);padding-bottom:3px;
+}
+.foot a.cta:hover{color:var(--hivis)}
+
+:focus-visible{outline:2px solid var(--hivis);outline-offset:3px}
+@media (max-width:520px){ .stamp{grid-template-columns:1fr} .stamp div{border-right:0} }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a href="/writing">← Writing</a>
+    <span class="right"><a href="/#contact">Get in touch</a></span>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+  <div class="titleblock">
+    <h1>ARTICLE TITLE</h1>
+    <dl class="stamp">
+      <div><dt>Subject</dt><dd>TWO OR THREE WORDS</dd></div>
+      <div><dt>Sheet</dt><dd>01</dd></div>
+      <div><dt>Issued</dt><dd>MONTH YEAR</dd></div>
+      <div><dt>By</dt><dd>Nick Conenna</dd></div>
+    </dl>
+  </div>
+
+  <!-- ========== PASTE ARTICLE BELOW ========== -->
+  <article>
+
+    <p>First paragraph renders larger automatically — make it the whole argument in two or three sentences. Someone who reads only this should know what you claim and why it matters.</p>
+
+    <p>Body paragraphs are plain. Wrap each one in its own paragraph tag; don't use line breaks between them. <strong>Bold marks the load-bearing claim</strong>, not emphasis for its own sake.</p>
+
+    <h2>A section heading</h2>
+
+    <p>Sections every three to five paragraphs. Headings that state something beat headings that label something — "Discovery phases produce documents, not software" over "On discovery."</p>
+
+    <ul>
+      <li>Lists earn their place when items are genuinely parallel</li>
+      <li>Three to five items; more than seven and it's prose in disguise</li>
+      <li>Never a list of full paragraphs</li>
+    </ul>
+
+    <blockquote>A quote from someone else, or a line from a client. Attribution goes in the following paragraph, not inside the quote.</blockquote>
+
+    <p class="pull">Pull quote — one line of your own, the sentence you'd want screenshotted. One per article, maximum.</p>
+
+    <p class="note">A note class for asides, caveats, and technical footnotes that would break the flow inline.</p>
+
+    <h2>Close on the reader, not on yourself</h2>
+
+    <p>The last paragraph should hand the reader something they can use tomorrow. Ending on a summary of what you just said is the most common way a good piece loses its landing.</p>
+
+    <!-- DELETE EVERYTHING ABOVE AND PASTE YOUR TEXT -->
+
+    <p class="origin">
+      First published on <a href="PASTE_LINKEDIN_URL">LinkedIn</a>, MONTH YEAR.
+    </p>
+
+  </article>
+  <!-- ========== PASTE ARTICLE ABOVE ========== -->
+
+</div>
+
+<div class="foot">
+  <div class="wrap">
+    <p class="k">Available — one slot open</p>
+    <h2>The method, applied to your problem</h2>
+    <p>Fixed fee, fixed date, outcome carried. Most engagements start with a paid one-week diagnostic — a scoped plan and a working proof of the hardest part.</p>
+    <a class="cta" href="/#contact">Get in touch →</a>
+  </div>
+</div>
+
+</main>
+</body>
+</html>
