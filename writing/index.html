@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Writing — Nick Conenna</title>
+<meta name="description" content="Working notes on applied AI — method, context, and what actually ships. By Nick Conenna.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --zinc:#E6E8E3;
+  --plate:#CDD1CA;
+  --ink:#15181B;
+  --oxide:#23474F;
+  --stamp:#7E857D;
+  --rule:#B4B9B1;
+  --hivis:#F26419;
+  --display:'Archivo',system-ui,sans-serif;
+  --body:'IBM Plex Sans',system-ui,sans-serif;
+  --data:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--zinc);color:var(--ink);
+  font-family:var(--body);font-size:17px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:860px;margin:0 auto;padding:0 24px}
+
+/* bar */
+.bar{
+  position:sticky;top:0;z-index:10;
+  background:rgba(230,232,227,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule);
+}
+.bar .wrap{
+  display:flex;align-items:center;gap:16px;height:52px;
+  font-family:var(--data);font-size:11px;
+  text-transform:uppercase;letter-spacing:.14em;
+}
+.bar a{color:var(--oxide);text-decoration:none}
+.back{border-bottom:1px solid var(--rule)}
+.back:hover{border-color:var(--oxide)}
+.bar .right{margin-left:auto}
+.bar .right a{border-bottom:1px solid var(--rule)}
+.bar .right a:hover{border-color:var(--oxide)}
+
+/* masthead */
+.mast{padding:64px 0 44px}
+.eyebrow{
+  font-family:var(--data);font-size:10.5px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.24em;color:var(--oxide);
+  display:flex;align-items:center;gap:12px;margin-bottom:20px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--rule)}
+h1{
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(34px,7vw,58px);line-height:1.02;
+  letter-spacing:-.024em;text-transform:uppercase;
+  margin-bottom:20px;
+}
+.lede{font-size:19px;line-height:1.55;max-width:56ch;color:var(--ink)}
+.lede strong{font-weight:500;color:var(--oxide)}
+
+/* register */
+.register{padding-bottom:24px;border-top:1px solid var(--ink)}
+.art{
+  display:grid;grid-template-columns:1fr;gap:6px;
+  padding:26px 0;border-bottom:1px solid var(--rule);
+  text-decoration:none;color:inherit;
+}
+.num{
+  font-family:var(--data);font-size:10.5px;font-weight:600;
+  letter-spacing:.2em;color:var(--stamp);
+}
+.art h2{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(20px,3.6vw,26px);line-height:1.18;
+  letter-spacing:-.014em;
+}
+.art:hover h2{color:var(--oxide)}
+.gist{font-size:16px;line-height:1.55;opacity:.84;max-width:60ch;margin-top:2px}
+.go{
+  font-family:var(--data);font-size:10.5px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.14em;color:var(--stamp);
+  margin-top:8px;
+}
+.art:hover .go{color:var(--hivis)}
+.ph{color:var(--hivis);font-family:var(--data);font-size:.86em}
+
+/* footer */
+.foot{
+  background:var(--oxide);color:var(--zinc);
+  padding:58px 0 62px;margin-top:44px;
+}
+.foot .eyebrow{color:rgba(230,232,227,.5)}
+.foot .eyebrow::after{background:rgba(230,232,227,.22)}
+.foot h2{
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(22px,4.4vw,34px);letter-spacing:-.02em;
+  margin-bottom:16px;color:#F4F6F1;
+}
+.foot p{color:rgba(230,232,227,.84);max-width:52ch;margin-bottom:22px}
+.foot a.cta{
+  font-family:var(--data);font-size:12px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.16em;
+  color:#F4F6F1;text-decoration:none;
+  border-bottom:2px solid var(--hivis);padding-bottom:3px;
+}
+.foot a.cta:hover{color:var(--hivis)}
+
+:focus-visible{outline:2px solid var(--hivis);outline-offset:3px}
+
+@media (min-width:640px){
+  .art{grid-template-columns:64px 1fr;gap:0 24px}
+  .num{grid-row:1/span 4;padding-top:7px}
+  .mast{padding:80px 0 52px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="back" href="/">← Nick Conenna</a>
+    <span class="right"><a href="/#contact">Get in touch</a></span>
+  </div>
+</header>
+
+<main>
+
+<div class="wrap mast">
+  <p class="eyebrow">Writing — Applied AI Architecture</p>
+  <h1>Working notes</h1>
+  <p class="lede">Method written down as it gets used. <strong>The techniques are free and public — the advantage is in running them.</strong> No newsletter, no schedule, nothing here that hasn't survived contact with a real build.</p>
+</div>
+
+<div class="wrap">
+  <div class="register">
+
+    <a class="art" href="PASTE_LINKEDIN_URL">
+      <span class="num">01</span>
+      <h2>The Techniques Are Free</h2>
+      <p class="gist">The advantage in applied AI was never access to models or a clever prompt. Every technique worth having is published, free, and sitting in the open. The advantage is the loop you actually run — and almost nobody runs one.</p>
+      <span class="go">Read on LinkedIn →</span>
+    </a>
+
+    <a class="art" href="PASTE_LINKEDIN_URL">
+      <span class="num">02</span>
+      <h2><span class="ph">[ARTICLE TITLE]</span></h2>
+      <p class="gist"><span class="ph">[Two sentences stating the argument — not a summary. The test: could a reader disagree with this? If not, rewrite it.]</span></p>
+      <span class="go">Read on LinkedIn →</span>
+    </a>
+
+    <a class="art" href="PASTE_LINKEDIN_URL">
+      <span class="num">03</span>
+      <h2><span class="ph">[ARTICLE TITLE]</span></h2>
+      <p class="gist"><span class="ph">[The claim the piece makes, in the reader's interest — what it costs them not to know.]</span></p>
+      <span class="go">Read on LinkedIn →</span>
+    </a>
+
+    <a class="art" href="PASTE_LINKEDIN_URL">
+      <span class="num">04</span>
+      <h2><span class="ph">[ARTICLE TITLE]</span></h2>
+      <p class="gist"><span class="ph">[Same. Order these by strength, not by date — best piece at 01.]</span></p>
+      <span class="go">Read on LinkedIn →</span>
+    </a>
+
+  </div>
+</div>
+
+<div class="foot">
+  <div class="wrap">
+    <p class="eyebrow">Available — one slot open</p>
+    <h2>The method, applied to your problem</h2>
+    <p>Fixed fee, fixed date, outcome carried. Most engagements start with a paid one-week diagnostic — a scoped plan and a working proof of the hardest part.</p>
+    <a class="cta" href="/#contact">Get in touch →</a>
+  </div>
+</div>
+
+</main>
+</body>
+</html>
