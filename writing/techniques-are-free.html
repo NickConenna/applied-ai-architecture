@@ -17,14 +17,24 @@
      3. Add the entry to /writing/index.html
      ============================================================ -->
 
-<title>ARTICLE TITLE — Nick Conenna</title>
-<meta name="description" content="ONE SENTENCE, UNDER 155 CHARS — this is what shows in search and link previews.">
+<title>The Techniques Are Free Now. The Architect Isn't. — Nick Conenna</title>
+<meta name="description" content="The techniques are free now.
+
+Over a hundred of Boris Cherny's Claude Code tips are public, sorted, and installable as a slash command. Loops, verification, context minimalism, worktrees — you can have the whole kit by Friday.
+
+So what separates two applied AI architects who both downloaded it?
+
+Output = Context × Loops.
+
+The loop is the leverage. Context is what you point it at — time under load, talent, intuition, education, imagination. Multiply anything by zero and you get zero.
+
+The loop-rich, context-poor operator ships fast, all quarter, in the wrong direction. And it never feels wrong from the inside, because velocity reads as validation.">
 <link rel="canonical" href="https://nickconenna.com/writing/SLUG">
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="ARTICLE TITLE">
-<meta property="og:description" content="SAME ONE SENTENCE AS ABOVE">
-<meta property="og:url" content="https://nickconenna.com/writing/SLUG">
+<meta property="og:title" content="The Techniques Are Free Now. The Architect Isn't.">
+<meta property="og:description" content="Over a hundred of Boris Cherny's Claude Code tips are public, sorted, and installable as a slash command. Loops, verification, context minimalism, worktrees — you can have the whole kit by Friday.">
+<meta property="og:url" content="https://nickconenna.com/writing/techniques-are-free.html">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -170,11 +180,11 @@ hr{border:0;border-top:1px solid var(--rule);margin:40px 0}
 <div class="wrap">
 
   <div class="titleblock">
-    <h1>ARTICLE TITLE</h1>
+    <h1>The Techniques Are Free Now. The Architect Isn't.</h1>
     <dl class="stamp">
-      <div><dt>Subject</dt><dd>TWO OR THREE WORDS</dd></div>
-      <div><dt>Sheet</dt><dd>01</dd></div>
-      <div><dt>Issued</dt><dd>MONTH YEAR</dd></div>
+      <div><dt>Subject</dt><dd>#AppliedAI #AgentEngineering #AIArchitecture #ClaudeCode #Evals</dd></div>
+      <div><dt>Number</dt><dd>01</dd></div>
+      <div><dt>Date</dt><dd>8-9-26</dd></div>
       <div><dt>By</dt><dd>Nick Conenna</dd></div>
     </dl>
   </div>
@@ -182,34 +192,124 @@ hr{border:0;border-top:1px solid var(--rule);margin:40px 0}
   <!-- ========== PASTE ARTICLE BELOW ========== -->
   <article>
 
-    <p>First paragraph renders larger automatically — make it the whole argument in two or three sentences. Someone who reads only this should know what you claim and why it matters.</p>
+    <p>
+         There are public sites cataloguing well over a hundred of Boris Cherny's Claude Code tips — sorted, tagged, sourced, some installable as a slash command. The head of Claude Code has effectively open-sourced his own workflow, and third parties have built fact-checked knowledge bases on top of it.
 
-    <p>Body paragraphs are plain. Wrap each one in its own paragraph tag; don't use line breaks between them. <strong>Bold marks the load-bearing claim</strong>, not emphasis for its own sake.</p>
+The technique gap is closed. Anyone reading this can have the same kit by Friday.
 
-    <h2>A section heading</h2>
+Which leaves the only interesting question: if everyone has the same techniques, what separates two applied AI architects?
+    </p>
 
-    <p>Sections every three to five paragraphs. Headings that state something beat headings that label something — "Discovery phases produce documents, not software" over "On discovery."</p>
+    <h2>First, take the techniques seriously</h2>
+
+    <p>
+         This isn't a "tools don't matter" argument. They matter enormously, and the people at the front are unusually generous about what works.
+
+The through-line in Cherny's public material is that the unit of work has moved from the prompt to the loop. He doesn't prompt Claude turn by turn anymore — he writes loops that prompt Claude, read the output, decide whether the goal is met, and re-prompt if it isn't. Peter Steinberger and Addy Osmani did the work of naming that pattern "loop engineering," a term Cherny didn't coin himself.
+
+A loop is three things: a goal, a feedback signal, and a stopping condition.
+
+The tip Cherny repeats more than any other concerns the middle term: give the agent a way to verify its own work. Not "run the tests" — actually check the thing the way a user would. He puts real verification at roughly 2-3x on output quality. Cat Wu, who runs product for Claude Code, keeps pulling the conversation back to the same unglamorous list: verification, routines, auto mode, context minimalism.
+
+The rest of the kit hangs off it:
+
+Context minimalism. Give the model less, plus a way to fetch more. Bloat is now a bigger failure mode than omission.
+Durable corrections. When the agent gets something wrong, write the fix into a file it reads next time. Say it once, somewhere that persists.
+Parallelism with isolation. Multiple sessions, each in its own worktree, each with a job.
+Deterministic gates. Hooks and stop-checks, so verification isn't optional and isn't your job.
+
+That's a real methodology. Steal all of it.
+
+
+    </p>
 
     <ul>
-      <li>Lists earn their place when items are genuinely parallel</li>
-      <li>Three to five items; more than seven and it's prose in disguise</li>
-      <li>Never a list of full paragraphs</li>
+      <li>.</li>
+      <li>..</li>
+      <li>...</li>
     </ul>
 
-    <blockquote>A quote from someone else, or a line from a client. Attribution goes in the following paragraph, not inside the quote.</blockquote>
 
-    <p class="pull">Pull quote — one line of your own, the sentence you'd want screenshotted. One per article, maximum.</p>
+<p>
+     Now notice what's underneath it
+Here's the detail most people skim past.
 
-    <p class="note">A note class for asides, caveats, and technical footnotes that would break the flow inline.</p>
+Cherny has publicly reversed himself twice in six months. Plan mode — once his most-repeated recommendation — he no longer uses. "Context engineering," an entire cottage discipline, was replaced by its near-opposite, context minimalism. What survived both reversals was verification.
 
-    <h2>Close on the reader, not on yourself</h2>
+Something told him which advice to throw away.
 
-    <p>The last paragraph should hand the reader something they can use tomorrow. Ending on a summary of what you just said is the most common way a good piece loses its landing.</p>
+That something is not a technique. It isn't in the tip list. It can't be installed as a plugin. It's the judgment sitting above the toolkit that decides what the toolkit is for — and it's precisely the part that doesn't transfer when you copy the setup.
 
-    <!-- DELETE EVERYTHING ABOVE AND PASTE YOUR TEXT -->
+There's a second tell in the same material. He works inside Anthropic, on Anthropic's codebase, with effectively unlimited tokens and pre-release model access. His practices are correct for that context. Lift them wholesale into a two-person company burning its own runway and some of them are actively wrong.
 
+Copying a great practitioner's stack without their constraints is cargo cult with better branding.
+
+Output = Context × Loops
+Multiplication, not addition. That's the argument.
+
+Loops are the leverage. Context is what the leverage gets applied to. Multiply anything by zero and you get zero — infinite iteration against a badly chosen goal produces wrong answers faster, and far more confidently, than any human could manage alone.
+
+So what is "context," concretely, in the person running the system? Six things, each doing specific work:
+
+Time under load. Not age — years of consequence. You've watched a system fail in a way no test anticipated. That's what lets you write a stopping condition that means something, because you know what "done" looks like when it's quietly wrong at 2am.
+
+Talent. The specific thing you're unreasonably good at. Leverage multiplies a slope; talent is the slope. Ten thousand agent-hours aimed at work you have no feel for buys volume, not advantage.
+
+Intuition. Model output is fluent, and fluency beats novices every time. Intuition is the alarm that fires before you can articulate why — the "that number is wrong" you can't yet defend. It's built entirely from prior exposure, and it's the last line of defense against plausible garbage.
+
+Cultural depth. Every verifier encodes somebody's definition of correct. Whose? A tradesman in Charlotte and a tradesman in Brooklyn do not mean the same thing by "standard job." Languages, regions, trades, subcultures — depth here is what stops you automating a definition of correct that only holds in the room you happen to be sitting in.
+
+Education, formal or self-built. You can't decompose a problem into stages you have no words for. Education is the vocabulary of decomposition.
+
+Imagination. The loop can tell you whether you arrived. It can't tell you where to go. Goals don't emerge from verification; verification only ever serves a goal. Imagination is the one input no agent supplies.
+
+This isn't a solo hunch — it's converging from four directions
+What's striking is how many serious people arrive here from unrelated starting points.
+
+Ethan Mollick at Wharton makes the management version: subject-matter expertise improves every part of working with AI — better instructions going in, earlier detection when something goes wrong, faster correction. The expert isn't merely slower to be replaced. The expert is why the system works at all.
+
+Hamel Husain and Shreya Shankar, who've taught evals to more product teams than almost anyone, make the sharpest version. Their position, roughly: you can't hand evaluation entirely to the AI, because the AI lacks your product context and your domain expertise — so appoint one person with real domain knowledge and trusted taste to own it. That's Context × Loops stated as an org chart.
+
+Eugene Yan keeps pointing out that buying another evaluation tool won't save your product. The process will.
+
+And Shunyu Yao's framing of "the second half" of AI states it structurally: the bottleneck is shifting away from solving problems and toward defining and evaluating them.
+
+Four vantage points — a model lab, an evals practice, an applied-research shop, a business school. One conclusion. The scarce input moved from execution to definition.
+
+The two failure profiles
+Context-rich, loop-poor: deep judgment, hand-cranking everything, shipping at 2019 speed. A real loss — but recoverable, because the tips are free and the tooling is a weekend.
+
+Loop-rich, context-poor: forty agents running, an immaculate harness, all of it aimed at the wrong definition of correct. This is the more dangerous profile, and it doesn't feel dangerous from the inside. Velocity reads as validation.
+
+I'll take the first every time, because the missing half is the cheap half.
+
+The worked example
+I run eight trade agents against a shared pricing index for home services — loops, verifiers, durable corrections, escrow-backed transactions confirmed end to end. The architecture is unremarkable. It's the same kit everyone has.
+
+The part that took years wasn't the harness. It was knowing that "what should this actually cost?" is the question homeowners really ask, that pros will accept a transparent rate but never an opaque one, and what a fair number looks like in this specific corridor. Cultural depth, time under load, and imagination, doing work no harness does.
+
+The model could have built me the loop on day one. It could not have told me what to point it at.
+
+Where I'd like to be argued with
+The strongest counter is that context is being commoditized right now.
+
+The models already hold more retrievable domain knowledge than any individual carries. Loops manufacture reps faster than lived time ever could. A twenty-four-year-old running forty parallel agents will out-ship a fifty-year-old with excellent taste and one terminal — and that isn't hypothetical, that's most quarters.
+
+Partly true, and I'd concede the education leg the furthest. Retrievable knowledge is no longer scarce.
+
+But over a ninety-day window, loops win. Over three years, context does — because the loop-rich, context-poor operator keeps arriving, at speed, in the wrong place. Which game you're playing should decide where you invest.
+
+Where I could be wrong: if models get good enough at goal-setting, imagination stops being scarce too, and this entire argument becomes nostalgia.
+
+Nick Conenna is an applied AI architect and founder building agentic systems in production. He's currently in conversation with teams hiring for applied AI, forward-deployed, and founding product roles.
+
+#AppliedAI #AgentEngineering #AIArchitecture #ClaudeCode #Evals
+</p>
+
+       
+       
     <p class="origin">
-      First published on <a href="PASTE_LINKEDIN_URL">LinkedIn</a>, MONTH YEAR.
+      First published on <a href="https://www.linkedin.com/pulse/techniques-free-now-architect-isnt-nick-conenna-lvzxf/?trackingId=cDg4CJhRR6amTPKYzIe2XQ%3D%3D">LinkedIn</a>, August 2026.
     </p>
 
   </article>
