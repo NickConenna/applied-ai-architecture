@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nick Conenna — Applied AI Architecture</title>
-<meta name="description" content="I build AI systems that ship. Twenty years in physical-world businesses, one live marketplace built solo. Available for engagements now.">
+<meta name="description" content="I build software with Claude and write every prompt myself. One live marketplace, built solo. Open to full-time or contract work.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
@@ -26,7 +26,7 @@
 html{scroll-behavior:smooth}
 body{
   background:var(--zinc);color:var(--ink);
-  font-family:var(--body);font-size:17px;line-height:1.6;
+  font-family:var(--body);font-size:17px;line-height:1.65;
   -webkit-font-smoothing:antialiased;
 }
 .wrap{max-width:860px;margin:0 auto;padding:0 24px}
@@ -42,28 +42,24 @@ body{
   display:flex;align-items:center;gap:16px;
   height:52px;
   font-family:var(--data);font-size:11px;
-  text-transform:uppercase;letter-spacing:.14em;
+  letter-spacing:.1em;
 }
 .status{display:flex;align-items:center;gap:7px;color:var(--oxide)}
-.dot{
-  width:7px;height:7px;border-radius:50%;
-  background:var(--hivis);flex:none;
-}
-.bar .name{font-weight:600;margin-left:auto;color:var(--ink)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--hivis);flex:none}
+.bar nav{margin-left:auto;display:flex;gap:16px}
 .bar a{color:var(--oxide);text-decoration:none;border-bottom:1px solid var(--rule)}
 .bar a:hover{border-color:var(--oxide)}
 .bar .hide-sm{display:none}
 
 /* ---------- nameplate ---------- */
-.plate-zone{padding:64px 0 72px}
+.plate-zone{padding:56px 0 60px}
 .plate{
   position:relative;
-  background:
-    linear-gradient(103deg,var(--plate-hi) 0%,var(--plate) 34%,var(--plate-hi) 52%,var(--plate) 68%,var(--plate-hi) 100%);
+  background:linear-gradient(103deg,var(--plate-hi) 0%,var(--plate) 34%,var(--plate-hi) 52%,var(--plate) 68%,var(--plate-hi) 100%);
   border:1px solid #A9AEA6;
   border-radius:3px;
   box-shadow:0 1px 0 #F2F4EF inset,0 12px 28px -18px rgba(21,24,27,.55);
-  padding:38px 34px 30px;
+  padding:38px 30px 28px;
 }
 .rivet{
   position:absolute;width:9px;height:9px;border-radius:50%;
@@ -77,163 +73,138 @@ body{
 
 .eyebrow{
   font-family:var(--data);font-size:10.5px;font-weight:600;
-  text-transform:uppercase;letter-spacing:.24em;color:var(--oxide);
+  text-transform:uppercase;letter-spacing:.2em;color:var(--oxide);
   display:flex;align-items:center;gap:12px;
 }
 .eyebrow::after{content:"";flex:1;height:1px;background:#A9AEA6}
 
 h1{
   font-family:var(--display);font-weight:800;
-  font-size:clamp(31px,6.4vw,52px);line-height:1.02;
-  letter-spacing:-.022em;text-transform:uppercase;
-  margin:20px 0 26px;max-width:12ch;
+  font-size:clamp(28px,5.2vw,42px);line-height:1.08;
+  letter-spacing:-.022em;
+  margin:20px 0 14px;max-width:19ch;
   color:var(--ink);
-  text-shadow:0 1px 0 rgba(255,255,255,.55);
+  text-shadow:0 1px 0 rgba(255,255,255,.5);
 }
-h1 em{font-style:normal;color:var(--oxide);display:block}
+h1 em{font-style:normal;color:var(--oxide)}
+.sub{font-size:17.5px;line-height:1.55;max-width:54ch;margin-bottom:26px;color:#2A2F33}
 
 .specs{border-top:1px solid #A9AEA6}
 .spec{
-  display:grid;grid-template-columns:96px 1fr;gap:18px;
+  display:grid;grid-template-columns:88px 1fr;gap:18px;
   padding:11px 0;border-bottom:1px solid rgba(169,174,166,.55);
   opacity:0;transform:translateY(5px);
   animation:stamp .34s cubic-bezier(.2,.7,.3,1) forwards;
 }
-.spec:nth-child(1){animation-delay:.10s}
-.spec:nth-child(2){animation-delay:.16s}
-.spec:nth-child(3){animation-delay:.22s}
-.spec:nth-child(4){animation-delay:.28s}
-.spec:nth-child(5){animation-delay:.34s}
-.spec:nth-child(6){animation-delay:.40s}
-.spec:nth-child(7){animation-delay:.46s}
+.spec:nth-child(1){animation-delay:.08s}
+.spec:nth-child(2){animation-delay:.14s}
+.spec:nth-child(3){animation-delay:.20s}
+.spec:nth-child(4){animation-delay:.26s}
+.spec:nth-child(5){animation-delay:.32s}
 @keyframes stamp{to{opacity:1;transform:none}}
 .spec dt{
   font-family:var(--data);font-size:10.5px;font-weight:600;
-  text-transform:uppercase;letter-spacing:.14em;color:var(--stamp);
-  padding-top:4px;
+  text-transform:uppercase;letter-spacing:.12em;color:var(--stamp);
+  padding-top:5px;
 }
-.spec dd{font-size:15.5px;line-height:1.45}
+.spec dd{font-size:15.5px;line-height:1.5}
 .spec dd b{font-weight:500;color:var(--oxide)}
+.spec dd a{color:var(--oxide);text-decoration:none;border-bottom:1px solid var(--rule)}
+.spec dd a:hover{border-color:var(--oxide)}
 
 /* ---------- sections ---------- */
-section{padding:52px 0;border-top:1px solid var(--rule)}
+section{padding:50px 0;border-top:1px solid var(--rule)}
 .shead{
   font-family:var(--data);font-size:10.5px;font-weight:600;
-  text-transform:uppercase;letter-spacing:.24em;color:var(--stamp);
-  margin-bottom:26px;
+  text-transform:uppercase;letter-spacing:.2em;color:var(--stamp);
+  margin-bottom:22px;
 }
 h2{
   font-family:var(--display);font-weight:600;
-  font-size:clamp(21px,3.4vw,27px);line-height:1.2;
+  font-size:clamp(21px,3.4vw,27px);line-height:1.22;
   letter-spacing:-.012em;margin-bottom:16px;
 }
 p{max-width:64ch;margin-bottom:16px}
 p:last-child{margin-bottom:0}
-.lede{font-size:19px;line-height:1.55}
+.lede{font-size:18.5px;line-height:1.55}
 strong{font-weight:500;color:var(--oxide)}
+a{color:var(--oxide)}
 
-/* build spec table */
-.build{border-top:1px solid var(--rule);margin-top:8px}
-.row{
-  display:grid;grid-template-columns:112px 1fr;gap:18px;
-  padding:16px 0;border-bottom:1px solid var(--rule);
+/* work list */
+.work{margin-top:6px;border-top:1px solid var(--rule)}
+.item{padding:24px 0;border-bottom:1px solid var(--rule)}
+.item h3{
+  font-family:var(--display);font-weight:600;font-size:19px;
+  letter-spacing:-.008em;margin-bottom:8px;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
 }
-.row dt{
-  font-family:var(--data);font-size:10.5px;font-weight:600;
-  text-transform:uppercase;letter-spacing:.14em;color:var(--oxide);
-  padding-top:4px;
+.tag{
+  font-family:var(--data);font-size:9.5px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.14em;
+  border:1px solid var(--rule);border-radius:2px;
+  padding:3px 7px;color:var(--stamp);
 }
-.row dd{font-size:16px;line-height:1.55}
+.tag.on{color:var(--hivis);border-color:var(--hivis)}
+.item p{font-size:16px;margin-bottom:10px}
+.item .built{
+  font-family:var(--data);font-size:11px;letter-spacing:.06em;
+  color:var(--stamp);
+}
+.item .built a{color:var(--oxide)}
 
 /* how i work */
-.blocks{display:grid;gap:28px;margin-top:4px}
+.blocks{display:grid;gap:26px;margin-top:4px}
 .block h3{
   font-family:var(--display);font-weight:600;font-size:17px;
-  letter-spacing:-.005em;margin-bottom:7px;
+  letter-spacing:-.005em;margin-bottom:6px;
 }
 .block p{font-size:16px}
-.tick{
-  font-family:var(--data);font-size:10.5px;font-weight:600;
-  color:var(--hivis);letter-spacing:.14em;margin-right:8px;
-}
+.tick{font-family:var(--data);font-size:10.5px;font-weight:600;color:var(--hivis);letter-spacing:.14em;margin-right:8px}
 
-/* looking for */
-.fits{list-style:none;border-top:1px solid var(--rule)}
-.fits li{
-  padding:14px 0;border-bottom:1px solid var(--rule);
-  display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline;
+/* where i fit callout */
+.fit{
+  border-left:3px solid var(--hivis);
+  background:rgba(205,209,202,.42);
+  padding:26px 24px;margin-top:6px;
 }
-.fits .n{
-  font-family:var(--data);font-size:10.5px;font-weight:600;
-  color:var(--stamp);letter-spacing:.1em;
+.fit p{font-size:16.5px}
+.fit .go{
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(20px,3.6vw,28px);letter-spacing:-.018em;
+  color:var(--ink);text-decoration:none;
+  border-bottom:3px solid var(--hivis);
+  display:inline-block;padding-bottom:1px;margin-top:6px;
 }
-.fits b{font-weight:500;color:var(--oxide)}
+.fit .go:hover{color:var(--oxide)}
 
-/* engagement shape line under each ownership item */
-.shape{
-  display:block;font-family:var(--data);font-size:11px;font-weight:600;
-  text-transform:uppercase;letter-spacing:.12em;color:var(--stamp);
-  margin-top:7px;
-}
-
-/* references */
-.quotes{display:grid;gap:26px;margin-top:4px}
-.quote{border-left:2px solid var(--oxide);padding-left:18px}
-.quote p{font-size:16px;line-height:1.55;margin-bottom:9px}
-.quote cite{
-  font-family:var(--data);font-size:10.5px;font-style:normal;font-weight:600;
-  text-transform:uppercase;letter-spacing:.14em;color:var(--stamp);
-}
-.slot{
-  border:1px dashed var(--hivis);border-left:2px solid var(--hivis);
-  padding:16px 18px;
-  font-family:var(--data);font-size:12px;line-height:1.7;color:var(--hivis);
-}
-
-/* contact card */
-.card{display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap}
-.portrait{
-  width:98px;height:98px;flex:none;border-radius:2px;
-  border:1px dashed var(--hivis);
-  display:flex;align-items:center;justify-content:center;text-align:center;
-  font-family:var(--data);font-size:9.5px;line-height:1.5;
-  color:var(--hivis);letter-spacing:.08em;padding:8px;
-}
-.card .col{flex:1;min-width:250px}
-
-/* ---------- inverted band: lineage + direction ---------- */
-.band{background:var(--oxide);color:var(--zinc);padding:66px 0 70px}
+/* ---------- inverted band ---------- */
+.band{background:var(--oxide);color:var(--zinc);padding:60px 0 64px}
 .band .shead{color:rgba(230,232,227,.5)}
 .band h2{color:#F4F6F1;margin-bottom:14px}
-.band p{color:rgba(230,232,227,.84);max-width:52ch}
+.band p{color:rgba(230,232,227,.85);max-width:52ch}
 .band strong{color:#F4F6F1;font-weight:500}
-.movements{display:grid;gap:46px}
+.movements{display:grid;gap:42px}
 .names{
   font-family:var(--data);font-size:10.5px;font-weight:600;
-  text-transform:uppercase;letter-spacing:.18em;
+  text-transform:uppercase;letter-spacing:.16em;
   color:rgba(230,232,227,.55);
-  margin-top:20px;padding-top:14px;
+  margin-top:18px;padding-top:14px;
   border-top:1px solid rgba(230,232,227,.22);
 }
-.ph{
-  color:var(--hivis);font-family:var(--data);font-size:.86em;
-  letter-spacing:.04em;
-}
-.band + .contact{border-top:none}
 
-
-.contact{border-top:1px solid var(--rule);padding:56px 0 76px}
+/* contact */
+.contact{border-top:none;padding:52px 0 72px}
 .mailto{
   font-family:var(--display);font-weight:800;
-  font-size:clamp(22px,4.6vw,38px);letter-spacing:-.02em;
+  font-size:clamp(22px,4.6vw,36px);letter-spacing:-.02em;
   color:var(--ink);text-decoration:none;
   border-bottom:3px solid var(--hivis);
   display:inline-block;padding-bottom:2px;word-break:break-all;
 }
 .mailto:hover{color:var(--oxide)}
 .meta{
-  font-family:var(--data);font-size:11px;text-transform:uppercase;
-  letter-spacing:.14em;color:var(--stamp);margin-top:22px;line-height:2;
+  font-family:var(--data);font-size:11.5px;
+  letter-spacing:.06em;color:var(--stamp);margin-top:22px;line-height:2;
 }
 .meta a{color:var(--stamp)}
 
@@ -242,9 +213,10 @@ strong{font-weight:500;color:var(--oxide)}
 @media (min-width:640px){
   .bar .hide-sm{display:inline}
   .blocks{grid-template-columns:1fr 1fr}
-  .movements{grid-template-columns:1fr 1fr;gap:52px}
-  .plate{padding:44px 42px 36px}
-  .plate-zone{padding:80px 0 84px}
+  .movements{grid-template-columns:1fr 1fr;gap:48px}
+  .plate{padding:44px 42px 34px}
+  .plate-zone{padding:72px 0 76px}
+  .fit{padding:32px 34px}
 }
 @media (prefers-reduced-motion:reduce){
   .spec{animation:none;opacity:1;transform:none}
@@ -256,8 +228,12 @@ strong{font-weight:500;color:var(--oxide)}
 
 <header class="bar">
   <div class="wrap">
-    <span class="status"><span class="dot" aria-hidden="true"></span>Available <span class="ph">Available now — one slot open.</span> — one slot open</span>
-    <span class="name"><a href="#contact">Get in touch</a></span>
+    <span class="status"><span class="dot" aria-hidden="true"></span>Open to work <span class="hide-sm">— full-time or contract</span></span>
+    <nav>
+      <a href="#work">Work</a>
+      <a href="where-i-fit.html">Where I fit</a>
+      <a href="#contact">Contact</a>
+    </nav>
   </div>
 </header>
 
@@ -272,36 +248,30 @@ strong{font-weight:500;color:var(--oxide)}
 
     <p class="eyebrow">Nick Conenna — Applied AI Architecture</p>
 
-    <h1>Shipped<em>not scoped</em></h1>
+    <h1>I build software with Claude, and I write <em>every prompt myself.</em></h1>
+
+    <p class="sub">That's the whole method, said plainly: the work is writing, done in loops, against real context. Twenty years running physical-world businesses before it. One live marketplace, built solo, since.</p>
 
     <dl class="specs">
       <div class="spec">
-        <dt>Problem</dt>
-        <dd>Most AI work stalls in discovery. Weeks of workshops, a scoping document, nothing running.</dd>
+        <dt>What I do</dt>
+        <dd>Take a messy human process, work out what a model can honestly do inside it, build the thing that makes it work — then stay until it holds.</dd>
       </div>
       <div class="spec">
-        <dt>Method</dt>
-        <dd>Context × Loops. <b>Start at 70% of the information; the loop finds the rest.</b></dd>
+        <dt>How</dt>
+        <dd>Frame, load, verify, correct. <b>Start at about 70% of what there is to know; the loop finds the rest.</b></dd>
       </div>
       <div class="spec">
-        <dt>Evidence</dt>
-        <dd>A live two-sided marketplace across eight trades — escrow payments, race-safe job dispatch, verified end to end. One builder.</dd>
+        <dt>Proof</dt>
+        <dd>A live two-sided marketplace across eight trades — escrow payments, race-safe job dispatch, verified end to end. <a href="#work">The work ↓</a></dd>
       </div>
       <div class="spec">
-        <dt>Stack</dt>
-        <dd>Next.js, Supabase, Stripe Connect, Vercel. <span class="ph">AI stack — models:Claude,Grok,Gemini, agents/MCP, evals, languages: html, python, sql</span></dd>
+        <dt>Daily</dt>
+        <dd>Claude and Claude Code. Next.js, Supabase, Stripe Connect, Vercel. Python, SQL, plain HTML.</dd>
       </div>
       <div class="spec">
-        <dt>Terms</dt>
-        <dd>Fixed fee, fixed date. <b>I carry the outcome, not the hours.</b></dd>
-      </div>
-      <div class="spec">
-        <dt>Mission</dt>
-        <dd>Technology that raises the floor for everyone, not the ceiling for a few.</dd>
-      </div>
-      <div class="spec">
-        <dt>Range</dt>
-        <dd>Remote or on site. Will travel. Based in North Carolina.</dd>
+        <dt>Open to</dt>
+        <dd>Full-time or contract. Remote or on site, will travel. Based in Cornelius, North Carolina.</dd>
       </div>
     </dl>
   </div>
@@ -309,78 +279,86 @@ strong{font-weight:500;color:var(--oxide)}
 
 <div class="wrap">
 
-  <section id="build">
-    <p class="shead">Evidence / 01</p>
-    <h2>What one person can build now</h2>
-    <p class="lede">The interesting part isn't the feature list. It's the ratio.</p>
-    <dl class="build">
-      <div class="row">
-        <dt>Constraint</dt>
-        <dd>One builder. No engineering hire, no outside capital, no agency. Eight service categories, and two sides of a marketplace that each refuse to arrive before the other.</dd>
+  <section id="plain">
+    <p class="shead">The plain version</p>
+    <h2>No mystique, no methodology deck</h2>
+    <p class="lede">I sit down with a model and write. Most of what I've built in the last two years came out of that — architecture arguments, schemas, payment flows, and the copy on the buttons.</p>
+    <p>The technique is ordinary and it's most of the job. I state the problem in the operator's words, not the system's. I load the real context — the constraint, the history, the exception everyone in the room knows and nobody wrote down. I build the check before I build the thing. Then I correct in short visible cycles until it holds twice.</p>
+    <p>I start at roughly seventy percent of what there is to know, because the last thirty percent usually isn't sitting in anyone's head waiting to be extracted. It gets found faster by building than by asking.</p>
+    <p>Before any of this I spent twenty years on the operating side — two companies, property development, eight trades, footings I dug myself. <strong>Models are short on lived context and long on everything else.</strong> Mine is the scarce half, and it's the reason the systems I build match how the work actually goes.</p>
+  </section>
+
+  <section id="work">
+    <p class="shead">The work</p>
+    <h2>Things I've actually built</h2>
+    <p class="lede">Concrete rather than described. Where it's live, go use it. Where it isn't, I've said so.</p>
+
+    <div class="work">
+
+      <div class="item">
+        <h3>YSKAIPE <span class="tag on">Live</span></h3>
+        <p>A two-sided home services marketplace across eight trades. A homeowner books and pays into escrow. The job broadcasts to the pro network and first claim wins — race-safe under concurrency, so two pros tapping at the same moment can't both take it. On completion, payment captures and transfers to the pro.</p>
+        <p>The full money path is verified end to end in production: book, escrow, dispatch, claim, complete, capture, transfer. Sole author — schema through payout through the brand.</p>
+        <p class="built">Next.js · Supabase · Stripe Connect · Vercel · <a href="https://yskaipe.com">yskaipe.com</a></p>
       </div>
-      <div class="row">
-        <dt>Built</dt>
-        <dd>A homeowner books and pays into escrow. The job broadcasts to a pro network. First claim wins — race-safe under concurrency, so two pros clicking at once can't both take it. On completion, payment captures and transfers. Next.js, Supabase, Stripe Connect, Vercel.</dd>
+
+      <div class="item">
+        <h3>Fair Rate Index <span class="tag">In build</span></h3>
+        <p>A public fair-price baseline for home and auto work, and a plain-language triage tool that walks a homeowner through the problem before anyone gets called. Underneath it sits a knowledge layer built per trade: the items that recur every year, component lifespans, how each one fails, and the fix.</p>
+        <p class="built">Neutral and free to use · built as a resource, not a funnel</p>
       </div>
-      <div class="row">
-        <dt>Method</dt>
-        <dd>Context first — how quoting actually works, how pros actually behave, where the exceptions live. Then tight correct-and-continue cycles against live conditions, starting at roughly seventy percent of what there was to know.</dd>
+
+      <div class="item">
+        <h3>Amicus — agentic legal workspace <span class="tag">In build</span></h3>
+        <p>Document intake, a timeline assembled from the record itself, statute research, drafting of letters and filings, and deadline tracking. Built against a live matter rather than a demo dataset, which is the only way the exceptions show up. It carries a free estate-planning tool alongside it, for families on any budget.</p>
+        <p class="built">The hard part isn't generation — it's the verifier</p>
       </div>
-      <div class="row">
-        <dt>Result</dt>
-        <dd>Live and transacting. The full money path — book, escrow, dispatch, claim, complete, capture, transfer — verified end to end.</dd>
+
+      <div class="item">
+        <h3>Writing on the method <span class="tag">Published</span></h3>
+        <p><em>Your Agent Framework Doesn't Matter. Your Verifier Does.</em> and <em>Context × Loops.</em> Both argue the same point from different sides: the framework you pick is a detail, and the check you build is the whole thing.</p>
+        <p class="built"><a href="https://github.com/NickConenna/applied-ai-architecture">github.com/NickConenna/applied-ai-architecture</a></p>
       </div>
-      <div class="row">
-        <dt>So what</dt>
-        <dd>Whatever constraint your team is working under, it's a better one than that. The question worth asking is what this approach does with resources behind it.</dd>
+
+      <div class="item">
+        <h3>This page <span class="tag on">Live</span></h3>
+        <p>Written, argued with, and corrected in the same loop as everything above it. If you want to see the method at its smallest, it's this.</p>
       </div>
-    </dl>
+
+    </div>
   </section>
 
   <section id="method">
-    <p class="shead">Method / 02</p>
-    <h2>Context × Loops</h2>
-    <p class="lede">AI projects die in one of two places: a discovery phase that produces a document, or a demo that works on the happy path and collapses on real data.</p>
-    <p><strong>Context.</strong> Before anything gets built, the system is loaded with the real material — actual records, actual constraints, the exceptions everyone knows about and nobody wrote down. Most implementations underperform because they were built against a description of the work rather than the work itself.</p>
-    <p><strong>Loops.</strong> Then tight build–test–correct cycles against live conditions. Not one specification followed by one build. Small increments, each checked against reality, each correction feeding the next. The loop is where the specification actually gets written — by the work, not before it.</p>
-    <p><strong>Why 70%.</strong> There's enough to start at about seventy percent of the information. The last thirty percent isn't sitting in a stakeholder's head waiting to be extracted — it doesn't exist yet, and it gets found faster by building than by asking. Waiting for certainty is how a four-week project becomes a four-month one that ships something nobody wanted.</p>
-    <p>Moving at 70% only works if someone carries the risk of being wrong. On a fixed fee against a fixed date, that's me. If the loop runs slow, it's my cost, not yours.</p>
-  </section>
-
-  <section id="terms">
-    <p class="shead">Terms / 03</p>
-    <h2>How the work is structured</h2>
+    <p class="shead">How the loop runs</p>
+    <h2>Four moves, in order</h2>
     <div class="blocks">
       <div class="block">
-        <h3><span class="tick">01</span>Fixed fee, never hourly</h3>
-        <p>A named outcome and a date. Speed doesn't reduce the invoice, which is exactly what makes starting at 70% safe to buy. The result is the product, not the time spent producing it.</p>
+        <h3><span class="tick">01</span>Frame</h3>
+        <p>State the job in the operator's words, not the system's. If I can't, I don't understand it yet and no amount of prompting fixes that.</p>
       </div>
       <div class="block">
-        <h3><span class="tick">02</span>Working code before the proposal</h3>
-        <p>After a first conversation, a working slice of the thing usually arrives alongside the proposal — yours either way. Proposals describe. Running software demonstrates.</p>
+        <h3><span class="tick">02</span>Load</h3>
+        <p>Give the model the real material — actual records, actual constraints, the thing everyone already knows. Most implementations underperform because they were built against a description of the work instead of the work.</p>
       </div>
       <div class="block">
-        <h3><span class="tick">03</span>Built by someone who was the customer</h3>
-        <p>Twenty years on the operating side of the businesses that AI companies now sell into and struggle to read. There's a reason the contractor doesn't answer the onboarding email, and it isn't the model.</p>
+        <h3><span class="tick">03</span>Verify</h3>
+        <p>Build the check first: ground truth, a test, or a person who'd notice. No verifier, no loop. This is where I spend the time.</p>
       </div>
       <div class="block">
-        <h3><span class="tick">04</span>Handed over, not held</h3>
-        <p>Documentation, not just a repository: what it does, how to run it, what breaks, what's next. An engagement that ends with your team dependent on the person who left has failed.</p>
+        <h3><span class="tick">04</span>Correct</h3>
+        <p>Run it again with what failed. Short cycles, visible each time, stop when it holds twice. Small increments beat one long unattended run, every time.</p>
       </div>
     </div>
   </section>
 
-  <section id="ownership">
-    <p class="shead">Ownership / 04</p>
-    <h2>What can be owned outright</h2>
-    <p class="lede">Advice is cheap and everywhere. The useful arrangement is handing over a whole function to someone accountable for it — a clean win on both sides, with nothing left ambiguous about who has it.</p>
-    <p>Most engagements start with a paid one-week diagnostic — a scoped plan and a working proof of the hardest part, <span class="ph">$3,500</span>, credited against the build if it goes ahead.</p>
-    <ul class="fits">
-      <li><span class="n">A</span><span><b>The process nobody owns.</b> The manual step everyone works around and no one has time to fix. Scoped, built, shipped, documented, returned.<span class="shape">3–4 weeks · fixed fee <span class="ph">from $10,000</span></span></span></li>
-      <li><span class="n">B</span><span><b>The gap between a good model and a hard customer.</b> For AI companies selling into construction, trades, field service, property, logistics. Excellent technology, an audience that won't answer the phone. That gap is the whole job.<span class="shape">4+ weeks embedded · fixed fee or monthly <span class="ph">$12,000/month</span></span></span></li>
-      <li><span class="n">C</span><span><b>Overflow delivery.</b> For firms with more demand than bench — someone who can sit in front of the client and build the thing.<span class="shape">Per project or day rate <span class="ph">$1,400/day</span></span></span></li>
-      <li><span class="n">D</span><span><b>Zero to one.</b> An idea that needs to reach production rather than demo. Payments, edge cases, the parts that only appear under real load.<span class="shape">6 weeks to production · fixed fee <span class="ph">from $18,000</span></span></span></li>
-    </ul>
+  <section id="fit">
+    <p class="shead">The longer version</p>
+    <h2>Where I fit</h2>
+    <div class="fit">
+      <p>There's a fuller page behind this one: the four role shapes I'd bet on myself in, the strengths I'd stake a mission on, and a plain list of what I'm <em>not</em> yet — marked honestly, because you'd find it on day thirty anyway.</p>
+      <p>It's the page I'd want to read about someone before working with them.</p>
+      <a class="go" href="where-i-fit.html">Read where I fit →</a>
+    </div>
   </section>
 
 </div>
@@ -390,19 +368,19 @@ strong{font-weight:500;color:var(--oxide)}
     <div class="movements">
 
       <div>
-        <p class="shead">Lineage / 05</p>
+        <p class="shead">Where it comes from</p>
         <h2>The drawing and the machine, one hand</h2>
-        <p>Italian family. Studied and traveled in Italy — <span class="ph">Florence '96</span>.</p>
+        <p>Italian family. Studied and traveled in Italy as a young man, and it stuck.</p>
         <p>The Florentines weren't artists who dabbled in engineering. Brunelleschi couldn't raise the dome, so he invented the hoists that raised it. The design and the means of building it arrived together, from someone who wouldn't hand the hard part to anyone else.</p>
-        <p><strong>That's not a metaphor. It's the same job.</strong> <span class="ph">Applied AI for the Curious</span></p>
+        <p><strong>That's not a metaphor. It's the same job.</strong></p>
         <p class="names">Brunelleschi · Leonardo · Michelangelo</p>
       </div>
 
       <div>
-        <p class="shead">Direction / 06</p>
+        <p class="shead">Where it's going</p>
         <h2>Better lives for all humans</h2>
         <p>The architects worth watching now are building off-world: closed-loop energy, food, water, air, shelter. Systems that have to work with no margin and no resupply.</p>
-        <p>Those constraints produce technology that fixes things here. A habitat that must generate its own power and grow its own food is the same engineering problem as a house that should. <span class="ph">The Future is Bright :-)</span></p>
+        <p>Those constraints produce technology that fixes things here. A habitat that must generate its own power and grow its own food is the same engineering problem as a house that should.</p>
         <p><strong>The mission is the many, not the few.</strong> More privilege for a handful is an uninteresting outcome, and always was.</p>
       </div>
 
@@ -411,12 +389,16 @@ strong{font-weight:500;color:var(--oxide)}
 </div>
 
 <div class="wrap contact" id="contact">
-  <p class="shead">Contact / 07</p>
+  <p class="shead">Get in touch</p>
   <a class="mailto" href="mailto:nick@peakingwaters.com">nick@peakingwaters.com</a>
   <p class="meta">
-    Two engagements at a time — one slot open<br>
-    Remote · on site · will travel<br>
-    <a href="https://www.linkedin.com/">LinkedIn</a> · <a href="https://yskaipe.com">yskaipe.com</a>
+    I answer email. Tell me what's stuck and I'll tell you straight whether I'm the right person.<br>
+    Cornelius, North Carolina · full-time or contract · remote, on site, will travel<br>
+    <a href="where-i-fit.html">Where I fit</a> ·
+    <a href="https://yskaipe.com">YSKAIPE</a> ·
+    <a href="https://github.com/NickConenna/applied-ai-architecture">GitHub</a> ·
+    <a href="https://x.com/BitcoinBroham">X</a> ·
+    <a href="https://www.linkedin.com/">LinkedIn</a>
   </p>
 </div>
 
