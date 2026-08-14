@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nick Conenna — Applied AI Architecture</title>
-<meta name="description" content="Applied AI that holds up in the physical world. Twenty years running real-world businesses, then a live two-sided marketplace built solo with Claude. Open to full-time or contract work.">
+<meta name="description" content="I design and build applied AI systems. Three systems, three unrelated domains, two years. Open to full-time or contract work.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
@@ -29,9 +29,9 @@ body{
   font-family:var(--body);font-size:17px;line-height:1.65;
   -webkit-font-smoothing:antialiased;
 }
-.wrap{max-width:860px;margin:0 auto;padding:0 24px}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px}
 
-/* ---------- top bar ---------- */
+/* top bar */
 .bar{
   position:sticky;top:0;z-index:10;
   background:rgba(230,232,227,.94);
@@ -56,13 +56,12 @@ body{
 .bar a.now:hover{background:rgba(242,100,25,.18)}
 .bar .hide-sm{display:none}
 
-/* ---------- nameplate ---------- */
+/* nameplate */
 .plate-zone{padding:44px 0 12px}
 .plate{
   position:relative;
   background:linear-gradient(103deg,var(--plate-hi) 0%,var(--plate) 34%,var(--plate-hi) 52%,var(--plate) 68%,var(--plate-hi) 100%);
-  border:1px solid #A9AEA6;
-  border-radius:3px;
+  border:1px solid #A9AEA6;border-radius:3px;
   box-shadow:0 1px 0 #F2F4EF inset,0 12px 28px -18px rgba(21,24,27,.55);
   padding:38px 30px 28px;
 }
@@ -85,121 +84,97 @@ body{
 
 h1{
   font-family:var(--display);font-weight:800;
-  font-size:clamp(30px,5.4vw,44px);line-height:1.06;
-  letter-spacing:-.024em;
-  margin:20px 0 14px;max-width:18ch;
-  color:var(--ink);
-  text-shadow:0 1px 0 rgba(255,255,255,.5);
+  font-size:clamp(29px,5vw,42px);line-height:1.08;
+  letter-spacing:-.024em;margin:20px 0 14px;max-width:21ch;
+  color:var(--ink);text-shadow:0 1px 0 rgba(255,255,255,.5);
 }
 h1 em{font-style:normal;color:var(--oxide)}
-.sub{font-size:17.5px;line-height:1.55;max-width:56ch;margin-bottom:26px;color:#2A2F33}
+.sub{font-size:17.5px;line-height:1.55;max-width:58ch;margin-bottom:26px;color:#2A2F33}
 .sub b{font-weight:500;color:var(--oxide)}
 
 .specs{border-top:1px solid #A9AEA6}
 .spec{
-  display:grid;grid-template-columns:88px 1fr;gap:18px;
+  display:grid;grid-template-columns:104px 1fr;gap:18px;
   padding:11px 0;border-bottom:1px solid rgba(169,174,166,.55);
   opacity:0;transform:translateY(5px);
   animation:stamp .34s cubic-bezier(.2,.7,.3,1) forwards;
 }
 .spec:nth-child(1){animation-delay:.08s}
-.spec:nth-child(2){animation-delay:.14s}
-.spec:nth-child(3){animation-delay:.20s}
-.spec:nth-child(4){animation-delay:.26s}
-.spec:nth-child(5){animation-delay:.32s}
-.spec:nth-child(6){animation-delay:.38s}
+.spec:nth-child(2){animation-delay:.15s}
+.spec:nth-child(3){animation-delay:.22s}
+.spec:nth-child(4){animation-delay:.29s}
 @keyframes stamp{to{opacity:1;transform:none}}
 .spec dt{
   font-family:var(--data);font-size:10.5px;font-weight:600;
-  text-transform:uppercase;letter-spacing:.12em;color:var(--stamp);
-  padding-top:5px;
+  text-transform:uppercase;letter-spacing:.12em;color:var(--stamp);padding-top:5px;
 }
 .spec dd{font-size:15.5px;line-height:1.5}
 .spec dd b{font-weight:500;color:var(--oxide)}
 .spec dd a{color:var(--oxide);text-decoration:none;border-bottom:1px solid var(--rule)}
 .spec dd a:hover{border-color:var(--oxide)}
 
-/* ---------- proof strip ---------- */
-/* METRICS SLOT — replace or extend these the moment you can stand behind a
-   number: jobs completed, pros signed, cities live, GMV, repeat rate.
-   Ranges are fine ("dozens of test bookings"); invented numbers are not.
-   The honesty of the rest of the page is doing a lot of work here. */
-.proof{
-  list-style:none;display:grid;gap:1px;background:var(--rule);
-  border:1px solid var(--rule);margin:20px 0 0;
-}
-.proof li{background:var(--zinc);padding:16px 18px}
-.proof b{
-  display:block;font-family:var(--display);font-weight:800;
-  font-size:20px;letter-spacing:-.01em;color:var(--oxide);margin-bottom:3px;
-}
-.proof span{
-  font-family:var(--data);font-size:11px;line-height:1.5;
-  letter-spacing:.04em;color:var(--stamp);display:block;
-}
-
-/* ---------- audience line ---------- */
-.who{
-  margin-top:26px;padding:18px 20px;
-  border:1px dashed var(--rule);background:rgba(205,209,202,.3);
-  font-size:16px;
-}
-.who b{font-weight:500;color:var(--oxide)}
-
-/* ---------- sections ---------- */
+/* sections */
 section{padding:50px 0;border-top:1px solid var(--rule)}
 .shead{
   font-family:var(--data);font-size:10.5px;font-weight:600;
-  text-transform:uppercase;letter-spacing:.2em;color:var(--stamp);
-  margin-bottom:22px;
+  text-transform:uppercase;letter-spacing:.2em;color:var(--stamp);margin-bottom:22px;
 }
 h2{
   font-family:var(--display);font-weight:600;
   font-size:clamp(21px,3.4vw,27px);line-height:1.22;
   letter-spacing:-.012em;margin-bottom:16px;
 }
-p{max-width:64ch;margin-bottom:16px}
+p{max-width:66ch;margin-bottom:16px}
 p:last-child{margin-bottom:0}
 .lede{font-size:18.5px;line-height:1.55}
 strong{font-weight:500;color:var(--oxide)}
 a{color:var(--oxide)}
 
-/* work list */
-.work{margin-top:6px;border-top:1px solid var(--rule)}
-.item{padding:24px 0;border-bottom:1px solid var(--rule)}
+/* the work */
+.list{margin-top:6px;border-top:1px solid var(--rule)}
+.item{padding:22px 0;border-bottom:1px solid var(--rule)}
 .item h3{
   font-family:var(--display);font-weight:600;font-size:19px;
-  letter-spacing:-.008em;margin-bottom:6px;
-  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  letter-spacing:-.008em;margin-bottom:8px;line-height:1.3;max-width:38ch;
 }
+.item p{font-size:16px;margin-bottom:0}
+
+/* built */
+.domains{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:6px}
+.domains article{background:var(--zinc);padding:26px 24px}
+.domains .dom{
+  font-family:var(--data);font-size:10px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.18em;color:var(--hivis);display:block;margin-bottom:12px;
+}
+.domains h3{
+  font-family:var(--display);font-weight:600;font-size:18px;
+  letter-spacing:-.008em;line-height:1.3;margin-bottom:12px;
+}
+.domains p{font-size:15.5px;margin-bottom:12px;max-width:none}
+.domains .row{
+  display:grid;grid-template-columns:74px 1fr;gap:12px;
+  padding:9px 0;border-top:1px solid rgba(180,185,177,.55);
+  font-size:15px;line-height:1.5;
+}
+.domains .row span{
+  font-family:var(--data);font-size:9.5px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.14em;color:var(--stamp);padding-top:4px;
+}
+.domains .row p{margin:0}
+.domains .link{
+  font-family:var(--data);font-size:11px;letter-spacing:.06em;
+  color:var(--stamp);margin-top:14px;display:block;
+}
+.domains .link a{color:var(--oxide)}
 .tag{
   font-family:var(--data);font-size:9.5px;font-weight:600;
   text-transform:uppercase;letter-spacing:.14em;
   border:1px solid var(--rule);border-radius:2px;
-  padding:3px 7px;color:var(--stamp);
+  padding:3px 7px;color:var(--stamp);margin-left:8px;white-space:nowrap;
 }
 .tag.on{color:var(--hivis);border-color:var(--hivis)}
-.item .one{
-  font-size:16.5px;color:var(--oxide);font-weight:500;
-  margin-bottom:10px;max-width:60ch;
-}
-.item p{font-size:16px;margin-bottom:10px}
-.item .built{
-  font-family:var(--data);font-size:11px;letter-spacing:.06em;
-  color:var(--stamp);
-}
-.item .built a{color:var(--oxide)}
-/* SHOT SLOT — a single screenshot of the claim/dispatch screen, or a 30-second
-   Loom of book → claim → complete → payout, would do more for a non-technical
-   reader than another paragraph. Drop it in here:
-   <img class="shot" src="img/yskaipe-dispatch.png" alt="A job broadcast to the pro network, first claim wins">
-*/
-.shot{
-  display:block;width:100%;height:auto;margin:14px 0 12px;
-  border:1px solid var(--rule);border-radius:2px;
-}
 
-/* how i work */
+/* method */
 .blocks{display:grid;gap:26px;margin-top:4px}
 .block h3{
   font-family:var(--display);font-weight:600;font-size:17px;
@@ -208,36 +183,42 @@ a{color:var(--oxide)}
 .block p{font-size:16px}
 .tick{font-family:var(--data);font-size:10.5px;font-weight:600;color:var(--hivis);letter-spacing:.14em;margin-right:8px}
 
-/* where i fit callout */
-.fit{
-  border-left:3px solid var(--hivis);
-  background:rgba(205,209,202,.42);
-  padding:26px 24px;margin-top:6px;
+/* honest section */
+.hard{border-left:3px solid var(--rule);padding-left:22px;margin-top:6px}
+.hard h3{
+  font-family:var(--data);font-size:11px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.16em;color:var(--stamp);margin:24px 0 7px;
 }
+.hard h3:first-child{margin-top:0}
+.hard p{font-size:16px;margin-bottom:0}
+
+/* terms */
+.shapes{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:6px}
+.shapes div{background:var(--zinc);padding:24px 22px}
+.shapes h3{font-family:var(--display);font-weight:600;font-size:17px;margin-bottom:8px}
+.shapes .len{
+  font-family:var(--data);font-size:10px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.16em;color:var(--hivis);display:block;margin-bottom:9px;
+}
+.shapes p{font-size:15.5px;margin:0}
+
+/* callout */
+.fit{border-left:3px solid var(--hivis);background:rgba(205,209,202,.42);padding:26px 24px;margin-top:6px}
 .fit p{font-size:16.5px}
 .fit .go{
   font-family:var(--display);font-weight:800;
   font-size:clamp(20px,3.6vw,28px);letter-spacing:-.018em;
-  color:var(--ink);text-decoration:none;
-  border-bottom:3px solid var(--hivis);
+  color:var(--ink);text-decoration:none;border-bottom:3px solid var(--hivis);
   display:inline-block;padding-bottom:1px;margin-top:6px;
 }
 .fit .go:hover{color:var(--oxide)}
 
-/* ---------- inverted band ---------- */
-.band{background:var(--oxide);color:var(--zinc);padding:60px 0 64px}
+/* band */
+.band{background:var(--oxide);color:var(--zinc);padding:54px 0 56px}
 .band .shead{color:rgba(230,232,227,.62)}
 .band h2{color:#F4F6F1;margin-bottom:14px}
-.band p{color:rgba(230,232,227,.88);max-width:52ch}
+.band p{color:rgba(230,232,227,.88);max-width:58ch}
 .band strong{color:#F4F6F1;font-weight:500}
-.movements{display:grid;gap:42px}
-.names{
-  font-family:var(--data);font-size:10.5px;font-weight:600;
-  text-transform:uppercase;letter-spacing:.16em;
-  color:rgba(230,232,227,.62);
-  margin-top:18px;padding-top:14px;
-  border-top:1px solid rgba(230,232,227,.22);
-}
 
 /* contact */
 .contact{border-top:none;padding:52px 0 76px}
@@ -245,47 +226,41 @@ a{color:var(--oxide)}
 .ask li{
   font-family:var(--data);font-size:12.5px;letter-spacing:.04em;
   color:var(--stamp);padding:7px 0 7px 18px;position:relative;
-  border-bottom:1px solid rgba(180,185,177,.5);max-width:44ch;
+  border-bottom:1px solid rgba(180,185,177,.5);max-width:46ch;
 }
 .ask li::before{content:"›";position:absolute;left:0;color:var(--hivis)}
 .actions{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center}
 .mailto{
   font-family:var(--display);font-weight:800;
   font-size:clamp(20px,4vw,32px);letter-spacing:-.02em;
-  color:var(--ink);text-decoration:none;
-  border-bottom:3px solid var(--hivis);
+  color:var(--ink);text-decoration:none;border-bottom:3px solid var(--hivis);
   display:inline-block;padding-bottom:2px;word-break:break-all;
 }
 .mailto:hover{color:var(--oxide)}
 .book{
   font-family:var(--data);font-size:12px;font-weight:600;
-  letter-spacing:.12em;text-transform:uppercase;
-  text-decoration:none;color:var(--ink);
-  border:1px solid var(--ink);border-radius:2px;
-  padding:11px 16px;white-space:nowrap;
+  letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:var(--ink);
+  border:1px solid var(--ink);border-radius:2px;padding:11px 16px;white-space:nowrap;
 }
 .book:hover{background:var(--ink);color:var(--zinc)}
 .meta{
-  font-family:var(--data);font-size:11.5px;
-  letter-spacing:.06em;color:var(--stamp);margin-top:26px;line-height:2;
+  font-family:var(--data);font-size:11.5px;letter-spacing:.06em;
+  color:var(--stamp);margin-top:26px;line-height:2;
 }
 .meta a{color:var(--stamp)}
 
 :focus-visible{outline:2px solid var(--hivis);outline-offset:3px}
 
-@media (min-width:560px){
-  .proof{grid-template-columns:1fr 1fr}
-}
 @media (min-width:640px){
   .bar .hide-sm{display:inline}
   .blocks{grid-template-columns:1fr 1fr}
-  .movements{grid-template-columns:1fr 1fr;gap:48px}
   .plate{padding:44px 42px 34px}
   .plate-zone{padding:60px 0 16px}
   .fit{padding:32px 34px}
 }
-@media (min-width:860px){
-  .proof{grid-template-columns:repeat(4,1fr)}
+@media (min-width:800px){
+  .domains{grid-template-columns:repeat(3,1fr)}
+  .shapes{grid-template-columns:repeat(3,1fr)}
 }
 @media (prefers-reduced-motion:reduce){
   .spec{animation:none;opacity:1;transform:none}
@@ -297,11 +272,11 @@ a{color:var(--oxide)}
 
 <header class="bar">
   <div class="wrap">
-    <span class="status"><span class="dot" aria-hidden="true"></span>Open to work <span class="hide-sm">— full-time or contract</span></span>
+    <span class="status"><span class="dot" aria-hidden="true"></span>Available now <span class="hide-sm">— full-time or contract</span></span>
     <nav>
-      <a href="#work">Work</a>
-      <a href="#method">Method</a>
-      <a href="where-i-fit.html">Where I fit</a>
+      <a href="#work">The work</a>
+      <a href="#built">Built</a>
+      <a href="#hard">What's hard</a>
       <a class="now" href="#contact">Get in touch</a>
     </nav>
   </div>
@@ -318,132 +293,171 @@ a{color:var(--oxide)}
 
     <p class="eyebrow">Nick Conenna — Applied AI Architecture — Cornelius, NC</p>
 
-    <h1>Applied AI that holds up in the <em>physical world.</em></h1>
+    <h1>This technology reaches ordinary work slowly. I want to spend my career <em>shortening that.</em></h1>
 
-    <p class="sub">Twenty years running real-world businesses first — two companies, property development, eight trades, footings I dug myself. Then a live two-sided marketplace, <b>built solo with Claude</b>: booked, escrowed, dispatched, paid out, verified end to end in production.</p>
+    <p class="sub">I design and build applied AI systems — products, integrations, and the ordinary software engineering that has to be right underneath them. Three systems in three unrelated domains over the past two years. <b>Open to full-time or contract work.</b></p>
 
     <dl class="specs">
       <div class="spec">
-        <dt>What I do</dt>
-        <dd>Take a messy human process, work out what a model can honestly do inside it, build the thing that makes it work — then stay until it holds.</dd>
+        <dt>The work</dt>
+        <dd>Work out which parts of a real process a model can be trusted with, design the system around that answer, build it, and stay with it until it holds up in front of actual users.</dd>
       </div>
       <div class="spec">
-        <dt>The rare part</dt>
-        <dd><b>Operator context and production shipping in the same person.</b> Most applied-AI people have one half. Models are long on everything except lived context; mine is the scarce half.</dd>
+        <dt>Any stage</dt>
+        <dd>Deciding whether something is worth doing, scoping it, designing it, building it, or picking up something that stalled. I'm useful at all of them and have no preference about where I come in.</dd>
       </div>
       <div class="spec">
-        <dt>How</dt>
-        <dd>Frame, load, verify, correct. <b>Start at about 70% of what there is to know; the loop finds the rest.</b></dd>
+        <dt>Domains so far</dt>
+        <dd>Payments and marketplaces. Civil legal procedure. Pricing and knowledge modeling. <b>None of them fields I had worked in before.</b> <a href="#built">What they are ↓</a></dd>
       </div>
       <div class="spec">
-        <dt>Proof</dt>
-        <dd>A live two-sided marketplace across eight trades — escrow payments, race-safe job dispatch, verified end to end. <a href="#work">The work ↓</a></dd>
-      </div>
-      <div class="spec">
-        <dt>Daily</dt>
-        <dd>Claude and Claude Code. Next.js, Supabase, Stripe Connect, Vercel. Python, SQL, plain HTML.</dd>
-      </div>
-      <div class="spec">
-        <dt>Open to</dt>
-        <dd>Full-time or contract. Remote or on site, will travel. Based in Cornelius, North Carolina.</dd>
+        <dt>Terms</dt>
+        <dd>Full-time or contract. Remote, on site, or travelling. Based in Cornelius, North Carolina.</dd>
       </div>
     </dl>
-
-    <ul class="proof">
-      <li><b>8 trades</b><span>Live on the marketplace</span></li>
-      <li><b>Sole author</b><span>Schema → payout → brand</span></li>
-      <li><b>End to end</b><span>Money path verified in production</span></li>
-      <li><b>3 systems</b><span>One live, two in build</span></li>
-    </ul>
   </div>
-
-  <p class="who"><b>Useful in two rooms.</b> To AI product teams that need someone who can sit with a customer, find the real constraint, and ship against it. And to operators in trades, property, and logistics — the sectors where adoption is slowest and the upside is largest — who need AI that works inside how the job is actually done.</p>
 </div>
 
 <div class="wrap">
 
-  <section id="plain">
-    <p class="shead">The plain version</p>
-    <h2>No mystique, no methodology deck</h2>
-    <p class="lede">I build software with Claude, and the work is mostly writing. Loops, not one-shots. Architecture arguments, schemas, payment flows, the copy on the buttons — most of what I've built came out of that.</p>
-    <p>State the problem in the operator's words. Load the real context — the constraint, the history, the exception everyone knows and nobody wrote down. Build the check before the thing. Correct in short cycles until it holds twice. I start at about seventy percent of what there is to know, because the last thirty usually isn't in anyone's head waiting to be asked for. It shows up faster by building.</p>
-    <p>Before this, twenty years on the operating side. <strong>Models are short on lived context and long on everything else.</strong> Mine is the scarce half.</p>
-  </section>
-
   <section id="work">
     <p class="shead">The work</p>
-    <h2>Things I've actually built</h2>
-    <p class="lede">Concrete rather than described. Where it's live, go use it. Where it isn't, I've said so.</p>
+    <h2>What I do on a project</h2>
+    <p class="lede">Most engagements are some mix of these. They're listed separately because teams tend to need them in different proportions.</p>
 
-    <div class="work">
-
+    <div class="list">
       <div class="item">
+        <h3>Build the product</h3>
+        <p>Take a piece from data model through integrations through the interface, and ship it. On small teams this is usually the whole job, and it's the shape I've been working in for two years.</p>
+      </div>
+      <div class="item">
+        <h3>Write and fix the software</h3>
+        <p>The unglamorous half: it breaks on real data, it's slow, the edge cases pile up, the payment path has a race in it. Most of what determines whether an AI feature survives contact with users is ordinary engineering done carefully.</p>
+      </div>
+      <div class="item">
+        <h3>Work out the business problem underneath</h3>
+        <p>The stated ask and the actual problem are often different. Twenty years running operations before this means I can usually tell which one I'm looking at, and say so early enough for it to matter.</p>
+      </div>
+      <div class="item">
+        <h3>Sit with the customer</h3>
+        <p>Go where the work happens, learn the constraints that were never written down, build inside their environment, and leave it documented so their team runs it without me.</p>
+      </div>
+      <div class="item">
+        <h3>Pick up something that stalled</h3>
+        <p>Find where it's actually failing, cut scope to what holds, get one path working the whole way through, and be clear about which parts still shouldn't ship.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="built">
+    <p class="shead">Built</p>
+    <h2>Three domains, two years, one architect</h2>
+    <p class="lede">I've been applying AI as the architect on each of these — designing the system, building it, and owning what happens when it's wrong.</p>
+
+    <div class="domains">
+
+      <article>
+        <span class="dom">Payments &amp; marketplaces</span>
         <h3>YSKAIPE <span class="tag on">Live</span></h3>
-        <p class="one">A homeowner books and pays into escrow, the job broadcasts to the pro network, first claim wins, and the money moves to the pro on completion — race-safe under concurrency, verified end to end in production.</p>
-        <p>Eight trades. Two pros tapping claim at the same moment can't both take the job. The full money path — book, escrow, dispatch, claim, complete, capture, transfer — runs live. Sole author, schema through payout through brand.</p>
-        <!-- SHOT SLOT: <img class="shot" src="img/yskaipe-dispatch.png" alt="Job broadcast and first-claim screen"> -->
-        <p class="built">Next.js · Supabase · Stripe Connect · Vercel · <a href="https://yskaipe.com">yskaipe.com</a></p>
-      </div>
+        <p>A customer's card is charged and the money held. Work goes out to a network; the first person to claim it gets it, and two people claiming at the same instant can't both end up on the same job. On confirmed completion the money lands in the worker's bank account.</p>
+        <div class="row"><span>Started</span><p>With no background in payment regulation or holding other people's money.</p></div>
+        <div class="row"><span>My role</span><p>Architect and sole builder: data model, payment design, failure paths, interface, support.</p></div>
+        <span class="link">Next.js · Supabase · Stripe Connect · <a href="https://yskaipe.com">yskaipe.com</a></span>
+      </article>
 
-      <div class="item">
+      <article>
+        <span class="dom">Law &amp; procedure</span>
+        <h3>Amicus <span class="tag">In build</span></h3>
+        <p>Documents go in. A timeline assembles itself out of the record, statutes get researched, letters and filings get drafted, deadlines get tracked. Built against a real matter rather than a sample set, because a real matter is where the exceptions are.</p>
+        <div class="row"><span>Started</span><p>With no background in filings, deadlines, or how a case file is assembled.</p></div>
+        <div class="row"><span>My role</span><p>Architect. The design problem is not producing a draft — it's knowing when the draft is wrong before anyone relies on it.</p></div>
+        <span class="link">Carries a free estate-planning tool alongside it</span>
+      </article>
+
+      <article>
+        <span class="dom">Pricing &amp; knowledge</span>
         <h3>Fair Rate Index <span class="tag">In build</span></h3>
-        <p class="one">A public fair-price baseline for home and auto work, plus plain-language triage that walks a homeowner through the problem before anyone gets called.</p>
-        <p>Underneath it sits a knowledge layer built per trade: the items that recur every year, component lifespans, how each one fails, and the fix.</p>
-        <p class="built">Neutral and free to use · built as a resource, not a funnel</p>
-      </div>
-
-      <div class="item">
-        <h3>Amicus — agentic legal workspace <span class="tag">In build</span></h3>
-        <p class="one">Document intake, a timeline assembled from the record itself, statute research, drafting, and deadline tracking — built against a live matter rather than a demo dataset.</p>
-        <p>A live matter is the only place the exceptions show up. It carries a free estate-planning tool alongside it, for families on any budget.</p>
-        <p class="built">The hard part isn't generation — it's the verifier</p>
-      </div>
-
-      <div class="item" id="writing">
-        <h3>Writing on the method <span class="tag">Published</span></h3>
-        <p class="one">Two pieces arguing the same point from different sides: the framework you pick is a detail, and the check you build is the whole thing.</p>
-        <p><em>Your Agent Framework Doesn't Matter. Your Verifier Does.</em> and <em>Context × Loops.</em></p>
-        <p class="built"><a href="https://github.com/NickConenna/applied-ai-architecture">github.com/NickConenna/applied-ai-architecture</a></p>
-      </div>
-
-      <div class="item">
-        <h3>This page <span class="tag on">Live</span></h3>
-        <p class="one">Written, argued with, and corrected in the same loop as everything above it — the method at its smallest.</p>
-      </div>
+        <p>A free, neutral reference for what common work should cost, and a plain-language walkthrough that helps someone understand their problem before they call anyone. Underneath it, a structured knowledge layer: what fails, how long parts last, what the repair involves.</p>
+        <div class="row"><span>Started</span><p>With no background in price modeling or structuring domain knowledge for a model to use.</p></div>
+        <div class="row"><span>My role</span><p>Architect of the knowledge layer and the reasoning built on top of it.</p></div>
+        <span class="link">Free to use · built as a resource, not a funnel</span>
+      </article>
 
     </div>
   </section>
 
   <section id="method">
-    <p class="shead">How the loop runs</p>
-    <h2>Four moves, in order</h2>
+    <p class="shead">Method</p>
+    <h2>Four moves, in order, in any domain</h2>
     <div class="blocks">
       <div class="block">
-        <h3><span class="tick">01</span>Frame</h3>
-        <p>State the job in the operator's words, not the system's. If I can't, I don't understand it yet and no amount of prompting fixes that.</p>
+        <h3><span class="tick">01</span>Say it in their words</h3>
+        <p>State the job the way the person who does it would state it. If I can't, I don't understand it yet, and no amount of clever prompting covers that up.</p>
       </div>
       <div class="block">
-        <h3><span class="tick">02</span>Load</h3>
-        <p>Give the model the real material — actual records, actual constraints, the thing everyone already knows. Most implementations underperform because they were built against a description of the work instead of the work.</p>
+        <h3><span class="tick">02</span>Give it the real material</h3>
+        <p>Actual records, actual constraints, the thing everyone in the room knows and nobody wrote down. Systems underperform mostly because they were built against a description of the work instead of the work.</p>
       </div>
       <div class="block">
-        <h3><span class="tick">03</span>Verify</h3>
-        <p>Build the check first: ground truth, a test, or a person who'd notice. No verifier, no loop. This is where I spend the time.</p>
+        <h3><span class="tick">03</span>Build the check first</h3>
+        <p>Before the interesting part: how will we know when this is wrong? A test, a known-good answer, a person who'd notice. Without one you can't improve a system, only hold opinions about it.</p>
       </div>
       <div class="block">
-        <h3><span class="tick">04</span>Correct</h3>
-        <p>Run it again with what failed. Short cycles, visible each time, stop when it holds twice. Small increments beat one long unattended run, every time.</p>
+        <h3><span class="tick">04</span>Correct in short passes</h3>
+        <p>Run it again with what failed, visible each time, stop when it holds twice. Short passes beat one long unattended run.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="hard">
+    <p class="shead">Honestly</p>
+    <h2>What's hard about this work, and where I'm short</h2>
+    <div class="hard">
+      <h3>The failure mode is fluency</h3>
+      <p>These models are most dangerous when they're wrong in well-formed sentences, and the people checking the output are usually the least equipped to catch it. Most of the engineering effort worth spending goes into making errors visible, not into making output better.</p>
+
+      <h3>The last thirty percent isn't written down</h3>
+      <p>Every domain has rules that live in one person's judgment. You don't get them by asking; you get them by building something slightly wrong and watching the expert react. That's why I'd rather start building at seventy percent understanding than wait for a complete specification that isn't coming.</p>
+
+      <h3>I'm not a research engineer</h3>
+      <p>My depth is applied — putting models to work. Training, fine-tuning, and evaluating at the frontier are other people's expertise, and I'd defer to them.</p>
+
+      <h3>I haven't operated at very large scale</h3>
+      <p>My production experience is one live system with real money in it, not millions of users. I know the difference between those two problems and I'm not going to pretend I've solved the second.</p>
+
+      <h3>I've worked alone</h3>
+      <p>Two years as the only engineer on everything I've built. I want the review culture of a strong team, and I expect the first month of that to cost me some ego.</p>
+    </div>
+  </section>
+
+  <section id="terms">
+    <p class="shead">Terms</p>
+    <h2>Three ways this usually starts</h2>
+    <div class="shapes">
+      <div>
+        <span class="len">Two weeks</span>
+        <h3>A paid look</h3>
+        <p>Find out whether the thing is worth doing, and say so plainly if it isn't. The cheapest way to learn you were about to spend six months on the wrong problem.</p>
+      </div>
+      <div>
+        <span class="len">Six to twelve weeks</span>
+        <h3>A defined piece</h3>
+        <p>One process, one integration, one path to production. Scoped at the start, working at the end, handed over so your team owns it.</p>
+      </div>
+      <div>
+        <span class="len">Full-time</span>
+        <h3>On the team</h3>
+        <p>Where the work is ongoing and the relationships matter more than any single project. This is the one I'd prefer, for the right mission.</p>
       </div>
     </div>
   </section>
 
   <section id="fit">
-    <p class="shead">The longer version</p>
-    <h2>Where I fit</h2>
+    <p class="shead">More detail</p>
+    <h2>If you're weighing this seriously</h2>
     <div class="fit">
-      <p>There's a fuller page behind this one: the four role shapes I'd bet on myself in, what the first sixty days look like, the strengths I'd stake a mission on, and a plain list of what I'm <em>not</em> yet — marked honestly, because you'd find it on day thirty anyway.</p>
-      <p>It's the page I'd want to read about someone before working with them.</p>
-      <a class="go" href="where-i-fit.html">Read where I fit →</a>
+      <p>A second page for anyone considering it properly: the role titles this maps to in postings, what the first sixty days would look like, the standards I hold myself to, and how I actually work with Claude.</p>
+      <a class="go" href="where-i-fit.html">Read the details →</a>
     </div>
   </section>
 
@@ -451,53 +465,35 @@ a{color:var(--oxide)}
 
 <div class="band">
   <div class="wrap">
-    <div class="movements">
-
-      <div>
-        <p class="shead">Where it comes from</p>
-        <h2>The drawing and the machine, one hand</h2>
-        <p>Italian family. Studied and traveled in Italy as a young man, and it stuck.</p>
-        <p>The Florentines weren't artists who dabbled in engineering. Brunelleschi couldn't raise the dome, so he invented the hoists that raised it. The design and the means of building it arrived together, from someone who wouldn't hand the hard part to anyone else.</p>
-        <p><strong>That's not a metaphor. It's the same job.</strong></p>
-        <p class="names">Brunelleschi · Leonardo · Michelangelo</p>
-      </div>
-
-      <div>
-        <p class="shead">Where it's going</p>
-        <h2>Better lives for all humans</h2>
-        <p>The architects worth watching now are building off-world: closed-loop energy, food, water, air, shelter. Systems that have to work with no margin and no resupply.</p>
-        <p>Those constraints produce technology that fixes things here. A habitat that must generate its own power and grow its own food is the same engineering problem as a house that should.</p>
-        <p><strong>The mission is the many, not the few.</strong> More privilege for a handful is an uninteresting outcome, and always was.</p>
-      </div>
-
-    </div>
+    <p class="shead">Why this work</p>
+    <h2>The gains should reach the many</h2>
+    <p>Most of the value in this technology is still sitting unclaimed inside ordinary work — the processes nobody writes conference talks about, in organizations that will never have a research team. Moving it there is a design problem and a translation problem, and both are solved by people willing to go sit where the work happens.</p>
+    <p><strong>More advantage for a handful is an uninteresting outcome, and always was.</strong></p>
   </div>
 </div>
 
 <div class="wrap contact" id="contact">
   <p class="shead">Get in touch</p>
-  <h2>Tell me what's stuck</h2>
+  <h2>Tell me what you're working on</h2>
   <p>One paragraph is plenty. I answer email, and I'll tell you straight whether I'm the right person — including when I'm not.</p>
   <ul class="ask">
     <li>The problem, in your own words</li>
     <li>Role or project, and roughly when</li>
-    <li>What you've already tried</li>
+    <li>What's already been tried</li>
   </ul>
   <div class="actions">
-    <a class="mailto" href="mailto:nick@peakingwaters.com?subject=What%27s%20stuck&amp;body=The%20problem%3A%0A%0ARole%20or%20project%3A%0A%0ATimeline%3A%0A%0AWhat%20we%27ve%20tried%3A%0A">nick@peakingwaters.com</a>
-    <!-- CALENDAR SLOT — paste your Cal.com or Calendly link here and this
-         button goes live. Until then it points at email, which is honest but
-         higher-friction. A 20-minute slot is the single biggest conversion
-         win available on this page. -->
+    <a class="mailto" href="mailto:nick@peakingwaters.com?subject=Project&amp;body=The%20problem%3A%0A%0ARole%20or%20project%3A%0A%0ATiming%3A%0A%0AWhat%27s%20already%20been%20tried%3A%0A">nick@peakingwaters.com</a>
+    <!-- CALENDAR SLOT — paste a Cal.com or Calendly link here and this button
+         goes live. Until then it falls back to email. -->
     <a class="book" href="mailto:nick@peakingwaters.com?subject=20%20minutes%3F">Book 20 minutes →</a>
   </div>
   <p class="meta">
     Cornelius, North Carolina · full-time or contract · remote, on site, will travel<br>
-    <a href="where-i-fit.html">Where I fit</a> ·
+    <a href="where-i-fit.html">Details</a> ·
     <a href="https://yskaipe.com">YSKAIPE</a> ·
     <a href="https://github.com/NickConenna/applied-ai-architecture">GitHub</a> ·
-    <a href="https://x.com/BitcoinBroham">X</a> ·
-    <a href="https://www.linkedin.com/in/nickconenna/">LinkedIn</a>
+    <a href="https://www.linkedin.com/in/nickconenna/">LinkedIn</a> ·
+    <a href="https://x.com/BitcoinBroham">X</a>
   </p>
 </div>
 
