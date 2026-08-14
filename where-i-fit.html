@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nick Conenna — where I fit</title>
-<meta name="description" content="Applied AI architecture, built in the real world. The role shapes that fit, what the first sixty days look like, and an honest read on where I actually am today.">
+<title>Nick Conenna — the details</title>
+<meta name="description" content="The role titles this maps to, what the first sixty days look like, the standards I hold, and an honest read on where I am today.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400;12..96,75..100,700;12..96,75..100,800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=Azeret+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -14,8 +14,8 @@
   --hull:#0E3040;
   --contour:#1E5A6B;
   --sand:#EDE3CE;
-  --foam:#A3C4CF;          /* lightened for small-type contrast on --deep */
-  --magenta:#E4568C;       /* lightened: passes on dark ground at small sizes */
+  --foam:#A3C4CF;
+  --magenta:#E4568C;
   --rule:rgba(163,196,207,.24);
   --display:"Bricolage Grotesque",Georgia,serif;
   --body:"Newsreader",Georgia,serif;
@@ -32,7 +32,6 @@ body{
 a{color:inherit}
 :focus-visible{outline:2px solid var(--magenta);outline-offset:3px;border-radius:2px}
 
-/* ---- shared chart vernacular ---- */
 .eyebrow{
   font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.22em;
   text-transform:uppercase;color:var(--foam);margin:0 0 18px
@@ -40,13 +39,13 @@ a{color:inherit}
 .eyebrow b{color:var(--magenta);font-weight:500}
 h2.hd{
   font-family:var(--display);font-weight:700;font-stretch:88%;
-  font-size:clamp(28px,4.4vw,44px);line-height:1.04;letter-spacing:-.02em;
+  font-size:clamp(27px,4.2vw,42px);line-height:1.05;letter-spacing:-.02em;
   margin:0 0 14px;color:#fff
 }
-.lede{max-width:62ch;color:var(--foam);margin:0 0 46px}
+.lede{max-width:64ch;color:var(--foam);margin:0 0 44px}
 .lede em{color:var(--sand);font-style:italic}
 
-/* ---- sticky bar: same items as the index, in this page's vernacular ---- */
+/* bar */
 .bar{
   position:sticky;top:0;z-index:6;
   background:rgba(8,34,46,.9);backdrop-filter:blur(8px);
@@ -71,12 +70,9 @@ h2.hd{
 .bar .hide-sm{display:none}
 @media(min-width:700px){.bar .hide-sm{display:inline}}
 
-/* ---- hero chart ---- */
-.hero{position:relative;overflow:hidden;padding:52px 0 84px;isolation:isolate}
-.chart{
-  position:absolute;inset:-10% -2% auto -2%;height:118%;width:104%;
-  z-index:0;opacity:.85;pointer-events:none
-}
+/* hero */
+.hero{position:relative;overflow:hidden;padding:52px 0 80px;isolation:isolate}
+.chart{position:absolute;inset:-10% -2% auto -2%;height:118%;width:104%;z-index:0;opacity:.85;pointer-events:none}
 .chart path{fill:none;stroke:var(--contour);stroke-width:1.15;vector-effect:non-scaling-stroke}
 .hero::after{
   content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
@@ -85,20 +81,15 @@ h2.hd{
 .hero .wrap{position:relative;z-index:2}
 h1{
   font-family:var(--display);font-weight:800;font-stretch:80%;
-  font-size:clamp(40px,7.6vw,80px);line-height:.96;letter-spacing:-.035em;
-  margin:0 0 24px;color:#fff;max-width:16ch
+  font-size:clamp(38px,7vw,72px);line-height:.98;letter-spacing:-.035em;
+  margin:0 0 24px;color:#fff;max-width:17ch
 }
 h1 .thin{font-weight:400;font-stretch:100%;color:var(--foam)}
-.hero p.sub{max-width:58ch;font-size:clamp(19px,2.1vw,22px);margin:0 0 22px}
+.hero p.sub{max-width:58ch;font-size:clamp(19px,2.1vw,22px);margin:0 0 34px}
 .hero p.sub b{font-weight:400;color:#fff}
-.hero p.who{
-  max-width:60ch;font-size:17.5px;color:var(--foam);
-  margin:0 0 36px;padding-left:18px;border-left:2px solid var(--contour)
-}
-.hero p.who b{color:var(--sand);font-weight:400}
 
 .fix{
-  display:inline-flex;flex-wrap:wrap;gap:0;align-items:stretch;
+  display:inline-flex;flex-wrap:wrap;align-items:stretch;
   border:1px solid var(--rule);background:rgba(14,48,64,.72);
   backdrop-filter:blur(3px);margin:0
 }
@@ -111,61 +102,29 @@ h1 .thin{font-weight:400;font-stretch:100%;color:var(--foam)}
 .fix dd{margin:0;font-family:var(--mono);font-size:13px;color:var(--sand)}
 .fix dd.mark{color:var(--magenta)}
 
-/* ---- sections ---- */
-section{padding:78px 0;border-top:1px solid var(--rule)}
+section{padding:76px 0;border-top:1px solid var(--rule)}
 section:first-of-type{border-top:0}
 
-/* roles */
+/* titles */
 .roles{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule)}
 @media(min-width:820px){.roles{grid-template-columns:1fr 1fr}}
-.role{background:var(--deep);padding:34px 32px 36px;position:relative}
+.role{background:var(--deep);padding:32px 30px 34px}
 .role .tag{
   font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--magenta);display:block;margin-bottom:14px
 }
 .role h3{
   font-family:var(--display);font-weight:700;font-stretch:88%;
-  font-size:25px;line-height:1.1;letter-spacing:-.015em;margin:0 0 12px;color:#fff
+  font-size:23px;line-height:1.12;letter-spacing:-.015em;margin:0 0 12px;color:#fff
 }
-.role p{margin:0 0 18px;font-size:17.5px;color:var(--sand)}
-.role .why{
-  margin:0;padding-top:16px;border-top:1px dashed var(--rule);
-  font-size:16px;color:var(--foam)
-}
+.role p{margin:0 0 16px;font-size:17.5px;color:var(--sand)}
+.role .why{margin:0;padding-top:16px;border-top:1px dashed var(--rule);font-size:16px;color:var(--foam)}
 .role .why b{
   font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.18em;
   text-transform:uppercase;color:var(--foam);display:block;margin-bottom:6px
 }
 
-/* strengths */
-.str{list-style:none;padding:0;margin:0;display:grid;gap:30px}
-@media(min-width:760px){.str{grid-template-columns:1fr 1fr;gap:34px 56px}}
-.str li{padding-left:26px;position:relative}
-.str li::before{
-  content:"";position:absolute;left:0;top:.62em;width:11px;height:1px;background:var(--magenta)
-}
-.str h3{
-  font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.18em;
-  text-transform:uppercase;color:#fff;margin:0 0 9px
-}
-.str p{margin:0;font-size:17.5px;color:var(--foam)}
-.str p em{color:var(--sand);font-style:italic}
-
-/* loops */
-.loop{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:8px}
-@media(min-width:700px){.loop{grid-template-columns:repeat(4,1fr)}}
-.loop div{background:var(--deep);padding:24px 22px}
-.loop span{
-  font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--magenta);display:block;margin-bottom:8px
-}
-.loop p{margin:0;font-size:16.5px;color:var(--foam)}
-.note{
-  margin:34px 0 0;padding-left:20px;border-left:2px solid var(--contour);
-  font-style:italic;color:var(--foam);max-width:60ch
-}
-
-/* first sixty days */
+/* days */
 .days{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:8px}
 @media(min-width:820px){.days{grid-template-columns:repeat(3,1fr)}}
 .days div{background:var(--deep);padding:28px 26px}
@@ -175,24 +134,33 @@ section:first-of-type{border-top:0}
 }
 .days h3{
   font-family:var(--display);font-weight:700;font-stretch:88%;font-size:20px;
-  line-height:1.14;letter-spacing:-.012em;margin:0 0 10px;color:#fff
+  line-height:1.16;letter-spacing:-.012em;margin:0 0 10px;color:#fff
 }
 .days p{margin:0;font-size:16.5px;color:var(--foam)}
 
-/* shoal water */
-.shoal{border:1px solid var(--magenta);padding:38px 34px;background:rgba(228,86,140,.06)}
+/* standards */
+.std{list-style:none;padding:0;margin:0;display:grid;gap:28px}
+@media(min-width:760px){.std{grid-template-columns:1fr 1fr;gap:32px 54px}}
+.std li{padding-left:26px;position:relative}
+.std li::before{content:"";position:absolute;left:0;top:.62em;width:11px;height:1px;background:var(--magenta)}
+.std h3{
+  font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.18em;
+  text-transform:uppercase;color:#fff;margin:0 0 9px
+}
+.std p{margin:0;font-size:17.5px;color:var(--foam)}
+
+/* limits */
+.shoal{border:1px solid var(--magenta);padding:36px 32px;background:rgba(228,86,140,.06)}
 .shoal .eyebrow{color:var(--magenta)}
 .shoal h2.hd{margin-bottom:10px}
-.shoal ul{margin:26px 0 0;padding:0;list-style:none;display:grid;gap:16px}
+.shoal ul{margin:24px 0 0;padding:0;list-style:none;display:grid;gap:16px}
 .shoal li{padding-left:22px;position:relative;color:var(--sand);font-size:17.5px}
 .shoal li::before{content:"—";position:absolute;left:0;color:var(--magenta)}
 
-/* claude note */
 .claude p{max-width:64ch;margin:0 0 20px}
 
-/* ---- closing call ---- */
-.call{border-top:1px solid var(--rule);padding:78px 0 0}
-.call h2.hd{margin-bottom:16px}
+/* call */
+.call{border-top:1px solid var(--rule);padding:76px 0 0}
 .call p{max-width:58ch;color:var(--foam);margin:0 0 26px}
 .ask{list-style:none;margin:0 0 30px;padding:0;max-width:44ch}
 .ask li{
@@ -215,8 +183,7 @@ section:first-of-type{border-top:0}
 }
 .book:hover{background:var(--sand);color:var(--deep);border-color:var(--sand)}
 
-/* footer */
-footer{border-top:1px solid var(--rule);margin-top:78px;padding:60px 0 90px}
+footer{border-top:1px solid var(--rule);margin-top:76px;padding:58px 0 88px}
 .links{display:flex;flex-wrap:wrap;gap:14px 34px;margin:0 0 40px;padding:0;list-style:none}
 .links a{
   font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-decoration:none;
@@ -225,7 +192,6 @@ footer{border-top:1px solid var(--rule);margin-top:78px;padding:60px 0 90px}
 .links a:hover{color:var(--magenta);border-color:var(--magenta)}
 .colophon{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--foam);margin:0}
 
-/* motion */
 .rise{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
 .rise.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){
@@ -239,11 +205,11 @@ footer{border-top:1px solid var(--rule);margin-top:78px;padding:60px 0 90px}
 
 <header class="bar">
   <div class="wrap">
-    <span class="status"><span class="dot" aria-hidden="true"></span>Open <span class="hide-sm">— full-time or contract · will travel</span></span>
+    <span class="status"><span class="dot" aria-hidden="true"></span>Available <span class="hide-sm">— full-time or contract · will travel</span></span>
     <nav>
-      <a href="index.html#work">Work</a>
-      <a href="index.html#method">Method</a>
-      <a href="#roles">Where I fit</a>
+      <a href="index.html#work">The work</a>
+      <a href="index.html#built">Built</a>
+      <a href="#titles">Titles</a>
       <a class="now" href="#contact">Get in touch</a>
     </nav>
   </div>
@@ -253,13 +219,12 @@ footer{border-top:1px solid var(--rule);margin-top:78px;padding:60px 0 90px}
   <svg class="chart" id="chart" viewBox="0 0 1200 760" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
   <div class="wrap">
     <p class="eyebrow"><b>Nick Conenna</b> — Cornelius, NC — August 2026</p>
-    <h1>Applied AI architecture, <span class="thin">built in the real world.</span></h1>
-    <p class="sub">Twenty years running physical-world businesses, then two years shipping production systems with Claude. <b>I take a messy human process, work out what a model can honestly do inside it, and ship the thing that makes it work.</b> Then I stay until it holds.</p>
-    <p class="who"><b>Two rooms, same person.</b> AI product teams that need someone who can sit with a customer and ship — and operators in trades, property, and logistics who need AI that survives their constraints.</p>
+    <h1>The details, <span class="thin">for anyone weighing this seriously.</span></h1>
+    <p class="sub">What these roles get called in postings, what the first sixty days would actually look like, the standards I hold myself to, and where I'm short. <b>Written so you can rule me out quickly if I'm not the right fit.</b></p>
     <dl class="fix">
       <div><dt>Based</dt><dd>Cornelius, NC</dd></div>
       <div><dt>Range</dt><dd>Nationwide / remote</dd></div>
-      <div><dt>Shipped</dt><dd class="mark">Live marketplace, solo</dd></div>
+      <div><dt>Shipped</dt><dd class="mark">3 domains, 2 years</dd></div>
       <div><dt>Daily driver</dt><dd>Claude &amp; Claude Code</dd></div>
     </dl>
   </div>
@@ -267,148 +232,132 @@ footer{border-top:1px solid var(--rule);margin-top:78px;padding:60px 0 90px}
 
 <main class="wrap">
 
-  <section class="rise" id="roles">
-    <p class="eyebrow">Section 01 — <b>Where I fit</b></p>
-    <h2 class="hd">Four role shapes, in the order I'd bet on myself</h2>
-    <p class="lede">Titles differ by company. These are the shapes of work where my last three years are directly relevant, not adjacent to it.</p>
+  <section class="rise" id="titles">
+    <p class="eyebrow">Section 01 — <b>Titles</b></p>
+    <h2 class="hd">What this work gets called in postings</h2>
+    <p class="lede">The same job carries four or five names depending on the company. These are the ones where my last three years are directly relevant rather than adjacent.</p>
 
     <div class="roles">
       <article class="role">
-        <span class="tag">Strongest fit</span>
+        <span class="tag">Closest match</span>
         <h3>Forward deployed engineer</h3>
-        <p>Sit inside a customer's constraints, build the integration that makes the model useful there, and hand back something their team can run without me.</p>
-        <p class="why"><b>Why me</b>I have spent two years doing exactly this for myself with no one to escalate to: Stripe Connect, Supabase, Next.js, a hosting tier with hard function limits. The unglamorous middle of the work is the part I'm good at.</p>
+        <p>Embed with a customer, write production code inside their environment, and stay until the deployment actually works — then carry what you learned back to the product.</p>
+        <p class="why"><b>Relevant experience</b>Two years doing this for myself with nobody to escalate to: payment infrastructure, database design, hosting limits, real users. The unglamorous middle of a deployment is the part I'm most comfortable in.</p>
       </article>
 
       <article class="role">
-        <span class="tag">Strong fit</span>
-        <h3>Solutions architect, applied AI</h3>
-        <p>Map a customer's process to what Claude can actually do, scope it honestly, prototype fast, and say plainly which parts shouldn't be automated yet.</p>
-        <p class="why"><b>Why me</b>My marketplace routes jobs by risk and licensing behind the scenes so the customer never has to understand the architecture. Hiding the machinery behind an obvious experience is the whole job.</p>
+        <span class="tag">Also fits</span>
+        <h3>Applied AI engineer / solutions architect</h3>
+        <p>Map a real process to what a model can be trusted with, scope it honestly, prototype quickly, and say plainly which parts shouldn't be automated yet.</p>
+        <p class="why"><b>Relevant experience</b>Each system I've built routes work by risk behind the scenes, so the person using it never has to understand the architecture. Hiding the machinery behind an obvious experience is most of the job.</p>
       </article>
 
       <article class="role">
-        <span class="tag">Strong fit</span>
-        <h3>Founding / early product engineer</h3>
-        <p>Own a surface end to end on a small team — schema through payment flow through the copy on the button.</p>
-        <p class="why"><b>Why me</b>I am the sole author of a live two-sided marketplace: escrow, race-safe first-claim dispatch, completion confirmation, payout to the worker. Verified end to end, in production.</p>
+        <span class="tag">Also fits</span>
+        <h3>Founding or early product engineer</h3>
+        <p>Own a surface end to end on a small team: data model, integrations, payments, interface, the copy on the button.</p>
+        <p class="why"><b>Relevant experience</b>Sole author of a live system that moves real money between strangers — charge, hold, dispatch, confirm, pay out — running in production.</p>
       </article>
 
       <article class="role">
-        <span class="tag">Distinctive fit</span>
-        <h3>Applied AI for physical-world industries</h3>
-        <p>Bring these tools to trades, property, logistics, small operators — the sectors where adoption is slowest and the upside is largest.</p>
-        <p class="why"><b>Why me</b>I can sit with an HVAC owner at 8am and a staff engineer at 10 and be useful in both rooms. I've recruited contractors, run the property, and dug the footings myself.</p>
+        <span class="tag">Also fits</span>
+        <h3>Deployment / implementation engineer</h3>
+        <p>Take a capable product and make it work inside one organization's actual systems, rules, and constraints, then leave it documented for their team.</p>
+        <p class="why"><b>Relevant experience</b>Twenty years running operations before this. I can hold the same conversation with the person doing the work and the person building the software, and come back with one decision instead of two.</p>
       </article>
     </div>
   </section>
 
   <section class="rise">
-    <p class="eyebrow">Section 02 — <b>What I bring</b></p>
-    <h2 class="hd">Strengths I'd stake a mission on</h2>
-    <p class="lede">Each of these is claimed because there's work behind it, not because it sounds good in a profile.</p>
+    <p class="eyebrow">Section 02 — <b>Ramp</b></p>
+    <h2 class="hd">What the first sixty days would look like</h2>
+    <p class="lede">I won't know your codebase or your customers, and I'm not going to pretend the ramp is free. This is what I'd expect to be doing while I earn context.</p>
 
-    <ul class="str">
+    <div class="days">
+      <div>
+        <span>Weeks 1–2</span>
+        <h3>Go where the work happens</h3>
+        <p>Ride-alongs, support tickets, the call recordings nobody enjoys. The goal is being able to state the job the way the person doing it would state it — everything downstream depends on that.</p>
+      </div>
+      <div>
+        <span>Weeks 2–4</span>
+        <h3>A check before a demo</h3>
+        <p>The first thing I'd hand over is a way to tell when the system is wrong — ground truth, a test, a person who'd notice. It's what tells you whether the demo everyone likes will survive a month.</p>
+      </div>
+      <div>
+        <span>Weeks 4–8</span>
+        <h3>One path all the way through</h3>
+        <p>Something narrow, working end to end in production, plus a plain read on which of the remaining parts shouldn't ship yet — early enough that changing course is still cheap.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="rise">
+    <p class="eyebrow">Section 03 — <b>Standards</b></p>
+    <h2 class="hd">What I hold myself to</h2>
+    <p class="lede">Less about what I'm good at, more about what I refuse to do. These are the ones I'd want to be held to by a team.</p>
+
+    <ul class="std">
       <li>
-        <h3>Context density</h3>
-        <p>Fifty-two years, two companies, property development, eight trades, boats, land, a family. <em>Models are short on lived context and long on everything else.</em> Mine is the scarce half.</p>
+        <h3>No shipping what I can't check</h3>
+        <p>If there's no way to tell when the output is wrong, the feature isn't ready, regardless of how good the demo looked.</p>
       </li>
       <li>
-        <h3>Verification-first loops</h3>
-        <p>My working thesis: the agent framework matters far less than the verifier. I build the check before I build the generator, and I run tight correction loops rather than long unattended ones.</p>
+        <h3>Bad news travels early</h3>
+        <p>The date is at risk, the approach isn't working, the thing you asked for isn't the thing you need — all of it is cheaper to hear in week two than week ten.</p>
       </li>
       <li>
-        <h3>Full ownership of scope</h3>
-        <p>Domain purchase to production payout, brand to schema to support email. <em>Nothing has been handed to me finished</em>, so nothing on a roadmap reads as someone else's problem.</p>
+        <h3>Leave it runnable without me</h3>
+        <p>Documented, handed over, understood by someone else. A system only I can operate is a liability I created.</p>
       </li>
       <li>
-        <h3>Translation</h3>
-        <p>I can explain what a system does to a roofer, a realtor, a county office, and an engineer, and get the same decision out of all four conversations.</p>
+        <h3>Say what a model shouldn't do</h3>
+        <p>Part of the job is arguing against automating something. I'd rather lose that argument out loud than let it ship quietly.</p>
       </li>
       <li>
-        <h3>Rate of learning</h3>
-        <p>I picked up agentic coding loops in the open, in months, while shipping. I would rather be measured on my slope than my starting point.</p>
+        <h3>Measure by what's still running</h3>
+        <p>Not what launched. What's still working three months later, with the original people using it.</p>
       </li>
       <li>
-        <h3>Persistence with a deadline</h3>
-        <p>I've kept a company alive with real constraints and a real household behind it. Urgency isn't a management technique for me; it's the default condition I already work in.</p>
+        <h3>Learn the domain properly</h3>
+        <p>Unfamiliar fields are the normal condition of this work, not an obstacle to it. The obligation is to get to real understanding fast, not to fake it convincingly.</p>
       </li>
     </ul>
   </section>
 
   <section class="rise">
-    <p class="eyebrow">Section 03 — <b>How I work</b></p>
-    <h2 class="hd">Context × Loops</h2>
-    <p class="lede">Two inputs decide the quality of anything I build with a model. Everything else is tooling preference.</p>
-
-    <div class="loop">
-      <div><span>Frame</span><p>State the job in the operator's words, not the system's. If I can't, I don't understand it yet.</p></div>
-      <div><span>Load</span><p>Give the model the real context — the constraint, the history, the thing everyone in the room already knows.</p></div>
-      <div><span>Verify</span><p>Build the check first. Ground truth, a test, a person who'd notice. No verifier, no loop.</p></div>
-      <div><span>Correct</span><p>Run it again with what failed. Short cycles, visible each time. Stop when it holds twice.</p></div>
-    </div>
-
-    <p class="note">Most of what I've published argues one point: the framework you pick is a detail, and the verifier you build is the whole thing.</p>
-  </section>
-
-  <section class="rise">
-    <p class="eyebrow">Section 04 — <b>The first sixty days</b></p>
-    <h2 class="hd">What you'd get early, before I know anything</h2>
-    <p class="lede">The honest version of ramp-up. I won't know your codebase or your customers, and I'm not going to pretend otherwise — but these three are true from week one.</p>
-
-    <div class="days">
-      <div>
-        <span>Weeks 1–2</span>
-        <h3>I go where the work happens</h3>
-        <p>Ride-alongs, support tickets, the call recordings nobody enjoys. I come back able to state the job in the operator's words, which is the input everything else depends on.</p>
-      </div>
-      <div>
-        <span>Weeks 2–4</span>
-        <h3>A verifier before a demo</h3>
-        <p>The first artifact I hand over is a check — ground truth, a test, a person who'd notice — not a slide. It's the thing that tells you whether the demo you're excited about will survive a month.</p>
-      </div>
-      <div>
-        <span>Weeks 4–8</span>
-        <h3>A plain read on what shouldn't ship</h3>
-        <p>Where the model is genuinely good enough, where it needs a human in the path, and where the honest answer is not yet. Said early, in writing, while it's still cheap to change course.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="rise">
     <div class="shoal">
-      <p class="eyebrow"><b>Section 05</b> — Shoal water</p>
-      <h2 class="hd">What I'm not, as of today</h2>
-      <p class="lede">Marked honestly, because you'll find it on day thirty anyway and I'd rather you find it now.</p>
+      <p class="eyebrow"><b>Section 04</b> — Limits</p>
+      <h2 class="hd">Where I'm short, as of today</h2>
+      <p class="lede">Marked plainly, because you'd find it on day thirty anyway and I'd rather you find it now.</p>
       <ul>
-        <li>I'm not a research engineer. My depth is applied — putting models to work — not training or evaluating them at the frontier.</li>
-        <li>I haven't run systems at very large scale. My production experience is one live marketplace, not millions of users.</li>
-        <li>I've built alone. I want the code review culture of a strong team, and I know that will cost me some ego in month one.</li>
-        <li>My agentic tooling practice is measured in months, not years — deliberate daily practice, but recent.</li>
+        <li>Not a research engineer. My depth is applied — putting models to work — not training or evaluating them at the frontier.</li>
+        <li>Haven't operated at very large scale. One live system with real money in it, not millions of users.</li>
+        <li>I've built alone. I want the review culture of a strong team, and I expect month one to cost me some ego.</li>
+        <li>My practice with the current generation of agentic tooling is measured in months, not years — daily and deliberate, but recent.</li>
       </ul>
     </div>
   </section>
 
   <section class="rise claude">
-    <p class="eyebrow">Section 06 — <b>Working with Claude</b></p>
-    <h2 class="hd">My most useful critic is a model I pay for</h2>
-    <p>Claude is in almost every hour of my build: architecture arguments, code, copy, and the reads I don't want to hear. I use it hardest as a critic — the fastest way I know to find out my idea is weaker than it felt at 6am.</p>
-    <p>That's a working relationship with a tool I chose, and I'd rather say it plainly than dress it up: it isn't a credential and no one at Anthropic has vouched for me. It's just the honest description of how this work gets done, and part of why I want to do it where it's made.</p>
+    <p class="eyebrow">Section 05 — <b>Tools</b></p>
+    <h2 class="hd">How I actually work with Claude</h2>
+    <p>Claude is in most hours of my build: architecture arguments, code, copy, and the reads I don't want to hear. I use it hardest as a critic, which is the fastest way I know to find out an idea is weaker than it felt at 6am.</p>
+    <p>That's a working relationship with a tool I chose. It isn't a credential and nobody at Anthropic has vouched for me — it's just an accurate description of how the work gets done, and part of why I want to do it somewhere the tools are taken seriously.</p>
   </section>
 
   <div class="call rise" id="contact">
     <p class="eyebrow">Get in touch</p>
-    <h2 class="hd">Tell me what's stuck</h2>
+    <h2 class="hd">Tell me what you're working on</h2>
     <p>One paragraph is plenty. I answer email, and I'll tell you straight whether I'm the right person — including when I'm not.</p>
     <ul class="ask">
       <li>The problem, in your own words</li>
       <li>Role or project, and roughly when</li>
-      <li>What you've already tried</li>
+      <li>What's already been tried</li>
     </ul>
     <div class="actions">
-      <a class="mailto" href="mailto:nick@peakingwaters.com?subject=What%27s%20stuck&amp;body=The%20problem%3A%0A%0ARole%20or%20project%3A%0A%0ATimeline%3A%0A%0AWhat%20we%27ve%20tried%3A%0A">nick@peakingwaters.com</a>
-      <!-- CALENDAR SLOT — same as on the index page. Paste the Cal.com /
-           Calendly link here and this button goes live. -->
+      <a class="mailto" href="mailto:nick@peakingwaters.com?subject=Project&amp;body=The%20problem%3A%0A%0ARole%20or%20project%3A%0A%0ATiming%3A%0A%0AWhat%27s%20already%20been%20tried%3A%0A">nick@peakingwaters.com</a>
+      <!-- CALENDAR SLOT — same as the index page. -->
       <a class="book" href="mailto:nick@peakingwaters.com?subject=20%20minutes%3F">Book 20 minutes →</a>
     </div>
   </div>
@@ -433,7 +382,7 @@ footer{border-top:1px solid var(--rule);margin-top:78px;padding:60px 0 90px}
 (function(){
   var svg=document.getElementById('chart');
   if(!svg) return;
-  var W=1200,H=760,rows=13,pts=9,ns='http://www.w3.org/2000/svg';
+  var W=1200,rows=13,pts=9,ns='http://www.w3.org/2000/svg';
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   for(var r=0;r<rows;r++){
