@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nick Conenna — where I fit</title>
+<meta name="description" content="Applied AI architecture. The role shapes that fit, the strengths behind them, and an honest read on where I actually am today.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400;12..96,75..100,700;12..96,75..100,800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=Azeret+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --deep:#08222E;
+  --hull:#0E3040;
+  --contour:#1E5A6B;
+  --sand:#EDE3CE;
+  --foam:#93B7C2;
+  --magenta:#D6467F;
+  --rule:rgba(147,183,194,.22);
+  --display:"Bricolage Grotesque",Georgia,serif;
+  --body:"Newsreader",Georgia,serif;
+  --mono:"Azeret Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--deep);color:var(--sand);
+  font-family:var(--body);font-size:19px;line-height:1.62;font-weight:300;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{width:min(1120px,92vw);margin-inline:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--magenta);outline-offset:3px;border-radius:2px}
+
+/* ---- shared chart vernacular ---- */
+.eyebrow{
+  font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--foam);margin:0 0 18px
+}
+.eyebrow b{color:var(--magenta);font-weight:500}
+h2.hd{
+  font-family:var(--display);font-weight:700;font-stretch:88%;
+  font-size:clamp(28px,4.4vw,44px);line-height:1.04;letter-spacing:-.02em;
+  margin:0 0 14px;color:#fff
+}
+.lede{max-width:62ch;color:var(--foam);margin:0 0 46px}
+.lede em{color:var(--sand);font-style:italic}
+
+/* ---- masthead ---- */
+.mast{
+  position:relative;z-index:3;display:flex;gap:16px;flex-wrap:wrap;
+  align-items:baseline;justify-content:space-between;
+  padding:26px 0 0;font-family:var(--mono);font-size:11px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--foam)
+}
+.mast .nm{color:var(--sand)}
+.mast .av{color:var(--magenta)}
+
+/* ---- hero chart ---- */
+.hero{position:relative;overflow:hidden;padding:60px 0 96px;isolation:isolate}
+.chart{
+  position:absolute;inset:-10% -2% auto -2%;height:118%;width:104%;
+  z-index:0;opacity:.85;pointer-events:none
+}
+.chart path{fill:none;stroke:var(--contour);stroke-width:1.15;vector-effect:non-scaling-stroke}
+.hero::after{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(120% 78% at 12% 42%, rgba(8,34,46,.94) 34%, rgba(8,34,46,.55) 66%, rgba(8,34,46,.15) 100%)
+}
+.hero .wrap{position:relative;z-index:2}
+h1{
+  font-family:var(--display);font-weight:800;font-stretch:80%;
+  font-size:clamp(42px,8.2vw,88px);line-height:.94;letter-spacing:-.035em;
+  margin:0 0 26px;color:#fff;max-width:15ch
+}
+h1 .thin{font-weight:400;font-stretch:100%;color:var(--foam)}
+.hero p.sub{max-width:54ch;font-size:clamp(19px,2.1vw,22px);margin:0 0 40px}
+
+.fix{
+  display:inline-flex;flex-wrap:wrap;gap:0;align-items:stretch;
+  border:1px solid var(--rule);background:rgba(14,48,64,.72);
+  backdrop-filter:blur(3px)
+}
+.fix > div{padding:14px 22px;border-right:1px solid var(--rule)}
+.fix > div:last-child{border-right:0}
+.fix dt{
+  font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--foam);margin:0 0 5px
+}
+.fix dd{margin:0;font-family:var(--mono);font-size:13px;color:var(--sand)}
+.fix dd.mark{color:var(--magenta)}
+
+/* ---- sections ---- */
+section{padding:84px 0;border-top:1px solid var(--rule)}
+section:first-of-type{border-top:0}
+
+/* roles */
+.roles{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule)}
+@media(min-width:820px){.roles{grid-template-columns:1fr 1fr}}
+.role{background:var(--deep);padding:34px 32px 36px;position:relative}
+.role .tag{
+  font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--magenta);display:block;margin-bottom:14px
+}
+.role h3{
+  font-family:var(--display);font-weight:700;font-stretch:88%;
+  font-size:25px;line-height:1.1;letter-spacing:-.015em;margin:0 0 12px;color:#fff
+}
+.role p{margin:0 0 18px;font-size:17.5px;color:var(--sand)}
+.role .why{
+  margin:0;padding-top:16px;border-top:1px dashed var(--rule);
+  font-size:16px;color:var(--foam)
+}
+.role .why b{
+  font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--foam);display:block;margin-bottom:6px
+}
+
+/* strengths */
+.str{list-style:none;padding:0;margin:0;display:grid;gap:30px}
+@media(min-width:760px){.str{grid-template-columns:1fr 1fr;gap:34px 56px}}
+.str li{padding-left:26px;position:relative}
+.str li::before{
+  content:"";position:absolute;left:0;top:.62em;width:11px;height:1px;background:var(--magenta)
+}
+.str h3{
+  font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.18em;
+  text-transform:uppercase;color:#fff;margin:0 0 9px
+}
+.str p{margin:0;font-size:17.5px;color:var(--foam)}
+.str p em{color:var(--sand);font-style:italic}
+
+/* loops */
+.loop{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:8px}
+@media(min-width:700px){.loop{grid-template-columns:repeat(4,1fr)}}
+.loop div{background:var(--deep);padding:24px 22px}
+.loop span{
+  font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--magenta);display:block;margin-bottom:8px
+}
+.loop p{margin:0;font-size:16.5px;color:var(--foam)}
+.note{
+  margin:34px 0 0;padding-left:20px;border-left:2px solid var(--contour);
+  font-style:italic;color:var(--foam);max-width:60ch
+}
+
+/* shoal water */
+.shoal{border:1px solid var(--magenta);padding:38px 34px;background:rgba(214,70,127,.05)}
+.shoal .eyebrow{color:var(--magenta)}
+.shoal h2.hd{margin-bottom:10px}
+.shoal ul{margin:26px 0 0;padding:0;list-style:none;display:grid;gap:16px}
+.shoal li{padding-left:22px;position:relative;color:var(--sand);font-size:17.5px}
+.shoal li::before{content:"—";position:absolute;left:0;color:var(--magenta)}
+
+/* claude note */
+.claude p{max-width:64ch;margin:0 0 20px}
+
+/* footer */
+footer{border-top:1px solid var(--rule);padding:70px 0 90px}
+.links{display:flex;flex-wrap:wrap;gap:14px 34px;margin:0 0 40px;padding:0;list-style:none}
+.links a{
+  font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-decoration:none;
+  border-bottom:1px solid var(--contour);padding-bottom:3px;transition:border-color .2s,color .2s
+}
+.links a:hover{color:var(--magenta);border-color:var(--magenta)}
+.colophon{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--foam);margin:0}
+
+/* motion */
+.rise{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+.rise.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .rise{opacity:1;transform:none;transition:none}
+  .chart path{stroke-dasharray:none!important;stroke-dashoffset:0!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+
+<header class="mast wrap">
+  <span class="nm">Nick Conenna — Cornelius, NC</span>
+  <span class="av">Open · full-time or contract · will travel</span>
+</header>
+
+<div class="hero">
+  <svg class="chart" id="chart" viewBox="0 0 1200 760" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+  <div class="wrap">
+    <p class="eyebrow"><b>Position fix</b> — August 2026</p>
+    <h1>Applied AI architecture, <span class="thin">built in the real world.</span></h1>
+    <p class="sub">I take a messy human process, work out what a model can honestly do inside it, and ship the thing that makes it work. Then I stay until it holds.</p>
+    <dl class="fix">
+      <div><dt>Based</dt><dd>Cornelius, NC</dd></div>
+      <div><dt>Range</dt><dd>Nationwide / remote</dd></div>
+      <div><dt>Shipped</dt><dd class="mark">Live marketplace, solo</dd></div>
+      <div><dt>Daily driver</dt><dd>Claude &amp; Claude Code</dd></div>
+    </dl>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <section class="rise">
+    <p class="eyebrow">Section 01 — <b>Where I fit</b></p>
+    <h2 class="hd">Four role shapes, in the order I'd bet on myself</h2>
+    <p class="lede">Titles differ by company. These are the shapes of work where my last three years are directly relevant, not adjacent to it.</p>
+
+    <div class="roles">
+      <article class="role">
+        <span class="tag">Strongest fit</span>
+        <h3>Forward deployed engineer</h3>
+        <p>Sit inside a customer's constraints, build the integration that makes the model useful there, and hand back something their team can run without me.</p>
+        <p class="why"><b>Why me</b>I have spent two years doing exactly this for myself with no one to escalate to: Stripe Connect, Supabase, Next.js, a hosting tier with hard function limits. The unglamorous middle of the work is the part I'm good at.</p>
+      </article>
+
+      <article class="role">
+        <span class="tag">Strong fit</span>
+        <h3>Solutions architect, applied AI</h3>
+        <p>Map a customer's process to what Claude can actually do, scope it honestly, prototype fast, and say plainly which parts shouldn't be automated yet.</p>
+        <p class="why"><b>Why me</b>My marketplace routes jobs by risk and licensing behind the scenes so the customer never has to understand the architecture. Hiding the machinery behind an obvious experience is the whole job.</p>
+      </article>
+
+      <article class="role">
+        <span class="tag">Strong fit</span>
+        <h3>Founding / early product engineer</h3>
+        <p>Own a surface end to end on a small team — schema through payment flow through the copy on the button.</p>
+        <p class="why"><b>Why me</b>I am the sole author of a live two-sided marketplace: escrow, race-safe first-claim dispatch, completion confirmation, payout to the worker. Verified end to end, in production.</p>
+      </article>
+
+      <article class="role">
+        <span class="tag">Distinctive fit</span>
+        <h3>Applied AI for physical-world industries</h3>
+        <p>Bring these tools to trades, property, logistics, small operators — the sectors where adoption is slowest and the upside is largest.</p>
+        <p class="why"><b>Why me</b>I can sit with an HVAC owner at 8am and a staff engineer at 10 and be useful in both rooms. I've recruited contractors, run the property, and dug the footings myself.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="rise">
+    <p class="eyebrow">Section 02 — <b>What I bring</b></p>
+    <h2 class="hd">Strengths I'd stake a mission on</h2>
+    <p class="lede">Each of these is claimed because there's work behind it, not because it sounds good in a profile.</p>
+
+    <ul class="str">
+      <li>
+        <h3>Context density</h3>
+        <p>Fifty-two years, two companies, property development, eight trades, boats, land, a family. <em>Models are short on lived context and long on everything else.</em> Mine is the scarce half.</p>
+      </li>
+      <li>
+        <h3>Verification-first loops</h3>
+        <p>My working thesis: the agent framework matters far less than the verifier. I build the check before I build the generator, and I run tight correction loops rather than long unattended ones.</p>
+      </li>
+      <li>
+        <h3>Full ownership of scope</h3>
+        <p>Domain purchase to production payout, brand to schema to support email. <em>Nothing has been handed to me finished</em>, so nothing on a roadmap reads as someone else's problem.</p>
+      </li>
+      <li>
+        <h3>Translation</h3>
+        <p>I can explain what a system does to a roofer, a realtor, a county office, and an engineer, and get the same decision out of all four conversations.</p>
+      </li>
+      <li>
+        <h3>Rate of learning</h3>
+        <p>I picked up agentic coding loops in the open, in months, while shipping. I would rather be measured on my slope than my starting point.</p>
+      </li>
+      <li>
+        <h3>Persistence with a deadline</h3>
+        <p>I've kept a company alive with real constraints and a real household behind it. Urgency isn't a management technique for me; it's the default condition I already work in.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="rise">
+    <p class="eyebrow">Section 03 — <b>How I work</b></p>
+    <h2 class="hd">Context × Loops</h2>
+    <p class="lede">Two inputs decide the quality of anything I build with a model. Everything else is tooling preference.</p>
+
+    <div class="loop">
+      <div><span>Frame</span><p>State the job in the operator's words, not the system's. If I can't, I don't understand it yet.</p></div>
+      <div><span>Load</span><p>Give the model the real context — the constraint, the history, the thing everyone in the room already knows.</p></div>
+      <div><span>Verify</span><p>Build the check first. Ground truth, a test, a person who'd notice. No verifier, no loop.</p></div>
+      <div><span>Correct</span><p>Run it again with what failed. Short cycles, visible each time. Stop when it holds twice.</p></div>
+    </div>
+
+    <p class="note">Most of what I've published argues one point: the framework you pick is a detail, and the verifier you build is the whole thing.</p>
+  </section>
+
+  <section class="rise">
+    <div class="shoal">
+      <p class="eyebrow"><b>Section 04</b> — Shoal water</p>
+      <h2 class="hd">What I'm not, as of today</h2>
+      <p class="lede">Marked honestly, because you'll find it on day thirty anyway and I'd rather you find it now.</p>
+      <ul>
+        <li>I'm not a research engineer. My depth is applied — putting models to work — not training or evaluating them at the frontier.</li>
+        <li>I haven't run systems at very large scale. My production experience is one live marketplace, not millions of users.</li>
+        <li>I've built alone. I want the code review culture of a strong team, and I know that will cost me some ego in month one.</li>
+        <li>My agentic tooling practice is measured in months, not years — deliberate daily practice, but recent.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="rise claude">
+    <p class="eyebrow">Section 05 — <b>Working with Claude</b></p>
+    <h2 class="hd">My most useful critic is a model I pay for</h2>
+    <p>Claude is in almost every hour of my build: architecture arguments, code, copy, and the reads I don't want to hear. I use it hardest as a critic — the fastest way I know to find out my idea is weaker than it felt at 6am.</p>
+    <p>That's a working relationship with a tool I chose, and I'd rather say it plainly than dress it up: it isn't a credential and no one at Anthropic has vouched for me. It's just the honest description of how this work gets done, and part of why I want to do it where it's made.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <ul class="links">
+      <li><a href="mailto:YOUR@EMAIL.COM">Email</a></li>
+      <li><a href="https://www.linkedin.com/in/YOUR-LINKEDIN">LinkedIn</a></li>
+      <li><a href="https://github.com/NickConenna/applied-ai-architecture">GitHub — applied-ai-architecture</a></li>
+      <li><a href="https://yskaipe.com">YSKAIPE (live)</a></li>
+      <li><a href="https://x.com/BitcoinBroham">X</a></li>
+    </ul>
+    <p class="colophon">Nick Conenna · Cornelius, North Carolina · Available full-time or contract · Open to travel and relocation</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var svg=document.getElementById('chart');
+  if(!svg) return;
+  var W=1200,H=760,rows=13,pts=9,ns='http://www.w3.org/2000/svg';
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  for(var r=0;r<rows;r++){
+    var base=40+r*58, d='', prev=null;
+    for(var i=0;i<=pts;i++){
+      var x=-60+(i*(W+120)/pts);
+      var wob=Math.sin(i*1.17+r*0.63)*34 + Math.sin(i*2.41-r*0.29)*17;
+      var y=base+wob*(1-r/(rows*1.8));
+      if(i===0){ d='M'+x.toFixed(1)+' '+y.toFixed(1); }
+      else{
+        var cx1=prev.x+(x-prev.x)/2, cx2=cx1;
+        d+=' C'+cx1.toFixed(1)+' '+prev.y.toFixed(1)+','+cx2.toFixed(1)+' '+y.toFixed(1)+','+x.toFixed(1)+' '+y.toFixed(1);
+      }
+      prev={x:x,y:y};
+    }
+    var p=document.createElementNS(ns,'path');
+    p.setAttribute('d',d);
+    p.setAttribute('opacity',(0.85-r*0.045).toFixed(2));
+    if(!reduce){
+      p.style.strokeDasharray='2400';
+      p.style.strokeDashoffset='2400';
+      p.style.transition='stroke-dashoffset 2.1s cubic-bezier(.22,.7,.3,1) '+(r*0.075)+'s';
+      requestAnimationFrame(function(el){return function(){el.style.strokeDashoffset='0';};}(p));
+    }
+    svg.appendChild(p);
+  }
+
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:0.12});
+  document.querySelectorAll('.rise').forEach(function(el){ io.observe(el); });
+})();
+</script>
+</body>
+</html>
