@@ -212,6 +212,13 @@ a{color:var(--oxide)}
   display:inline-block;padding-bottom:1px;margin-top:6px;
 }
 .fit .go:hover{color:var(--oxide)}
+/* quiet variant — same shape, no second orange block competing with #fit */
+.fit.quiet{border-left-color:var(--rule);background:transparent;padding-left:22px}
+.fit.quiet .go{border-bottom-width:2px;font-size:clamp(18px,3vw,23px)}
+.fit .aside{
+  font-family:var(--data);font-size:11px;letter-spacing:.06em;
+  color:var(--stamp);margin-top:16px;
+}
 
 /* band */
 .band{background:var(--oxide);color:var(--zinc);padding:54px 0 56px}
@@ -257,6 +264,7 @@ a{color:var(--oxide)}
   .plate{padding:44px 42px 34px}
   .plate-zone{padding:60px 0 16px}
   .fit{padding:32px 34px}
+  .fit.quiet{padding-left:24px}
 }
 @media (min-width:800px){
   .domains{grid-template-columns:repeat(3,1fr)}
@@ -277,6 +285,7 @@ a{color:var(--oxide)}
       <a href="#work">The work</a>
       <a href="#built">Built</a>
       <a href="#hard">What's hard</a>
+      <a href="/writing/">Writing</a>
       <a class="now" href="#contact">Get in touch</a>
     </nav>
   </div>
@@ -293,7 +302,7 @@ a{color:var(--oxide)}
 
     <p class="eyebrow">Nick Conenna — Applied AI Architecture — Cornelius, NC</p>
 
-    <h1>This technology reaches ordinary work slowly. I want to spend my career <em>shortening that.</em></h1>
+    <h1>This technology reaches ordinary work slowly. I want to help <em>with that.</em></h1>
 
     <p class="sub">I design and build applied AI systems — products, integrations, and the ordinary software engineering that has to be right underneath them. Three systems in three unrelated domains over the past two years. <b>Open to full-time or contract work.</b></p>
 
@@ -312,7 +321,7 @@ a{color:var(--oxide)}
       </div>
       <div class="spec">
         <dt>Terms</dt>
-        <dd>Full-time or contract. Remote, on site, or travelling. Based in Cornelius, North Carolina.</dd>
+        <dd>Full-time or contract. Remote, on site, or travelling. Based in Cornelius, North Carolina. <a href="/writing/">Writing →</a></dd>
       </div>
     </dl>
   </div>
@@ -413,8 +422,6 @@ a{color:var(--oxide)}
     <p class="shead">Honestly</p>
     <h2>What's hard about this work, and where I'm short</h2>
     <div class="hard">
-      <h3>The failure mode is fluency</h3>
-      <p>These models are most dangerous when they're wrong in well-formed sentences, and the people checking the output are usually the least equipped to catch it. Most of the engineering effort worth spending goes into making errors visible, not into making output better.</p>
 
       <h3>The last thirty percent isn't written down</h3>
       <p>Every domain has rules that live in one person's judgment. You don't get them by asking; you get them by building something slightly wrong and watching the expert react. That's why I'd rather start building at seventy percent understanding than wait for a complete specification that isn't coming.</p>
@@ -461,6 +468,16 @@ a{color:var(--oxide)}
     </div>
   </section>
 
+  <section id="writing">
+    <p class="shead">Writing</p>
+    <h2>How I think, at length</h2>
+    <div class="fit quiet">
+      <p>Method written down as it gets used, and a four-book series about measurement, money, and who decides what counts. The research behind the fiction is the same research behind the work.</p>
+      <a class="go" href="/writing/">Read the writing →</a>
+      <p class="aside">Essays · The Cubit and the Quark · how these are made</p>
+    </div>
+  </section>
+
 </div>
 
 <div class="band">
@@ -490,6 +507,7 @@ a{color:var(--oxide)}
   <p class="meta">
     Cornelius, North Carolina · full-time or contract · remote, on site, will travel<br>
     <a href="where-i-fit.html">Details</a> ·
+    <a href="/writing/">Writing</a> ·
     <a href="https://yskaipe.com">YSKAIPE</a> ·
     <a href="https://github.com/NickConenna/applied-ai-architecture">GitHub</a> ·
     <a href="https://www.linkedin.com/in/nickconenna/">LinkedIn</a> ·
