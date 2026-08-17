@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Writing — Nick Conenna</title>
-<meta name="description" content="Working notes on applied AI — method, context, and what actually ships. By Nick Conenna.">
+<meta name="description" content="Working notes on applied AI, and The Cubit and the Quark — a four-book series about measurement, money, and who decides what counts.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
@@ -12,6 +12,7 @@
 :root{
   --zinc:#E6E8E3;
   --plate:#CDD1CA;
+  --plate-hi:#DDE0D9;
   --ink:#15181B;
   --oxide:#23474F;
   --stamp:#7E857D;
@@ -22,6 +23,7 @@
   --data:'IBM Plex Mono',ui-monospace,monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
 body{
   background:var(--zinc);color:var(--ink);
   font-family:var(--body);font-size:17px;line-height:1.6;
@@ -43,12 +45,13 @@ body{
 .bar a{color:var(--oxide);text-decoration:none}
 .back{border-bottom:1px solid var(--rule)}
 .back:hover{border-color:var(--oxide)}
-.bar .right{margin-left:auto}
+.bar .right{margin-left:auto;display:flex;gap:16px}
 .bar .right a{border-bottom:1px solid var(--rule)}
 .bar .right a:hover{border-color:var(--oxide)}
+.bar .hide-sm{display:none}
 
 /* masthead */
-.mast{padding:64px 0 44px}
+.mast{padding:64px 0 40px}
 .eyebrow{
   font-family:var(--data);font-size:10.5px;font-weight:600;
   text-transform:uppercase;letter-spacing:.24em;color:var(--oxide);
@@ -61,11 +64,20 @@ h1{
   letter-spacing:-.024em;text-transform:uppercase;
   margin-bottom:20px;
 }
-.lede{font-size:19px;line-height:1.55;max-width:56ch;color:var(--ink)}
+.lede{font-size:19px;line-height:1.55;max-width:58ch}
 .lede strong{font-weight:500;color:var(--oxide)}
 
+/* section heads */
+.shead{
+  font-family:var(--data);font-size:10.5px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.2em;color:var(--stamp);
+  display:flex;align-items:baseline;gap:12px;margin-bottom:18px;
+}
+.shead::after{content:"";flex:1;height:1px;background:var(--rule)}
+.sectionblock{padding-top:44px}
+
 /* register */
-.register{padding-bottom:24px;border-top:1px solid var(--ink)}
+.register{border-top:1px solid var(--ink)}
 .art{
   display:grid;grid-template-columns:1fr;gap:6px;
   padding:26px 0;border-bottom:1px solid var(--rule);
@@ -88,12 +100,127 @@ h1{
   margin-top:8px;
 }
 .art:hover .go{color:var(--hivis)}
-.ph{color:var(--hivis);font-family:var(--data);font-size:.86em}
+.art.queued{cursor:default}
+.art.queued h2{opacity:.52}
+.art.queued .gist{opacity:.55}
+.art.queued .go{color:var(--rule)}
+
+/* book plate */
+.plate{
+  position:relative;
+  background:linear-gradient(103deg,var(--plate-hi) 0%,var(--plate) 34%,var(--plate-hi) 52%,var(--plate) 68%,var(--plate-hi) 100%);
+  border:1px solid #A9AEA6;border-radius:3px;
+  box-shadow:0 1px 0 #F2F4EF inset,0 12px 28px -18px rgba(21,24,27,.55);
+  padding:36px 26px 28px;margin-top:6px;
+}
+.rivet{
+  position:absolute;width:9px;height:9px;border-radius:50%;
+  background:radial-gradient(circle at 34% 32%,#F4F6F1,#9AA098 62%,#787E76);
+  box-shadow:0 1px 1px rgba(0,0,0,.28);
+}
+.rivet.tl{top:11px;left:11px}
+.rivet.tr{top:11px;right:11px}
+.rivet.bl{bottom:11px;left:11px}
+.rivet.br{bottom:11px;right:11px}
+
+.series{
+  font-family:var(--data);font-size:10.5px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.22em;color:var(--oxide);margin-bottom:16px;
+}
+.plate h2{
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(26px,5vw,40px);line-height:1.06;letter-spacing:-.022em;
+  margin-bottom:14px;text-shadow:0 1px 0 rgba(255,255,255,.5);
+}
+.plate h2 em{font-style:normal;color:var(--oxide)}
+.plate .pitch{font-size:17px;line-height:1.55;max-width:56ch;margin-bottom:22px;color:#2A2F33}
+.plate .pitch b{font-weight:500;color:var(--oxide)}
+
+/* fact block — the book's own device */
+.fact{border-top:1px solid #A9AEA6;border-bottom:1px solid #A9AEA6;padding:18px 0;margin-bottom:22px}
+.fact .label{
+  font-family:var(--data);font-size:10px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.24em;color:var(--hivis);margin-bottom:12px;
+}
+.fact p{
+  font-size:15.5px;line-height:1.5;max-width:62ch;
+  padding:7px 0;border-bottom:1px solid rgba(169,174,166,.5);
+}
+.fact p:last-of-type{border-bottom:none;padding-bottom:0}
+.fact .close{
+  font-family:var(--data);font-size:11px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--oxide);
+  margin-top:12px;border:none;padding:0;
+}
+
+/* the scale — signature element */
+.scale{margin:26px 0 4px}
+.scale .cap{
+  font-family:var(--data);font-size:10px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.2em;color:var(--stamp);margin-bottom:14px;
+}
+.ladder{display:grid;gap:0;border-top:2px solid var(--ink)}
+.rung{
+  display:grid;grid-template-columns:26px 1fr auto;gap:14px;align-items:baseline;
+  padding:13px 0;border-bottom:1px solid rgba(169,174,166,.7);position:relative;
+}
+.rung::before{
+  content:"";position:absolute;top:0;left:0;width:1px;background:var(--ink);
+}
+.rung:nth-child(1)::before{height:15px}
+.rung:nth-child(2)::before{height:11px}
+.rung:nth-child(3)::before{height:11px}
+.rung:nth-child(4)::before{height:11px}
+.rung .mark{
+  font-family:var(--data);font-size:11px;font-weight:600;
+  letter-spacing:.1em;color:var(--stamp);
+}
+.rung .name{
+  font-family:var(--display);font-weight:600;font-size:17px;letter-spacing:-.008em;
+}
+.rung .name span{
+  display:block;font-family:var(--body);font-weight:400;font-size:14.5px;
+  letter-spacing:0;color:#3A4046;margin-top:3px;line-height:1.45;
+}
+.rung .st{
+  font-family:var(--data);font-size:9.5px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.14em;color:var(--stamp);
+  border:1px solid var(--rule);border-radius:2px;padding:3px 7px;white-space:nowrap;
+}
+.rung .st.on{color:var(--hivis);border-color:var(--hivis)}
+
+.plate .cta{
+  display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;margin-top:26px;
+}
+.plate .primary{
+  font-family:var(--display);font-weight:800;font-size:clamp(17px,3vw,22px);
+  letter-spacing:-.014em;color:var(--ink);text-decoration:none;
+  border-bottom:3px solid var(--hivis);padding-bottom:1px;
+}
+.plate .primary:hover{color:var(--oxide)}
+.plate .secondary{
+  font-family:var(--data);font-size:11px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.12em;text-decoration:none;color:var(--ink);
+  border:1px solid var(--ink);border-radius:2px;padding:10px 14px;
+}
+.plate .secondary:hover{background:var(--ink);color:var(--zinc)}
+
+/* disclosure */
+.disclose{
+  border-left:3px solid var(--rule);padding:4px 0 4px 20px;margin-top:34px;
+}
+.disclose h3{
+  font-family:var(--data);font-size:10.5px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.16em;color:var(--stamp);margin-bottom:8px;
+}
+.disclose p{font-size:15.5px;line-height:1.55;max-width:62ch;margin-bottom:10px}
+.disclose p:last-child{margin-bottom:0}
+.disclose strong{font-weight:500;color:var(--oxide)}
 
 /* footer */
 .foot{
   background:var(--oxide);color:var(--zinc);
-  padding:58px 0 62px;margin-top:44px;
+  padding:58px 0 62px;margin-top:52px;
 }
 .foot .eyebrow{color:rgba(230,232,227,.5)}
 .foot .eyebrow::after{background:rgba(230,232,227,.22)}
@@ -114,9 +241,12 @@ h1{
 :focus-visible{outline:2px solid var(--hivis);outline-offset:3px}
 
 @media (min-width:640px){
+  .bar .hide-sm{display:inline}
   .art{grid-template-columns:64px 1fr;gap:0 24px}
   .num{grid-row:1/span 4;padding-top:7px}
-  .mast{padding:80px 0 52px}
+  .mast{padding:80px 0 48px}
+  .plate{padding:44px 42px 34px}
+  .rung{grid-template-columns:34px 1fr auto;gap:18px}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
@@ -126,38 +256,148 @@ h1{
 <header class="bar">
   <div class="wrap">
     <a class="back" href="/">← Nick Conenna</a>
-    <span class="right"><a href="/#contact">Get in touch</a></span>
+    <span class="right">
+      <a class="hide-sm" href="#essays">Essays</a>
+      <a href="#books">The books</a>
+      <a href="/#contact">Get in touch</a>
+    </span>
   </div>
 </header>
 
 <main>
 
 <div class="wrap mast">
-  <p class="eyebrow">Writing — Applied AI Architecture</p>
+  <p class="eyebrow">Writing — Applied AI &amp; Fiction</p>
   <h1>Working notes</h1>
-  <p class="lede">Method written down as it gets used. <strong>The techniques are free and public — the advantage is in running them.</strong> No newsletter, no schedule, nothing here that hasn't survived contact with a real build.</p>
+  <p class="lede">Two tracks, one obsession. <strong>Method written down as it gets used</strong>, and a four-book series about measurement, money, and who decides what counts. Nothing here that hasn't survived contact with a real build or a real archive.</p>
 </div>
 
 <div class="wrap">
-  <div class="register">
 
-    <a class="art" href="https://www.linkedin.com/pulse/techniques-free-now-architect-isnt-nick-conenna-lvzxf/?trackingId=cDg4CJhRR6amTPKYzIe2XQ%3D%3D">
-      <span class="num">01</span>
-      <h2>The Techniques Are Free</h2>
-      <p class="gist">The advantage in applied AI was never access to models or a clever prompt. Every technique worth having is published, free, and sitting in the open. The advantage is the loop you actually run — and almost nobody runs one.</p>
-      <span class="go">Read on LinkedIn →</span>
-<a href="techniques-are-free.html">Writing/The Techniques Are Free →</a>
-    </a>
+  <!-- ============ ESSAYS ============ -->
+  <section id="essays" class="sectionblock">
+    <p class="shead">Essays</p>
+    <div class="register">
 
+      <a class="art" href="https://www.linkedin.com/pulse/techniques-free-now-architect-isnt-nick-conenna-lvzxf/">
+        <span class="num">01</span>
+        <h2>The Techniques Are Free</h2>
+        <p class="gist">The advantage in applied AI was never access to models or a clever prompt. Every technique worth having is published, free, and sitting in the open. The advantage is the loop you actually run — and almost nobody runs one.</p>
+        <span class="go">Read →</span>
+      </a>
 
-  </div>
+      <!-- Paste the published URL below. Local page: the-meter-problem.html -->
+      <a class="art" href="the-meter-problem.html">
+        <span class="num">02</span>
+        <h2>The Meter Problem</h2>
+        <p class="gist">Why J.P. Morgan killed Tesla's tower, and what it tells you about every fight coming in the next ten years. Most arguments that look like they're about money are actually about measurement — and whoever defines the unit has usually already won.</p>
+        <span class="go">Read →</span>
+      </a>
+
+      <div class="art queued">
+        <span class="num">03</span>
+        <h2>21,600</h2>
+        <p class="gist">A human day is 21,600 breaths. The earth is 21,600 nautical miles around. The same number, from the same inherited base — and nobody alive chose it.</p>
+        <span class="go">Forthcoming</span>
+      </div>
+
+      <div class="art queued">
+        <span class="num">04</span>
+        <h2>The Kilogram Died in 2019</h2>
+        <p class="gist">For 130 years every kilogram on earth was a copy of one cylinder in a vault outside Paris. Then it drifted, and we retired it, and started measuring against a constant instead. It is one of the great underreported achievements of our species.</p>
+        <span class="go">Forthcoming</span>
+      </div>
+
+      <div class="art queued">
+        <span class="num">05</span>
+        <h2>Six Men Went to Jekyll Island</h2>
+        <p class="gist">In 1910 they travelled under first names only, behind a duck-hunting cover story, to draft what became the Federal Reserve. The documented version needs no conspiracy and survives fact-checking, which makes it worse.</p>
+        <span class="go">Forthcoming</span>
+      </div>
+
+      <div class="art queued">
+        <span class="num">06</span>
+        <h2>The Prayer Says Debts</h2>
+        <p class="gist">English liturgy says <em>trespasses</em>. The Aramaic word is <em>ḥawbā</em>, and it carries debt and sin in one piece with no seam between them. Four hundred years of sanding down the most-recited sentence in human history.</p>
+        <span class="go">Forthcoming</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ THE BOOKS ============ -->
+  <section id="books" class="sectionblock">
+    <p class="shead">The books</p>
+
+    <div class="plate">
+      <span class="rivet tl" aria-hidden="true"></span>
+      <span class="rivet tr" aria-hidden="true"></span>
+      <span class="rivet bl" aria-hidden="true"></span>
+      <span class="rivet br" aria-hidden="true"></span>
+
+      <p class="series">A four-book series</p>
+      <h2>The Cubit <em>and the</em> Quark</h2>
+
+      <p class="pitch">A metrologist can tell you the circumference of the earth in breaths. He can date a building by the unit it was built to. He cannot read a man across a table — and his stepfather has just been shot at the foot of Tesla's tower on Long Island, having spent the last eleven minutes of his life walking a deliberate sixty-eight paces across a field. <b>The distance is the message.</b></p>
+
+      <div class="fact">
+        <p class="label">Fact</p>
+        <p>For 130 years the kilogram was a cylinder of platinum-iridium in a vault at Sèvres, behind three keys held by three parties. In 2019 it was retired and redefined against the Planck constant.</p>
+        <p>In 1834 the Palace of Westminster burned, destroying the imperial standards of the yard and the pound. Replacements took more than a decade. For those years, the yard did not exist.</p>
+        <p>In 1901 J.P. Morgan financed the tower at Wardenclyffe believing he was buying wireless telegraphy. When he understood Tesla intended to transmit power, he withdrew. You cannot sell what you cannot meter.</p>
+        <p class="close">All of the above is true.</p>
+      </div>
+
+      <div class="scale">
+        <p class="cap">Each book is a unit of measure</p>
+        <div class="ladder">
+          <div class="rung">
+            <span class="mark">I</span>
+            <span class="name">The Pace<span><em>Mille passus</em> — a thousand double steps of a marching soldier, which is why every highway sign in America still counts a Roman's legs.</span></span>
+            <span class="st on">Draft complete</span>
+          </div>
+          <div class="rung">
+            <span class="mark">II</span>
+            <span class="name">The Fathom<span>From Old English <em>fæthm</em>, meaning embrace: the span of a man's outstretched arms. Sailors measured the depth of the sea in hugs.</span></span>
+            <span class="st">Outlined</span>
+          </div>
+          <div class="rung">
+            <span class="mark">III</span>
+            <span class="name">The Breath<span>Twenty-one thousand six hundred a day. One per nautical mile. A day around the body is a day around the planet.</span></span>
+            <span class="st">Outlined</span>
+          </div>
+          <div class="rung">
+            <span class="mark">IV</span>
+            <span class="name">The Standard<span>The object a unit is defined against, the thing that backs a currency, and the banner you carry into a fight.</span></span>
+            <span class="st">Outlined</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta">
+        <!-- Point this at the opening chapters page once it's up -->
+        <a class="primary" href="the-pace-opening.html">Read the opening →</a>
+        <!-- Reader list: paste your form URL, or leave as mailto -->
+        <a class="secondary" href="mailto:nick@peakingwaters.com?subject=Reader%20list%20%E2%80%94%20The%20Pace&amp;body=Add%20me%20to%20the%20reader%20list.">Join the reader list</a>
+      </div>
+    </div>
+
+    <div class="disclose">
+      <h3>How these are made</h3>
+      <p>I write with AI. Not <em>have an AI write it</em> — the distinction matters and I draw it precisely in the author's note. I bring the obsessions, the family material, the thematic commitments, and the veto. The collaboration brings research, structure, drafting at volume, and persistent argument.</p>
+      <p><strong>Every historical claim in these books is checkable</strong>, and a historical note in each volume separates what is real from what is invented. Under current U.S. Copyright Office guidance, AI-generated material is not itself copyrightable and registration requires disclosure. That disclosure is made.</p>
+      <p>I would rather say so on page one than be asked about it later.</p>
+    </div>
+
+  </section>
+
 </div>
 
 <div class="foot">
   <div class="wrap">
-    <p class="eyebrow">Available — one slot open</p>
+    <p class="eyebrow">Available — full-time or contract</p>
     <h2>The method, applied to your problem</h2>
-    <p>Fixed fee, fixed date, outcome carried. Most engagements start with a paid one-week diagnostic — a scoped plan and a working proof of the hardest part.</p>
+    <p>Fixed fee, fixed date, outcome carried. Most engagements start with a paid two-week look — a scoped plan and a working proof of the hardest part.</p>
     <a class="cta" href="/#contact">Get in touch →</a>
   </div>
 </div>
