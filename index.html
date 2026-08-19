@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nick Conenna — Applied AI Architecture</title>
-<meta name="description" content="I design and build applied AI systems end to end. Three systems, three unrelated domains, two years, one architect. Open to full-time or contract work.">
+<meta name="description" content="I design and build applied AI systems end to end. Two systems, two domains, one architect. Open to full-time or contract work.">
 <meta property="og:title" content="Nick Conenna — Applied AI Architecture">
 <meta property="og:description" content="Work out which parts of a real process a model can be trusted with, design the system around that answer, build it, and stay with it until it holds up in front of real users.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -382,7 +382,7 @@ a{color:var(--oxide)}
   .loop{padding:30px 30px 26px}
 }
 @media (min-width:800px){
-  .domains{grid-template-columns:repeat(3,1fr)}
+  .domains{grid-template-columns:repeat(2,1fr)}
   .shapes{grid-template-columns:repeat(3,1fr)}
 }
 @media (prefers-reduced-motion:reduce){
@@ -422,7 +422,7 @@ a{color:var(--oxide)}
 
     <h1>I build applied AI systems, and I'm open to <em>the right project.</em></h1>
 
-    <p class="sub">Three systems, three domains I had no background in, over two years — the kind of work that has to hold up in front of real users, not a demo. <b>Currently building YSKAIPE into a national AI knowledge hub</b> for home and auto ownership — structured trade knowledge, fair-price data, and an app to come — alongside contract and full-time work. If your project is a good fit, I'd like to hear about it.</p>
+    <p class="sub">Two systems, two domains I had no background in, over two years — the kind of work that has to hold up in front of real users, not a demo. Currently splitting time between those two builds and new client work. If your project is a good fit, I'd like to hear about it.</p>
 
     <dl class="specs">
       <div class="spec">
@@ -435,11 +435,7 @@ a{color:var(--oxide)}
       </div>
       <div class="spec">
         <dt>Domains so far</dt>
-        <dd>Payments and marketplaces. Civil legal procedure. Pricing and knowledge modeling. <b>None of them fields I had worked in before.</b> <a href="#built">What they are ↓</a></dd>
-      </div>
-      <div class="spec">
-        <dt>Right now</dt>
-        <dd>Building <a href="https://yskaipe.com">YSKAIPE</a> into a national AI knowledge hub for home and auto ownership. <b>See it live →</b></dd>
+        <dd>Pricing and knowledge modeling for the trades. Long-form narrative built as a structured, versioned, human/AI-collaborative system. <b>Neither a field I had worked in before.</b> <a href="#built">What they are ↓</a></dd>
       </div>
       <div class="spec">
         <dt>Shape</dt>
@@ -503,36 +499,27 @@ a{color:var(--oxide)}
   <!-- ================= BUILT ================= -->
   <section id="built">
     <p class="shead">Built</p>
-    <h2>Three domains, two years, one architect</h2>
-    <p class="lede">I've been applying AI as the architect on each of these — designing the system, building it, and owning what happens when it's wrong.</p>
+    <h2>Two systems, two years, one architect</h2>
+    <p class="lede">These are the two primary work samples: one where the model has to be right about a number, and one where it has to be right about a voice. Different failure modes, same underlying discipline — structure the knowledge, then decide what the model is trusted to do with it.</p>
 
     <div class="domains">
 
       <article>
-        <span class="dom">Payments &amp; marketplaces</span>
-        <h3>YSKAIPE <span class="tag on">Live · in transition</span></h3>
-        <p>Started as a local two-sided marketplace — card charged and held, work dispatched to a network, first claim wins, payout on confirmed completion. Now becoming a national, internet-only knowledge hub for home and auto ownership: structured trade knowledge, fair-price data by category, and an app underway.</p>
-        <div class="row"><span>Started</span><p>With no background in payment regulation, marketplace dispatch, or structuring domain knowledge for a model to use.</p></div>
-        <div class="row"><span>My role</span><p>Architect and sole builder across both phases: data model, payment design, the knowledge layer, and the reasoning built on top of it.</p></div>
-        <span class="link"><a href="https://yskaipe.com">See it live at yskaipe.com →</a> · Next.js · Supabase · Stripe Connect</span>
+        <span class="dom">Pricing &amp; knowledge infrastructure</span>
+        <h3>Fair Rate Index <span class="tag on">Live · v0.1</span></h3>
+        <p>A free, public reference for what the eight core home and auto trades should cost, in all 50 states — built entirely on structured domain knowledge: task time, local labor rates from BLS data, material costs, and a regional index, published as a range rather than a false single number. A correction loop lets homeowners submit real invoices, and every verified submission pulls the band toward reality. The whole thing is exposed as an open API and JSON-LD so the numbers are machine-readable, not just a page.</p>
+        <div class="row"><span>Started</span><p>With no background in price modeling, trade economics, or turning a shop's cost structure into data a model can reason over.</p></div>
+        <div class="row"><span>My role</span><p>Architect and sole builder: the task dictionary, the pricing model, the correction loop, and the API that makes it queryable by anyone.</p></div>
+        <span class="link"><a href="https://fairrateindex.com">See it live at fairrateindex.com →</a> · 8 trades · 50 states · 400+ priced tasks · open API</span>
       </article>
 
       <article>
-        <span class="dom">Law &amp; procedure</span>
-        <h3>Amicus <span class="tag">In build</span></h3>
-        <p>Documents go in. A timeline assembles itself out of the record, statutes get researched, letters and filings get drafted, deadlines get tracked. Built against a real matter rather than a sample set, because a real matter is where the exceptions are.</p>
-        <div class="row"><span>Started</span><p>With no background in filings, deadlines, or how a case file is assembled.</p></div>
-        <div class="row"><span>My role</span><p>Architect. The design problem is not producing a draft — it's knowing when the draft is wrong before anyone relies on it.</p></div>
-        <span class="link">Carries a free estate-planning tool alongside it</span>
-      </article>
-
-      <article>
-        <span class="dom">Pricing &amp; knowledge</span>
-        <h3>Fair Rate Index <span class="tag">In build</span></h3>
-        <p>A free, neutral reference for what common work should cost, and a plain-language walkthrough that helps someone understand their problem before they call anyone. Underneath it, a structured knowledge layer: what fails, how long parts last, what the repair involves.</p>
-        <div class="row"><span>Started</span><p>With no background in price modeling or structuring domain knowledge for a model to use.</p></div>
-        <div class="row"><span>My role</span><p>Architect of the knowledge layer and the reasoning built on top of it.</p></div>
-        <span class="link">Free to use · built as a resource, not a funnel</span>
+        <span class="dom">Narrative systems</span>
+        <h3>The Cubit and the Quark <span class="tag on">Book I complete</span></h3>
+        <p>A four-book roman-à-clef series — measurement, money, and who decides what counts — built as a structured, versioned production, not a single long draft. Book I, <em>The Pace</em>, is complete: a prologue and 93 chapters across three parts, with front matter, a historical note, a method note, and an author's note disclosing exactly how the human/AI collaboration worked, byline Nicholas Conenna.</p>
+        <div class="row"><span>Started</span><p>With no background in fiction craft, series structure, or directing a model through a hundred-chapter continuity problem.</p></div>
+        <div class="row"><span>My role</span><p>Architect and author: the plot spine, the world's internal rules, and the editorial pass that keeps a hundred chapters consistent with each other.</p></div>
+        <span class="link"><a href="#novels">Read more about the series ↓</a> · Book I: The Pace · reader edition and print PDF built</span>
       </article>
 
     </div>
@@ -604,7 +591,7 @@ a{color:var(--oxide)}
       </div>
       <div class="mission">
         <dt>Technical generalist</dt>
-        <dd>Where the org needs someone who can move across payments, legal procedure, pricing, and operations without a six-month ramp each time.<em>Fintech and crypto infrastructure, hard tech, marketplaces, professional services</em></dd>
+        <dd>Where the org needs someone who can move across pricing, knowledge modeling, narrative systems, and operations without a six-month ramp each time.<em>Fintech and crypto infrastructure, hard tech, marketplaces, professional services</em></dd>
       </div>
     </dl>
   </section>
@@ -622,7 +609,7 @@ a{color:var(--oxide)}
       <p>My depth is applied — putting models to work. Training, fine-tuning, and evaluating at the frontier are other people's expertise, and I'd defer to them.</p>
 
       <h3>I haven't operated at very large scale</h3>
-      <p>My production experience is one live system with real money in it, not millions of users. I know the difference between those two problems and I'm not going to pretend I've solved the second.</p>
+      <p>My production experience is systems with real users and real money in them, not millions of users. I know the difference between those two problems and I'm not going to pretend I've solved the second.</p>
 
       <h3>I've worked alone</h3>
       <p>Two years as the only engineer on everything I've built. I want the review culture of a strong team, and I expect the first month of that to cost me some ego.</p>
@@ -664,7 +651,7 @@ a{color:var(--oxide)}
 
   <!-- ================= THE WINDOW ================= -->
   <section id="novels">
-    <p class="shead">Also</p>
+    <p class="shead">Work sample 02</p>
     <h2>I write a novel series about measurement</h2>
 
     <div class="window">
@@ -715,7 +702,7 @@ a{color:var(--oxide)}
     Cornelius, North Carolina · full-time or contract · remote, on site, will travel<br>
     <a href="where-i-fit.html">Details</a> ·
     <a href="/writing/">The novels</a> ·
-    <a href="https://yskaipe.com">YSKAIPE</a> ·
+    <a href="https://fairrateindex.com">Fair Rate Index</a> ·
     <a href="https://github.com/NickConenna/applied-ai-architecture">GitHub</a> ·
     <a href="https://www.linkedin.com/in/nickconenna/">LinkedIn</a> ·
     <a href="https://x.com/BitcoinBroham">X</a>
