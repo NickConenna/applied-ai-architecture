@@ -12,16 +12,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --zinc:#E6E8E3;
-  --plate:#CDD1CA;
-  --plate-hi:#DDE0D9;
-  --ink:#15181B;
-  --oxide:#23474F;
-  --stamp:#6E756D;
-  --rule:#B4B9B1;
-  --hivis:#F26419;
-  --brass:#A8862F;
-  --vault:#0F1619;
+  --zinc:#0B0C0D;
+  --plate:#26282B;
+  --plate-hi:#37393C;
+  --ink:#ECEDE8;
+  --oxide:#57A2AC;
+  --stamp:#9CA39A;
+  --rule:#3B3E3B;
+  --hivis:#E8591F;
+  --brass:#C9A227;
+  --vault:#050608;
   --display:'Archivo',system-ui,sans-serif;
   --body:'IBM Plex Sans',system-ui,sans-serif;
   --data:'IBM Plex Mono',ui-monospace,monospace;
@@ -33,8 +33,8 @@ body{
   font-family:var(--body);font-size:17px;line-height:1.65;
   -webkit-font-smoothing:antialiased;
   background-image:
-    radial-gradient(ellipse 70% 40% at 12% -6%,rgba(35,71,79,.10),transparent 68%),
-    radial-gradient(ellipse 60% 34% at 92% 4%,rgba(242,100,25,.06),transparent 70%);
+    radial-gradient(ellipse 70% 40% at 12% -6%,rgba(87,162,172,.09),transparent 68%),
+    radial-gradient(ellipse 60% 34% at 92% 4%,rgba(232,89,31,.06),transparent 70%);
   background-attachment:fixed;
 }
 .wrap{max-width:900px;margin:0 auto;padding:0 24px}
@@ -42,7 +42,7 @@ body{
 /* ---------- top bar ---------- */
 .bar{
   position:sticky;top:0;z-index:20;
-  background:rgba(230,232,227,.93);backdrop-filter:blur(10px);
+  background:rgba(11,12,13,.86);backdrop-filter:blur(10px);
   border-bottom:1px solid var(--rule);
 }
 .bar .wrap{
@@ -54,21 +54,21 @@ body{
 .status{display:flex;align-items:center;gap:8px;color:var(--oxide)}
 .dot{
   width:8px;height:8px;border-radius:50%;background:var(--hivis);flex:none;
-  box-shadow:0 0 0 0 rgba(242,100,25,.55);animation:pulse 2.6s ease-out infinite;
+  box-shadow:0 0 0 0 rgba(232,89,31,.55);animation:pulse 2.6s ease-out infinite;
 }
 @keyframes pulse{
-  0%{box-shadow:0 0 0 0 rgba(242,100,25,.5)}
-  70%{box-shadow:0 0 0 9px rgba(242,100,25,0)}
-  100%{box-shadow:0 0 0 0 rgba(242,100,25,0)}
+  0%{box-shadow:0 0 0 0 rgba(232,89,31,.5)}
+  70%{box-shadow:0 0 0 9px rgba(232,89,31,0)}
+  100%{box-shadow:0 0 0 0 rgba(232,89,31,0)}
 }
 .bar nav{margin-left:auto;display:flex;gap:15px;align-items:center;flex-wrap:wrap}
 .bar a{color:var(--oxide);text-decoration:none;border-bottom:1px solid var(--rule)}
 .bar a:hover{border-color:var(--oxide)}
 .bar a.now{
   border:1px solid var(--hivis);border-radius:2px;
-  padding:6px 10px;color:var(--ink);background:rgba(242,100,25,.1);
+  padding:6px 10px;color:var(--ink);background:rgba(232,89,31,.12);
 }
-.bar a.now:hover{background:rgba(242,100,25,.2)}
+.bar a.now:hover{background:rgba(232,89,31,.22)}
 .hide-sm{display:none}
 
 /* ---------- nameplate ---------- */
@@ -76,22 +76,22 @@ body{
 .plate{
   position:relative;
   background:linear-gradient(103deg,var(--plate-hi) 0%,var(--plate) 34%,var(--plate-hi) 52%,var(--plate) 68%,var(--plate-hi) 100%);
-  border:1px solid #A9AEA6;border-radius:3px;
-  box-shadow:0 1px 0 #F2F4EF inset,0 20px 44px -26px rgba(21,24,27,.6);
+  border:1px solid #45484A;border-radius:3px;
+  box-shadow:0 1px 0 rgba(255,255,255,.16) inset,0 24px 50px -26px rgba(0,0,0,.9);
   padding:40px 28px 30px;overflow:hidden;
 }
 /* brushed grain */
 .plate::before{
-  content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.6;
   background-image:repeating-linear-gradient(103deg,
-    rgba(255,255,255,.35) 0 1px, transparent 1px 3px,
-    rgba(21,24,27,.035) 3px 4px, transparent 4px 7px);
+    rgba(255,255,255,.09) 0 1px, transparent 1px 3px,
+    rgba(0,0,0,.32) 3px 4px, transparent 4px 7px);
 }
 .plate > *{position:relative}
 .rivet{
   position:absolute;width:10px;height:10px;border-radius:50%;z-index:2;
   background:radial-gradient(circle at 34% 32%,#F4F6F1,#9AA098 62%,#787E76);
-  box-shadow:0 1px 2px rgba(0,0,0,.3);
+  box-shadow:0 1px 3px rgba(0,0,0,.65);
 }
 .rivet.tl{top:12px;left:12px}
 .rivet.tr{top:12px;right:12px}
@@ -103,22 +103,22 @@ body{
   text-transform:uppercase;letter-spacing:.2em;color:var(--oxide);
   display:flex;align-items:center;gap:12px;
 }
-.eyebrow::after{content:"";flex:1;height:1px;background:#A9AEA6}
+.eyebrow::after{content:"";flex:1;height:1px;background:rgba(255,255,255,.16)}
 
 h1{
   font-family:var(--display);font-weight:800;
   font-size:clamp(31px,5.6vw,50px);line-height:1.04;
   letter-spacing:-.028em;margin:24px 0 16px;max-width:19ch;
-  color:var(--ink);text-shadow:0 1px 0 rgba(255,255,255,.55);
+  color:var(--ink);text-shadow:0 2px 3px rgba(0,0,0,.55);
 }
 h1 em{font-style:normal;color:var(--oxide)}
-.sub{font-size:18px;line-height:1.55;max-width:56ch;margin-bottom:30px;color:#2A2F33}
+.sub{font-size:18px;line-height:1.55;max-width:56ch;margin-bottom:30px;color:#C9CCC5}
 .sub b{font-weight:500;color:var(--oxide)}
 
-.specs{border-top:1px solid #A9AEA6}
+.specs{border-top:1px solid rgba(255,255,255,.16)}
 .spec{
   display:grid;grid-template-columns:1fr;gap:3px;
-  padding:13px 0;border-bottom:1px solid rgba(169,174,166,.55);
+  padding:13px 0;border-bottom:1px solid rgba(255,255,255,.09);
   opacity:0;transform:translateY(6px);
   animation:stampin .36s cubic-bezier(.2,.7,.3,1) forwards;
 }
@@ -127,6 +127,7 @@ h1 em{font-style:normal;color:var(--oxide)}
 .spec:nth-child(3){animation-delay:.24s}
 .spec:nth-child(4){animation-delay:.31s}
 .spec:nth-child(5){animation-delay:.38s}
+.spec:nth-child(6){animation-delay:.45s}
 @keyframes stampin{to{opacity:1;transform:none}}
 .spec dt{
   font-family:var(--data);font-size:10.5px;font-weight:600;
@@ -186,7 +187,7 @@ a{color:var(--oxide)}
 .domains p{font-size:15.5px;margin-bottom:12px;max-width:none}
 .domains .row{
   display:grid;grid-template-columns:70px 1fr;gap:12px;
-  padding:9px 0;border-top:1px solid rgba(180,185,177,.55);
+  padding:9px 0;border-top:1px solid rgba(255,255,255,.10);
   font-size:15px;line-height:1.5;
 }
 .domains .row span{
@@ -210,12 +211,12 @@ a{color:var(--oxide)}
 /* ---------- the loop — signature element ---------- */
 .loop{
   margin-top:6px;border:1px solid var(--rule);border-radius:3px;
-  background:rgba(205,209,202,.3);padding:26px 22px 22px;position:relative;
+  background:rgba(255,255,255,.035);padding:26px 22px 22px;position:relative;
 }
 .loopgrid{display:grid;gap:0}
 .move{
   display:grid;grid-template-columns:44px 1fr;gap:0 16px;
-  padding:16px 0;border-bottom:1px dashed rgba(110,117,109,.4);
+  padding:16px 0;border-bottom:1px dashed rgba(255,255,255,.14);
 }
 .move:last-of-type{border-bottom:none;padding-bottom:6px}
 .move .n{
@@ -251,7 +252,7 @@ a{color:var(--oxide)}
 .mission dt{
   font-family:var(--display);font-weight:600;font-size:17.5px;letter-spacing:-.008em;
 }
-.mission dd{font-size:15.5px;line-height:1.55;color:#2F353A;max-width:60ch}
+.mission dd{font-size:15.5px;line-height:1.55;color:#C9CCC5;max-width:60ch}
 .mission dd em{
   font-style:normal;font-family:var(--data);font-size:.86em;
   letter-spacing:.06em;color:var(--stamp);display:block;margin-top:4px;
@@ -277,7 +278,7 @@ a{color:var(--oxide)}
 .shapes p{font-size:15.5px;margin:0}
 
 /* ---------- callout ---------- */
-.fit{border-left:3px solid var(--hivis);background:rgba(205,209,202,.42);padding:28px 24px;margin-top:6px}
+.fit{border-left:3px solid var(--hivis);background:rgba(255,255,255,.045);padding:28px 24px;margin-top:6px}
 .fit p{font-size:16.5px}
 .fit .go{
   font-family:var(--display);font-weight:800;
@@ -287,12 +288,25 @@ a{color:var(--oxide)}
 }
 .fit .go:hover{color:var(--oxide)}
 
+/* ---------- hire / payment callout ---------- */
+.signal{
+  border-left:3px solid var(--brass);background:rgba(201,162,39,.09);
+  padding:28px 24px;margin-top:6px;
+}
+.signal p{font-size:16.5px}
+.signal .tagrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.signal .tagrow span{
+  font-family:var(--data);font-size:10.5px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.1em;color:var(--oxide);
+  border:1px solid var(--brass);border-radius:2px;padding:5px 9px;
+}
+
 /* ---------- the window into the night side ---------- */
 .window{
-  margin-top:6px;background:var(--vault);color:var(--zinc);
-  border-radius:3px;padding:34px 26px 30px;position:relative;overflow:hidden;
-  box-shadow:0 24px 54px -32px rgba(15,22,25,.9);
-  background-image:radial-gradient(ellipse 80% 60% at 15% 0%,rgba(35,71,79,.6),transparent 70%);
+  margin-top:6px;background:var(--vault);color:var(--ink);
+  border:1px solid #2A2C2C;border-radius:3px;padding:34px 26px 30px;position:relative;overflow:hidden;
+  box-shadow:0 24px 54px -32px rgba(0,0,0,.95);
+  background-image:radial-gradient(ellipse 80% 60% at 15% 0%,rgba(87,162,172,.16),transparent 70%);
 }
 .window .cap{
   font-family:var(--data);font-size:10px;font-weight:600;text-transform:uppercase;
@@ -305,7 +319,7 @@ a{color:var(--oxide)}
 }
 .window h3 .and{
   display:block;font-size:.3em;letter-spacing:.02em;font-weight:600;
-  color:#4E8593;margin:6px 0 4px;
+  color:var(--oxide);margin:6px 0 4px;
 }
 /* the rule, carried over from the series page */
 .wrule{
@@ -331,12 +345,16 @@ a{color:var(--oxide)}
 }
 
 /* ---------- band ---------- */
-.band{background:var(--oxide);color:var(--zinc);padding:58px 0 60px}
-.band .shead{color:rgba(230,232,227,.6)}
-.band .shead::after{background:rgba(230,232,227,.22)}
-.band h2{color:#F4F6F1;margin-bottom:15px}
-.band p{color:rgba(230,232,227,.88);max-width:58ch}
-.band strong{color:#F4F6F1;font-weight:500}
+.band{
+  background:linear-gradient(120deg,#141516 0%,#212325 55%,#161718 100%);
+  color:var(--ink);padding:58px 0 60px;
+  border-top:1px solid var(--brass);border-bottom:1px solid var(--rule);
+}
+.band .shead{color:var(--stamp)}
+.band .shead::after{background:var(--rule)}
+.band h2{color:var(--ink);margin-bottom:15px}
+.band p{color:#C9CCC5;max-width:58ch}
+.band strong{color:var(--brass);font-weight:500}
 
 /* ---------- contact ---------- */
 .contact{border-top:none;padding:56px 0 80px}
@@ -344,7 +362,7 @@ a{color:var(--oxide)}
 .ask li{
   font-family:var(--data);font-size:12.5px;letter-spacing:.04em;
   color:var(--stamp);padding:8px 0 8px 19px;position:relative;
-  border-bottom:1px solid rgba(180,185,177,.5);max-width:46ch;
+  border-bottom:1px solid rgba(255,255,255,.10);max-width:46ch;
 }
 .ask li::before{content:"›";position:absolute;left:0;color:var(--hivis)}
 .actions{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center}
@@ -378,6 +396,7 @@ a{color:var(--oxide)}
   .item .idx{padding-top:5px}
   .mission{grid-template-columns:220px 1fr;gap:0 24px;align-items:baseline}
   .fit{padding:34px 34px}
+  .signal{padding:30px 34px}
   .window{padding:44px 42px 38px}
   .loop{padding:30px 30px 26px}
 }
@@ -401,7 +420,7 @@ a{color:var(--oxide)}
       <a href="#work">The work</a>
       <a href="#built">Built</a>
       <a class="hide-sm" href="#missions">Where I fit</a>
-      <a href="#hard">What's hard</a>
+      <a class="hide-sm" href="#bitcoinbroham">@BitcoinBroham</a>
       <a href="/writing/">The novels</a>
       <a class="now" href="#contact">Get in touch</a>
     </nav>
@@ -442,6 +461,10 @@ a{color:var(--oxide)}
         <dd>Generalist by design. The transferable skill is not the domain — it's finding the part of a process where a model is trustworthy and building hard borders around the part where it isn't.</dd>
       </div>
       <div class="spec">
+        <dt>On-chain</dt>
+        <dd>Seasoned Bitcoin hodler and self-custodian — in the asset since early, still holding, still building around it. Runs as <b>@BitcoinBroham</b> on X, its own body of work here, not a footnote. <a href="#bitcoinbroham">Where it fits ↓</a></dd>
+      </div>
+      <div class="spec">
         <dt>Terms</dt>
         <dd>Full-time or contract. Remote, on site, or travelling. Based in Cornelius, North Carolina.</dd>
       </div>
@@ -475,19 +498,26 @@ a{color:var(--oxide)}
       <div class="item">
         <span class="idx">03</span>
         <div>
+          <h3>Run agentic systems, not just prompts</h3>
+          <p>Wire a model up to tools, memory, and a task loop so it can actually do the work — not answer questions about the work. Most of my day-to-day, on both systems, runs through agentic coding loops rather than one-shot prompting.</p>
+        </div>
+      </div>
+      <div class="item">
+        <span class="idx">04</span>
+        <div>
           <h3>Work out the business problem underneath</h3>
           <p>The stated ask and the actual problem are often different. Twenty years running operations before this means I can usually tell which one I'm looking at, and say so early enough for it to matter.</p>
         </div>
       </div>
       <div class="item">
-        <span class="idx">04</span>
+        <span class="idx">05</span>
         <div>
           <h3>Sit with the customer</h3>
           <p>Go where the work happens, learn the constraints that were never written down, build inside their environment, and leave it documented so their team runs it without me.</p>
         </div>
       </div>
       <div class="item">
-        <span class="idx">05</span>
+        <span class="idx">06</span>
         <div>
           <h3>Pick up something that stalled</h3>
           <p>Find where it's actually failing, cut scope to what holds, get one path working the whole way through, and be clear about which parts still shouldn't ship.</p>
@@ -529,7 +559,7 @@ a{color:var(--oxide)}
   <section id="method">
     <p class="shead">Method</p>
     <h2>Four moves, in order, in any domain — and then again</h2>
-    <p class="lede">This is a loop, not a checklist. The fourth move returns to the first, and the reason most applied AI work stalls is that nobody ever closes it.</p>
+    <p class="lede">This is a loop, not a checklist, and I mean that literally — both systems above run on agentic loops, not single passes. The fourth move returns to the first, and the reason most applied AI work stalls is that nobody ever closes it. The iteration is the product; I'd rather run twenty short passes than one long one.</p>
 
     <div class="loop">
       <div class="loopgrid">
@@ -593,6 +623,10 @@ a{color:var(--oxide)}
         <dt>Technical generalist</dt>
         <dd>Where the org needs someone who can move across pricing, knowledge modeling, narrative systems, and operations without a six-month ramp each time.<em>Fintech and crypto infrastructure, hard tech, marketplaces, professional services</em></dd>
       </div>
+      <div class="mission">
+        <dt>Crypto-native builder</dt>
+        <dd>A hodler and self-custodian since early in the asset, not a recent convert — I use the rails I'd be building, and I publish on Bitcoin and the space frontier as @BitcoinBroham.<em>Fit for any team building crypto-native products, not just watching the space</em></dd>
+      </div>
     </dl>
   </section>
 
@@ -637,6 +671,17 @@ a{color:var(--oxide)}
         <p>Where the work is ongoing and the relationships matter more than any single project. This is the one I'd prefer, for the right mission.</p>
       </div>
     </div>
+
+    <div class="signal">
+      <p><strong>Getting started:</strong> a short call to confirm scope, a one-page statement of work with a fixed price or day rate, then an invoice before kickoff on anything under six weeks — net 15 on longer engagements. No procurement maze on my end, and no separate "let's discuss pricing" round trip if you already know the shape of the work.</p>
+      <div class="tagrow">
+        <span>Rate on request</span>
+        <span>Fixed price or day rate</span>
+        <span>Wire / ACH</span>
+        <span>USDC</span>
+        <span>BTC</span>
+      </div>
+    </div>
   </section>
 
   <!-- ================= DETAIL ================= -->
@@ -646,6 +691,27 @@ a{color:var(--oxide)}
     <div class="fit">
       <p>A second page for anyone considering it properly: the role titles this maps to in postings, what the first sixty days would look like, the standards I hold myself to, and how I actually work with Claude.</p>
       <a class="go" href="where-i-fit.html">Read the details →</a>
+    </div>
+  </section>
+
+  <!-- ================= BITCOINBROHAM UNIT ================= -->
+  <section id="bitcoinbroham">
+    <p class="shead">Work sample 03</p>
+    <h2>@BitcoinBroham — the same question, outside the fiction</h2>
+
+    <div class="window">
+      <p class="cap">An ongoing public ledger, not a brand account</p>
+      <h3>Money<span class="and">and</span>Measurement</h3>
+
+      <div class="wrule" aria-hidden="true"></div>
+
+      <p>The novels ask who decides what counts. <b>@BitcoinBroham</b> is where I ask the same question in public, in real time, about an asset I've actually held since early — Bitcoin, self-custody, and the space frontier, written by a seasoned hodler rather than someone discovering the topic on camera.</p>
+
+      <p>It isn't a side account. It runs on the same discipline as the other two systems on this page: a structured body of work, built in public, over years — and the clearest place to see how I actually think about money, trust, and verification before any of it shows up in client work.</p>
+
+      <a class="enter" href="https://x.com/BitcoinBroham">Follow @BitcoinBroham →</a>
+
+      <p class="note">Bitcoin · self-custody · the space frontier</p>
     </div>
   </section>
 
@@ -691,12 +757,13 @@ a{color:var(--oxide)}
     <li>The problem, in your own words</li>
     <li>Role or project, and roughly when</li>
     <li>What's already been tried</li>
+    <li>Rough budget or day-rate range, if you have one</li>
   </ul>
   <div class="actions">
-    <a class="mailto" href="mailto:nick@peakingwaters.com?subject=Project&amp;body=The%20problem%3A%0A%0ARole%20or%20project%3A%0A%0ATiming%3A%0A%0AWhat%27s%20already%20been%20tried%3A%0A">nick@peakingwaters.com</a>
+    <a class="mailto" href="mailto:nanonicholas@protonmail.com?subject=Project&amp;body=The%20problem%3A%0A%0ARole%20or%20project%3A%0A%0ATiming%3A%0A%0AWhat%27s%20already%20been%20tried%3A%0A">nanonicholas@protonmail.com</a>
     <!-- CALENDAR SLOT — paste a Cal.com or Calendly link here and this button
          goes live. Until then it falls back to email. -->
-    <a class="book" href="mailto:nick@peakingwaters.com?subject=20%20minutes%3F">Book 20 minutes →</a>
+    <a class="book" href="mailto:nanonicholas@protonmail.com?subject=20%20minutes%3F">Book 20 minutes →</a>
   </div>
   <p class="meta">
     Cornelius, North Carolina · full-time or contract · remote, on site, will travel<br>
