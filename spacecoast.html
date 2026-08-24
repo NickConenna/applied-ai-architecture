@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Space Coast — YSKAIPE Operations | Nick Conenna</title>
+<meta name="description" content="YSKAIPE's Space Coast roster — Brevard County, FL aerospace/defense/AI-to-physical mission targets, sequenced by access and fit.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --zinc-950:#0a0b0d;
+    --zinc-900:#151719;
+    --plate:#1f2225;
+    --plate-raised:#282c30;
+    --plate-line:#3a3f45;
+    --paper:#e9e6dd;
+    --paper-dim:#9a988f;
+    --oxide:#ff5a1f;
+    --oxide-dim:#8a3418;
+    --brass:#c9a227;
+    font-size:16px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--zinc-950);
+    color:var(--paper);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+
+  /* riveted plate primitive */
+  .plate{
+    position:relative;
+    background:linear-gradient(155deg, var(--plate-raised), var(--plate));
+    border:1px solid var(--plate-line);
+  }
+  .plate::before, .plate::after,
+  .plate .rivet-tl, .plate .rivet-tr, .plate .rivet-bl, .plate .rivet-br{
+    content:''; position:absolute; width:6px; height:6px; border-radius:50%;
+    background:radial-gradient(circle at 35% 35%, #6b6f74, #232527 70%);
+    box-shadow:0 1px 0 rgba(0,0,0,.5);
+  }
+  .plate::before{top:8px; left:8px;}
+  .plate::after{top:8px; right:8px;}
+  .plate .rivet-bl{bottom:8px; left:8px;}
+  .plate .rivet-br{bottom:8px; right:8px;}
+
+  /* header */
+  header{
+    border-bottom:1px solid var(--plate-line);
+    padding:20px 0;
+  }
+  .header-row{display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;}
+  .brand{
+    font-family:'Archivo', sans-serif; font-weight:800; letter-spacing:.02em;
+    font-size:1.05rem; text-decoration:none;
+  }
+  .brand .dot{color:var(--oxide);}
+  nav a{
+    font-family:'IBM Plex Mono', monospace; font-size:.72rem; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--paper-dim); text-decoration:none; margin-left:22px;
+  }
+  nav a:hover, nav a.active{color:var(--oxide);}
+
+  /* hero */
+  .hero{padding:76px 0 56px; border-bottom:1px solid var(--plate-line);}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:'IBM Plex Mono', monospace; font-size:.72rem; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--oxide); margin-bottom:22px;
+  }
+  .eyebrow::before{content:''; width:22px; height:1px; background:var(--oxide);}
+  h1{
+    font-family:'Archivo', sans-serif; font-weight:900; letter-spacing:-.01em;
+    font-size:clamp(2.6rem, 6vw, 5rem); line-height:0.98; text-transform:uppercase;
+    max-width:14ch;
+  }
+  h1 .thin{font-weight:600; color:var(--paper-dim); display:block; font-size:.32em; letter-spacing:.04em; margin-top:14px; text-transform:none;}
+  .hero-sub{
+    max-width:640px; margin-top:28px; font-size:1.08rem; color:#c9c6ba;
+  }
+  .hero-meta{
+    margin-top:36px; display:flex; gap:36px; flex-wrap:wrap;
+    font-family:'IBM Plex Mono', monospace; font-size:.78rem; color:var(--paper-dim);
+  }
+  .hero-meta strong{display:block; color:var(--paper); font-size:.95rem; margin-bottom:4px;}
+
+  /* why section */
+  .why{padding:56px 0; border-bottom:1px solid var(--plate-line);}
+  .why-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--plate-line); border:1px solid var(--plate-line);}
+  .why-cell{background:var(--zinc-950); padding:26px 24px;}
+  .why-cell .num{font-family:'IBM Plex Mono', monospace; color:var(--oxide-dim); font-size:.8rem; letter-spacing:.1em;}
+  .why-cell h3{font-family:'Archivo', sans-serif; font-size:1.02rem; margin:10px 0 8px; text-transform:uppercase; letter-spacing:.01em;}
+  .why-cell p{font-size:.9rem; color:var(--paper-dim);}
+
+  /* roster */
+  .roster{padding:64px 0 40px;}
+  .section-head{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:6px; flex-wrap:wrap; gap:10px;}
+  .section-head h2{
+    font-family:'Archivo', sans-serif; font-weight:800; font-size:1.6rem; text-transform:uppercase;
+  }
+  .section-head .count{font-family:'IBM Plex Mono', monospace; font-size:.75rem; color:var(--paper-dim);}
+  .section-note{color:var(--paper-dim); font-size:.92rem; max-width:640px; margin-bottom:36px;}
+
+  .tier{margin-bottom:48px;}
+  .tier-label{
+    display:flex; align-items:center; gap:14px; margin-bottom:16px;
+  }
+  .tier-label .tag{
+    font-family:'IBM Plex Mono', monospace; font-size:.68rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--zinc-950); background:var(--oxide); padding:4px 9px; font-weight:600;
+  }
+  .tier-label .tag.alt{background:var(--brass);}
+  .tier-label h3{font-family:'Archivo', sans-serif; font-size:1rem; text-transform:uppercase; letter-spacing:.03em; color:var(--paper);}
+  .tier-label .why-this{font-family:'IBM Plex Mono', monospace; font-size:.72rem; color:var(--paper-dim); margin-left:auto;}
+
+  .cards{display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:14px;}
+  .card{padding:22px 22px 20px;}
+  .card-top{display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:14px;}
+  .rank{font-family:'IBM Plex Mono', monospace; font-size:1.4rem; color:var(--plate-line); font-weight:600;}
+  .cluster{
+    font-family:'IBM Plex Mono', monospace; font-size:.66rem; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--paper-dim); border:1px solid var(--plate-line); padding:3px 8px; white-space:nowrap;
+  }
+  .card h4{font-family:'Archivo', sans-serif; font-size:1.15rem; text-transform:uppercase; margin-bottom:4px; letter-spacing:.01em;}
+  .card .loc{font-family:'IBM Plex Mono', monospace; font-size:.72rem; color:var(--oxide); margin-bottom:12px;}
+  .card p{font-size:.87rem; color:#c9c6ba; line-height:1.55;}
+
+  /* cadence */
+  .cadence{padding:56px 0; border-top:1px solid var(--plate-line);}
+  .cadence-plate{padding:34px; display:grid; grid-template-columns:1.1fr 1fr; gap:36px;}
+  .cadence-plate h2{font-family:'Archivo', sans-serif; font-size:1.5rem; text-transform:uppercase; margin-bottom:14px;}
+  .cadence-plate p{color:var(--paper-dim); font-size:.92rem; margin-bottom:16px;}
+  .cadence-list{list-style:none;}
+  .cadence-list li{
+    display:flex; gap:12px; padding:10px 0; border-bottom:1px dashed var(--plate-line); font-size:.86rem;
+  }
+  .cadence-list li:last-child{border-bottom:none;}
+  .cadence-list .d{font-family:'IBM Plex Mono', monospace; color:var(--oxide); min-width:64px;}
+
+  @media (max-width:760px){
+    .why-grid{grid-template-columns:1fr;}
+    .cadence-plate{grid-template-columns:1fr;}
+  }
+
+  /* footer / cta */
+  footer{border-top:1px solid var(--plate-line); padding:48px 0 60px;}
+  .cta-row{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px;}
+  .cta-row h3{font-family:'Archivo', sans-serif; font-size:1.3rem; text-transform:uppercase;}
+  .cta-row p{color:var(--paper-dim); font-size:.88rem; margin-top:6px;}
+  .btn{
+    font-family:'IBM Plex Mono', monospace; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase;
+    background:var(--oxide); color:var(--zinc-950); padding:12px 22px; text-decoration:none; font-weight:600;
+    border:1px solid var(--oxide);
+  }
+  .btn:hover{background:transparent; color:var(--oxide);}
+  .back{font-family:'IBM Plex Mono', monospace; font-size:.72rem; color:var(--paper-dim); text-decoration:none; letter-spacing:.08em;}
+  .back:hover{color:var(--oxide);}
+  .foot-meta{margin-top:30px; font-family:'IBM Plex Mono', monospace; font-size:.68rem; color:#55584f;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap header-row">
+    <a class="brand" href="index.html">NICK CONENNA<span class="dot">.</span></a>
+    <nav>
+      <a href="index.html">Consulting</a>
+      <a href="writing/index.html">Writing</a>
+      <a class="active" href="#roster">Space Coast</a>
+      <a href="yskaipe.html">YSKAIPE</a>
+      <a href="fairrateindex.html">Fair Rate Index</a>
+      <a href="review.html">Review</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Brevard County, FL — 28.08°N, 80.61°W — YSKAIPE Operations</div>
+    <h1>Space Coast<span class="thin">Mission targets for the AI-to-physical frontier</span></h1>
+    <p class="hero-sub">
+      Ten aerospace and defense operators inside a 25-mile stretch of Melbourne, Titusville, and Cape Canaveral —
+      the one geography in the country where "AI applied to physical systems" is the local industry, not a pitch.
+      Sequenced by access first, product fit second.
+    </p>
+    <div class="hero-meta">
+      <div><strong>10 orgs</strong>Prioritized roster</div>
+      <div><strong>3 clusters</strong>Melbourne · Titusville · Cape Canaveral–Merritt Island</div>
+      <div><strong>5 tiers</strong>Access → thesis match → culture → scale → anchor</div>
+    </div>
+  </div>
+</section>
+
+<section class="why">
+  <div class="wrap">
+    <div class="why-grid">
+      <div class="why-cell">
+        <div class="num">01</div>
+        <h3>The industry is the geography</h3>
+        <p>L3Harris, Lockheed, Northrop, Collins, Jacobs, Leidos, Embraer, and Astrion all run production floors on the Space Coast. SpaceX and Blue Origin fly hardware built by the same labor pool. No other U.S. county concentrates AI-plus-physical-systems work this tightly.</p>
+      </div>
+      <div class="why-cell">
+        <div class="num">02</div>
+        <h3>Built for a single operating base</h3>
+        <p>Melbourne, Titusville, and Cape Canaveral sit inside a 25-mile radius — proximity between employer, launch range, and manufacturing floor that no other aerospace hub in the country compresses this tightly.</p>
+      </div>
+      <div class="why-cell">
+        <div class="num">03</div>
+        <h3>Thesis match, not just proximity</h3>
+        <p>YSKAIPE's pivot into "planetary space suits" isn't a metaphor here — Collins Aerospace is under active NASA contract building the next lunar EVA suit two hours down the road.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="roster" id="roster">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Mission Roster</h2>
+      <span class="count">10 targets / 5 tiers</span>
+    </div>
+    <p class="section-note">Reordered from the original list by how the target actually opens: access points first, then the one org whose current product is your own thesis, then the exploration-culture primes, then the systems primes, then the manufacturing anchor.</p>
+
+    <div class="tier">
+      <div class="tier-label">
+        <span class="tag">Tier 1</span>
+        <h3>Access Points</h3>
+        <span class="why-this">Fastest real door-in</span>
+      </div>
+      <div class="cards">
+        <div class="plate card">
+          <div class="rivet-bl"></div><div class="rivet-br"></div>
+          <div class="card-top"><span class="rank">01</span><span class="cluster">Melbourne, FL</span></div>
+          <h4>L3Harris Technologies</h4>
+          <div class="loc mono">HQ · Sensors / Comms / Space Systems</div>
+          <p>Largest single employer of AI-adjacent engineering talent on the Space Coast, and the only Fortune 500 aerospace/defense prime headquartered here. The geographic anchor of the whole thesis.</p>
+        </div>
+        <div class="plate card">
+          <div class="rivet-bl"></div><div class="rivet-br"></div>
+          <div class="card-top"><span class="rank">02</span><span class="cluster">Kennedy Space Center</span></div>
+          <h4>Jacobs Technology</h4>
+          <div class="loc mono">KSC Test &amp; Operations Support Contractor</div>
+          <p>Runs the day-to-day connective tissue of Kennedy Space Center across NASA and commercial tenants. An insider-access target, not just another prime — the fastest way to be inside the ecosystem rather than pitching it from outside.</p>
+        </div>
+        <div class="plate card">
+          <div class="rivet-bl"></div><div class="rivet-br"></div>
+          <div class="card-top"><span class="rank">03</span><span class="cluster">Cape Canaveral</span></div>
+          <h4>Astrion</h4>
+          <div class="loc mono">Defense Tech Services · Mission Support</div>
+          <p>PE-backed rollup (Oasis Systems + ERC) doing systems engineering and mission support at the Cape. Smaller and faster-moving than the primes — the kind of shop that can say yes to an outside pitch quickly.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tier">
+      <div class="tier-label">
+        <span class="tag alt">Tier 2</span>
+        <h3>Product-Thesis Match</h3>
+        <span class="why-this">Their current work is your pitch</span>
+      </div>
+      <div class="cards">
+        <div class="plate card">
+          <div class="rivet-bl"></div><div class="rivet-br"></div>
+          <div class="card-top"><span class="rank">04</span><span class="cluster">RTX / Windsor Locks-adjacent ops</span></div>
+          <h4>Collins Aerospace</h4>
+          <div class="loc mono">Active NASA EVA Services contract</div>
+          <p>Under contract now developing the next-generation lunar-surface spacesuit for Artemis, after descoping the ISS demo in 2024. This is the single strongest overlap on the roster — YSKAIPE's "planetary space suits" framing is literally their open scope of work.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tier">
+      <div class="tier-label">
+        <span class="tag">Tier 3</span>
+        <h3>Exploration Culture</h3>
+        <span class="why-this">Musk-adjacent, mission-driven</span>
+      </div>
+      <div class="cards">
+        <div class="plate card">
+          <div class="rivet-bl"></div><div class="rivet-br"></div>
+          <div class="card-top"><span class="rank">05</span><span class="cluster">Cape Canaveral SLC-40 / LC-39A</span></div>
+          <h4>SpaceX</h4>
+          <div class="loc mono">Launch &amp; Vehicle Operations</div>
+          <p>The explicit reference point already inside the YSKAIPE exploration-company framing. Highest-bar culture fit for a serialist builder who wants real sprint pace.</p>
+        </div>
+        <div class="plate card">
+          <div class="rivet-bl"></div><div class="rivet-br"></div>
+          <div class="card-top"><span class="rank">06</span><span class="cluster">Cape Canaveral LC-36 / Merritt Island</span></div>
+          <h4>Blue Origin</h4>
+          <div class="loc mono">New Glenn Manufacturing &amp; Launch</div>
+          <p>The second major human-spaceflight operator on the Cape, with a growing Merritt Island manufacturing footprint — a competing exploration culture worth reading against SpaceX's.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tier">
+      <div class="tier-label">
+        <span class="tag alt">Tier 4</span>
+        <h3>Systems Primes</h3>
+        <span class="why-this">Scale, budget, long sales cycle</span>
+      </div>
+      <div class="cards">
+        <div class="plate card">
+          <div class="rivet-bl"></div><div class="rivet-br"></div>
+          <div class="card-top"><span class="rank">07</span><span class="cluster">Titusville, FL</span></div>
+          <h4>Lockheed Martin</h4>
+          <div class="loc mono">Orion Spacecraft Processing</div>
+          <p>Astrotech and Titusville facilities processing Orion for Artemis — deep-primes work with a multi-year sales cycle, but the largest single contract ceiling on the roster.</p>
+        </div>
+        <div class="plate card">
+          <div class="rivet-bl"></div><div class="rivet-br"></div>
+          <div class="card-top"><span class="rank">08</span><span class="cluster">National Security Space</span></div>
+          <h4>Northrop Grumman</h4>
+          <div class="loc mono">Space Systems</div>
+          <p>National-security space and launch-vehicle work that touches the Cape without a single Brevard headquarters — a broader-geography target inside the same mission set.</p>
+        </div>
+        <div class="plate card">
+          <div class="rivet-bl"></div><div class="rivet-br"></div>
+          <div class="card-top"><span class="rank">09</span><span class="cluster">Digital / AI Services</span></div>
+          <h4>Leidos</h4>
+          <div class="loc mono">National Security &amp; Space Digital Solutions</div>
+          <p>The most software-and-AI-native of the primes on this list — a bridge target for an Applied AI Architect pitch, less physical hardware than the rest of the roster.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tier">
+      <div class="tier-label">
+        <span class="tag">Tier 5</span>
+        <h3>Manufacturing Anchor</h3>
+        <span class="why-this">Brevard-rooted, non-space</span>
+      </div>
+      <div class="cards">
+        <div class="plate card">
+          <div class="rivet-bl"></div><div class="rivet-br"></div>
+          <div class="card-top"><span class="rank">10</span><span class="cluster">Melbourne, FL</span></div>
+          <h4>Embraer</h4>
+          <div class="loc mono">Phenom Line Manufacturing</div>
+          <p>Aerospace manufacturing culture anchored in Melbourne — not a space company, but part of the same engineering labor market and worth keeping on the board for that reason alone.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cadence">
+  <div class="wrap">
+    <div class="plate cadence-plate">
+      <div class="rivet-bl"></div><div class="rivet-br"></div>
+      <div>
+        <h2>Execution Cadence</h2>
+        <p>One target, one day, in tier order. The goal isn't ten simultaneous pitches — it's ten real, specific conversations, sequenced so the easiest doors open first and build the case for the harder ones.</p>
+        <p>Access-point targets go first because a yes there compounds: an insider connection at Jacobs Technology or Astrion makes every later conversation on the Cape easier.</p>
+      </div>
+      <ul class="cadence-list">
+        <li><span class="d mono">Days 1–3</span> Tier 1 — L3Harris, Jacobs Technology, Astrion</li>
+        <li><span class="d mono">Day 4</span> Tier 2 — Collins Aerospace</li>
+        <li><span class="d mono">Days 5–6</span> Tier 3 — SpaceX, Blue Origin</li>
+        <li><span class="d mono">Days 7–9</span> Tier 4 — Lockheed Martin, Northrop Grumman, Leidos</li>
+        <li><span class="d mono">Day 10</span> Tier 5 — Embraer</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="cta-row">
+      <div>
+        <h3>Building toward Brevard County</h3>
+        <p>Applied AI Architect work, sequenced against a real geography and a real mission set.</p>
+      </div>
+      <a class="btn" href="mailto:nick@peakingwaters.com">Start a conversation</a>
+    </div>
+    <div class="foot-meta">
+      <a class="back" href="index.html">&larr; Back to nickconenna.com</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
