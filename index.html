@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nick Conenna — Applied AI Architecture</title>
-<meta name="description" content="I design and build applied AI systems end to end. Two systems, two domains, one architect. Open to full-time or contract work.">
+<meta name="description" content="I design and build applied AI systems end to end. Four systems, four domains, one architect. Open to full-time or contract work.">
 <meta property="og:title" content="Nick Conenna — Applied AI Architecture">
 <meta property="og:description" content="Work out which parts of a real process a model can be trusted with, design the system around that answer, build it, and stay with it until it holds up in front of real users.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -80,7 +80,6 @@ body{
   box-shadow:0 1px 0 rgba(255,255,255,.16) inset,0 24px 50px -26px rgba(0,0,0,.9);
   padding:40px 28px 30px;overflow:hidden;
 }
-/* brushed grain */
 .plate::before{
   content:"";position:absolute;inset:0;pointer-events:none;opacity:.6;
   background-image:repeating-linear-gradient(103deg,
@@ -321,7 +320,6 @@ a{color:var(--oxide)}
   display:block;font-size:.3em;letter-spacing:.02em;font-weight:600;
   color:var(--oxide);margin:6px 0 4px;
 }
-/* the rule, carried over from the series page */
 .wrule{
   position:relative;height:24px;margin-bottom:22px;
   border-top:1px solid rgba(230,232,227,.45);
@@ -419,6 +417,7 @@ a{color:var(--oxide)}
     <nav>
       <a href="#work">The work</a>
       <a href="#built">Built</a>
+      <a class="hide-sm" href="yskaipe.html">Space Coast</a>
       <a class="hide-sm" href="#missions">Where I fit</a>
       <a class="hide-sm" href="#bitcoinbroham">@BitcoinBroham</a>
       <a href="/writing/">The novels</a>
@@ -441,7 +440,7 @@ a{color:var(--oxide)}
 
     <h1>I build applied AI systems, and I'm open to <em>the right project.</em></h1>
 
-    <p class="sub">Two systems, two domains I had no background in, over two years — the kind of work that has to hold up in front of real users, not a demo. Currently splitting time between those two builds and new client work. If your project is a good fit, I'd like to hear about it.</p>
+    <p class="sub">Four systems, four domains I had no background in, built over two years — the kind of work that has to hold up in front of real users, not a demo. Currently splitting time between those builds and new client work. If your project is a good fit, I'd like to hear about it.</p>
 
     <dl class="specs">
       <div class="spec">
@@ -454,7 +453,7 @@ a{color:var(--oxide)}
       </div>
       <div class="spec">
         <dt>Domains so far</dt>
-        <dd>Pricing and knowledge modeling for the trades. Long-form narrative built as a structured, versioned, human/AI-collaborative system. <b>Neither a field I had worked in before.</b> <a href="#built">What they are ↓</a></dd>
+        <dd>Pricing and knowledge modeling for the trades. Agentic legal research and drafting. AI-to-physical systems for extreme environments. Long-form narrative built as a structured, versioned human/AI system. <b>None fields I had worked in before.</b> <a href="#built">What they are ↓</a></dd>
       </div>
       <div class="spec">
         <dt>Shape</dt>
@@ -499,7 +498,7 @@ a{color:var(--oxide)}
         <span class="idx">03</span>
         <div>
           <h3>Run agentic systems, not just prompts</h3>
-          <p>Wire a model up to tools, memory, and a task loop so it can actually do the work — not answer questions about the work. Most of my day-to-day, on both systems, runs through agentic coding loops rather than one-shot prompting.</p>
+          <p>Wire a model up to tools, memory, and a task loop so it can actually do the work — not answer questions about the work. Most of my day-to-day, across all four systems, runs through agentic coding loops rather than one-shot prompting.</p>
         </div>
       </div>
       <div class="item">
@@ -529,8 +528,8 @@ a{color:var(--oxide)}
   <!-- ================= BUILT ================= -->
   <section id="built">
     <p class="shead">Built</p>
-    <h2>Two systems, two years, one architect</h2>
-    <p class="lede">These are the two primary work samples: one where the model has to be right about a number, and one where it has to be right about a voice. Different failure modes, same underlying discipline — structure the knowledge, then decide what the model is trusted to do with it.</p>
+    <h2>Four systems, four domains, one architect</h2>
+    <p class="lede">These are the primary work samples. Pricing has to get a number right. Legal research has to get a citation right. A survival kit has to keep someone alive. A novel has to get a voice right. Four different failure modes, same underlying discipline — structure the domain knowledge, then decide exactly what the model is trusted to do with it.</p>
 
     <div class="domains">
 
@@ -540,7 +539,25 @@ a{color:var(--oxide)}
         <p>A free, public reference for what the eight core home and auto trades should cost, in all 50 states — built entirely on structured domain knowledge: task time, local labor rates from BLS data, material costs, and a regional index, published as a range rather than a false single number. A correction loop lets homeowners submit real invoices, and every verified submission pulls the band toward reality. The whole thing is exposed as an open API and JSON-LD so the numbers are machine-readable, not just a page.</p>
         <div class="row"><span>Started</span><p>With no background in price modeling, trade economics, or turning a shop's cost structure into data a model can reason over.</p></div>
         <div class="row"><span>My role</span><p>Architect and sole builder: the task dictionary, the pricing model, the correction loop, and the API that makes it queryable by anyone.</p></div>
-        <span class="link"><a href="https://fairrateindex.com">See it live at fairrateindex.com →</a> · 8 trades · 50 states · 400+ priced tasks · open API</span>
+        <span class="link"><a href="https://fairrateindex.com">See it live at fairrateindex.com →</a> · <a href="fairrateindex.html">The build in detail →</a> · 8 trades · 50 states · 400+ priced tasks · open API</span>
+      </article>
+
+      <article>
+        <span class="dom">Legal research &amp; drafting</span>
+        <h3>heyamicus <span class="tag">Building</span></h3>
+        <p>An agentic legal-research and drafting platform for civil and probate matters — document intake and timeline construction, statute and case research, deadline tracking, and drafting assistance, built out from a real active case rather than a hypothetical one.</p>
+        <div class="row"><span>Started</span><p>With no background in civil procedure, probate practice, or turning statute and case law into structured, model-usable research.</p></div>
+        <div class="row"><span>My role</span><p>Architect and co-builder, alongside a law-track collaborator working the case from the client side.</p></div>
+        <span class="link">Not live yet — a dedicated build page is next.</span>
+      </article>
+
+      <article>
+        <span class="dom">AI-to-physical systems</span>
+        <h3>YSKAIPE <span class="tag">Building</span></h3>
+        <p>Cold-weather survival kits built from high-grade military surplus and field-tested at elevation in the Blue Ridge — a direct testbed for the same problems an extravehicular suit solves: thermal regulation, the mobility-vs-protection tradeoff, redundancy planning, and comms with no infrastructure to fall back on.</p>
+        <div class="row"><span>Started</span><p>With no background in materials engineering, thermal systems, or field-testing gear against real winter conditions.</p></div>
+        <div class="row"><span>My role</span><p>Architect and builder: the kit design, the field program, and the direct mapping from what's learned in the mountains to specific aerospace and defense teams doing the same class of work.</p></div>
+        <span class="link"><a href="yskaipe.html">See the mission and the team matches →</a> · Blue Ridge, NC · military-surplus sourced · 1–4 night field programs</span>
       </article>
 
       <article>
@@ -559,7 +576,7 @@ a{color:var(--oxide)}
   <section id="method">
     <p class="shead">Method</p>
     <h2>Four moves, in order, in any domain — and then again</h2>
-    <p class="lede">This is a loop, not a checklist, and I mean that literally — both systems above run on agentic loops, not single passes. The fourth move returns to the first, and the reason most applied AI work stalls is that nobody ever closes it. The iteration is the product; I'd rather run twenty short passes than one long one.</p>
+    <p class="lede">This is a loop, not a checklist, and I mean that literally — every system above runs on agentic loops, not single passes. The fourth move returns to the first, and the reason most applied AI work stalls is that nobody ever closes it. The iteration is the product; I'd rather run twenty short passes than one long one.</p>
 
     <div class="loop">
       <div class="loopgrid">
@@ -621,7 +638,7 @@ a{color:var(--oxide)}
       </div>
       <div class="mission">
         <dt>Technical generalist</dt>
-        <dd>Where the org needs someone who can move across pricing, knowledge modeling, narrative systems, and operations without a six-month ramp each time.<em>Fintech and crypto infrastructure, hard tech, marketplaces, professional services</em></dd>
+        <dd>Where the org needs someone who can move across pricing, legal research, physical systems, and narrative without a six-month ramp each time.<em>Fintech and crypto infrastructure, aerospace and defense, hard tech, marketplaces, professional services</em></dd>
       </div>
       <div class="mission">
         <dt>Crypto-native builder</dt>
@@ -647,6 +664,9 @@ a{color:var(--oxide)}
 
       <h3>I've worked alone</h3>
       <p>Two years as the only engineer on everything I've built. I want the review culture of a strong team, and I expect the first month of that to cost me some ego.</p>
+
+      <h3>Not everything above is finished</h3>
+      <p>Fair Rate Index is live. heyamicus and YSKAIPE are real, active builds, not concepts — but they haven't yet been tested against anyone's constraints but my own. That's the honest state of it, and it's exactly what a role or a serious contract would change.</p>
     </div>
   </section>
 
@@ -684,13 +704,13 @@ a{color:var(--oxide)}
     </div>
   </section>
 
-  <!-- ================= DETAIL ================= -->
+  <!-- ================= SPACE COAST DETAIL ================= -->
   <section id="fit">
     <p class="shead">More detail</p>
-    <h2>If you're weighing this seriously</h2>
+    <h2>If you're hiring for the Space Coast specifically</h2>
     <div class="fit">
-      <p>A second page for anyone considering it properly: the role titles this maps to in postings, what the first sixty days would look like, the standards I hold myself to, and how I actually work with Claude.</p>
-      <a class="go" href="where-i-fit.html">Read the details →</a>
+      <p>A dedicated page for Brevard County aerospace and defense teams: how the Blue Ridge field program maps directly to teams like Collins Aerospace's EVA suit work, Jacobs Technology's operations support at KSC, and L3Harris's sensors and comms — plus the specific work sample built for each one.</p>
+      <a class="go" href="yskaipe.html">See the Space Coast mission →</a>
     </div>
   </section>
 
@@ -707,7 +727,7 @@ a{color:var(--oxide)}
 
       <p>The novels ask who decides what counts. <b>@BitcoinBroham</b> is where I ask the same question in public, in real time, about an asset I've actually held since early — Bitcoin, self-custody, and the space frontier, written by a seasoned hodler rather than someone discovering the topic on camera.</p>
 
-      <p>It isn't a side account. It runs on the same discipline as the other two systems on this page: a structured body of work, built in public, over years — and the clearest place to see how I actually think about money, trust, and verification before any of it shows up in client work.</p>
+      <p>It isn't a side account. It runs on the same discipline as the other systems on this page: a structured body of work, built in public, over years — and the clearest place to see how I actually think about money, trust, and verification before any of it shows up in client work.</p>
 
       <a class="enter" href="https://x.com/BitcoinBroham">Follow @BitcoinBroham →</a>
 
@@ -736,6 +756,27 @@ a{color:var(--oxide)}
     </div>
   </section>
 
+  <!-- ================= YSKAIPE WINDOW ================= -->
+  <section id="yskaipe-window">
+    <p class="shead">Work sample 04</p>
+    <h2>Mountains first, because the vacuum doesn't forgive mistakes</h2>
+
+    <div class="window">
+      <p class="cap">A cold-weather system built to prove a bigger claim</p>
+      <h3>Blue Ridge<span class="and">and the</span>Vacuum</h3>
+
+      <div class="wrule" aria-hidden="true"></div>
+
+      <p>A layered insulation system, a mobility-vs-protection tradeoff, redundant systems with no infrastructure to fall back on, comms for a team no one can see or reach — <b>a winter expedition kit and an EVA suit are the same short list of problems</b>, at very different budgets and stakes.</p>
+
+      <p>YSKAIPE runs the terrestrial version first, at elevation in the Blue Ridge, field-tested rather than theorized — and maps what's learned directly to the teams on the Space Coast doing the space-grade version of the same work.</p>
+
+      <a class="enter" href="yskaipe.html">See the mission →</a>
+
+      <p class="note">Blue Ridge, NC · mapped to Collins Aerospace, L3Harris, Jacobs Technology, Astrion</p>
+    </div>
+  </section>
+
 </div>
 
 <!-- ================= BAND ================= -->
@@ -761,13 +802,11 @@ a{color:var(--oxide)}
   </ul>
   <div class="actions">
     <a class="mailto" href="mailto:nanonicholas@protonmail.com?subject=Project&amp;body=The%20problem%3A%0A%0ARole%20or%20project%3A%0A%0ATiming%3A%0A%0AWhat%27s%20already%20been%20tried%3A%0A">nanonicholas@protonmail.com</a>
-    <!-- CALENDAR SLOT — paste a Cal.com or Calendly link here and this button
-         goes live. Until then it falls back to email. -->
     <a class="book" href="mailto:nanonicholas@protonmail.com?subject=20%20minutes%3F">Book 20 minutes →</a>
   </div>
   <p class="meta">
     Cornelius, North Carolina · full-time or contract · remote, on site, will travel<br>
-    <a href="where-i-fit.html">Details</a> ·
+    <a href="yskaipe.html">Space Coast</a> ·
     <a href="/writing/">The novels</a> ·
     <a href="https://fairrateindex.com">Fair Rate Index</a> ·
     <a href="https://github.com/NickConenna/applied-ai-architecture">GitHub</a> ·
