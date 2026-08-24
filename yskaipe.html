@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YSKAIPE — Winter Missions to Space Survival | Nick Conenna</title>
+<meta name="description" content="YSKAIPE's first mission: military-surplus winter expedition kits in the Blue Ridge, built as a testbed for the same problems space survival systems solve — and mapped directly to the teams doing that work.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --zinc-950:#0a0b0d; --zinc-900:#151719; --plate:#1f2225; --plate-raised:#282c30; --plate-line:#3a3f45;
+    --paper:#e9e6dd; --paper-dim:#9a988f; --oxide:#ff5a1f; --oxide-dim:#8a3418; --brass:#c9a227;
+    font-size:16px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--zinc-950); color:var(--paper); font-family:'IBM Plex Sans', sans-serif; line-height:1.55; -webkit-font-smoothing:antialiased;}
+  a{color:inherit;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .wrap{max-width:1100px; margin:0 auto; padding:0 28px;}
+
+  .plate{position:relative; background:linear-gradient(155deg, var(--plate-raised), var(--plate)); border:1px solid var(--plate-line);}
+  .plate::before, .plate::after, .plate .rivet-bl, .plate .rivet-br{
+    content:''; position:absolute; width:6px; height:6px; border-radius:50%;
+    background:radial-gradient(circle at 35% 35%, #6b6f74, #232527 70%); box-shadow:0 1px 0 rgba(0,0,0,.5);
+  }
+  .plate::before{top:8px; left:8px;} .plate::after{top:8px; right:8px;}
+  .plate .rivet-bl{bottom:8px; left:8px;} .plate .rivet-br{bottom:8px; right:8px;}
+
+  header{border-bottom:1px solid var(--plate-line); padding:20px 0;}
+  .header-row{display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; max-width:1100px; margin:0 auto; padding:0 28px;}
+  .brand{font-family:'Archivo', sans-serif; font-weight:800; font-size:1.05rem; text-decoration:none;}
+  .brand .dot{color:var(--oxide);}
+  nav a{font-family:'IBM Plex Mono', monospace; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--paper-dim); text-decoration:none; margin-left:22px;}
+  nav a:hover, nav a.active{color:var(--oxide);}
+
+  .hero{padding:72px 0 50px; border-bottom:1px solid var(--plate-line);}
+  .eyebrow{display:inline-flex; align-items:center; gap:10px; font-family:'IBM Plex Mono', monospace; font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--oxide); margin-bottom:22px;}
+  .eyebrow::before{content:''; width:22px; height:1px; background:var(--oxide);}
+  h1{font-family:'Archivo', sans-serif; font-weight:900; letter-spacing:-.01em; font-size:clamp(2.4rem, 5.6vw, 4.4rem); line-height:1; text-transform:uppercase; max-width:16ch;}
+  h1 .thin{font-weight:600; color:var(--paper-dim); display:block; font-size:.34em; letter-spacing:.03em; margin-top:14px; text-transform:none;}
+  .hero-sub{max-width:660px; margin-top:26px; font-size:1.06rem; color:#c9c6ba;}
+
+  section.body{padding:58px 0; border-bottom:1px solid var(--plate-line);}
+  .kicker{font-family:'IBM Plex Mono', monospace; font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--oxide); margin-bottom:14px;}
+  h2{font-family:'Archivo', sans-serif; font-size:1.7rem; text-transform:uppercase; margin-bottom:18px; letter-spacing:.01em;}
+  .body p{font-size:.97rem; color:#d6d3c9; margin-bottom:16px; max-width:700px;}
+  .body p:last-child{margin-bottom:0;}
+  .body p strong{color:var(--paper); font-weight:600;}
+
+  /* mission facts */
+  .fact-row{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--plate-line); border:1px solid var(--plate-line); margin:28px 0;}
+  .fact{background:var(--zinc-950); padding:20px 18px;}
+  .fact .k{font-family:'IBM Plex Mono', monospace; font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--paper-dim); margin-bottom:8px;}
+  .fact .v{font-family:'Archivo', sans-serif; font-size:1.05rem; text-transform:uppercase;}
+
+  /* bridge / parallels */
+  .parallel-list{list-style:none; margin-top:8px;}
+  .parallel-list li{display:grid; grid-template-columns:1fr 40px 1fr; gap:16px; align-items:center; padding:18px 0; border-bottom:1px dashed var(--plate-line);}
+  .parallel-list li:last-child{border-bottom:none;}
+  .parallel-list .side{font-size:.88rem; color:var(--paper-dim);}
+  .parallel-list .side strong{display:block; color:var(--paper); font-family:'Archivo', sans-serif; font-size:.85rem; text-transform:uppercase; margin-bottom:5px; letter-spacing:.02em;}
+  .parallel-list .side.right{text-align:right;}
+  .parallel-list .arrow{text-align:center; color:var(--oxide); font-family:'IBM Plex Mono', monospace; font-size:.85rem;}
+
+  /* team match cards */
+  .match-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:14px; margin-top:8px;}
+  .match-card{padding:22px;}
+  .match-card .co{font-family:'IBM Plex Mono', monospace; font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--oxide); margin-bottom:6px;}
+  .match-card h4{font-family:'Archivo', sans-serif; font-size:1.08rem; text-transform:uppercase; margin-bottom:12px;}
+  .match-card .sample{
+    font-family:'IBM Plex Mono', monospace; font-size:.68rem; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--brass); margin-bottom:8px;
+  }
+  .match-card p{font-size:.86rem; color:var(--paper-dim); margin:0;}
+
+  .cta-plate{padding:34px; margin-top:8px;}
+  .cta-plate .kicker{margin-bottom:14px;}
+  .cta-plate p{font-size:1rem; color:var(--paper); max-width:none; margin-bottom:20px;}
+  .btn{
+    display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase;
+    background:var(--oxide); color:var(--zinc-950); padding:12px 22px; text-decoration:none; font-weight:600; border:1px solid var(--oxide);
+  }
+  .btn:hover{background:transparent; color:var(--oxide);}
+
+  @media (max-width:760px){
+    .fact-row{grid-template-columns:1fr 1fr;}
+    .parallel-list li{grid-template-columns:1fr; text-align:left;}
+    .parallel-list .side.right{text-align:left;}
+    .parallel-list .arrow{display:none;}
+  }
+
+  footer{padding:48px 0 60px;}
+  .back{font-family:'IBM Plex Mono', monospace; font-size:.72rem; color:var(--paper-dim); text-decoration:none; letter-spacing:.08em;}
+  .back:hover{color:var(--oxide);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-row">
+    <a class="brand" href="index.html">NICK CONENNA<span class="dot">.</span></a>
+    <nav>
+      <a href="index.html">Consulting</a>
+      <a href="writing/index.html">Writing</a>
+      <a href="space-coast.html">Space Coast</a>
+      <a class="active" href="yskaipe.html">YSKAIPE</a>
+      <a href="fairrateindex.html">Fair Rate Index</a>
+      <a href="review.html">Review</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">YSKAIPE — AI-to-Physical Frontier</div>
+    <h1>Winter Missions<span class="thin">A Blue Ridge testbed for the same problems space survival solves</span></h1>
+    <p class="hero-sub">
+      YSKAIPE's first product isn't a metaphor about space — it's a real cold-weather survival system, built from
+      high-grade military surplus and field-tested at elevation, that happens to solve the same engineering problems
+      an extravehicular suit solves, at a fraction of the budget and stakes. That overlap is the actual argument for
+      why this work belongs on a Space Coast team, not just a line on a brand page.
+    </p>
+  </div>
+</section>
+
+<section class="body">
+  <div class="wrap">
+    <div class="kicker">The Mission</div>
+    <h2>Blue Ridge Winter Survival Camp</h2>
+    <p>
+      Based at elevation in the Blue Ridge near Blowing Rock, NC. Overnight expedition programs running 1 to 4 nights,
+      built around kits assembled from high-grade military surplus and re-engineered under the "planetary space suits"
+      line — practical cold-weather protection first, a resellable product second, a field-test platform third.
+    </p>
+    <div class="fact-row">
+      <div class="fact"><div class="k">Location</div><div class="v">Blue Ridge, NC</div></div>
+      <div class="fact"><div class="k">Elevation</div><div class="v">~4,000 ft</div></div>
+      <div class="fact"><div class="k">Format</div><div class="v">1–4 nights</div></div>
+      <div class="fact"><div class="k">Gear Source</div><div class="v">Mil-surplus</div></div>
+    </div>
+    <p>
+      The pivot into this venture wasn't chasing a cool-looking industry from the outside — the original YSKAIPE
+      business had run out of runway and needed a real answer. The direction it moved toward is one there's a genuine,
+      longstanding pull toward: survival, exploration, and the specific problem of keeping a human body functional in
+      an environment that's actively trying to kill it. Space and winter mountains are different scales of the same
+      problem.
+    </p>
+  </div>
+</section>
+
+<section class="body">
+  <div class="wrap">
+    <div class="kicker">The Parlay</div>
+    <h2>Same Problem, Two Environments</h2>
+    <p>A cold-weather expedition kit and an EVA spacesuit are solving the same short list of problems under different budgets and stakes. That's the real bridge — not the branding.</p>
+    <ul class="parallel-list">
+      <li>
+        <div class="side"><strong>Blue Ridge Kit</strong>Layered insulation, moisture management, and extremity warmth under sustained cold exposure at elevation.</div>
+        <div class="arrow">↔</div>
+        <div class="side right"><strong>EVA Suit</strong>Active thermal regulation and micrometeoroid/thermal-cycling protection across extreme temperature swings.</div>
+      </li>
+      <li>
+        <div class="side"><strong>Blue Ridge Kit</strong>The mobility-vs-protection tradeoff — enough insulation to survive, not so much you can't move, climb, or work with your hands.</div>
+        <div class="arrow">↔</div>
+        <div class="side right"><strong>EVA Suit</strong>The same tradeoff at the joint and glove level — rigid torso for pressure, flexible joints for dexterity and range of motion.</div>
+      </li>
+      <li>
+        <div class="side"><strong>Blue Ridge Kit</strong>Redundant systems and failure-mode planning for a multi-night stay with no infrastructure to fall back on.</div>
+        <div class="arrow">↔</div>
+        <div class="side right"><strong>EVA Suit</strong>Life-support redundancy and abort/failure procedures for a mission with zero margin for a single point of failure.</div>
+      </li>
+      <li>
+        <div class="side"><strong>Blue Ridge Kit</strong>Tracking and communications for a small team operating somewhere with no cell signal and real consequences if something goes wrong.</div>
+        <div class="arrow">↔</div>
+        <div class="side right"><strong>EVA Suit</strong>Mission comms and telemetry back to a control team who can't see or reach the person wearing the suit.</div>
+      </li>
+      <li>
+        <div class="side"><strong>Blue Ridge Kit</strong>Field validation under real physical stress — actual cold, actual elevation, actual overnight conditions.</div>
+        <div class="arrow">↔</div>
+        <div class="side right"><strong>EVA Suit</strong>Validation in a vacuum chamber or neutral buoyancy lab — different rig, same principle: it has to work under the real condition, not just on paper.</div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="body">
+  <div class="wrap">
+    <div class="kicker">Where This Maps</div>
+    <h2>Project Teams, Not Just Companies</h2>
+    <p>
+      Not "I'd like to work in aerospace" — specific teams doing work this maps to directly, with the actual work
+      sample from the Blue Ridge program that would go into that application.
+    </p>
+    <div class="match-grid">
+      <div class="plate match-card">
+        <div class="rivet-bl"></div><div class="rivet-br"></div>
+        <div class="co">Collins Aerospace</div>
+        <h4>Extravehicular Activity &amp; Human Surface Mobility</h4>
+        <div class="sample">Work sample</div>
+        <p>Field-tested thermal layering and mobility report from multi-night Blue Ridge trials — the closest direct overlap on the roster, given Collins' active work on the next-generation lunar EVA suit.</p>
+      </div>
+      <div class="plate match-card">
+        <div class="rivet-bl"></div><div class="rivet-br"></div>
+        <div class="co">Jacobs Technology</div>
+        <h4>KSC Test &amp; Operations Support</h4>
+        <div class="sample">Work sample</div>
+        <p>Operations playbook and field logistics plan built to run a 1–4 night expedition program safely with no infrastructure backup — small-scale proof of the same ops discipline test-and-operations work requires.</p>
+      </div>
+      <div class="plate match-card">
+        <div class="rivet-bl"></div><div class="rivet-br"></div>
+        <div class="co">Astrion</div>
+        <h4>Mission Support &amp; Systems Engineering</h4>
+        <div class="sample">Work sample</div>
+        <p>Full systems documentation of the kit — bill of materials, failure-mode analysis, redundancy plan — as evidence of systems-engineering rigor applied to a physical product, not just software.</p>
+      </div>
+      <div class="plate match-card">
+        <div class="rivet-bl"></div><div class="rivet-br"></div>
+        <div class="co">L3Harris Technologies</div>
+        <h4>Sensors &amp; Communications</h4>
+        <div class="sample">Work sample</div>
+        <p>A tracking and comms setup built for expedition safety in a no-signal mountain environment — a working proof of concept for remote sensing and comms integration at small scale.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="body" style="border-bottom:none;">
+  <div class="wrap">
+    <div class="plate cta-plate">
+      <div class="rivet-bl"></div><div class="rivet-br"></div>
+      <div class="kicker">Apply With the Work</div>
+      <p>
+        The plan isn't a cover letter that references this page — it's applying to each team above with the specific
+        work sample built for it: the layering report to Collins, the ops playbook to Jacobs, the systems documentation
+        to Astrion, the comms build to L3Harris. Same body of work, four different cuts, matched to what each team
+        actually reviews candidates against.
+      </p>
+      <a class="btn" href="mailto:nick@peakingwaters.com">Start with a work sample</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a class="back" href="index.html">&larr; Back to nickconenna.com</a>
+  </div>
+</footer>
+
+</body>
+</html>
