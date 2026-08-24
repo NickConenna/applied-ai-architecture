@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Independent Review — Nick Conenna, Applied AI Architect</title>
+<meta name="description" content="An outside read on Nick Conenna's work, written by Claude — interests, demonstrated strengths, and open questions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --zinc-950:#0a0b0d;
+    --zinc-900:#151719;
+    --plate:#1f2225;
+    --plate-raised:#282c30;
+    --plate-line:#3a3f45;
+    --paper:#e9e6dd;
+    --paper-dim:#9a988f;
+    --oxide:#ff5a1f;
+    --oxide-dim:#8a3418;
+    --brass:#c9a227;
+    --sage:#7a9a7e;
+    font-size:16px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--zinc-950); color:var(--paper); font-family:'IBM Plex Sans', sans-serif; line-height:1.55; -webkit-font-smoothing:antialiased;}
+  a{color:inherit;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .wrap{max-width:920px; margin:0 auto; padding:0 28px;}
+
+  .plate{position:relative; background:linear-gradient(155deg, var(--plate-raised), var(--plate)); border:1px solid var(--plate-line);}
+  .plate::before, .plate::after, .plate .rivet-bl, .plate .rivet-br{
+    content:''; position:absolute; width:6px; height:6px; border-radius:50%;
+    background:radial-gradient(circle at 35% 35%, #6b6f74, #232527 70%); box-shadow:0 1px 0 rgba(0,0,0,.5);
+  }
+  .plate::before{top:8px; left:8px;} .plate::after{top:8px; right:8px;}
+  .plate .rivet-bl{bottom:8px; left:8px;} .plate .rivet-br{bottom:8px; right:8px;}
+
+  header{border-bottom:1px solid var(--plate-line); padding:20px 0;}
+  .header-row{display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; max-width:920px; margin:0 auto; padding:0 28px;}
+  .brand{font-family:'Archivo', sans-serif; font-weight:800; font-size:1.05rem; text-decoration:none;}
+  .brand .dot{color:var(--oxide);}
+  nav a{font-family:'IBM Plex Mono', monospace; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--paper-dim); text-decoration:none; margin-left:22px;}
+  nav a:hover, nav a.active{color:var(--oxide);}
+
+  .hero{padding:70px 0 48px; border-bottom:1px solid var(--plate-line);}
+  .byline{
+    display:flex; align-items:center; gap:12px; margin-bottom:26px;
+    font-family:'IBM Plex Mono', monospace; font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; color:var(--paper-dim);
+  }
+  .byline .who{color:var(--oxide);}
+  h1{font-family:'Archivo', sans-serif; font-weight:900; letter-spacing:-.01em; font-size:clamp(2.1rem, 5vw, 3.4rem); line-height:1.03; text-transform:uppercase; max-width:16ch;}
+  .hero-sub{max-width:620px; margin-top:22px; font-size:1.05rem; color:#c9c6ba;}
+  .disclosure{
+    margin-top:28px; padding:16px 18px; border-left:2px solid var(--oxide-dim); background:rgba(255,90,31,.05);
+    font-size:.85rem; color:var(--paper-dim);
+  }
+
+  section.body{padding:52px 0; border-bottom:1px solid var(--plate-line);}
+  section.body:last-of-type{border-bottom:none;}
+  .kicker{font-family:'IBM Plex Mono', monospace; font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--oxide); margin-bottom:14px;}
+  h2{font-family:'Archivo', sans-serif; font-size:1.6rem; text-transform:uppercase; margin-bottom:20px; letter-spacing:.01em;}
+  .body p{font-size:.97rem; color:#d6d3c9; margin-bottom:16px; max-width:680px;}
+  .body p:last-child{margin-bottom:0;}
+  .body p strong{color:var(--paper); font-weight:600;}
+
+  .interest-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:8px;}
+  .interest-card{padding:20px;}
+  .interest-card h4{font-family:'Archivo', sans-serif; font-size:.95rem; text-transform:uppercase; margin-bottom:8px;}
+  .interest-card p{font-size:.85rem; color:var(--paper-dim); margin:0;}
+
+  .strength-list, .question-list{list-style:none; margin-top:6px;}
+  .strength-list li, .question-list li{
+    display:grid; grid-template-columns:26px 1fr; gap:16px; padding:16px 0; border-bottom:1px dashed var(--plate-line);
+  }
+  .strength-list li:last-child, .question-list li:last-child{border-bottom:none;}
+  .strength-list .mark{color:var(--sage); font-family:'IBM Plex Mono', monospace; font-weight:600;}
+  .question-list .mark{color:var(--brass); font-family:'IBM Plex Mono', monospace; font-weight:600;}
+  .strength-list h4, .question-list h4{font-family:'Archivo', sans-serif; font-size:.98rem; text-transform:uppercase; margin-bottom:6px;}
+  .strength-list p, .question-list p{font-size:.88rem; color:var(--paper-dim); margin:0;}
+
+  .verdict-plate{padding:32px; margin-top:8px;}
+  .verdict-plate .kicker{margin-bottom:16px;}
+  .verdict-plate p{font-size:1rem; color:var(--paper); max-width:none;}
+
+  @media (max-width:640px){ .interest-grid{grid-template-columns:1fr;} .strength-list li, .question-list li{grid-template-columns:20px 1fr;} }
+
+  footer{padding:48px 0 60px;}
+  .back{font-family:'IBM Plex Mono', monospace; font-size:.72rem; color:var(--paper-dim); text-decoration:none; letter-spacing:.08em;}
+  .back:hover{color:var(--oxide);}
+  .foot-meta{margin-top:14px; font-family:'IBM Plex Mono', monospace; font-size:.68rem; color:#55584f;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-row">
+    <a class="brand" href="index.html">NICK CONENNA<span class="dot">.</span></a>
+    <nav>
+      <a href="index.html">Consulting</a>
+      <a href="writing/index.html">Writing</a>
+      <a href="space-coast.html">Space Coast</a>
+      <a href="yskaipe.html">YSKAIPE</a>
+      <a href="fairrateindex.html">Fair Rate Index</a>
+      <a class="active" href="review.html">Review</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="byline">Written by <span class="who">Claude</span> (Anthropic) — not by Nick</div>
+    <h1>An Outside Read on the Work</h1>
+    <p class="hero-sub">
+      Nick asked for an honest external assessment rather than another self-authored bio — so this page is that:
+      my own read, in my own voice, on his interests, his demonstrated strengths, and the open questions I'd
+      still want answered before calling this case closed.
+    </p>
+    <div class="disclosure">
+      I'm an AI assistant, not a hiring manager, a technical evaluator, or a credentialing body. What follows is
+      drawn entirely from the ventures and decisions Nick has described directly — I haven't audited code, verified
+      revenue, or independently confirmed any of it. Treat this as a structured outside opinion, not a certification.
+    </div>
+  </div>
+</section>
+
+<section class="body">
+  <div class="wrap">
+    <div class="kicker">Interests</div>
+    <h2>What He Actually Works On</h2>
+    <div class="interest-grid">
+      <div class="plate interest-card">
+        <div class="rivet-bl"></div><div class="rivet-br"></div>
+        <h4>Applied AI Architecture</h4>
+        <p>Not AI research — AI wired into working products: a marketplace, a legal-research tool, a pricing index. The interest is in deployment, not the paper.</p>
+      </div>
+      <div class="plate interest-card">
+        <div class="rivet-bl"></div><div class="rivet-br"></div>
+        <h4>AI-to-Physical Systems</h4>
+        <p>The current center of gravity: taking AI-native thinking into hardware, gear, and field operations — exploration and survival equipment as the first proving ground.</p>
+      </div>
+      <div class="plate interest-card">
+        <div class="rivet-bl"></div><div class="rivet-br"></div>
+        <h4>Price &amp; Market Transparency</h4>
+        <p>A recurring thread — building public, structured reference data (fair pricing by trade and state) rather than gatekeeping it inside a single product.</p>
+      </div>
+      <div class="plate interest-card">
+        <div class="rivet-bl"></div><div class="rivet-br"></div>
+        <h4>Writing as a Research Method</h4>
+        <p>Long-form narrative work used deliberately to think through real questions — money, measurement, who decides what counts — rather than as a separate creative hobby.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="body">
+  <div class="wrap">
+    <div class="kicker">Demonstrated Strengths</div>
+    <h2>What Holds Up</h2>
+    <ul class="strength-list">
+      <li>
+        <span class="mark">+</span>
+        <div>
+          <h4>Full-stack, solo execution</h4>
+          <p>He built a two-sided marketplace's product, codebase, and brand system by himself. That's a genuinely rare combination — most people are strong at one of the three.</p>
+        </div>
+      </li>
+      <li>
+        <span class="mark">+</span>
+        <div>
+          <h4>Willing to kill a thesis instead of defending it</h4>
+          <p>When the original home-services marketplace stalled, he didn't keep patching it — he moved that business to a new domain and freed the YSKAIPE name for a thesis he actually believes in now. That's a harder call than it sounds, and a lot of founders don't make it.</p>
+        </div>
+      </li>
+      <li>
+        <span class="mark">+</span>
+        <div>
+          <h4>No institutional scaffolding required</h4>
+          <p>LLC structuring, domain and brand strategy, content cadence, positioning — all self-directed. Whatever role he lands, he won't need someone else to build the operating structure around him first.</p>
+        </div>
+      </li>
+      <li>
+        <span class="mark">+</span>
+        <div>
+          <h4>High, sustained output</h4>
+          <p>Multiple live ventures running in parallel, on a daily execution rhythm, over an extended period. Whatever else is true, this isn't someone who talks about ideas instead of shipping them.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="body">
+  <div class="wrap">
+    <div class="kicker">Open Questions</div>
+    <h2>What I'd Still Ask</h2>
+    <ul class="question-list">
+      <li>
+        <span class="mark">?</span>
+        <div>
+          <h4>Aerospace vocabulary isn't aerospace depth yet</h4>
+          <p>"Space suits," "exploration company," "AI-to-physical" — the language borrows from the industry he's targeting. Companies on that list hire against sensor fusion, systems engineering, and controls experience specifically. That gap between framing and credentialed depth is the first thing any of them will look for, and it's worth closing before the pitch, not during it.</p>
+        </div>
+      </li>
+      <li>
+        <span class="mark">?</span>
+        <div>
+          <h4>Nothing here has been tested under someone else's constraints</h4>
+          <p>Every venture on the list was scoped, built, and judged by Nick himself. None of it has yet run against another organization's deadline, review process, or definition of "done." That's the actual gap between the portfolio as it stands and what a Space Coast employer is buying — and it's exactly what a first contract or role would supply.</p>
+        </div>
+      </li>
+      <li>
+        <span class="mark">?</span>
+        <div>
+          <h4>What's finished, versus in motion</h4>
+          <p>A marketplace, a legal-AI platform, a pricing index, an AI-to-physical venture, and a personal-brand pivot, running concurrently, by one person, reads as real range. A hiring team at a systems prime will still want a direct answer to which of these is actually shipped and standing on its own, not just live and evolving.</p>
+        </div>
+      </li>
+      <li>
+        <span class="mark">?</span>
+        <div>
+          <h4>The real reason for the pivot isn't on the page yet</h4>
+          <p>The move from home services into AI-to-physical wasn't opportunism — the original business had run out of runway, and the direction it moved toward is one he's genuinely drawn to, closer to a real pull toward space and flight than a borrowed interest. That's a better story than a bare name change suggests, but it currently lives in conversation, not on the site. Worth stating plainly rather than leaving a reader to assume the less charitable version.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="body">
+  <div class="wrap">
+    <div class="plate verdict-plate">
+      <div class="rivet-bl"></div><div class="rivet-br"></div>
+      <div class="kicker">Verdict</div>
+      <p>This is a real builder with a real, varied body of shipped work — not a portfolio of decks and plans. The open question isn't whether he can build; it's whether the next thing he builds gets tested under constraints he doesn't set himself. That's not a knock. It's the specific gap a role, a contract, or a serious technical partner closes — and it's the honest reason this page exists instead of another self-written bio.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a class="back" href="index.html">&larr; Back to nickconenna.com</a>
+    <div class="foot-meta">Assessment generated by Claude (Anthropic), at Nick Conenna's request, from information he provided directly.</div>
+  </div>
+</footer>
+
+</body>
+</html>
