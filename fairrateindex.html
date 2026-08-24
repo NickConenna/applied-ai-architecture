@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fair Rate Index — A National Price Knowledge Base | Nick Conenna</title>
+<meta name="description" content="Fair Rate Index: a public, machine-readable price and knowledge base for home and auto trades, scaling from a Lake Norman pilot toward all 50 states.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --zinc-950:#0a0b0d; --zinc-900:#151719; --plate:#1f2225; --plate-raised:#282c30; --plate-line:#3a3f45;
+    --paper:#e9e6dd; --paper-dim:#9a988f; --oxide:#ff5a1f; --oxide-dim:#8a3418; --brass:#c9a227; --teal:#4a8f8a;
+    font-size:16px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--zinc-950); color:var(--paper); font-family:'IBM Plex Sans', sans-serif; line-height:1.55; -webkit-font-smoothing:antialiased;}
+  a{color:inherit;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .wrap{max-width:1100px; margin:0 auto; padding:0 28px;}
+
+  .plate{position:relative; background:linear-gradient(155deg, var(--plate-raised), var(--plate)); border:1px solid var(--plate-line);}
+  .plate::before, .plate::after, .plate .rivet-bl, .plate .rivet-br{
+    content:''; position:absolute; width:6px; height:6px; border-radius:50%;
+    background:radial-gradient(circle at 35% 35%, #6b6f74, #232527 70%); box-shadow:0 1px 0 rgba(0,0,0,.5);
+  }
+  .plate::before{top:8px; left:8px;} .plate::after{top:8px; right:8px;}
+  .plate .rivet-bl{bottom:8px; left:8px;} .plate .rivet-br{bottom:8px; right:8px;}
+
+  header{border-bottom:1px solid var(--plate-line); padding:20px 0;}
+  .header-row{display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; max-width:1100px; margin:0 auto; padding:0 28px;}
+  .brand{font-family:'Archivo', sans-serif; font-weight:800; font-size:1.05rem; text-decoration:none;}
+  .brand .dot{color:var(--oxide);}
+  nav a{font-family:'IBM Plex Mono', monospace; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--paper-dim); text-decoration:none; margin-left:22px;}
+  nav a:hover, nav a.active{color:var(--oxide);}
+
+  .hero{padding:72px 0 50px; border-bottom:1px solid var(--plate-line);}
+  .eyebrow{display:inline-flex; align-items:center; gap:10px; font-family:'IBM Plex Mono', monospace; font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--teal); margin-bottom:22px;}
+  .eyebrow::before{content:''; width:22px; height:1px; background:var(--teal);}
+  h1{font-family:'Archivo', sans-serif; font-weight:900; letter-spacing:-.01em; font-size:clamp(2.3rem, 5.4vw, 4.2rem); line-height:1; text-transform:uppercase; max-width:17ch;}
+  h1 .thin{font-weight:600; color:var(--paper-dim); display:block; font-size:.34em; letter-spacing:.03em; margin-top:14px; text-transform:none;}
+  .hero-sub{max-width:660px; margin-top:26px; font-size:1.06rem; color:#c9c6ba;}
+  .hero-meta{margin-top:34px; display:flex; gap:36px; flex-wrap:wrap; font-family:'IBM Plex Mono', monospace; font-size:.78rem; color:var(--paper-dim);}
+  .hero-meta strong{display:block; color:var(--paper); font-size:.95rem; margin-bottom:4px;}
+
+  section.body{padding:58px 0; border-bottom:1px solid var(--plate-line);}
+  .kicker{font-family:'IBM Plex Mono', monospace; font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--teal); margin-bottom:14px;}
+  h2{font-family:'Archivo', sans-serif; font-size:1.7rem; text-transform:uppercase; margin-bottom:18px; letter-spacing:.01em;}
+  .body p{font-size:.97rem; color:#d6d3c9; margin-bottom:16px; max-width:700px;}
+  .body p:last-child{margin-bottom:0;}
+  .body p strong{color:var(--paper); font-weight:600;}
+
+  /* trade grid */
+  .trade-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--plate-line); border:1px solid var(--plate-line); margin:28px 0;}
+  .trade{background:var(--zinc-950); padding:18px 16px;}
+  .trade .k{font-family:'IBM Plex Mono', monospace; font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; color:var(--teal); margin-bottom:6px;}
+  .trade .v{font-family:'Archivo', sans-serif; font-size:.92rem; text-transform:uppercase;}
+
+  /* knowledge layer */
+  .layer-list{list-style:none; margin-top:8px; counter-reset:layer;}
+  .layer-list li{display:flex; gap:18px; padding:16px 0; border-bottom:1px dashed var(--plate-line); counter-increment:layer;}
+  .layer-list li:last-child{border-bottom:none;}
+  .layer-list li::before{content:counter(layer, decimal-leading-zero); font-family:'IBM Plex Mono', monospace; color:var(--plate-line); font-size:1.1rem; min-width:28px;}
+  .layer-list h4{font-family:'Archivo', sans-serif; font-size:.95rem; text-transform:uppercase; margin-bottom:4px;}
+  .layer-list p{font-size:.86rem; color:var(--paper-dim); margin:0;}
+
+  /* scale path */
+  .scale-path{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:8px;}
+  .scale-card{padding:22px;}
+  .scale-card .stage{font-family:'IBM Plex Mono', monospace; font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; color:var(--teal); margin-bottom:8px;}
+  .scale-card h4{font-family:'Archivo', sans-serif; font-size:1rem; text-transform:uppercase; margin-bottom:10px;}
+  .scale-card p{font-size:.86rem; color:var(--paper-dim); margin:0;}
+
+  .cta-plate{padding:34px; margin-top:8px;}
+  .cta-plate .kicker{margin-bottom:14px;}
+  .cta-plate p{font-size:1rem; color:var(--paper); max-width:none; margin-bottom:20px;}
+  .btn{
+    display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase;
+    background:var(--teal); color:var(--zinc-950); padding:12px 22px; text-decoration:none; font-weight:600; border:1px solid var(--teal);
+  }
+  .btn:hover{background:transparent; color:var(--teal);}
+  .btn.alt{background:var(--oxide); border-color:var(--oxide);}
+  .btn.alt:hover{background:transparent; color:var(--oxide);}
+
+  @media (max-width:760px){
+    .trade-grid{grid-template-columns:1fr 1fr;}
+    .scale-path{grid-template-columns:1fr;}
+  }
+
+  footer{padding:48px 0 60px;}
+  .back{font-family:'IBM Plex Mono', monospace; font-size:.72rem; color:var(--paper-dim); text-decoration:none; letter-spacing:.08em;}
+  .back:hover{color:var(--oxide);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-row">
+    <a class="brand" href="index.html">NICK CONENNA<span class="dot">.</span></a>
+    <nav>
+      <a href="index.html">Consulting</a>
+      <a href="writing/index.html">Writing</a>
+      <a href="space-coast.html">Space Coast</a>
+      <a href="yskaipe.html">YSKAIPE</a>
+      <a class="active" href="fairrateindex.html">Fair Rate Index</a>
+      <a href="review.html">Review</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">fairrateindex.com — Peaking Waters LLC</div>
+    <h1>Fair Rate Index<span class="thin">A public price knowledge base, built to scale to all 50 states</span></h1>
+    <p class="hero-sub">
+      What a home or auto job should actually cost, structured as public, machine-readable reference data instead
+      of gatekept behind a quote request. Built out of the original YSKAIPE marketplace, then rearchitected as its
+      own protocol — a knowledge layer first, a transaction layer second.
+    </p>
+    <div class="hero-meta">
+      <div><strong>8 trades</strong>Core categories at launch</div>
+      <div><strong>Internet-only</strong>No metro or physical constraint</div>
+      <div><strong>50-state plan</strong>National coverage as the target</div>
+    </div>
+  </div>
+</section>
+
+<section class="body">
+  <div class="wrap">
+    <div class="kicker">The Model</div>
+    <h2>Protocol, Not Platform</h2>
+    <p>
+      Most price-comparison sites monetize by keeping the number hidden until a lead form is filled out. Fair Rate
+      Index does the opposite on purpose — the fair-price range is the public resource. The trust that generates is
+      the actual product; matching to a pro is what gets layered on top of it, not what gates access to it.
+    </p>
+    <div class="trade-grid">
+      <div class="trade"><div class="k">HVAC</div><div class="v">Aria</div></div>
+      <div class="trade"><div class="k">Plumbing</div><div class="v">River</div></div>
+      <div class="trade"><div class="k">Electrical</div><div class="v">Volt</div></div>
+      <div class="trade"><div class="k">Roofing</div><div class="v">Ridge</div></div>
+      <div class="trade"><div class="k">Landscaping</div><div class="v">Terra</div></div>
+      <div class="trade"><div class="k">Painting</div><div class="v">Hue</div></div>
+      <div class="trade"><div class="k">General Contracting</div><div class="v">Forge</div></div>
+      <div class="trade"><div class="k">Automotive</div><div class="v">Axle</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="body">
+  <div class="wrap">
+    <div class="kicker">The Knowledge Layer</div>
+    <h2>What Sits Under Each Trade</h2>
+    <p>Each trade carries the same four-part structure — the part that makes this a knowledge base rather than a spreadsheet of numbers.</p>
+    <ul class="layer-list">
+      <li><div><h4>Recurring items</h4><p>The jobs that actually come up most often within a given year for that trade.</p></div></li>
+      <li><div><h4>Key points</h4><p>The handful of facts that change a homeowner's decision — what actually matters versus what's noise.</p></div></li>
+      <li><div><h4>Component lifespans</h4><p>How long the underlying parts and systems are expected to last, so a price makes sense against a replacement timeline.</p></div></li>
+      <li><div><h4>The fix</h4><p>What the resolution actually involves, in plain language, tied back to the price range it justifies.</p></div></li>
+    </ul>
+  </div>
+</section>
+
+<section class="body">
+  <div class="wrap">
+    <div class="kicker">Scaling Path</div>
+    <h2>From One Metro to Fifty States</h2>
+    <p>Structured this way, the knowledge base doesn't need local density to be useful anywhere — which is the whole argument for treating it as a national protocol instead of a metro-by-metro rollout.</p>
+    <div class="scale-path">
+      <div class="plate scale-card">
+        <div class="rivet-bl"></div><div class="rivet-br"></div>
+        <div class="stage">Pilot</div>
+        <h4>Lake Norman, NC</h4>
+        <p>Where the pricing model and the eight-trade structure were built and validated first, against real jobs.</p>
+      </div>
+      <div class="plate scale-card">
+        <div class="rivet-bl"></div><div class="rivet-br"></div>
+        <div class="stage">Rearchitecture</div>
+        <h4>Internet-only protocol</h4>
+        <p>Rebuilt to run without a physical or metro constraint — machine-readable, sponsorship- or pricing-monetized, usable the same way in any state.</p>
+      </div>
+      <div class="plate scale-card">
+        <div class="rivet-bl"></div><div class="rivet-br"></div>
+        <div class="stage">National</div>
+        <h4>All 50 states</h4>
+        <p>The stated target — a single reference layer for fair home and auto pricing, structured for AI-augmented consumer education everywhere, not just where the founder happens to live.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="body" style="border-bottom:none;">
+  <div class="wrap">
+    <div class="plate cta-plate">
+      <div class="rivet-bl"></div><div class="rivet-br"></div>
+      <div class="kicker">Live Now</div>
+      <p>
+        Fair Rate Index is running at fairrateindex.com today, not a concept page — the knowledge layer, the pricing
+        structure, and the eight core trades are built and public. What's left is the state-by-state expansion.
+      </p>
+      <a class="btn" href="https://fairrateindex.com" target="_blank" rel="noopener">Visit fairrateindex.com</a>
+      <a class="btn alt" href="mailto:nick@peakingwaters.com">Talk about the expansion plan</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a class="back" href="index.html">&larr; Back to nickconenna.com</a>
+  </div>
+</footer>
+
+</body>
+</html>
