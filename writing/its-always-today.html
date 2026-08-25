@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>its always today — a field series on consciousness | Nick Conenna</title>
+<meta name="description" content="A field series on consciousness — psychonauts, astronauts, and everyone in between who found the present tense the hard way.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --zinc-950:#0a0a0b;
+    --zinc-900:#111113;
+    --plate-800:#1b1b1e;
+    --plate-700:#2a2a2e;
+    --plate-600:#3d3d42;
+    --paper-100:#f1efe8;
+    --paper-200:#e6e3da;
+    --paper-400:#9d9a90;
+    --paper-500:#767369;
+    --oxide-600:#8a3d24;
+    --oxide-500:#a8492b;
+    --hivis-500:#ff5a1f;
+    --hivis-400:#ff7a3d;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    background:var(--zinc-950);
+    background-image:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(255,90,31,0.06), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 20%, rgba(138,61,36,0.08), transparent 55%);
+    color:var(--paper-200);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+
+  a{color:inherit;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--hivis-500); outline-offset:3px;}
+
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .wrap{max-width:840px; margin:0 auto; padding:0 24px;}
+
+  /* ---------- top nav ---------- */
+  nav.topbar{
+    border-bottom:1px solid var(--plate-700);
+    background:rgba(10,10,11,0.85);
+    backdrop-filter:blur(6px);
+    position:sticky; top:0; z-index:20;
+  }
+  nav.topbar .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top:16px; padding-bottom:16px;
+    max-width:920px;
+  }
+  .brandmark{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px; letter-spacing:0.08em;
+    color:var(--paper-400);
+    text-decoration:none;
+  }
+  .brandmark b{color:var(--paper-100); font-weight:600;}
+  .crumbs{font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.05em; color:var(--paper-500); display:flex; gap:8px; align-items:center;}
+  .crumbs a{color:var(--paper-400); text-decoration:none; border-bottom:1px solid transparent;}
+  .crumbs a:hover{color:var(--hivis-400); border-color:var(--hivis-400);}
+
+  /* ---------- hero / nameplate ---------- */
+  header.hero{padding:76px 0 40px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; letter-spacing:0.22em; text-transform:uppercase;
+    color:var(--hivis-400);
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:22px;
+  }
+  .eyebrow::before{content:""; width:22px; height:1px; background:var(--hivis-500);}
+
+  .nameplate{
+    position:relative;
+    border:1px solid var(--plate-600);
+    background:linear-gradient(180deg, var(--plate-800), var(--zinc-900));
+    padding:44px 40px 38px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.03), 0 20px 50px -25px rgba(0,0,0,0.7);
+  }
+  .rivet{
+    position:absolute; width:9px; height:9px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #55555a, #17171a 70%);
+    box-shadow:0 1px 0 rgba(255,255,255,0.06), 0 0 0 1px rgba(0,0,0,0.4);
+  }
+  .rivet.tl{top:12px; left:12px;} .rivet.tr{top:12px; right:12px;}
+  .rivet.bl{bottom:12px; left:12px;} .rivet.br{bottom:12px; right:12px;}
+
+  h1.title{
+    font-family:'Archivo', sans-serif;
+    font-weight:900;
+    font-size:clamp(40px, 8vw, 72px);
+    line-height:0.96;
+    letter-spacing:-0.01em;
+    text-transform:lowercase;
+    margin:0 0 18px;
+    color:var(--paper-100);
+  }
+  h1.title em{
+    font-style:normal;
+    color:var(--hivis-500);
+  }
+
+  .subhead{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:14px;
+    color:var(--paper-400);
+    max-width:46ch;
+    margin:0 0 30px;
+  }
+
+  /* instrument readout */
+  .instrument{
+    display:flex; flex-wrap:wrap; gap:0;
+    border-top:1px solid var(--plate-600);
+    margin-top:8px;
+  }
+  .instrument .cell{
+    flex:1 1 auto;
+    padding:16px 20px 0;
+    min-width:140px;
+  }
+  .instrument .cell + .cell{border-left:1px solid var(--plate-700);}
+  .instrument .label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px; letter-spacing:0.15em; text-transform:uppercase;
+    color:var(--paper-500);
+    margin-bottom:6px;
+  }
+  .instrument .value{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:19px; font-weight:600;
+    color:var(--paper-100);
+    font-variant-numeric:tabular-nums;
+  }
+  .instrument .value.hivis{color:var(--hivis-400);}
+  .pulse{display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--hivis-500); margin-left:8px; box-shadow:0 0 8px var(--hivis-500); animation:pulse 2s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1;} 50%{opacity:0.25;}}
+
+  /* ---------- essay body ---------- */
+  section.essay{padding:56px 0 8px;}
+  section.essay p{
+    font-size:17px;
+    color:var(--paper-200);
+    max-width:64ch;
+    margin:0 0 22px;
+  }
+  section.essay p.lede{
+    font-size:19px;
+    color:var(--paper-100);
+  }
+
+  .rule{
+    border:none; border-top:1px solid var(--plate-700);
+    margin:56px 0;
+  }
+
+  .sec-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; letter-spacing:0.2em; text-transform:uppercase;
+    color:var(--paper-500);
+    display:flex; align-items:center; gap:12px;
+    margin-bottom:28px;
+  }
+  .sec-label::after{content:""; flex:1; height:1px; background:var(--plate-700);}
+
+  /* ---------- roster ---------- */
+  .roster{display:grid; grid-template-columns:repeat(3, 1fr); gap:1px; background:var(--plate-700); border:1px solid var(--plate-700); margin-bottom:8px;}
+  .roster .card{background:var(--zinc-900); padding:26px 22px 28px;}
+  .roster .card h3{
+    font-family:'Archivo', sans-serif;
+    font-weight:800; font-size:16px; letter-spacing:0.02em;
+    text-transform:uppercase;
+    color:var(--paper-100);
+    margin:0 0 12px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .roster .card h3 .dot{width:7px; height:7px; border-radius:50%; background:var(--hivis-500); flex:none;}
+  .roster .card p{
+    font-size:14.5px; color:var(--paper-400); margin:0; line-height:1.7;
+  }
+  @media (max-width:760px){ .roster{grid-template-columns:1fr;} }
+
+  /* ---------- log ---------- */
+  .log-list{border-top:1px solid var(--plate-700);}
+  .log-row{
+    display:flex; align-items:baseline; gap:22px;
+    padding:20px 0;
+    border-bottom:1px solid var(--plate-700);
+  }
+  .log-row .idx{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px; color:var(--paper-500);
+    flex:none; width:64px;
+  }
+  .log-row .body{flex:1;}
+  .log-row .body .t{font-family:'IBM Plex Mono', monospace; font-size:15px; color:var(--paper-200); margin-bottom:4px;}
+  .log-row .body .d{font-size:13.5px; color:var(--paper-500);}
+  .log-row .status{
+    flex:none;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--oxide-500);
+    border:1px solid var(--oxide-600);
+    padding:4px 9px;
+  }
+
+  /* ---------- author note ---------- */
+  .note{
+    border-left:2px solid var(--hivis-500);
+    padding:4px 0 4px 22px;
+    margin:8px 0 60px;
+  }
+  .note p{font-size:15px; color:var(--paper-400); max-width:60ch; margin:0 0 14px;}
+  .note a{color:var(--paper-100); text-decoration:underline; text-decoration-color:var(--plate-600); text-underline-offset:3px;}
+  .note a:hover{text-decoration-color:var(--hivis-500); color:var(--hivis-400);}
+
+  /* ---------- footer ---------- */
+  footer{
+    border-top:1px solid var(--plate-700);
+    padding:30px 0 60px;
+  }
+  footer .wrap{display:flex; flex-wrap:wrap; justify-content:space-between; gap:16px; align-items:center; max-width:920px;}
+  footer .links{display:flex; gap:22px; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.05em;}
+  footer .links a{color:var(--paper-400); text-decoration:none;}
+  footer .links a:hover{color:var(--hivis-400);}
+  footer .copy{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--paper-500);}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <div class="wrap">
+    <a class="brandmark" href="/"><b>NICK CONENNA</b> · applied ai architect</a>
+    <div class="crumbs"><a href="/writing/">writing</a><span>/</span><span style="color:var(--paper-200)">its always today</span></div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">a field series</div>
+
+    <div class="nameplate">
+      <span class="rivet tl"></span><span class="rivet tr"></span><span class="rivet bl"></span><span class="rivet br"></span>
+      <h1 class="title">its always <em>today</em></h1>
+      <p class="subhead">field notes on consciousness, from the people who found the present tense the hard way.</p>
+
+      <div class="instrument">
+        <div class="cell">
+          <div class="label">Date</div>
+          <div class="value hivis">TODAY</div>
+        </div>
+        <div class="cell">
+          <div class="label">Local time</div>
+          <div class="value" id="clock">00:00:00</div>
+        </div>
+        <div class="cell">
+          <div class="label">Status</div>
+          <div class="value">PRESENT<span class="pulse"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="essay">
+  <div class="wrap">
+    <p class="lede">Every serious account of an altered state agrees on one thing before it agrees on anything else: the clock stops mattering. The astronaut watching a sunrise every ninety minutes loses the habit of naming days. The psychonaut six hours into a session has no use for a watch. The free diver at ninety feet, breath held past the point of reason, is not thinking about tomorrow.</p>
+
+    <p>Different instruments, different risks — the same report every time. There is no <em style="font-style:normal; color:var(--paper-100);">later</em> from where they are. There is only now, and now turns out to be enormous.</p>
+
+    <p><strong style="color:var(--paper-100); font-weight:600;">its always today</strong> is a field series built around that report. Not the postcard version — the overview-effect photo, the ego-death anecdote at a dinner party — but the instrument readings underneath it: what actually happens to a person's sense of time, self, and stakes when they go far enough past the edge of ordinary experience to lose their place in the calendar.</p>
+
+    <p>The people who report this are not one type. They're pilots and monks, chemists and free divers, grievers and endurance athletes, children on a swing and old men on a ventilator. What they share isn't the method. It's the finding — presence isn't a mood you arrange for yourself on a good morning. It's a place you can be sent to, on purpose or by accident, and once you've been there, the ordinary experience of time never quite closes back over you the same way.</p>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="essay">
+  <div class="wrap">
+    <div class="sec-label">the roster</div>
+  </div>
+  <div class="wrap">
+    <div class="roster">
+      <div class="card">
+        <h3><span class="dot"></span>Psychonauts</h3>
+        <p>Explorers who go inward on purpose — through breathwork, fasting, sleep deprivation, silent retreat, or compounds old and new — chasing a state where the self gets quiet enough to notice what's underneath it. Mapped as often by philosophers as by chemists: dissolution of the ego, a felt sense of contacting something realer than the room you're sitting in.</p>
+      </div>
+      <div class="card">
+        <h3><span class="dot"></span>Astronauts</h3>
+        <p>Explorers who go outward on purpose and arrive at the same report from the opposite direction. Documented for decades as the overview effect: watching the planet from orbit collapses separate nations, separate problems, separate selves, into one obviously fragile thing turning in the dark. No compound required — just enough distance to see the whole of it at once.</p>
+      </div>
+      <div class="card">
+        <h3><span class="dot"></span>Everything between</h3>
+        <p>Free divers past the point the body starts shutting down non-essential functions. Endurance athletes deep into a race, past bargaining, into what some call flow and some call the pain cave. Surgeons in hour six of an operation. Grievers in the first minutes after a death in the room. None of them set out to study consciousness. All of them came back with the same field note.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="essay" style="padding-top:56px;">
+  <div class="wrap">
+    <div class="sec-label">the log</div>
+    <div class="log-list">
+      <div class="log-row">
+        <div class="idx mono">LOG 001</div>
+        <div class="body">
+          <div class="t">the overview effect, mapped</div>
+          <div class="d">what six decades of astronaut debriefs actually describe, and why the account barely changes from pilot to pilot.</div>
+        </div>
+        <div class="status">in research</div>
+      </div>
+      <div class="log-row">
+        <div class="idx mono">LOG 002</div>
+        <div class="body">
+          <div class="t">the room with no clock in it</div>
+          <div class="d">on time perception under deep meditation, fasting, and sensory deprivation — where the reports converge and where they don't.</div>
+        </div>
+        <div class="status">in research</div>
+      </div>
+      <div class="log-row">
+        <div class="idx mono">LOG 003</div>
+        <div class="body">
+          <div class="t">ninety feet, no air, no hurry</div>
+          <div class="d">the freediving blackout literature and what it says about the mind's last instrument before it lets go of the body.</div>
+        </div>
+        <div class="status">in research</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="essay">
+  <div class="wrap">
+    <div class="sec-label">a note on this</div>
+    <div class="note">
+      <p><strong style="color:var(--paper-100);">its always today</strong> runs on the same method as everything else in <a href="/writing/">the writing section</a> here: research and drafting as a way of actually working through a question, not just packaging an answer once it's already settled.</p>
+      <p>Written and researched by Nick Conenna, an applied AI architect, alongside Claude. New logs are added as they're reported, not on a schedule — the series moves at the pace of the research, which felt like the right way to build something about presence.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="/">main site</a>
+      <a href="/writing/">writing</a>
+      <a href="mailto:nick@peakingwaters.com">contact</a>
+    </div>
+    <div class="copy">© <span id="year"></span> Nick Conenna</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  function tick(){
+    var now = new Date();
+    var h = String(now.getHours()).padStart(2,'0');
+    var m = String(now.getMinutes()).padStart(2,'0');
+    var s = String(now.getSeconds()).padStart(2,'0');
+    var el = document.getElementById('clock');
+    if(el) el.textContent = h+':'+m+':'+s;
+  }
+  tick();
+  setInterval(tick, 1000);
+</script>
+
+</body>
+</html>
