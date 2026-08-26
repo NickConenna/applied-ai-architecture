@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THE PACE — The Cubit and the Quark · Book I</title>
+<meta name="description" content="THE PACE. The Cubit and the Quark · Book I. A novel.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta property="og:type" content="book">
+<meta property="og:title" content="The Pace — The Cubit and the Quark, Book I">
+<meta property="og:description" content="A man is shot at four in the morning at the foot of Tesla's tower. He has eleven minutes left, and he spends them walking in a straight line, counting.">
+<meta property="og:url" content="https://www.nickconenna.com/the-pace.html">
+<meta property="og:image" content="https://www.nickconenna.com/img/the-pace-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Pace — Book I">
+<meta name="twitter:description" content="He can measure anything except people. Read the opening.">
+<meta name="twitter:image" content="https://www.nickconenna.com/img/the-pace-card.png">
+<link rel="canonical" href="https://www.nickconenna.com/the-pace.html">
+<style>
+:root{
+  --paper:#E9EAE6; --ink:#15191C; --soft:#565F63; --faint:#B9BDB6;
+  --brass:#8A6A34; --oxide:#2F4B41; --rule:#C6C9C2;
+  --serif:"Spectral",Palatino,"Palatino Linotype",Georgia,serif;
+  --display:"Instrument Serif","Spectral",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --measure:36rem;
+}
+[data-theme="dark"]{
+  --paper:#13161A; --ink:#DCDFDA; --soft:#8E9691; --faint:#3A4046;
+  --brass:#C6A263; --oxide:#7FB09A; --rule:#2C3238;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--serif); font-size:17.5px; line-height:1.72;
+  font-variant-numeric:oldstyle-num;
+}
+.wrap{max-width:var(--measure); margin:0 auto; padding:0 1.5rem 8rem}
+p{margin:0}
+.chapter p + p, .frontmatter p + p, .backmatter p + p{text-indent:1.35em; margin-top:0}
+.chapter p, .frontmatter p, .backmatter p{margin-top:0}
+em{font-style:italic}
+a{color:inherit}
+
+/* ---- the rule: graduated scale, left edge ---- */
+.scale{
+  position:fixed; left:0; top:0; bottom:0; width:66px; z-index:5;
+  pointer-events:none; display:none;
+}
+@media (min-width:1080px){ .scale{display:block} }
+.scale .bar{
+  position:absolute; left:44px; top:0; bottom:0; width:1px; background:var(--rule);
+}
+.scale .ticks{
+  position:absolute; left:30px; top:0; bottom:0; width:14px;
+  background-image:repeating-linear-gradient(to bottom,
+    var(--faint) 0 1px, transparent 1px 12px);
+}
+.scale .majors{
+  position:absolute; left:22px; top:0; bottom:0; width:22px;
+  background-image:repeating-linear-gradient(to bottom,
+    var(--rule) 0 1px, transparent 1px 60px);
+}
+.scale .cursor{
+  position:absolute; left:18px; width:27px; height:1px; background:var(--brass);
+}
+.scale .cursor::after{
+  content:""; position:absolute; right:-1px; top:-4px;
+  border-left:7px solid var(--brass);
+  border-top:4px solid transparent; border-bottom:4px solid transparent;
+}
+.scale .readnow{
+  position:absolute; left:-16px; width:120px; transform:rotate(-90deg);
+  transform-origin:left center; text-align:right;
+  font-family:var(--mono); font-size:9.5px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--brass); white-space:nowrap;
+}
+.progressbar{
+  position:fixed; top:0; left:0; height:2px; background:var(--brass);
+  width:0; z-index:6;
+}
+@media (min-width:1080px){ .progressbar{display:none} }
+
+/* ---- controls ---- */
+.controls{
+  position:fixed; top:14px; right:16px; z-index:8; display:flex; gap:8px;
+}
+.controls button{
+  font-family:var(--mono); font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--soft); background:transparent;
+  border:1px solid var(--rule); border-radius:0; padding:7px 10px;
+  cursor:pointer;
+}
+.controls button:hover{color:var(--ink); border-color:var(--brass)}
+.controls button:focus-visible{outline:2px solid var(--brass); outline-offset:2px}
+
+/* ---- title page ---- */
+.titlepage{padding:16vh 0 0; text-align:center}
+.series{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.28em;
+  text-transform:uppercase; color:var(--soft); margin:0 0 2.2rem
+}
+.booktitle{
+  font-family:var(--display); font-weight:400; font-size:5.2rem;
+  font-size:clamp(3.6rem,14vw,6.4rem);
+  line-height:.92; letter-spacing:.01em; margin:0;
+}
+.kicker{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.28em;
+  text-transform:uppercase; color:var(--soft); margin:2.2rem 0 0
+}
+.titlepage::after{
+  content:""; display:block; width:100%; height:1px; background:var(--rule);
+  margin:3.5rem 0 0
+}
+.copyrightpage{padding:3.5rem 0 0; border-bottom:1px solid var(--rule);
+  padding-bottom:3.5rem}
+.copyrightpage p{font-size:.78rem; line-height:1.65; color:var(--soft);
+  margin:0 0 .7rem; text-indent:0}
+.copyrightpage p.ro{font-family:var(--mono); font-size:.68rem; letter-spacing:.06em;
+  color:var(--brass)}
+.dedication{padding:4rem 0; text-align:center; color:var(--soft)}
+.dedication p{font-size:.95rem; line-height:1.7; max-width:26rem; margin:0 auto}
+.epigraphs{padding:1rem 0 5rem; border-bottom:1px solid var(--rule)}
+.epi{margin:0 0 2rem; padding:0 0 0 1.4rem; border-left:1px solid var(--brass)}
+.epi p{font-style:italic}
+.epi cite{
+  display:block; font-style:normal; font-family:var(--mono);
+  font-size:10px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--soft); margin-top:.5rem
+}
+
+/* ---- contents ---- */
+details.contents{margin:3.5rem 0 4rem; border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule)}
+details.contents summary{
+  cursor:pointer; list-style:none; padding:1rem 0;
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.24em;
+  text-transform:uppercase; color:var(--soft)
+}
+details.contents summary::-webkit-details-marker{display:none}
+details.contents summary::after{content:" +"; color:var(--brass)}
+details.contents[open] summary::after{content:" −"}
+.toc{list-style:none; margin:0 0 1.5rem; padding:0; columns:2; column-gap:2.5rem}
+@media (max-width:720px){ .toc{columns:1} }
+.toc li{break-inside:avoid; margin:0 0 .35rem}
+.toc a{
+  text-decoration:none; color:var(--soft); font-size:.8rem; line-height:1.5;
+  display:block
+}
+.toc a:hover{color:var(--ink)}
+.toc .tn{
+  font-family:var(--mono); font-size:.68rem; color:var(--brass);
+  margin-right:.55rem
+}
+.toc-part{columns:1; margin:1.1rem 0 .6rem !important; break-before:column}
+.toc-part a{
+  font-family:var(--mono); font-size:.68rem; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--ink)
+}
+
+/* ---- parts & chapters ---- */
+.partpage{
+  padding:7rem 0 6rem; text-align:center; border-top:1px solid var(--ink);
+  margin-top:5rem
+}
+.partnum{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.3em;
+  text-transform:uppercase; color:var(--brass); margin:0 0 1.4rem
+}
+.partname{
+  font-family:var(--display); font-weight:400; font-size:3rem;
+  font-size:clamp(2.2rem,7vw,3.4rem);
+  line-height:1.05; margin:0
+}
+.chapter{padding:4.5rem 0 0; scroll-margin-top:2rem}
+.chapter header{margin:0 0 2.2rem}
+.chnum{
+  font-family:var(--mono); font-size:11px; letter-spacing:.2em; color:var(--brass);
+  margin:0 0 .5rem; text-transform:uppercase;
+}
+.chnum::before{content:"— "; color:var(--faint)}
+.chapter[data-num] .chnum::before{content:"— Chapter "; color:var(--faint)}
+.chapter[data-num] .chnum{font-variant-numeric:lining-nums}
+.dateline{
+  font-family:var(--mono); font-size:11px; line-height:1.6; letter-spacing:.06em;
+  color:var(--soft); margin:0; padding:0 0 .9rem;
+  border-bottom:1px solid var(--rule);
+}
+.readout{
+  font-family:var(--mono); font-size:.82rem; letter-spacing:.02em;
+  color:var(--ink); margin:1.1rem 0 !important; padding-left:1.35em;
+  text-indent:0 !important;
+}
+.inset{
+  margin:1.2rem 0; padding:0 0 0 1.4rem; border-left:1px solid var(--brass);
+}
+.inset span{display:block; font-style:italic; color:var(--soft)}
+.frontmatter, .backmatter{padding:5rem 0 0}
+.frontmatter h2, .backmatter h2{
+  font-family:var(--mono); font-size:11px; letter-spacing:.3em;
+  text-transform:uppercase; font-weight:500; color:var(--ink);
+  margin:0 0 .4rem; padding-bottom:.9rem; border-bottom:1px solid var(--rule)
+}
+.bmsub{
+  font-family:var(--mono); font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--soft); margin:0 0 2rem !important
+}
+.frontmatter h2 + p, .backmatter h2 + p, .bmsub + p{margin-top:2rem !important}
+.subh{
+  font-family:var(--mono); font-size:11px; letter-spacing:.2em; font-weight:500;
+  text-transform:uppercase; color:var(--brass); margin:2.8rem 0 1rem
+}
+.sign{font-family:var(--mono); font-size:11px; letter-spacing:.14em;
+  color:var(--soft); margin-top:2rem !important; text-indent:0 !important}
+.endmark{
+  padding:5rem 0; text-align:center; border-top:1px solid var(--ink); margin-top:5rem
+}
+.endmark p{font-family:var(--mono); font-size:11px; letter-spacing:.32em;
+  text-transform:uppercase; color:var(--brass)}
+.colophon{
+  padding:3rem 0 0; text-align:center; border-top:1px solid var(--rule)
+}
+.colophon p{font-family:var(--mono); font-size:10px; letter-spacing:.24em;
+  text-transform:uppercase; color:var(--soft)}
+@media (prefers-reduced-motion:reduce){*{transition:none !important}}
+@media print{
+  .scale,.controls,.progressbar,details.contents{display:none}
+  body{background:#fff; color:#000; font-size:11pt}
+}
+
+.gate{margin:5rem 0 0; padding:3rem 0; border-top:1px solid var(--ink);
+  border-bottom:1px solid var(--rule); text-align:center}
+.gate-rule{font-family:var(--mono); font-size:10px; letter-spacing:.26em;
+  text-transform:uppercase; color:var(--faint); margin:0 0 2rem}
+.gate h2{font-family:var(--display); font-weight:400; font-size:2.4rem;
+  line-height:1.1; margin:0 0 1.2rem}
+.gate p{font-size:.95rem; color:var(--soft); max-width:28rem; margin:0 auto 1.6rem;
+  text-indent:0}
+.gate-form{display:flex; gap:.5rem; max-width:26rem; margin:0 auto 1.2rem;
+  flex-wrap:wrap; justify-content:center}
+.gate-form input{flex:1 1 14rem; font-family:var(--serif); font-size:1rem;
+  padding:.75rem .9rem; border:1px solid var(--rule); background:transparent;
+  color:var(--ink); border-radius:0}
+.gate-form input:focus-visible{outline:2px solid var(--brass); outline-offset:1px}
+.gate-form button{font-family:var(--mono); font-size:11px; letter-spacing:.16em;
+  text-transform:uppercase; padding:.75rem 1.2rem; border:1px solid var(--brass);
+  background:var(--brass); color:var(--paper); cursor:pointer; border-radius:0}
+.gate-cta a{font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; text-decoration:none; color:var(--paper);
+  background:var(--brass); padding:.8rem 1.4rem; display:inline-block}
+.gate-fine{font-family:var(--mono); font-size:10px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--faint); margin-bottom:0 !important}
+.gate-powered{font-size:.72rem !important; color:var(--faint) !important;
+  margin:0 0 1.6rem !important}
+.gate-powered a{color:var(--faint); text-decoration:underline}
+.sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0)}
+
+</style>
+</head>
+<body>
+<div class="scale" aria-hidden="true">
+  <div class="majors"></div><div class="ticks"></div><div class="bar"></div>
+  <div class="cursor"></div><div class="readnow"></div>
+</div>
+<div class="progressbar" aria-hidden="true"></div>
+<div class="controls">
+  <button id="theme" type="button">Dark</button>
+  <button id="top" type="button">Top</button>
+</div>
+<main class="wrap">
+<section class="titlepage">
+<p class="series">The Cubit and the Quark · Book I</p>
+<h1 class="booktitle">THE PACE</h1>
+<p class="kicker">A novel</p>
+</section>
+<section class="copyrightpage"><p>Copyright © 2026 by Nicholas Conenna</p><p>All rights reserved.</p><p>Published by Peaking Waters LLC · [City, State]</p><p>No part of this book may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the publisher, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.</p><p>This is a work of fiction. Every institution named in this book exists; every person in it is invented. Names, characters, places, and incidents are the product of the author's imagination or are used fictitiously, and any resemblance to actual persons, living or dead, is coincidental.</p><p>Portions of this manuscript were produced in collaboration with an AI system. See "A Note on How This Was Made" at the end of this volume.</p><p>First edition, 2026</p><p class="ro" hidden>Reading copy v1.0 · August 2026 · Not for redistribution</p><p class="ro" hidden>ISBN 978-0-0000000-0-0 (paperback) · 978-0-0000000-1-7 (ebook) · 978-0-0000000-2-4 (audiobook)</p><p>nickconenna.com</p></section>
+<section class="dedication"><p>For the man who taught a seven-year-old to walk a driveway with his eyes closed, and never once said <em>good job</em>.</p></section>
+<section class="epigraphs"><blockquote class="epi"><p>Man is the measure of all things.</p><cite>— Protagoras, c. 450 BC</cite></blockquote><blockquote class="epi"><p>For eleven years, the yard did not exist.</p><cite>— Report to the Commissioners on the Restoration of the Standards, 1841</cite></blockquote><blockquote class="epi"><p>Forgive us our debts, as we forgive our debtors.</p><cite>— Matthew 6:12, in the Aramaic of the Peshitta: <em>ḥawbayn</em></cite></blockquote></section>
+
+<details class="contents"><summary>Contents</summary><ul class='toc'><li class="toc-part"><a href="#part-1">PART ONE · The Sentence in the Ground</a></li><li><a href="#prologue"><span class="tn">Prologue</span> Wardenclyffe · Shoreham, New York · 4:11 a.m.</a></li><li><a href="#ch-1"><span class="tn">1</span> Boulder, Colorado · 6:11 a.m. Mountain</a></li><li><a href="#ch-2"><span class="tn">2</span> 210 feet above Water Street, Manhattan · 6:40 a.m. Eastern</a></li><li><a href="#ch-3"><span class="tn">3</span> Denver International · 8:20 a.m. Mountain</a></li><li><a href="#ch-4"><span class="tn">4</span> Suffolk County Police Headquarters · Yaphank, New York · 3:10 p.m. Eastern</a></li><li><a href="#ch-5"><span class="tn">5</span> Wardenclyffe · 3:52 p.m.</a></li><li><a href="#ch-6"><span class="tn">6</span> Wardenclyffe · 4:40 p.m.</a></li><li><a href="#ch-7"><span class="tn">7</span> Zurich · 11:20 p.m. Central European Time</a></li><li><a href="#ch-8"><span class="tn">8</span> Yaphank · 6:15 p.m.</a></li><li class="toc-part"><a href="#bm-historical-notewhat-is-real-and-what-is-">HISTORICAL NOTE · What is real, and what is not</a></li><li class="toc-part"><a href="#bm-a-note-on-how-this-was-made">A NOTE ON HOW THIS WAS MADE</a></li><li class="toc-part"><a href="#bm-about-the-author-and-the-collaboration">ABOUT THE AUTHOR AND THE COLLABORATION</a></li><li class="toc-part"><a href="#bm-the-cubit-and-the-quarkthe-four-books">THE CUBIT AND THE QUARK · The four books</a></li></ul></details>
+<section class="frontmatter" id="fm-fact"><h2>FACT</h2><p>The International Prototype Kilogram — a cylinder of platinum-iridium — was kept beneath three nested glass bells in a vault at Sèvres, France, behind three keys held by three separate parties. For one hundred and thirty years every kilogram on earth was a copy of it. In 2019 it was retired, and the kilogram was redefined against the Planck constant.</p><p>In 1834 the Palace of Westminster burned, destroying the imperial standards of the yard and the pound. Replacements took more than a decade.</p><p>A nautical mile was defined as one minute of arc of latitude. A circle contains 21,600 arcminutes. The earth is therefore 21,600 nautical miles around. In the Surya Siddhanta, a human day is reckoned at 21,600 breaths.</p><p>In 1897 Nikola Tesla destroyed his royalty agreement with the Westinghouse Electric Company, forfeiting what would have been one of the largest fortunes of the twentieth century, to keep alternating current alive. He died in a hotel room on West 34th Street in 1943.</p><p>In 1901 J.P. Morgan financed the tower at Wardenclyffe, believing he was funding transatlantic wireless telegraphy. When he understood that Tesla intended wireless power, he withdrew.</p><p>In November 1910 six men traveled to Jekyll Island, Georgia, using only their first names, under cover of a duck-hunting trip, to draft the legislation that became the Federal Reserve System.</p><p>The first block of the Bitcoin ledger, mined 3 January 2009, contains an embedded reference to a London newspaper's front page that morning concerning a second bank bailout. It cannot be edited. It has been readable by anyone for seventeen years.</p><p>In 1994 Peter Shor published an algorithm that solves, on a sufficiently large quantum computer, the two mathematical problems on which nearly all current public-key cryptography depends. The successor standards are selected through a public process administered by the U.S. National Institute of Standards and Technology.</p><p>All of the above is true.</p></section>
+<section class="frontmatter" id="fm-a-note-on-units"><h2>A NOTE ON UNITS</h2><p>Every unit in this book that comes from the body is real.</p><p>The digit is a finger's width. The palm is four digits. The span is the reach from thumb to little finger. The cubit is the forearm, elbow to fingertip. The foot is a foot. The pace is a double step, and <em>mille passus</em> — a thousand of them — is the Roman mile, which is why every highway sign in America still counts a marching soldier's legs. The fathom is from the Old English <em>fæthm</em>, meaning embrace: the span of a man's outstretched arms, which is how sailors measured the depth of the sea.</p><p>The reader is not required to remember any of this.</p><p>The protagonist cannot forget it.</p></section>
+<section class="partpage" id="part-1"><p class="partnum">PART ONE</p><h2 class="partname">The Sentence in the Ground</h2></section>
+<section class="chapter" id="prologue" data-label="Prologue" data-book="Prologue — Wardenclyffe · Shoreham, New York · 4:11 a.m."><header><p class="chnum">Prologue</p><p class="dateline">Wardenclyffe · Shoreham, New York · 4:11 a.m.</p></header><p>Dr. Ambrose Teague had eleven minutes left and he intended to spend them walking.</p><p>The brick laboratory behind him was the last building Stanford White designed before a jealous husband shot him in the face at Madison Square Garden. Teague had always thought that was the honest epigraph for this place. Everything here had ended badly and none of it had been wrong.</p><p>The tower was gone — sold for scrap in 1917 against a hotel bill. But the foundation remained under the weeds. An octagon of concrete, and beneath it the shaft, sunk a hundred and twenty feet into Long Island sand because Tesla had insisted that to grip the earth you must first get your hand around it.</p><p>Behind him, the woman was still coming. She had not hurried once.</p><p>That was the detail he could not stop noticing, even with his shirt going warm and heavy against his ribs. She walked at a fixed rate. She had walked at that rate through the parking lot, through the treeline, through the twenty minutes it took her to find him, and she was walking at it still. A metronome inside a person. Teague had spent forty-one years measuring things and he knew a calibrated instrument when he saw one.</p><p>"Doctor." Her voice was pleasant. "You've made your point. Where is it?"</p><p>He did not answer. He put his left foot down, then his right, and he counted.</p><p><em>One.</em></p><p>He had taught this. Fifty years of undergraduates, and the first thing he taught them was that before the meter, before the yard, before any of it, a man measured the world by walking across it. <em>Mille passus.</em> A thousand paces. That is all a Roman mile ever was — a soldier's legs, doubled, counted under a sun that did not care.</p><p><em>Twelve. Thirteen.</em></p><p>They would find him. The alarm had gone out at 3:52 and Suffolk County was nine minutes away on a bad night. They would find him and photograph everything and understand none of it, because they would measure the scene in feet, and feet were the wrong instrument for this message.</p><p><em>Thirty-one.</em></p><p>The woman was closer. She had stopped asking.</p><p>There was exactly one person alive who would look at his body in the weeds and ask the correct question. Not what killed him. Not what did he touch.</p><p><em>How far did he walk.</em></p><p><em>Fifty-two. Fifty-three.</em></p><p>His vision was doing something at the edges. He thought about his wife, dead six years. He thought about the fact that he had never once been on time for anything that mattered. He thought about the boy — the boy was fifty now, God, fifty — who used to pace off the driveway in Rocky Point and get it right to the inch.</p><p><em>Sixty-seven.</em></p><p>He went down at sixty-eight, hard, and the sand took his palms. He did not try to rise. He got two fingers into the wet dirt and drew, carefully, a single character. Not a letter. Not a number.</p><p>The woman arrived and stood over him, breathing the way a person breathes at rest.</p><p>"That isn't an answer," she said.</p><p>Teague smiled at the sand. "It is if you can read it."</p><p>She waited until she was certain, which took another forty seconds, and then walked back to the road at exactly the rate she had come.</p><p>She never once looked at the ground behind her.</p></section>
+<section class="chapter" id="ch-1" data-label="1" data-num="1" data-book="Chapter 1 — Boulder, Colorado · 6:11 a.m. Mountain"><header><p class="chnum">1</p><p class="dateline">Boulder, Colorado · 6:11 a.m. Mountain</p></header><p>Zeno Canna woke at eleven minutes past six because that was when he woke.</p><p>There was no alarm in the house. No clock in the bedroom, no watch on the nightstand, no phone left face-up where a screen could tell him something his body already knew. He lay still and let the count arrive — four sleep cycles at ninety minutes, plus the twenty-six he had lost lying awake over the grant renewal — and then opened his eyes knowing it was between 6:09 and 6:14 and that he had slept enough.</p><p>He drank sixteen ounces of water, because sixteen was the amount that made his hands read true. He stood at the window and took the first eight breaths of the day slowly enough to count them.</p><p>Fifteen a minute. Nine hundred an hour. Twenty-one thousand six hundred in a day.</p><p>The same number, precisely, as the nautical miles around the earth.</p><p>He had said that out loud once, on a panel in Delft, and a Dutch physicist had laughed at him, and then gone quiet, and then not spoken again for the rest of the hour.</p><p>The phone rang at 6:14.</p><p>Area code 631. Suffolk County. Long Island. The only place on earth Zeno Canna had promised himself he would not go back to.</p><p>He looked at it for four breaths. Then he answered, and a woman with a flat administrative voice asked him to confirm that he was the son of Dr. Ambrose Teague, and Zeno said the sentence he had been not-saying for thirty years.</p><p>"Stepson. And he'd correct you on that."</p><p>There was the pause people make before the thing.</p><p>He listened. He put a hand flat against the window glass and found it was fifty-one degrees outside, give or take two, and that his pulse had gone from fifty-eight to a hundred and four in under three seconds. He catalogued both, because cataloguing was what he had instead of screaming.</p><p>"Detective," he said, when she had finished. "Before anyone moves him."</p><p>"Sir, the scene is already—"</p><p>"Before anyone moves him." His own voice surprised him. "One measurement. Your people won't take it, because they won't know it's there."</p><p>"What measurement?"</p><p>Zeno looked out at the Flatirons going pink and understood, with a clarity that arrived like cold water, exactly what his stepfather had spent the last minutes of his life doing.</p><p>"How far he walked," he said.</p></section>
+<section class="chapter" id="ch-2" data-label="2" data-num="2" data-book="Chapter 2 — 210 feet above Water Street, Manhattan · 6:40 a.m. Eastern"><header><p class="chnum">2</p><p class="dateline">210 feet above Water Street, Manhattan · 6:40 a.m. Eastern</p></header><p>Aldrich Vane took his meetings standing, and he took this one alone.</p><p>The room had no screens. That was deliberate and expensive; on this floor, in this year, a room without screens cost more than screens. There was a table, four chairs nobody used, and on the wall a single object under museum glass: a brass yard, one of the standards struck in London in 1845 after fire destroyed the imperial original. Metal cut, cured, and compared against nothing but itself.</p><p>He liked to stand near it while he did difficult things.</p><p>"Say the number again," he said.</p><p>The voice on the line said it again.</p><p>Vane closed his eyes. Four million coins. Perhaps six. Keys already lying in the open on a public ledger, mirrored across ninety countries, every one of them exposed the moment somebody's machine grew large enough. Not stolen. Not hacked. Solved. A distinction that mattered enormously to lawyers and not at all to markets.</p><p>"Timeline."</p><p>"Estimates vary."</p><p>"Everything varies. Give me the one you'd bet your own money on."</p><p>A pause. "Under four years. Possibly under two."</p><p>Vane opened his eyes and looked at the brass.</p><p>People assumed he loved money. It was such a small idea that he had stopped correcting it around his fortieth birthday. He had watched his grandfather's savings evaporate in a country that no longer existed, in a currency whose name schoolchildren could not now pronounce, and he had understood before he was nine years old the thing the entire libertarian internet had never once grasped.</p><p>A measure without a keeper is not free. It is unguarded.</p><p>"They'll find out," the voice said. "There's a migration proposal. Two of them. There are people writing papers."</p><p>"There are always people writing papers."</p><p>"Teague was going to publish."</p><p>"Teague," said Aldrich Vane, "is a solved problem."</p><p>He said it without pleasure, aware that he had crossed a line he could not uncross, and that he would cross it again tomorrow, and that this was the difference between a man who wanted things and a man who was responsible for them.</p><p>"Sir — a complication. He had a family member listed."</p><p>Vane's eyes did not leave the brass. "As what?"</p><p>"Executor. And there's a dependency in the paperwork. He left instructions that require the man physically present."</p><p>"Name."</p><p>"Canna. Zeno Canna. Metrologist at NIST Boulder."</p><p>And for the first time in eleven years, Aldrich Vane put his hand flat on the museum glass, a thing he had sworn never to do, because the oil of a fingertip changes what it touches.</p><p>"A what?" he said.</p></section>
+<section class="chapter" id="ch-3" data-label="3" data-num="3" data-book="Chapter 3 — Denver International · 8:20 a.m. Mountain"><header><p class="chnum">3</p><p class="dateline">Denver International · 8:20 a.m. Mountain</p></header><p>He packed in nine minutes because he had packed this bag in his head a hundred times without admitting it.</p><p>Two shirts. The Mitutoyo digital calipers, which were a toy and which he carried anyway, the way a retired priest carries a rosary. A steel rule. And, at the bottom, wrapped in a sock, a brass object the size of a cigarette lighter that his stepfather had given him for his eleventh birthday: a Gunter's chain link, one hundredth of a surveyor's chain, 7.92 inches, the unit that had measured out most of the property lines in the United States.</p><p><em>Everything you will ever own,</em> Teague had said, <em>somebody walked off with one of these.</em></p><p>At the gate Zeno did the thing he always did in airports and never told anyone about. He picked a stranger and estimated their height, then waited for them to stand near a door frame and checked himself against the frame.</p><p>Six one. He was two centimeters over.</p><p>He ran it again on a woman by the window. Five four. He was two and a half centimeters over.</p><p>Both errors in the same direction.</p><p>Zeno Canna sat very still in seat 14C with a paper cup going cold in his hand and understood that he was not calibrated this morning, and told himself it was grief, which is what people say when they are frightened of a number.</p></section>
+<section class="chapter" id="ch-4" data-label="4" data-num="4" data-book="Chapter 4 — Suffolk County Police Headquarters · Yaphank, New York · 3:10 p.m. Eastern"><header><p class="chnum">4</p><p class="dateline">Suffolk County Police Headquarters · Yaphank, New York · 3:10 p.m. Eastern</p></header><p>Detective Mira Novak had eleven years and a hundred and four homicides and had never once had a family member ask her about distance.</p><p>"You want to explain to me," she said, "why you're not asking who shot him."</p><p>"Because you don't know," Zeno said, "and you won't for a while, and I can't help with that."</p><p>She looked at him. Late forties, maybe fifty. Dark, contained, badly rested, and holding himself like a man who was measuring the room and did not know he was doing it. He had glanced at the ceiling tiles twice since sitting down and she had a strong suspicion he now knew how tall the room was.</p><p>"He was shot near the shaft," she said. "He crawled about seventy, eighty feet toward the road. That's typical. People go toward the road."</p><p>"He didn't crawl."</p><p>"There's a drag pattern in the—"</p><p>"There's a walking pattern," Zeno said, "with a drag at the very end of it. Detective, I'd like to be wrong. I'd like it very much. Take me out there and let me be wrong."</p><p>Novak was quiet a moment.</p><p>"You know what's strange?" she said. "I've got a man shot twice at four in the morning at a decommissioned Tesla site, and the only thing missing from his car is a coat."</p><p>Zeno's head came up.</p><p>"A coat."</p><p>"Empty hanger in the back seat, dry cleaning tag from Tuesday. No coat. In April." She tilted her head. "Why does that make your face do that?"</p><p>"Because he never carried a briefcase," Zeno said. "He carried things in his coat."</p></section>
+<section class="chapter" id="ch-5" data-label="5" data-num="5" data-book="Chapter 5 — Wardenclyffe · 3:52 p.m."><header><p class="chnum">5</p><p class="dateline">Wardenclyffe · 3:52 p.m.</p></header><p>They had put up sixty feet of tape and parked the vans on the grass, and there were nine people on the site who all believed they were looking at a crime scene.</p><p>Zeno Canna stood at the edge of the octagon and saw a sentence.</p><p>"He fell there." Novak pointed. "Coroner puts it around four fifteen."</p><p>Zeno crouched without touching anything. He didn't need to touch anything.</p><p>"Look at the impressions. Left deeper than the right by roughly the same margin the whole way — that's a man holding a wound on his left side and shifting his weight off it. Now look at the spacing." He glanced up at her. "Look how even it is. A dying man's stride collapses, Detective. It shortens every step. His didn't. He was holding the length on purpose."</p><p>Novak looked at the grass and saw grass.</p><p>"Okay," she said slowly. "So what."</p><p>"So he wasn't running." Zeno stood. "He was writing."</p><p>He stepped to the lip of the shaft where the blood pool started, set his heel against the concrete, and began to walk the line his stepfather had walked eleven hours earlier.</p><p>He knew the stride. He had learned to walk from this man. He had learned to walk <em>this way</em> from this man, at seven years old, in a driveway in Rocky Point, counting out loud while Ambrose Teague pretended to be impressed and then, in the second week, stopped pretending.</p><p><em>One. Two. Three.</em></p><p>The site went quiet behind him. Even the ones who thought he was insane went quiet, because there is something about a man walking a straight line with his eyes closed that stops conversation.</p><p><em>Forty. Forty-one.</em></p><p>He felt the ground change where the old rail spur had been. He felt the slope Tesla graded a hundred and twenty-five years ago to move copper he never got to use.</p><p><em>Sixty-six. Sixty-seven.</em></p><p>His foot came down on the sixty-eighth pace, his heel found the exact edge of the stain, and Zeno Canna opened his eyes and did not breathe for a while.</p><p>"Sixty-eight," Novak said. "Is that supposed to mean something?"</p><p>"Not by itself." His voice came out wrong. He cleared it. "A pace isn't a number. A pace is a number times a body. And he knew mine."</p><p>He knelt at the stain. Half-filled with eleven hours of dew, pressed into the sand by two fingers, was the character.</p><p>Novak leaned in. "That Arabic?"</p><p>"Aramaic."</p><p>"Okay. What's it say?"</p><p>Zeno stared at the little hooked shape in the dirt — the shape of a word that in the oldest surviving version of the most-spoken prayer on earth does the work of two English words at once — and felt the floor of his life tilt about four degrees.</p><p>"It's the one they mistranslate," he said.</p><p>"As what?"</p><p>He looked up at her.</p><p>"Trespasses." He wiped his mouth. "It actually means debts."</p></section>
+<section class="chapter" id="ch-6" data-label="6" data-num="6" data-book="Chapter 6 — Wardenclyffe · 4:40 p.m."><header><p class="chnum">6</p><p class="dateline">Wardenclyffe · 4:40 p.m.</p></header><p>"Debts," Novak repeated. "He's bleeding out and he writes <em>debts</em>."</p><p>"He writes it in a language nobody's spoken conversationally in twelve hundred years, in a script four people in this county can read, with two fingers, in the dark." Zeno was pacing now — not measuring, just moving. "That's not a dying thought. That's a courier."</p><p>"To you."</p><p>"To whoever could walk sixty-eight paces and land on the right spot." He stopped. "Which is me."</p><p>Novak wrote nothing down, which he noticed, and which he decided he approved of.</p><p>"So what's the debt?" she said.</p><p>"That's the wrong question."</p><p>"Enlighten me."</p><p>"He didn't write a debt. He wrote the word." Zeno turned toward the shaft, toward the flat gray octagon and the weeds. "Ambrose spent forty years on standards. Units. Definitions. He didn't care about things, he cared about the words for things and what happens when they slip. If he used a word, he meant the word."</p><p>Novak folded her arms. "You're telling me your stepfather's last act on this earth was a vocabulary lesson."</p><p>"I'm telling you," Zeno said, "that he thought he had time for exactly one word, and out of every word in every language he knew, he picked the one that means two things at once."</p><p>Behind them a tech called out that they were ready to move the body.</p><p>Zeno said, "Wait — sixty-eight paces from the shaft. What's under my feet?"</p><p>The tech looked down. "Grass?"</p><p>Zeno knelt and pulled the weeds apart with both hands, and there in the dirt, green-black with a century of oxide, was a brass survey disk stamped L.I.R.R. SPUR · 1903 · BM 4.</p><p>A benchmark.</p><p>"He didn't fall here," Zeno said quietly. "He arrived here."</p></section>
+<section class="chapter" id="ch-7" data-label="7" data-num="7" data-book="Chapter 7 — Zurich · 11:20 p.m. Central European Time"><header><p class="chnum">7</p><p class="dateline">Zurich · 11:20 p.m. Central European Time</p></header><p>Dr. Sibilla Roux had sent Ambrose Teague nine emails in six weeks and received two replies, both of them one line long, both of them from a man who had never in his life written a one-line reply.</p><p>The first said: <em>Not by mail.</em></p><p>The second said: <em>If I stop, look at the artifacts.</em></p><p>She had read the second one perhaps sixty times, and had concluded, each time, that it was either a typo or the beginning of something that would end her career.</p><p>At 11:20 she was still at the department, running a lattice reduction against a parameter set she was no longer supposed to have, when the alert came up on her second screen — a name search she had left running for six weeks and forgotten about.</p><p><em>Suffolk County, NY. Homicide. Victim identified as Ambrose Teague, 71.</em></p><p>Sibilla Roux sat back slowly.</p><p>Then she killed the job, wiped the scratch disk, took the stairs instead of the elevator, and was out of the building in under four minutes, which she would think about later, because it meant that some part of her had been ready for this for weeks.</p></section>
+<section class="chapter" id="ch-8" data-label="8" data-num="8" data-book="Chapter 8 — Yaphank · 6:15 p.m."><header><p class="chnum">8</p><p class="dateline">Yaphank · 6:15 p.m.</p></header><p>They brought Zeno the personal effects in a plastic tray, and the third item was a folded sheet of paper in an evidence sleeve, soft as cloth with age.</p><p>"Found in his sock," Novak said. "Which is a thing I've seen twice in eleven years, both times drug money."</p><p>Zeno turned on the desk lamp.</p><p>It was a page from a contract. Heavy rag stock, the kind that outlives everyone who touches it. Letterhead: WESTINGHOUSE ELECTRIC &amp; MANUFACTURING COMPANY, PITTSBURGH, PA. Dated 1897.</p><p>Royalty schedule. Two dollars and fifty cents per horsepower of alternating current sold.</p><p>The signature block at the bottom had been torn away. Not cut. Torn, along a line that ran diagonally through the last paragraph, taking half of a printed clause with it.</p><p>Zeno felt something move in his chest that had nothing to do with grief.</p><p>"Do you know what this is?" he said.</p><p>"Old paperwork."</p><p>"This is the most expensive piece of paper in American history." He didn't look up. "In 1897, George Westinghouse was being squeezed by his own investors. They told him the company would survive if he could get out from under the royalty he owed on the polyphase patents. Which he couldn't. Because the man who held them had a contract, and the contract was worth — in modern money — somewhere between ten and thirty billion dollars."</p><p>Novak's eyebrows went up half a centimeter.</p><p>"So Tesla went to Pittsburgh," Zeno said, "and Westinghouse told him the truth, and Nikola Tesla took the contract off the table and tore it up in front of him. Because the alternative was that alternating current died in committee." He finally looked at Novak. "He gave away the largest fortune of the twentieth century to keep the technology alive, and he died broke in a hotel room on Thirty-Fourth Street forty-six years later feeding pigeons."</p><p>Novak was silent for a second.</p><p>"And your stepfather kept a page of it in his sock."</p><p>"No," Zeno said. "He kept half of it in his sock."</p></section>
+<section class="gate" id="gate">
+<p class="gate-rule">— the opening ends here —</p>
+<h2>Eighty-five more chapters</h2>
+<p>The rest of <em>The Pace</em> goes out to the reader list: the full book,
+as a file you can keep, plus the research notes underneath each chapter and a
+note when Book II is finished. Nothing else, ever.</p>
+<form class="gate-form embeddable-buttondown-form" action="https://buttondown.com/api/emails/embed-subscribe/the-Cubit-and-the-Quark" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.com/the-Cubit-and-the-Quark', 'popupwindow')"><label class="sr" for="gate-email">Enter your email</label><input id="gate-email" type="email" name="email" placeholder="your@email.com" required><button type="submit">Send me the rest</button></form><p class="gate-powered">Powered by <a href="https://buttondown.com/refer/the-Cubit-and-the-Quark" target="_blank" rel="noopener">Buttondown</a></p>
+<p class="gate-fine">Book I is complete. Books II, III and IV are outlined.</p>
+</section><section class="backmatter" id="bm-historical-notewhat-is-real-and-what-is-"><h2>HISTORICAL NOTE</h2><p class="bmsub">What is real, and what is not</p><p><strong>Real:</strong> The Bureau International des Poids et Mesures occupies the Pavillon de Breteuil at Sèvres, on land that is an international enclave. The vault and its three keys are real. The 2019 redefinition of the kilogram against the Planck constant is real, as is the fact that the prototype and its official copies drifted apart by roughly fifty micrograms over a century, and that by definition the prototype could not be the one that was wrong.</p><p><strong>Real:</strong> The Westminster fire of 1834 and the destruction of the imperial standards. The reconstruction by comparison of surviving copies.</p><p><strong>Real:</strong> Wardenclyffe. The brick laboratory was designed by Stanford White, who was murdered at Madison Square Garden in 1906. The tower was demolished in 1917 against debts. The shaft beneath the foundation is real. The site is now a museum.</p><p><strong>Real:</strong> Tesla's rotating magnetic field; the break with Edison; Edison's public electrocutions of animals to discredit alternating current and his lobbying for its use in the first electric chair; the 1893 Chicago World's Fair lit by Westinghouse; Niagara in 1895; and the destruction of the royalty agreement in 1897.</p><p><strong>Real:</strong> Jekyll Island, 1910. The participants documented it themselves, decades later. No embellishment was necessary and none was added.</p><p><strong>Real:</strong> The genesis block and its embedded headline. The roughly one million coins in early pay-to-public-key outputs whose public keys have been exposed on the chain since 2009, and which are therefore the first assets a sufficiently large quantum computer would take. The live debate about post-quantum migration.</p><p><strong>Real:</strong> Shor's algorithm. Lattice-based cryptography. The public standards process. The concept of a nothing-up-my-sleeve number, and the reason cryptographers insist on them.</p><p><strong>Real:</strong> The Peshitta reads <em>ḥawbayn</em> — debts — where English liturgy says trespasses. Matthew's Greek uses the accounting word. <em>Epiousios</em>, in the bread petition, appears essentially nowhere else in the Greek language; Jerome rendered it two different ways in two different Gospels, and it remains unresolved. <em>Nesyuna</em> means trial or ordeal rather than temptation. <em>Shmaya</em> means sky and heaven at once.</p><p><strong>Real:</strong> Kiruna is being physically relocated because the mine beneath it is consuming the ground the town stands on. They moved the church.</p><p><strong>Not real:</strong> Parameter Set C. The Bretton Group. Aldrich Vane, Ambrose Teague, Zeno Canna, Sibilla Roux, Mira Novak, Robert Halverson, Nour Zaidi, and the woman with no name. Every institution named in this book exists; every person in it is invented, and any resemblance to a living individual is a failure of my imagination rather than an accusation.</p><p><strong>Deliberately unresolved:</strong> who moved the coins.</p></section>
+<section class="backmatter" id="bm-a-note-on-how-this-was-made"><h2>A NOTE ON HOW THIS WAS MADE</h2><p>I want to be straightforward about the method, because I think readers deserve it and because the book is about honest measurement.</p><p>I wrote this with an AI.</p><p>Not <em>had an AI write it.</em> The distinction matters, and I'll try to draw it precisely, because the honest version is more interesting than either of the marketing versions you usually get.</p><p>What I brought: twenty years of obsession with the nanoscale, a family name from Bari that I have never been able to verify, a bank that once made it difficult for me to move my own money and taught me more about power than any book, a grandfather's prayer in a language I never learned, and a conviction — which I hold, and which this novel argues with rather than endorses — that the future belongs to abundance, and that the people standing in the way of it are usually not villains, only frightened.</p><p>What the collaboration brought: structure, research at a speed I could not match alone, and a hundred and one places where I said <em>what about this</em> and got back <em>here is why that is better than you think, and here is where it will fail.</em> The 21,600 keystone — that a human day in the yogic count is exactly the number of nautical miles around the earth — came out of that back-and-forth. So did the decision to make the antagonist right. So did the refusal, which cost me something, to put real living people on the page.</p><p>The parts I fought for: the Aramaic. <em>Kairos.</em> That the antagonist never gets arrested.</p><p>The parts I was talked out of: free-energy suppression, a named banker, and an ending where the good guy wins cleanly.</p><p>Every historical claim in this book is checkable, and the note above tells you which is which. I did not have to invent very much. That was the surprise.</p><p>If you want to know what I actually think, it is this: I do not believe a measure needs no keeper. I believe it needs more than one.</p><p>That is the whole book. I did not know it when I started. I found it by writing — which is, I have come to understand, the only reason to write anything.</p><p class="sign">— N.C.</p></section>
+<section class="backmatter" id="bm-about-the-author-and-the-collaboration"><h2>ABOUT THE AUTHOR AND THE COLLABORATION</h2><p>Nicholas Conenna builds things. He has spent most of his working life as an applied AI architect — designing and shipping systems end to end, usually alone, usually faster than seemed reasonable. He has founded companies, written the code and the brand for them himself, and learned the hard parts of business the way most founders do, which is by paying for them.</p><p>He is the grandson of a man from Bari and the son of a family from the Veneto. He has carried, since childhood, a family claim connecting an unusual surname to a Byzantine emperor's failed campaign into southern Italy in 1155, and he has never been able to prove it — an unresolved provenance he handed, eventually, to a fictional metrologist who could not put it down either.</p><p>He came to fiction sideways. The research was for himself first: measurement, energy, money, the physics of the next fifty years, and the recurring question of who gets to decide what counts. The novel is the shape that research took when it would not stay in a notebook.</p><p><strong>On the collaboration.</strong> This book was written in an extended working partnership with Claude, an AI system made by Anthropic. The honest description is editor, researcher, structural engineer, and sparring partner — not co-author, and not ghostwriter either.</p><p>The method was conversational and iterative. The author brought the obsessions, the family material, the thematic commitments, and the veto. The AI brought historical research, structural proposals, drafting at volume, and — most usefully — persistent argument: pushing back on the mystical version of Tesla, on naming living people, on any ending where being right was sufficient. Character names were rejected and rebuilt three times. The antagonist's best argument was strengthened deliberately, over several passes, until it became difficult to answer.</p><p>Neither party could have produced this alone, and the author would rather say that on the page than be asked about it later.</p><p><strong>A note on rights.</strong> This manuscript was produced through human–AI collaboration. Under current U.S. Copyright Office guidance, material generated by AI is not itself copyrightable, and registration requires disclosure of AI-generated content together with identification of the human authorship being claimed. That disclosure will be made. The human authorship claimed here is the conception, the selection and arrangement, the thematic architecture, the source material, and the final judgment on every line.</p></section>
+<section class="backmatter" id="bm-the-cubit-and-the-quarkthe-four-books"><h2>THE CUBIT AND THE QUARK</h2><p class="bmsub">The four books</p><div class="inset"><span>I. THE PACE — the road, the empire, the imposed standard</span><span>II. THE FATHOM — depth, the embrace, what lies under the water</span><span>III. THE BREATH — time, the body's clock, 21,600</span><span>IV. THE STANDARD — the vault, the meter, the fight over who holds it</span></div></section>
+<section class="colophon"><p>THE PACE — Book I of four</p></section>
+</main>
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById('theme');
+  btn.addEventListener('click',function(){
+    var d=root.getAttribute('data-theme')==='dark';
+    root.setAttribute('data-theme', d?'light':'dark');
+    btn.textContent = d?'Dark':'Light';
+  });
+  var top=document.getElementById('top');
+  top.addEventListener('click',function(){window.scrollTo(0,0)});
+
+  var cur=document.querySelector('.scale .cursor'),
+      now=document.querySelector('.scale .readnow'),
+      bar=document.querySelector('.progressbar'),
+      chapters=[].slice.call(document.querySelectorAll('.chapter,.partpage,.backmatter')),
+      ticking=false;
+  function update(){
+    var h=document.body.scrollHeight-window.innerHeight,
+        p=h>0?Math.min(1,Math.max(0,window.scrollY/h)):0;
+    cur.style.top=(p*window.innerHeight)+'px';
+    now.style.top=(p*window.innerHeight)+'px';
+    bar.style.width=(p*100)+'%';
+    var label='';
+    for(var i=0;i<chapters.length;i++){
+      if(chapters[i].getBoundingClientRect().top<120){
+        label=chapters[i].dataset.label?('Ch '+chapters[i].dataset.label):
+          (chapters[i].querySelector('h2')||{}).textContent||'';
+      }
+    }
+    now.textContent=label.slice(0,24);
+    ticking=false;
+  }
+  window.addEventListener('scroll',function(){
+    if(!ticking){ticking=true;requestAnimationFrame(update)}
+  },{passive:true});
+  window.addEventListener('resize',update); update();
+})();
+</script>
+<script>
+(function(){
+  var marks=[10,25,50,75,90,100],hit={},gateSeen=false;
+  function send(name,props){
+    if(window.plausible){window.plausible(name,{props:props});}
+    else if(window.gtag){window.gtag('event',name,props||{});}
+  }
+  function check(){
+    var h=document.body.scrollHeight-window.innerHeight;
+    var p=h>0?Math.round(window.scrollY/h*100):0;
+    for(var i=0;i<marks.length;i++){
+      if(p>=marks[i]&&!hit[marks[i]]){hit[marks[i]]=true;send('read_depth',{depth:marks[i]});}
+    }
+    var g=document.getElementById('gate');
+    if(g&&!gateSeen&&g.getBoundingClientRect().top<window.innerHeight){
+      gateSeen=true;send('gate_viewed');
+    }
+    var cur=null,chs=document.querySelectorAll('.chapter');
+    for(var j=0;j<chs.length;j++){
+      if(chs[j].getBoundingClientRect().top<120){cur=chs[j].id;}
+    }
+    if(cur){window.__lastChapter=cur;}
+  }
+  window.addEventListener('scroll',check,{passive:true});
+  window.addEventListener('beforeunload',function(){
+    if(window.__lastChapter){send('stopped_at',{chapter:window.__lastChapter});}
+  });
+  check();
+})();
+</script>
+</body>
+</html>
