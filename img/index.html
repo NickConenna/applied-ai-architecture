@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Image assets — nickconenna.com</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --vault:#0F1619;
+  --oxide:#23474F;
+  --zinc:#E6E8E3;
+  --dim:#9BA6A6;
+  --stamp:#6E7C7E;
+  --brass:#C9A24B;
+  --hivis:#F26419;
+  --hair:rgba(230,232,227,.16);
+  --hair-soft:rgba(230,232,227,.09);
+  --display:'Archivo',system-ui,sans-serif;
+  --body:'IBM Plex Sans',system-ui,sans-serif;
+  --data:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--vault);color:var(--zinc);
+  font-family:var(--body);font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(ellipse 90% 55% at 50% -8%,rgba(35,71,79,.5),transparent 70%);
+  background-attachment:fixed;
+}
+.wrap{max-width:980px;margin:0 auto;padding:0 24px}
+
+header.bar{border-bottom:1px solid var(--hair);padding:22px 0}
+header.bar .wrap{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+header.bar a{
+  color:var(--dim);text-decoration:none;
+  font-family:var(--data);font-size:10.5px;text-transform:uppercase;letter-spacing:.14em;
+  border-bottom:1px solid transparent;
+}
+header.bar a:hover{color:var(--zinc);border-color:var(--brass)}
+
+.hero{padding:50px 0 40px}
+.kicker{
+  font-family:var(--data);font-size:10.5px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.26em;color:var(--brass);margin-bottom:18px;
+}
+h1{
+  font-family:var(--display);font-weight:800;font-size:clamp(30px,6vw,46px);
+  letter-spacing:-.02em;line-height:1.05;color:#F4F6F1;margin-bottom:14px;
+}
+.sub{font-size:16px;color:var(--dim);max-width:60ch}
+.count{font-family:var(--data);font-size:11px;color:var(--stamp);margin-top:16px;letter-spacing:.05em}
+
+.grid{
+  display:grid;grid-template-columns:1fr;gap:1px;
+  background:var(--hair-soft);border:1px solid var(--hair-soft);
+  margin:36px 0 60px;
+}
+@media (min-width:720px){.grid{grid-template-columns:1fr 1fr}}
+
+.card{background:var(--vault);padding:22px}
+.thumb{
+  position:relative;border-radius:2px;overflow:hidden;
+  background:#000;
+  box-shadow:0 20px 48px -26px #000,0 0 0 1px rgba(230,232,227,.08);
+  margin-bottom:18px;
+}
+.thumb img{display:block;width:100%;height:auto}
+.thumb a{display:block}
+
+.meta-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:6px}
+.fname{
+  font-family:var(--data);font-size:13.5px;font-weight:600;color:var(--zinc);
+  word-break:break-all;
+}
+.dims{
+  font-family:var(--data);font-size:10.5px;color:var(--stamp);white-space:nowrap;
+}
+.desc{font-size:14.5px;color:var(--dim);margin:10px 0 14px;line-height:1.55}
+
+.usedon{
+  border-top:1px solid var(--hair-soft);padding-top:12px;
+  font-family:var(--data);font-size:10.5px;letter-spacing:.05em;color:var(--stamp);
+}
+.usedon b{
+  display:block;text-transform:uppercase;letter-spacing:.16em;color:var(--brass);
+  font-size:9.5px;margin-bottom:7px;
+}
+.usedon a{color:var(--dim);text-decoration:none;border-bottom:1px solid var(--hair-soft)}
+.usedon a:hover{color:var(--brass);border-color:var(--brass)}
+.usedon .tag{
+  display:inline-block;margin:0 6px 6px 0;padding:3px 8px;
+  border:1px solid var(--hair);border-radius:2px;
+}
+.usedon .missing{color:var(--hivis);border-color:rgba(242,100,25,.4)}
+
+.path{
+  font-family:var(--data);font-size:11px;color:var(--stamp);
+  background:rgba(230,232,227,.04);border:1px solid var(--hair-soft);
+  border-radius:2px;padding:9px 12px;margin-top:14px;word-break:break-all;
+}
+
+.foot{border-top:1px solid var(--hair);padding:36px 0 60px;margin-top:20px}
+.foot p{font-family:var(--data);font-size:11px;color:var(--stamp);letter-spacing:.05em}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a href="/">← nickconenna.com</a>
+    <a href="/writing/">Writing</a>
+    <a href="/writing/the-pace.html">The Pace</a>
+  </div>
+</header>
+
+<div class="wrap hero">
+  <p class="kicker">Internal · not for public linking</p>
+  <h1>Image assets</h1>
+  <p class="sub">Every image currently referenced by the site, in one place, with dimensions and where each one is wired in — so nothing points at a file that was never uploaded.</p>
+  <p class="count">3 assets on record</p>
+</div>
+
+<div class="wrap">
+  <div class="grid">
+
+    <div class="card">
+      <div class="thumb">
+        <a href="the-pace-cover.jpg" target="_blank" rel="noopener">
+          <img src="the-pace-cover.jpg" alt="THE PACE book cover — hooded figure walking toward the Wardenclyffe tower">
+        </a>
+      </div>
+      <div class="meta-row">
+        <span class="fname">the-pace-cover.jpg</span>
+        <span class="dims">490 × 715</span>
+      </div>
+      <p class="desc">Standalone book-cover crop. Portrait, transparent-safe edges, drop shadow baked in — drops straight into a layout with no further cropping needed.</p>
+      <div class="usedon">
+        <b>Used on</b>
+        <span class="tag"><a href="/writing/">writing/index.html</a> — hero, floating cover art</span>
+      </div>
+      <div class="path">/img/the-pace-cover.jpg</div>
+    </div>
+
+    <div class="card">
+      <div class="thumb">
+        <a href="the-pace-cover-wide.jpg" target="_blank" rel="noopener">
+          <img src="the-pace-cover-wide.jpg" alt="Wide mockup — book cover beside an atmospheric Wardenclyffe landscape with geometric overlays">
+        </a>
+      </div>
+      <div class="meta-row">
+        <span class="fname">the-pace-cover-wide.jpg</span>
+        <span class="dims">1376 × 768</span>
+      </div>
+      <p class="desc">Full-bleed mockup — cover plus the extended landscape scene. Used wherever a wide atmospheric image reads better than the cover alone.</p>
+      <div class="usedon">
+        <b>Used on</b>
+        <span class="tag"><a href="/writing/">writing/index.html</a> — og:image / Twitter card</span>
+      </div>
+      <div class="path">/img/the-pace-cover-wide.jpg</div>
+    </div>
+
+    <div class="card">
+      <div class="thumb">
+        <a href="the-pace-card.png" target="_blank" rel="noopener">
+          <img src="the-pace-card.png" alt="Social share card — 1200 by 630 crop of the cover mockup">
+        </a>
+      </div>
+      <div class="meta-row">
+        <span class="fname">the-pace-card.png</span>
+        <span class="dims">1200 × 630</span>
+      </div>
+      <p class="desc">Standard OG/Twitter card ratio (1.91:1), cropped from the wide mockup so nothing important sits at the trimmed edges.</p>
+      <div class="usedon">
+        <b>Used on</b>
+        <span class="tag"><a href="/writing/the-pace.html">writing/the-pace.html</a> — og:image / Twitter card</span>
+      </div>
+      <div class="path">/img/the-pace-card.png</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="wrap foot">
+  <p>Generated for internal reference · update this page when a new asset is added or an old one is retired.</p>
+</div>
+
+</body>
+</html>
