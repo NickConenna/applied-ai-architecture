@@ -7,6 +7,12 @@
 <meta name="description" content="A four-book series about measurement, money, and who decides what counts. Book I: The Pace. Every historical claim in it is checkable.">
 <meta property="og:title" content="The Cubit and the Quark">
 <meta property="og:description" content="A metrologist can tell you the circumference of the earth in breaths. He cannot read a man across a table. Book I: The Pace.">
+<meta property="og:image" content="https://www.nickconenna.com/img/the-pace-cover-wide.jpg">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Cubit and the Quark">
+<meta name="twitter:description" content="A metrologist can tell you the circumference of the earth in breaths. He cannot read a man across a table. Book I: The Pace.">
+<meta name="twitter:image" content="https://www.nickconenna.com/img/the-pace-cover-wide.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
@@ -60,6 +66,8 @@ body{
 
 /* ---------- hero ---------- */
 .hero{padding:70px 0 0;position:relative}
+.hero-grid{display:grid;grid-template-columns:1fr;gap:44px;align-items:center}
+.hero-copy{min-width:0}
 .kicker{
   font-family:var(--data);font-size:10.5px;font-weight:600;
   text-transform:uppercase;letter-spacing:.28em;color:var(--brass);
@@ -67,7 +75,7 @@ body{
 }
 h1{
   font-family:var(--display);font-weight:800;
-  font-size:clamp(44px,12vw,116px);line-height:.9;
+  font-size:clamp(44px,12vw,104px);line-height:.9;
   letter-spacing:-.04em;text-transform:uppercase;
   margin-bottom:30px;color:#F4F6F1;
 }
@@ -105,7 +113,6 @@ h1 .and{
 .lede b{font-weight:500;color:var(--brass)}
 .herofoot{
   margin-top:30px;display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;
-  padding-bottom:56px;
 }
 .cta-primary{
   font-family:var(--display);font-weight:800;font-size:clamp(17px,2.6vw,21px);
@@ -119,6 +126,25 @@ h1 .and{
   color:var(--zinc);border:1px solid var(--hair);border-radius:2px;padding:11px 15px;
 }
 .cta-ghost:hover{border-color:var(--brass);color:var(--brass)}
+
+/* ---------- cover art ---------- */
+.cover-art{position:relative;max-width:340px;margin:0 auto;padding:36px 46px 44px}
+.cover-art::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 65% at 50% 40%,rgba(201,162,75,.16),transparent 72%);
+  filter:blur(6px);z-index:0;
+}
+.cover-art img{
+  position:relative;z-index:1;
+  display:block;width:100%;height:auto;border-radius:2px;
+  box-shadow:0 46px 100px -34px #000,0 0 0 1px rgba(230,232,227,.1);
+}
+.cover-cap{
+  position:relative;z-index:1;margin-top:16px;text-align:center;
+  font-family:var(--data);font-size:10px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.2em;color:var(--stamp);
+}
+.cover-cap b{color:var(--brass);font-weight:600}
 
 /* ---------- sections ---------- */
 section{padding:66px 0;border-top:1px solid var(--hair-soft)}
@@ -312,10 +338,12 @@ a.art:hover .go{color:var(--hivis)}
 /* ---------- motion: one orchestrated moment ---------- */
 @keyframes sweep{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
 @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes settle{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
 .rulewrap{animation:sweep 1.1s cubic-bezier(.22,.8,.28,1) .15s both}
 h1{animation:rise .6s ease-out both}
 .lede{animation:rise .6s ease-out .28s both}
 .herofoot{animation:rise .6s ease-out .42s both}
+.cover-art{animation:settle .8s cubic-bezier(.22,.8,.28,1) .2s both}
 
 @media (min-width:640px){
   .hide-sm{display:inline}
@@ -329,9 +357,13 @@ h1{animation:rise .6s ease-out both}
 @media (min-width:860px){
   .trio{grid-template-columns:repeat(3,1fr)}
 }
+@media (min-width:900px){
+  .hero-grid{grid-template-columns:1.2fr .8fr;gap:24px}
+  .cover-art{max-width:none;margin:0;padding:0 0 0 10px}
+}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .rulewrap,h1,.lede,.herofoot{animation:none}
+  .rulewrap,h1,.lede,.herofoot,.cover-art{animation:none}
 }
 </style>
 </head>
@@ -354,25 +386,36 @@ h1{animation:rise .6s ease-out both}
 
 <!-- ================= HERO ================= -->
 <div class="wrap hero">
-  <p class="kicker">A novel series in four volumes</p>
+  <div class="hero-grid">
 
-  <h1>The Cubit<span class="and">and the</span>Quark</h1>
+    <div class="hero-copy">
+      <p class="kicker">A novel series in four volumes</p>
 
-  <div class="rulewrap">
-    <div class="rule"><span class="majors"></span></div>
-    <div class="rulelabels">
-      <span>0</span>
-      <span class="hide-sm">Mille passus — a thousand paces to the Roman mile</span>
-      <span class="end">68 ◂ he stopped here</span>
+      <h1>The Cubit<span class="and">and the</span>Quark</h1>
+
+      <div class="rulewrap">
+        <div class="rule"><span class="majors"></span></div>
+        <div class="rulelabels">
+          <span>0</span>
+          <span class="hide-sm">Mille passus — a thousand paces to the Roman mile</span>
+          <span class="end">68 ◂ he stopped here</span>
+        </div>
+      </div>
+
+      <p class="lede">A man is shot at four in the morning at the foot of Tesla's tower. He has eleven minutes left, and he spends them <b>walking in a straight line</b>, counting.</p>
+
+      <div class="herofoot">
+        <a class="cta-primary" href="#excerpt">Read the opening →</a>
+        <a class="cta-ghost" href="the-pace.html">Book I: The Pace</a>
+        <a class="cta-ghost" href="#list">Reader list</a>
+      </div>
     </div>
-  </div>
 
-  <p class="lede">A man is shot at four in the morning at the foot of Tesla's tower. He has eleven minutes left, and he spends them <b>walking in a straight line</b>, counting.</p>
+    <div class="cover-art">
+      <img src="img/the-pace-cover.jpg" alt="THE PACE, by Nick Conenna — a hooded figure walks toward the Wardenclyffe tower under a clouded sky, ringed by faint geometric equations and a constellation of measurement points.">
+      <p class="cover-cap">Book I <b>·</b> The Pace</p>
+    </div>
 
-  <div class="herofoot">
-    <a class="cta-primary" href="#excerpt">Read the opening →</a>
-    <a class="cta-ghost" href="the-pace.html">Book I: The Pace</a>
-    <a class="cta-ghost" href="#list">Reader list</a>
   </div>
 </div>
 
