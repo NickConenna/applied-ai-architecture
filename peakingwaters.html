@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Land, Machines, and Applied AI — Nick Conenna</title>
+<meta name="description" content="A working reference on hands-on land development and equipment operation, prepared in support of an application to The Boring Company.">
+<meta property="og:title" content="Land, Machines, and Applied AI — Nick Conenna">
+<meta property="og:description" content="Excavator owner-operator. Land developer. Applied AI architect. A reference page on getting dirt moved and systems built.">
+<meta property="og:type" content="profile">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E6E8E3;      /* zinc, as ground/background here */
+  --paper-deep:#DBDED7;
+  --ink:#15181B;
+  --sub:#4B5559;
+  --oxide:#23474F;      /* primary accent — dark teal */
+  --brass:#9C7A2E;      /* darkened for light-mode contrast */
+  --hivis:#C9481B;      /* darkened for light-mode contrast */
+  --hair:rgba(21,24,27,.13);
+  --hair-soft:rgba(21,24,27,.07);
+  --display:'Archivo',system-ui,sans-serif;
+  --body:'IBM Plex Sans',system-ui,sans-serif;
+  --data:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:var(--body);font-size:17px;line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:900px;margin:0 auto;padding:0 24px}
+
+/* ---------- bar ---------- */
+.bar{
+  position:sticky;top:0;z-index:20;
+  background:rgba(230,232,227,.9);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--hair);
+}
+.bar .wrap{
+  display:flex;align-items:center;gap:14px;
+  min-height:54px;padding-top:9px;padding-bottom:9px;flex-wrap:wrap;
+  font-family:var(--data);font-size:10.5px;
+  text-transform:uppercase;letter-spacing:.15em;
+}
+.bar a{color:var(--sub);text-decoration:none;border-bottom:1px solid transparent}
+.bar a:hover{color:var(--ink);border-color:var(--brass)}
+.bar .right{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap}
+.hide-sm{display:none}
+
+/* ---------- hero ---------- */
+.hero{padding:70px 0 56px;border-bottom:1px solid var(--hair-soft)}
+.kicker{
+  font-family:var(--data);font-size:10.5px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.26em;color:var(--brass);
+  margin-bottom:22px;
+}
+h1{
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(34px,6.4vw,58px);line-height:1.04;
+  letter-spacing:-.03em;margin-bottom:22px;color:var(--ink);max-width:16ch;
+}
+.lede{font-size:clamp(18px,2.2vw,20px);line-height:1.55;max-width:58ch;color:var(--sub)}
+.lede b{font-weight:600;color:var(--oxide)}
+.herofoot{margin-top:30px;display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center}
+.cta-primary{
+  font-family:var(--display);font-weight:800;font-size:16px;
+  letter-spacing:-.008em;color:var(--ink);text-decoration:none;
+  border-bottom:3px solid var(--hivis);padding-bottom:2px;
+}
+.cta-primary:hover{color:var(--hivis)}
+.cta-ghost{
+  font-family:var(--data);font-size:10.5px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.14em;text-decoration:none;
+  color:var(--ink);border:1px solid var(--hair);border-radius:2px;padding:11px 15px;
+}
+.cta-ghost:hover{border-color:var(--brass);color:var(--brass)}
+
+/* ---------- purpose note ---------- */
+.purpose{
+  margin-top:34px;border-left:3px solid var(--oxide);
+  padding:16px 0 16px 22px;max-width:62ch;
+}
+.purpose p{font-size:15px;line-height:1.6;color:var(--sub)}
+.purpose b{color:var(--ink);font-weight:600}
+
+/* ---------- sections ---------- */
+section{padding:60px 0;border-bottom:1px solid var(--hair-soft)}
+.shead{
+  font-family:var(--data);font-size:10.5px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.22em;color:var(--sub);
+  display:flex;align-items:baseline;gap:14px;margin-bottom:26px;
+}
+.shead::after{content:"";flex:1;height:1px;background:var(--hair-soft)}
+h2{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(23px,3.6vw,30px);line-height:1.18;
+  letter-spacing:-.016em;margin-bottom:18px;color:var(--ink);max-width:26ch;
+}
+p.body{font-size:16.5px;line-height:1.62;max-width:62ch;margin-bottom:16px;color:var(--sub)}
+p.body:last-child{margin-bottom:0}
+p.body b{font-weight:600;color:var(--ink)}
+
+/* ---------- spec panel (equipment) ---------- */
+.specpanel{
+  border:1px solid var(--hair);border-left:3px solid var(--brass);
+  background:linear-gradient(180deg,rgba(35,71,79,.05),rgba(35,71,79,.02));
+  padding:30px 26px;display:grid;gap:22px;
+}
+@media (min-width:640px){.specpanel{grid-template-columns:1fr 1fr;padding:36px}}
+.spec dt{
+  font-family:var(--data);font-size:10px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.16em;color:var(--brass);margin-bottom:6px;
+}
+.spec dd{font-size:16px;color:var(--ink);line-height:1.4}
+.spec dd.fill{color:var(--sub);font-style:italic}
+
+/* ---------- photo grid ---------- */
+.pgrid{display:grid;grid-template-columns:1fr;gap:18px;margin-top:10px}
+@media (min-width:640px){.pgrid{grid-template-columns:1fr 1fr}}
+.pcard{border:1px solid var(--hair);background:#fff;border-radius:2px;overflow:hidden}
+.pshot{
+  aspect-ratio:4/3;position:relative;
+  background:
+    repeating-linear-gradient(45deg,var(--paper-deep) 0 10px,#fff 10px 20px);
+  display:flex;align-items:center;justify-content:center;
+  border-bottom:1px dashed var(--hair);
+}
+.pshot .ph{
+  text-align:center;padding:20px;font-family:var(--data);
+  font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--sub);line-height:1.6;max-width:26ch;
+}
+.pshot .ph b{display:block;color:var(--oxide);font-size:9.5px;letter-spacing:.16em;margin-bottom:6px}
+.pcap{padding:16px 18px}
+.pcap .loc{
+  font-family:var(--data);font-size:10px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.16em;color:var(--brass);margin-bottom:6px;
+}
+.pcap p{font-size:14.5px;line-height:1.5;color:var(--sub)}
+
+/* ---------- ladder (project list) ---------- */
+.ladder{border-top:1px solid var(--hair)}
+.rung{
+  display:grid;grid-template-columns:34px 1fr;gap:0 18px;
+  padding:24px 0;border-bottom:1px solid var(--hair-soft);
+}
+.rung .mark{
+  font-family:var(--data);font-size:12px;font-weight:600;
+  letter-spacing:.14em;color:var(--sub);padding-top:5px;
+}
+.rung .title{
+  font-family:var(--display);font-weight:600;font-size:20px;
+  letter-spacing:-.014em;line-height:1.15;color:var(--ink);margin-bottom:8px;
+}
+.rung .what{font-size:15.5px;line-height:1.55;max-width:60ch;color:var(--sub)}
+.rung .scope{
+  font-family:var(--data);font-size:10.5px;letter-spacing:.05em;
+  color:var(--brass);margin-top:10px;
+}
+
+/* ---------- crossover / three-up ---------- */
+.trio{display:grid;gap:1px;background:var(--hair-soft);border:1px solid var(--hair-soft)}
+.trio article{background:var(--paper);padding:26px 22px}
+.trio .cap{
+  font-family:var(--data);font-size:10px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.2em;color:var(--brass);display:block;margin-bottom:12px;
+}
+.trio h3{
+  font-family:var(--display);font-weight:600;font-size:18px;
+  letter-spacing:-.01em;line-height:1.28;margin-bottom:10px;color:var(--ink);
+}
+.trio p{font-size:15px;line-height:1.55;color:var(--sub)}
+@media (min-width:860px){.trio{grid-template-columns:repeat(3,1fr)}}
+
+/* ---------- references / signup-style close ---------- */
+.close-block{
+  border:1px solid var(--hair);border-radius:2px;padding:32px 26px;
+  background:linear-gradient(180deg,rgba(35,71,79,.05),transparent);
+  display:flex;flex-wrap:wrap;gap:18px 28px;align-items:center;justify-content:space-between;
+}
+.close-block p{font-size:16px;max-width:44ch;margin:0;color:var(--sub)}
+.close-block .join{
+  font-family:var(--display);font-weight:800;font-size:18px;
+  letter-spacing:-.014em;color:var(--ink);text-decoration:none;
+  border-bottom:3px solid var(--hivis);padding-bottom:2px;white-space:nowrap;
+}
+.close-block .join:hover{color:var(--hivis)}
+
+/* ---------- foot ---------- */
+.foot{padding:44px 0 70px}
+.foot p{
+  font-family:var(--data);font-size:11px;letter-spacing:.06em;
+  color:var(--sub);line-height:2;
+}
+.foot a{color:var(--sub);text-decoration:none;border-bottom:1px solid var(--hair-soft)}
+.foot a:hover{color:var(--brass);border-color:var(--brass)}
+
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+
+@media (min-width:640px){
+  .hide-sm{display:inline}
+  .hero{padding-top:88px}
+  .rung{grid-template-columns:44px 1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a href="/">← nickconenna.com</a>
+    <span class="right">
+      <a href="#equipment">Equipment</a>
+      <a href="#work">Land work</a>
+      <a class="hide-sm" href="#crossover">Why this matters</a>
+      <a href="#contact">Contact</a>
+    </span>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= HERO ================= -->
+<div class="wrap hero">
+  <p class="kicker">A working reference · prepared for The Boring Company</p>
+  <h1>I move dirt, and I build the systems around it</h1>
+  <p class="lede">I'm an applied AI architect who also owns and operates an excavator, and has spent years doing real land development work on my own property and for others. <b>This page exists to make that visible</b> — not as a resume line, but as photographed, dated work.</p>
+
+  <div class="herofoot">
+    <a class="cta-primary" href="#work">See the work →</a>
+    <a class="cta-ghost" href="#equipment">Equipment</a>
+    <a class="cta-ghost" href="#contact">Contact</a>
+  </div>
+
+  <div class="purpose">
+    <p><b>Why this page exists:</b> I'm applying to The Boring Company, where the work sits exactly at the intersection I've been operating in without a name for it — heavy equipment and site work on one side, software and applied AI systems on the other. Most of what proves the first half doesn't live on a resume. It lives in photos of finished grading, a machine with hours on it, and jobs that held up. This is that record.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ================= EQUIPMENT ================= -->
+  <section id="equipment">
+    <p class="shead">Equipment</p>
+    <h2>Owner-operator, not equipment-adjacent</h2>
+    <p class="body">I own my primary machine outright and run it myself — sourcing, permitting, planning, and operating, start to finish, on every job below.</p>
+
+    <div class="specpanel">
+      <div class="spec">
+        <dt>Primary machine</dt>
+        <dd>Bobcat E32 mini-excavator — compact, ~3-ton class, zero tail swing</dd>
+      </div>
+      <div class="spec">
+        <dt>Owned since</dt>
+        <dd class="fill">[ Add: year acquired ]</dd>
+      </div>
+      <div class="spec">
+        <dt>Attachments / implements</dt>
+        <dd>Standard grading/digging bucket (pictured below)<br><span class="fill">[ Add: any additional attachments — auger, thumb, plate compactor, etc. ]</span></dd>
+      </div>
+      <div class="spec">
+        <dt>Other equipment run regularly</dt>
+        <dd class="fill">[ Add: skid steer, compact tractor, trencher, compaction gear, trailer/hauling rig ]</dd>
+      </div>
+      <div class="spec">
+        <dt>Hours logged</dt>
+        <dd class="fill">[ Add: approximate operating hours, if tracked ]</dd>
+      </div>
+      <div class="spec">
+        <dt>Licensing / certification status</dt>
+        <dd class="fill">[ Add: NC general contractor license status, any equipment certifications ]</dd>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LAND WORK — PHOTO GRID ================= -->
+  <section id="work">
+    <p class="shead">Land development work</p>
+    <h2>Clearing to finished — one site, start to end</h2>
+    <p class="body">All of this is the same job, in sequence: a rhododendron-choked roadside embankment at 215 Edmisten Rd, Blowing Rock, NC, cleared and cut into a vehicle-passable access road and camp bench, ending in a built utility structure and a set-up expedition tent. Every stage below was run solo — no subcontracted excavation.</p>
+
+    <div class="pgrid">
+
+      <div class="pcard">
+        <div class="pshot" style="background:#000;aspect-ratio:4/3">
+          <img src="/img/land/excavator-clearing-roadside.jpg" alt="Bobcat E32 mini-excavator clearing rhododendron thicket on a steep roadside embankment, paved two-lane road visible below" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="pcap">
+          <p class="loc">Stage 1 · Clearing the cut</p>
+          <p>Bobcat E32 working a rhododendron thicket on the roadside embankment — root balls and brush cleared to open the line for the access cut.</p>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="pshot" style="background:#000;aspect-ratio:4/3">
+          <img src="/img/land/excavator-grading-pad.jpg" alt="Bobcat E32 grading a flat pad after clearing, a red SUV parked on the newly graded surface" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="pcap">
+          <p class="loc">Stage 2 · Grading the pad</p>
+          <p>Same cut, graded to a flat, driveable bench — the SUV parked on it is the proof of load-bearing, compacted surface.</p>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="pshot" style="background:#000;aspect-ratio:4/3">
+          <img src="/img/land/access-road-cut-fog.jpg" alt="Muddy access trail cut through fog and rhododendron, fresh tire tracks visible in the graded soil" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="pcap">
+          <p class="loc">Stage 3 · Cutting the access trail</p>
+          <p>Pushing the road further up-slope through fog and root mass — the messiest, least photogenic part of the job, included on purpose.</p>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="pshot" style="background:#000;aspect-ratio:4/3">
+          <img src="/img/land/access-road-finished.jpg" alt="Finished graded dirt access road on a sunny day, with a built plywood utility structure alongside" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="pcap">
+          <p class="loc">Stage 4 · Finished access road</p>
+          <p>Compacted, crowned, and holding — plus a framed-and-sided utility structure built alongside it, on-site carpentry beyond just excavation.</p>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="pshot" style="background:#000;aspect-ratio:4/3">
+          <img src="/img/land/camp-clearing-graded-bench.jpg" alt="Graded camp bench with drainage swales cut into the dirt, wall tent visible in the background" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="pcap">
+          <p class="loc">Stage 5 · Graded bench, drainage cut</p>
+          <p>Swales cut into the bench to route water off the pad before anything gets built on it — planned before it was needed, not after.</p>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="pshot" style="background:#000;aspect-ratio:4/3">
+          <img src="/img/land/camp-clearing-boardwalk.jpg" alt="Reclaimed pallet-board steps leading down through the trees to a cleared camp bench with tent, cooler, and bench seating" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="pcap">
+          <p class="loc">Stage 6 · Access down to the site</p>
+          <p>Reclaimed-pallet steps down the slope to the finished bench — camp seating and the tent already in place below.</p>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="pshot" style="background:#000;aspect-ratio:4/3">
+          <img src="/img/land/camp-tent-finished.jpg" alt="Finished canvas wall tent set up on a wood platform among trees, lit from inside" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="pcap">
+          <p class="loc">Stage 7 · Finished</p>
+          <p>The end state: a canvas wall tent on a built platform, on ground that was rhododendron thicket a season earlier.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="ladder">
+      <div class="rung">
+        <span class="mark">01</span>
+        <div>
+          <p class="title">Blowing Rock property — access road, clearing & camp site prep</p>
+          <p class="what">Full-sequence solo job: cleared a rhododendron-choked roadside embankment, cut and graded a vehicle-passable access road up-slope, built a utility structure, then graded and drained a camp bench and set up an expedition tent platform. Ahead of the property's winter-excursion venture and the water/Fraser-fir ventures. No contractor crew, no subcontracted excavation.</p>
+          <p class="scope">Scope: [ add linear footage of road, elevation gain, timeline ]</p>
+        </div>
+      </div>
+      <div class="rung">
+        <span class="mark">02</span>
+        <div>
+          <p class="title">Drip irrigation system</p>
+          <p class="what">Full manifold design and install — supply line, pressure reduction, zone valves, trenched distribution. Photos pending.</p>
+          <p class="scope">Scope: [ add linear feet of trenching, number of zones ]</p>
+        </div>
+      </div>
+      <div class="rung">
+        <span class="mark">03</span>
+        <div>
+          <p class="title">Backyard pond</p>
+          <p class="what">Excavated depression, rock-bordered terracing, sealing/lining method selected and installed. Photos pending.</p>
+          <p class="scope">Scope: [ add dimensions, depth, liner type used ]</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CROSSOVER ================= -->
+  <section id="crossover">
+    <p class="shead">Why this matters here</p>
+    <h2>The same discipline, applied twice</h2>
+    <div class="trio">
+      <article>
+        <span class="cap">Systems, not tasks</span>
+        <h3>I plan the whole system before I cut the first inch</h3>
+        <p>Drainage, access, sequencing, and load-bearing all get worked out before a bucket touches ground — the same way I architect software systems before writing the first line.</p>
+      </article>
+      <article>
+        <span class="cap">Owner-operator</span>
+        <h3>I've never outsourced the hard part</h3>
+        <p>I've built the YSKAIPE product, codebase, and brand independently. The land work follows the same pattern: source the machine, learn it, run it, finish the job myself.</p>
+      </article>
+      <article>
+        <span class="cap">Applied AI architect</span>
+        <h3>Digging is the tractable part</h3>
+        <p>The hard problems in tunneling and land development are the systems around the cut — sensing, mapping, sequencing, verification. That's the exact discipline I bring from applied AI work.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section id="contact">
+    <p class="shead">Contact</p>
+    <div class="close-block">
+      <p>Happy to walk through any of this in more detail, or point to the property and jobs directly.</p>
+      <a class="join" href="mailto:nick@peakingwaters.com?subject=Land%20work%20%2F%20equipment%20reference">Get in touch →</a>
+    </div>
+  </section>
+
+</div>
+
+<div class="wrap foot">
+  <p>
+    Nick Conenna · Peaking Waters LLC<br>
+    <a href="/">Applied AI work</a> ·
+    <a href="/writing/">Writing</a> ·
+    <a href="https://peakingwaters.com">peakingwaters.com →</a>
+  </p>
+</div>
+
+</main>
+</body>
+</html>
