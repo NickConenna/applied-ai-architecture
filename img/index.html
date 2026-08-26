@@ -54,14 +54,29 @@ h1{
 .sub{font-size:16px;color:var(--dim);max-width:60ch}
 .count{font-family:var(--data);font-size:11px;color:var(--stamp);margin-top:16px;letter-spacing:.05em}
 
+.notice{
+  margin-top:26px;border:1px solid rgba(242,100,25,.4);border-left:3px solid var(--hivis);
+  background:rgba(242,100,25,.07);padding:18px 20px;max-width:70ch;
+}
+.notice p{font-size:14.5px;line-height:1.55;color:var(--zinc)}
+.notice b{color:var(--hivis)}
+
+h2.groupname{
+  font-family:var(--data);font-size:11px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.2em;color:var(--stamp);margin:0 0 16px;padding-top:44px;
+  display:flex;align-items:baseline;gap:14px;
+}
+h2.groupname::after{content:"";flex:1;height:1px;background:var(--hair-soft)}
+h2.groupname:first-of-type{padding-top:0}
+
 .grid{
   display:grid;grid-template-columns:1fr;gap:1px;
   background:var(--hair-soft);border:1px solid var(--hair-soft);
-  margin:36px 0 60px;
+  margin-bottom:20px;
 }
 @media (min-width:720px){.grid{grid-template-columns:1fr 1fr}}
 
-.card{background:var(--vault);padding:22px}
+.card{background:var(--vault);padding:22px;position:relative}
 .thumb{
   position:relative;border-radius:2px;overflow:hidden;
   background:#000;
@@ -70,6 +85,15 @@ h1{
 }
 .thumb img{display:block;width:100%;height:auto}
 .thumb a{display:block}
+
+.status{
+  position:absolute;top:14px;right:14px;z-index:2;
+  font-family:var(--data);font-size:9px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.14em;padding:4px 8px;border-radius:2px;
+  background:rgba(15,22,25,.85);backdrop-filter:blur(4px);
+}
+.status.ok{color:#7CC48C;border:1px solid rgba(124,196,140,.5)}
+.status.missing{color:var(--hivis);border:1px solid rgba(242,100,25,.6)}
 
 .meta-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:6px}
 .fname{
@@ -80,6 +104,7 @@ h1{
   font-family:var(--data);font-size:10.5px;color:var(--stamp);white-space:nowrap;
 }
 .desc{font-size:14.5px;color:var(--dim);margin:10px 0 14px;line-height:1.55}
+.warn{font-size:12.5px;color:var(--hivis);margin:0 0 12px}
 
 .usedon{
   border-top:1px solid var(--hair-soft);padding-top:12px;
@@ -95,7 +120,6 @@ h1{
   display:inline-block;margin:0 6px 6px 0;padding:3px 8px;
   border:1px solid var(--hair);border-radius:2px;
 }
-.usedon .missing{color:var(--hivis);border-color:rgba(242,100,25,.4)}
 
 .path{
   font-family:var(--data);font-size:11px;color:var(--stamp);
@@ -114,20 +138,28 @@ h1{
     <a href="/">← nickconenna.com</a>
     <a href="/writing/">Writing</a>
     <a href="/writing/the-pace.html">The Pace</a>
+    <a href="/peakingwaters.html">Peaking Waters</a>
   </div>
 </header>
 
 <div class="wrap hero">
   <p class="kicker">Internal · not for public linking</p>
   <h1>Image assets</h1>
-  <p class="sub">Every image currently referenced by the site, in one place, with dimensions and where each one is wired in — so nothing points at a file that was never uploaded.</p>
-  <p class="count">10 assets on record · 3 cover images, 7 land-work photos</p>
+  <p class="sub">Every image currently referenced by the site, in one place, with dimensions, upload status, and where each one is wired in — so nothing silently points at a file that isn't actually there.</p>
+  <p class="count">11 assets on record · 4 confirmed uploaded · 7 confirmed missing</p>
+
+  <div class="notice">
+    <p><b>Current status (checked this pass):</b> only the 3 cover images below are actually present in <span style="font-family:var(--data)">/img/</span>. The 7 land-work photos referenced on peakingwaters.html are <b>not yet in /img/land/</b> — that's the confirmed cause of the broken thumbnails there. Upload the 7 files listed below into a <span style="font-family:var(--data)">land/</span> subfolder inside <span style="font-family:var(--data)">/img/</span> and commit/deploy to fix.</p>
+  </div>
 </div>
 
 <div class="wrap">
+
+  <h2 class="groupname">Confirmed uploaded</h2>
   <div class="grid">
 
     <div class="card">
+      <span class="status ok">Uploaded</span>
       <div class="thumb">
         <a href="the-pace-cover.jpg" target="_blank" rel="noopener">
           <img src="the-pace-cover.jpg" alt="THE PACE book cover — hooded figure walking toward the Wardenclyffe tower">
@@ -137,15 +169,36 @@ h1{
         <span class="fname">the-pace-cover.jpg</span>
         <span class="dims">490 × 715</span>
       </div>
-      <p class="desc">Standalone book-cover crop. Portrait, transparent-safe edges, drop shadow baked in — drops straight into a layout with no further cropping needed.</p>
+      <p class="desc">Standalone book-cover crop. Portrait, transparent-safe edges, drop shadow baked in.</p>
       <div class="usedon">
         <b>Used on</b>
         <span class="tag"><a href="/writing/">writing/index.html</a> — hero, floating cover art</span>
+        <span class="tag"><a href="/">index.html</a> — novels window, floating cover</span>
       </div>
       <div class="path">/img/the-pace-cover.jpg</div>
     </div>
 
     <div class="card">
+      <span class="status ok">Uploaded</span>
+      <div class="thumb">
+        <a href="fairrateindex-banner.jpg" target="_blank" rel="noopener">
+          <img src="fairrateindex-banner.jpg" alt="FairRateIndex.com — Global Rate Benchmarking Platform banner, cropped from the marketing kit">
+        </a>
+      </div>
+      <div class="meta-row">
+        <span class="fname">fairrateindex-banner.jpg</span>
+        <span class="dims">1280 × 350</span>
+      </div>
+      <p class="desc">Cropped from the FRI social/marketing image kit — the "Website Hero/Leaderboard" panel, standardized to 1280×350.</p>
+      <div class="usedon">
+        <b>Used on</b>
+        <span class="tag"><a href="/">index.html</a> — Built section, Fair Rate Index card</span>
+      </div>
+      <div class="path">/img/fairrateindex-banner.jpg</div>
+    </div>
+
+    <div class="card">
+      <span class="status ok">Uploaded</span>
       <div class="thumb">
         <a href="the-pace-cover-wide.jpg" target="_blank" rel="noopener">
           <img src="the-pace-cover-wide.jpg" alt="Wide mockup — book cover beside an atmospheric Wardenclyffe landscape with geometric overlays">
@@ -155,7 +208,7 @@ h1{
         <span class="fname">the-pace-cover-wide.jpg</span>
         <span class="dims">1376 × 768</span>
       </div>
-      <p class="desc">Full-bleed mockup — cover plus the extended landscape scene. Used wherever a wide atmospheric image reads better than the cover alone.</p>
+      <p class="desc">Full-bleed mockup — cover plus the extended landscape scene.</p>
       <div class="usedon">
         <b>Used on</b>
         <span class="tag"><a href="/writing/">writing/index.html</a> — og:image / Twitter card</span>
@@ -164,6 +217,7 @@ h1{
     </div>
 
     <div class="card">
+      <span class="status ok">Uploaded</span>
       <div class="thumb">
         <a href="the-pace-card.png" target="_blank" rel="noopener">
           <img src="the-pace-card.png" alt="Social share card — 1200 by 630 crop of the cover mockup">
@@ -173,7 +227,7 @@ h1{
         <span class="fname">the-pace-card.png</span>
         <span class="dims">1200 × 630</span>
       </div>
-      <p class="desc">Standard OG/Twitter card ratio (1.91:1), cropped from the wide mockup so nothing important sits at the trimmed edges.</p>
+      <p class="desc">Standard OG/Twitter card ratio (1.91:1), cropped from the wide mockup.</p>
       <div class="usedon">
         <b>Used on</b>
         <span class="tag"><a href="/writing/the-pace.html">writing/the-pace.html</a> — og:image / Twitter card</span>
@@ -183,24 +237,134 @@ h1{
 
   </div>
 
-  <div style="border:1px solid var(--hair);border-radius:2px;padding:26px 24px;margin-bottom:60px">
-    <div class="meta-row" style="margin-bottom:10px">
-      <span class="fname">/img/land/ — 7 files</span>
-      <span class="dims">jobsite photos</span>
+  <h2 class="groupname">Missing — referenced but not yet in /img/land/</h2>
+  <div class="grid">
+
+    <div class="card">
+      <span class="status missing">Missing</span>
+      <div class="thumb">
+        <img src="land/excavator-clearing-roadside.jpg" alt="Bobcat E32 clearing rhododendron on a roadside embankment">
+      </div>
+      <div class="meta-row">
+        <span class="fname">excavator-clearing-roadside.jpg</span>
+        <span class="dims">1600 × 1200</span>
+      </div>
+      <p class="desc">Stage 1 · Bobcat E32 working a rhododendron thicket on the roadside embankment.</p>
+      <div class="usedon">
+        <b>Used on</b>
+        <span class="tag"><a href="/peakingwaters.html">peakingwaters.html</a> — land work gallery, stage 1</span>
+      </div>
+      <div class="path">/img/land/excavator-clearing-roadside.jpg</div>
     </div>
-    <p class="desc" style="margin-bottom:16px">Blowing Rock property (215 Edmisten Rd) land-development sequence — clearing, grading, finished access road, and camp site prep. Full stage-by-stage set used on the peakingwaters reference page.</p>
-    <div class="usedon" style="border-top:none;padding-top:0">
-      <b>Used on</b>
-      <span class="tag"><a href="/peakingwaters.html">peakingwaters.html</a> — land development work gallery</span>
+
+    <div class="card">
+      <span class="status missing">Missing</span>
+      <div class="thumb">
+        <img src="land/excavator-grading-pad.jpg" alt="Bobcat E32 grading a flat pad, red SUV parked on the finished surface">
+      </div>
+      <div class="meta-row">
+        <span class="fname">excavator-grading-pad.jpg</span>
+        <span class="dims">1600 × 1200</span>
+      </div>
+      <p class="desc">Stage 2 · Same cut, graded to a flat, driveable bench.</p>
+      <div class="usedon">
+        <b>Used on</b>
+        <span class="tag"><a href="/peakingwaters.html">peakingwaters.html</a> — land work gallery, stage 2</span>
+      </div>
+      <div class="path">/img/land/excavator-grading-pad.jpg</div>
     </div>
-    <div class="path" style="margin-top:14px">
-      excavator-clearing-roadside.jpg · excavator-grading-pad.jpg · access-road-cut-fog.jpg · access-road-finished.jpg · camp-clearing-graded-bench.jpg · camp-clearing-boardwalk.jpg · camp-tent-finished.jpg
+
+    <div class="card">
+      <span class="status missing">Missing</span>
+      <div class="thumb">
+        <img src="land/access-road-cut-fog.jpg" alt="Muddy access trail cut through fog and rhododendron">
+      </div>
+      <div class="meta-row">
+        <span class="fname">access-road-cut-fog.jpg</span>
+        <span class="dims">1078 × 1436</span>
+      </div>
+      <p class="desc">Stage 3 · Pushing the road further up-slope through fog and root mass.</p>
+      <div class="usedon">
+        <b>Used on</b>
+        <span class="tag"><a href="/peakingwaters.html">peakingwaters.html</a> — land work gallery, stage 3</span>
+      </div>
+      <div class="path">/img/land/access-road-cut-fog.jpg</div>
     </div>
+
+    <div class="card">
+      <span class="status missing">Missing</span>
+      <div class="thumb">
+        <img src="land/access-road-finished.jpg" alt="Finished graded dirt access road with a built plywood utility structure alongside">
+      </div>
+      <div class="meta-row">
+        <span class="fname">access-road-finished.jpg</span>
+        <span class="dims">1600 × 1200</span>
+      </div>
+      <p class="desc">Stage 4 · Compacted, crowned access road, plus a framed utility structure.</p>
+      <div class="usedon">
+        <b>Used on</b>
+        <span class="tag"><a href="/peakingwaters.html">peakingwaters.html</a> — land work gallery, stage 4</span>
+      </div>
+      <div class="path">/img/land/access-road-finished.jpg</div>
+    </div>
+
+    <div class="card">
+      <span class="status missing">Missing</span>
+      <div class="thumb">
+        <img src="land/camp-clearing-graded-bench.jpg" alt="Graded camp bench with drainage swales, wall tent visible in the background">
+      </div>
+      <div class="meta-row">
+        <span class="fname">camp-clearing-graded-bench.jpg</span>
+        <span class="dims">477 × 358</span>
+      </div>
+      <p class="warn">⚠ Source photo was low-res — noticeably smaller than the other six. Will look soft at full width; consider swapping for a higher-res shot if one exists.</p>
+      <p class="desc">Stage 5 · Drainage swales cut into the bench before anything gets built on it.</p>
+      <div class="usedon">
+        <b>Used on</b>
+        <span class="tag"><a href="/peakingwaters.html">peakingwaters.html</a> — land work gallery, stage 5</span>
+      </div>
+      <div class="path">/img/land/camp-clearing-graded-bench.jpg</div>
+    </div>
+
+    <div class="card">
+      <span class="status missing">Missing</span>
+      <div class="thumb">
+        <img src="land/camp-clearing-boardwalk.jpg" alt="Reclaimed pallet-board steps leading down to a cleared camp bench with tent and seating">
+      </div>
+      <div class="meta-row">
+        <span class="fname">camp-clearing-boardwalk.jpg</span>
+        <span class="dims">1600 × 1200</span>
+      </div>
+      <p class="desc">Stage 6 · Reclaimed-pallet steps down to the finished bench.</p>
+      <div class="usedon">
+        <b>Used on</b>
+        <span class="tag"><a href="/peakingwaters.html">peakingwaters.html</a> — land work gallery, stage 6</span>
+      </div>
+      <div class="path">/img/land/camp-clearing-boardwalk.jpg</div>
+    </div>
+
+    <div class="card">
+      <span class="status missing">Missing</span>
+      <div class="thumb">
+        <img src="land/camp-tent-finished.jpg" alt="Finished canvas wall tent on a wood platform among trees, lit from inside">
+      </div>
+      <div class="meta-row">
+        <span class="fname">camp-tent-finished.jpg</span>
+        <span class="dims">1600 × 1200</span>
+      </div>
+      <p class="desc">Stage 7 · Finished — the end state of the whole sequence.</p>
+      <div class="usedon">
+        <b>Used on</b>
+        <span class="tag"><a href="/peakingwaters.html">peakingwaters.html</a> — land work gallery, stage 7</span>
+      </div>
+      <div class="path">/img/land/camp-tent-finished.jpg</div>
+    </div>
+
   </div>
 </div>
 
 <div class="wrap foot">
-  <p>Generated for internal reference · update this page when a new asset is added or an old one is retired.</p>
+  <p>Generated for internal reference · update this page when a new asset is added, uploaded, or retired.</p>
 </div>
 
 </body>
