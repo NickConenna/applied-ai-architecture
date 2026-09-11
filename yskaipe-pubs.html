@@ -277,6 +277,18 @@
     line-height: 1.7;
   }
 
+  footer a {
+    color: var(--brass);
+    text-decoration: none;
+    border-bottom: 1px solid var(--brass-dim);
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+
+  footer a:hover {
+    color: var(--paper);
+    border-color: var(--paper);
+  }
+
   @media (max-width: 720px) {
     .grid { grid-template-columns: repeat(2, 1fr); }
     .author-row { grid-template-columns: 1fr; }
@@ -405,7 +417,8 @@
   </section>
 
   <footer class="wrap">
-    An imprint of Peaking Waters LLC.
+    An imprint of Peaking Waters LLC.<br>
+    Also from Peaking Waters: <a href="https://fairrateindex.com" target="_blank" rel="noopener">Fair Rate Index</a>
   </footer>
 
 </body>
