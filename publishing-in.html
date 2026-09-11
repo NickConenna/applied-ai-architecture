@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pub Office — Pipeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f4efe4;
+    --card:#fffdf8;
+    --ink:#332f28;
+    --slate:#6f6a5e;
+    --line:#e6ddc9;
+    --sage:#7c9179;
+    --sage-bg:#e9efe4;
+    --clay:#b8785f;
+    --clay-bg:#f5e7de;
+    --gold:#c99a3f;
+    --gold-bg:#f6ecd7;
+    --nick:#8a5a44;
+    --deb:#5b7488;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:'Inter',sans-serif; line-height:1.5; font-size:14.5px;
+  }
+  .serif{ font-family:'Fraunces',serif; }
+  .mono{ font-family:'IBM Plex Mono',monospace; }
+
+  header{
+    padding:36px 40px 28px; max-width:1280px; margin:0 auto;
+    display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px;
+    border-bottom:1px solid var(--line);
+  }
+  header h1{ margin:0 0 6px; font-size:1.6rem; font-weight:600; }
+  header .sub{ color:var(--slate); font-size:0.92rem; }
+  .together{
+    display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--slate);
+  }
+  .avatars{ display:flex; }
+  .avatar{
+    width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    color:#fff; font-family:'Fraunces',serif; font-size:0.78rem; border:2px solid var(--paper);
+  }
+  .avatar.nick{ background:var(--nick); }
+  .avatar.deb{ background:var(--deb); margin-left:-8px; }
+
+  .wrap{ max-width:1280px; margin:0 auto; padding:30px 40px 70px; }
+
+  .rubric{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:34px;
+  }
+  .rubric .item{
+    background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px 16px;
+  }
+  .rubric .label{ font-size:0.78rem; font-weight:600; color:var(--ink); margin-bottom:3px; }
+  .rubric .desc{ font-size:0.8rem; color:var(--slate); }
+
+  .board{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:18px;
+  }
+  .col-head{
+    font-size:0.82rem; font-weight:600; color:var(--slate); margin-bottom:12px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .col-head .n{
+    background:var(--line); color:var(--ink); border-radius:20px; padding:1px 8px; font-size:0.72rem;
+  }
+
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px;
+    box-shadow:0 1px 2px rgba(51,47,40,0.04); margin-bottom:14px;
+  }
+  .card.blocked{ border-color:var(--clay); }
+
+  .card .top-row{ display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-bottom:2px; }
+  .card .title{ font-family:'Fraunces',serif; font-size:1.02rem; font-weight:600; }
+  .card .byline{ font-size:0.78rem; color:var(--slate); margin-bottom:10px; }
+
+  .owner{
+    width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    color:#fff; font-family:'Fraunces',serif; font-size:0.68rem; flex:0 0 auto;
+  }
+  .owner.nick{ background:var(--nick); }
+  .owner.deb{ background:var(--deb); }
+  .owner.shared{ background:linear-gradient(90deg,var(--nick) 50%,var(--deb) 50%); }
+
+  .priority{
+    display:inline-block; font-size:0.72rem; padding:3px 9px; border-radius:20px; margin-bottom:10px;
+  }
+  .priority.high{ background:var(--sage-bg); color:var(--sage); }
+  .priority.mid{ background:var(--gold-bg); color:var(--gold); }
+  .priority.hold{ background:var(--clay-bg); color:var(--clay); }
+
+  .bar-track{ height:6px; background:var(--line); border-radius:4px; margin-bottom:5px; overflow:hidden; }
+  .bar-fill{ height:100%; background:var(--sage); border-radius:4px; }
+  .wc{ font-size:0.74rem; color:var(--slate); margin-bottom:10px; }
+
+  .flags{ display:flex; flex-direction:column; gap:6px; margin-bottom:10px; }
+  .flag{ font-size:0.74rem; padding:5px 9px; border-radius:8px; line-height:1.3; }
+  .flag.legal{ background:var(--clay-bg); color:var(--clay); }
+  .flag.gap{ background:var(--gold-bg); color:var(--gold); }
+  .flag.note{ background:var(--paper); color:var(--slate); }
+
+  .target{ font-size:0.76rem; color:var(--slate); padding-top:10px; border-top:1px solid var(--line); }
+  .target b{ color:var(--ink); }
+
+  .excluded-note{
+    margin-top:30px; padding:16px 20px; background:var(--card); border:1px solid var(--line);
+    border-radius:10px; color:var(--slate); font-size:0.86rem;
+  }
+  .excluded-note b{ color:var(--ink); }
+
+  .legend{ margin-top:22px; display:flex; gap:18px; flex-wrap:wrap; font-size:0.78rem; color:var(--slate); }
+  .legend span{ display:inline-flex; align-items:center; gap:7px; }
+  .legend i{ width:9px; height:9px; border-radius:50%; display:inline-block; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1 class="serif">Pub Office — Pipeline</h1>
+    <div class="sub">Two titles a month, ~200 pages each, built from what's already in motion.</div>
+  </div>
+  <div class="together">
+    <div class="avatars">
+      <div class="avatar nick">N</div>
+      <div class="avatar deb">D</div>
+    </div>
+    <span>Nick &amp; Deb — managed together</span>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="rubric">
+    <div class="item"><div class="label">Mission fit</div><div class="desc">Advances the bigger thesis, not just a good idea on its own</div></div>
+    <div class="item"><div class="label">Research depth</div><div class="desc">What's already drafted — the real driver of how fast it ships</div></div>
+    <div class="item"><div class="label">Legal exposure</div><div class="desc">Named people, financial content, or clearance needed first</div></div>
+    <div class="item"><div class="label">Series potential</div><div class="desc">Standalone, or does it compound into something bigger</div></div>
+  </div>
+
+  <div class="board">
+
+    <div class="col">
+      <div class="col-head">Research &amp; Outline <span class="n">3</span></div>
+
+      <div class="card">
+        <div class="top-row">
+          <div>
+            <div class="title">Set &amp; Setting</div>
+            <div class="byline">Book One</div>
+          </div>
+          <div class="owner nick">N</div>
+        </div>
+        <div class="priority high">High priority</div>
+        <div class="wc">Draft stage — worth a quick check-in on where it stands</div>
+        <div class="flags"><div class="flag note">Confirm current word count together</div></div>
+        <div class="target">Aiming for: <b>Month 1–2</b></div>
+      </div>
+
+      <div class="card">
+        <div class="top-row">
+          <div>
+            <div class="title">Set &amp; Setting</div>
+            <div class="byline">Book Two — Right Understanding</div>
+          </div>
+          <div class="owner nick">N</div>
+        </div>
+        <div class="priority mid">Medium priority</div>
+        <div class="wc">Follows naturally once Book One has momentum</div>
+        <div class="target">Aiming for: <b>Month 3</b></div>
+      </div>
+
+      <div class="card">
+        <div class="top-row">
+          <div>
+            <div class="title">Set &amp; Setting</div>
+            <div class="byline">Book Three — Beyond</div>
+          </div>
+          <div class="owner nick">N</div>
+        </div>
+        <div class="priority mid">Medium priority</div>
+        <div class="wc">Widest scope of the trilogy — religion, biotech, space</div>
+        <div class="target">Aiming for: <b>Month 4</b></div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="col-head">Drafting <span class="n">1</span></div>
+
+      <div class="card">
+        <div class="top-row">
+          <div>
+            <div class="title">The Scoreboard</div>
+            <div class="byline">Spaceship Earth</div>
+          </div>
+          <div class="owner nick">N</div>
+        </div>
+        <div class="priority high">High priority — the flagship</div>
+        <div class="bar-track"><div class="bar-fill" style="width:18%"></div></div>
+        <div class="wc">About 10,500 of ~60,000 words</div>
+        <div class="flags">
+          <div class="flag gap">Needs real expansion, not just a polish pass</div>
+          <div class="flag legal">Names real people — a review pass before it goes out</div>
+        </div>
+        <div class="target">Aiming for: <b>Month 2</b> — a bit of a stretch given the gap</div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="col-head">Editing Together <span class="n">0</span></div>
+    </div>
+
+    <div class="col">
+      <div class="col-head">Review Pass <span class="n">2</span></div>
+
+      <div class="card">
+        <div class="top-row">
+          <div>
+            <div class="title">Digital Gold for Everyone</div>
+          </div>
+          <div class="owner nick">N</div>
+        </div>
+        <div class="priority high">High priority — closest to done</div>
+        <div class="bar-track"><div class="bar-fill" style="width:95%"></div></div>
+        <div class="wc">Full manuscript drafted</div>
+        <div class="flags">
+          <div class="flag legal">Financial disclaimer check before launch</div>
+          <div class="flag note">A voice pass is easy if the old posts get pulled in</div>
+        </div>
+        <div class="target">Aiming for: <b>Month 1</b></div>
+      </div>
+
+      <div class="card blocked">
+        <div class="top-row">
+          <div>
+            <div class="title">Audacious</div>
+          </div>
+          <div class="owner nick">N</div>
+        </div>
+        <div class="priority hold">On hold</div>
+        <div class="wc">Not started yet</div>
+        <div class="flags">
+          <div class="flag legal">Needs clearance before drafting can begin</div>
+        </div>
+        <div class="target">Not scheduled yet</div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="col-head">Cover &amp; Format <span class="n">0</span></div>
+    </div>
+
+    <div class="col">
+      <div class="col-head">Ready to File <span class="n">0</span></div>
+    </div>
+
+    <div class="col">
+      <div class="col-head">Launched <span class="n">0</span></div>
+    </div>
+
+  </div>
+
+  <div class="excluded-note">
+    Kept off this board for now: <b>The Pace</b>, <b>To Stay</b>, <b>Don't Make It Weird</b>, and <b>The Sweet Death</b> — those are fiction and run on their own track, not the nonfiction cadence.
+  </div>
+
+  <div class="legend">
+    <span><i style="background:var(--clay)"></i> needs a legal look</span>
+    <span><i style="background:var(--gold)"></i> word count or scope gap</span>
+    <span><i style="background:var(--sage)"></i> on track</span>
+    <span><i style="background:var(--nick)"></i> Nick</span>
+    <span><i style="background:var(--deb)"></i> Deb</span>
+  </div>
+
+</div>
+
+</body>
+</html>
