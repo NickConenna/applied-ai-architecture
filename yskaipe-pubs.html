@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YSKAIPE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink-night: #0e1420;
+    --ink-night-2: #161d2c;
+    --paper: #ece4d3;
+    --text-main: #e7e2d4;
+    --text-dim: #9aa0ad;
+    --brass: #b28a4c;
+    --brass-dim: #7c6640;
+    --hairline: rgba(231, 226, 212, 0.14);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--ink-night);
+    color: var(--text-main);
+    font-family: 'Public Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-image:
+      radial-gradient(ellipse 900px 500px at 20% -10%, rgba(178,138,76,0.08), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 90% 10%, rgba(178,138,76,0.05), transparent 60%);
+  }
+
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 28px; }
+
+  nav.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 26px 28px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .nav-mark {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 17px;
+    letter-spacing: 0.02em;
+    color: var(--paper);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    font-size: 14px;
+    color: var(--text-dim);
+  }
+
+  .nav-links a { color: inherit; text-decoration: none; }
+  .nav-links a:hover { color: var(--brass); }
+
+  /* ---------- Hero ---------- */
+  header.hero {
+    padding: 56px 0 60px;
+    text-align: center;
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .wordmark {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(56px, 10vw, 104px);
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+    color: var(--paper);
+    margin: 0 0 16px;
+  }
+
+  .pronunciation {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 18px;
+    color: var(--brass);
+    margin: 0 0 24px;
+  }
+
+  .tagline {
+    max-width: 480px;
+    margin: 0 auto;
+    color: var(--text-dim);
+    font-size: 16.5px;
+    line-height: 1.65;
+  }
+
+  /* ---------- Manifest / catalog ---------- */
+  section.manifest {
+    padding: 56px 0 40px;
+  }
+
+  .manifest-heading {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--paper);
+    margin: 0 0 6px;
+  }
+
+  .manifest-sub {
+    color: var(--text-dim);
+    font-size: 14.5px;
+    margin: 0 0 32px;
+  }
+
+  .entry {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 18px;
+    padding: 22px 0;
+    border-top: 1px solid var(--hairline);
+    align-items: baseline;
+  }
+
+  .entry:last-child { border-bottom: 1px solid var(--hairline); }
+
+  .entry-no {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--brass-dim);
+    font-size: 14px;
+  }
+
+  .entry-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--text-main);
+    margin: 0 0 4px;
+  }
+
+  .entry-desc {
+    font-size: 14.5px;
+    color: var(--text-dim);
+    line-height: 1.55;
+    margin: 0;
+    max-width: 520px;
+  }
+
+  /* ---------- On the horizon ---------- */
+  section.horizon {
+    padding: 8px 0 56px;
+  }
+
+  .horizon-box {
+    border: 1px solid var(--hairline);
+    border-radius: 4px;
+    padding: 28px 30px;
+    background: rgba(236, 228, 211, 0.02);
+  }
+
+  .horizon-box p {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: 14.5px;
+    line-height: 1.7;
+  }
+
+  .horizon-box p + p { margin-top: 12px; }
+
+  .horizon-box .label {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--brass);
+    font-size: 14.5px;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    padding: 40px 0 64px;
+    border-top: 1px solid var(--hairline);
+    color: var(--text-dim);
+    font-size: 13px;
+    text-align: center;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 480px) {
+    nav.top { padding: 20px 24px; }
+    header.hero { padding: 44px 0 48px; }
+    .entry { grid-template-columns: 30px 1fr; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+  <nav class="top">
+    <span class="nav-mark">YSKAIPE</span>
+    <div class="nav-links">
+      <a href="#catalog">Catalog</a>
+      <a href="#horizon">What's next</a>
+    </div>
+  </nav>
+
+  <header class="hero wrap">
+    <h1 class="wordmark">YSKAIPE</h1>
+    <p class="pronunciation">pronounced "escape"</p>
+    <p class="tagline">A house for the ones who go past the edge of the map — in print now, and wherever the frontier leads next.</p>
+  </header>
+
+  <section class="manifest wrap" id="catalog">
+    <h2 class="manifest-heading">The catalog</h2>
+    <p class="manifest-sub">Six works in print or in progress.</p>
+
+    <div class="entry">
+      <span class="entry-no">No. 01</span>
+      <div>
+        <p class="entry-title">The Pace</p>
+        <p class="entry-desc">Book I of The Cubit and the Quark — a metrologist inherits a murder, a rigged standard, and the question of what a measurement is actually for.</p>
+      </div>
+    </div>
+
+    <div class="entry">
+      <span class="entry-no">No. 02</span>
+      <div>
+        <p class="entry-title">To Stay</p>
+        <p class="entry-desc">Speculative fiction built around Voyager 1's real crossing of the heliopause — what it means to keep going once you've left everything behind.</p>
+      </div>
+    </div>
+
+    <div class="entry">
+      <span class="entry-no">No. 03</span>
+      <div>
+        <p class="entry-title">The Scoreboard</p>
+        <p class="entry-desc">A case that humanity is already climbing the Kardashev Scale — and a way of keeping score as we go.</p>
+      </div>
+    </div>
+
+    <div class="entry">
+      <span class="entry-no">No. 04</span>
+      <div>
+        <p class="entry-title">Digital Gold for Everyone</p>
+        <p class="entry-desc">A plain-language primer on Bitcoin and self-custody, written for someone who has never touched an exchange.</p>
+      </div>
+    </div>
+
+    <div class="entry">
+      <span class="entry-no">No. 05</span>
+      <div>
+        <p class="entry-title">Set &amp; Setting</p>
+        <p class="entry-desc">A trilogy on psychedelics, athletics, and spirituality as three roads to the same peak experience.</p>
+      </div>
+    </div>
+
+    <div class="entry">
+      <span class="entry-no">No. 06</span>
+      <div>
+        <p class="entry-title">Don't Make It Weird</p>
+        <p class="entry-desc">A psycho-comedy about the moment self-awareness stops helping and starts getting in the way.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="horizon wrap" id="horizon">
+    <div class="horizon-box">
+      <span class="label">On the horizon</span>
+      <p>YSKAIPE started as a home for the books. It won't stay only that.</p>
+      <p>Everything that follows — in print, in the field, or built by hand — starts here first.</p>
+    </div>
+  </section>
+
+  <footer class="wrap">
+    An imprint of Peaking Waters LLC.
+  </footer>
+
+</body>
+</html>
