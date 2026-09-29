@@ -3,861 +3,706 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nick Conenna — Applied AI Architect, Forward-Deployed</title>
-<meta name="description" content="I embed with a real process, work out which parts a model can be trusted with, and build until it holds up in front of real users. Five systems, five domains, one architect. Open to full-time or contract work.">
-<meta property="og:title" content="Nick Conenna — Applied AI Architect, Forward-Deployed">
-<meta property="og:description" content="Work out which parts of a real process a model can be trusted with, design the system around that answer, build it, and stay with it until it holds up in front of real users.">
+<title>Build Kits by Nick Conenna — Start your business with AI that already works</title>
+<meta name="description" content="Build kits that launch real businesses: publish a book, open a service business, sell online. Watch them run, take one home, or hire me to build yours.">
+<meta property="og:title" content="Build Kits by Nick Conenna">
+<meta property="og:description" content="Start your business with AI that already works.">
+<meta property="og:image" content="/img/the-pace-cover.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --zinc:#0F1619;
-  --ink:#E6E8E3;
-  --oxide:#23474F;
-  --dim:#9BA6A6;
-  --stamp:#6E7C7E;
-  --rule:rgba(230,232,227,.14);
-  --hair:rgba(230,232,227,.16);
-  --hair-soft:rgba(230,232,227,.09);
-  --hivis:#F26419;
-  --brass:#C9A24B;
-  --live:#7CC48C;
-  --vault:#050708;
-  --display:'Archivo',system-ui,sans-serif;
-  --body:'IBM Plex Sans',system-ui,sans-serif;
-  --data:'IBM Plex Mono',ui-monospace,monospace;
+  --bg:#ffffff; --gray:#f5f5f7; --line:#d2d2d7;
+  --ink:#1d1d1f; --sub:#6e6e73; --blue:#0071e3; --blue-hover:#0077ed; --link:#0066cc;
+  --orange:#ff6b00; --zinc:#26292d; --zinc-2:#3a3e44; --plate:#c8ccd0; --plate-hi:#e6e8ea;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Inter","Helvetica Neue",Arial,sans-serif;
+  --rivet:radial-gradient(circle,#8a9096 0 2px,#f4f5f6 2.5px 3.5px,transparent 4px);
 }
-*{box-sizing:border-box;margin:0;padding:0}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
 html{scroll-behavior:smooth}
-body{
-  background:var(--zinc);color:var(--ink);
-  font-family:var(--body);font-size:17px;line-height:1.65;
-  -webkit-font-smoothing:antialiased;
-  background-image:
-    radial-gradient(ellipse 70% 40% at 12% -6%,rgba(35,71,79,.35),transparent 68%),
-    radial-gradient(ellipse 60% 34% at 92% 4%,rgba(242,100,25,.05),transparent 70%);
-  background-attachment:fixed;
-}
-.wrap{max-width:900px;margin:0 auto;padding:0 24px}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.47 var(--font);letter-spacing:-.022em;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid rgba(0,113,227,.6);outline-offset:2px;border-radius:6px}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{width:min(980px,100% - 44px);margin-inline:auto}
+.wide{width:min(1200px,100% - 44px);margin-inline:auto}
+h1,h2,h3,h4{margin:0;font-weight:700;letter-spacing:-.015em}
+.center{text-align:center}
+.center p{margin-inline:auto}
 
-/* ---------- top bar ---------- */
-.bar{
-  position:sticky;top:0;z-index:20;
-  background:rgba(15,22,25,.88);backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--hair);
-}
-.bar .wrap{
-  display:flex;align-items:center;gap:14px;
-  min-height:54px;padding-top:9px;padding-bottom:9px;
-  font-family:var(--data);font-size:10.5px;
-  letter-spacing:.13em;text-transform:uppercase;flex-wrap:wrap;
-}
-.status{
-  display:flex;align-items:center;gap:8px;
-  color:var(--live);border:1px solid rgba(124,196,140,.45);
-  background:rgba(124,196,140,.07);border-radius:2px;padding:5px 10px;
-}
-.dot{
-  width:6px;height:6px;border-radius:50%;background:var(--live);flex:none;
-  box-shadow:0 0 0 0 rgba(124,196,140,.5);animation:pulse 2.8s ease-out infinite;
-}
-@keyframes pulse{
-  0%{box-shadow:0 0 0 0 rgba(124,196,140,.45)}
-  70%{box-shadow:0 0 0 6px rgba(124,196,140,0)}
-  100%{box-shadow:0 0 0 0 rgba(124,196,140,0)}
-}
-.bar nav{margin-left:auto;display:flex;gap:15px;align-items:center;flex-wrap:wrap}
-.bar a{color:var(--dim);text-decoration:none;border-bottom:1px solid transparent}
-.bar a:hover{color:var(--ink);border-color:var(--brass)}
-.bar a.now{
-  border:1px solid var(--hivis);border-radius:2px;
-  padding:6px 10px;color:var(--ink);background:rgba(242,100,25,.1)}
-.bar a.now:hover{background:rgba(242,100,25,.18)}
-.hide-sm{display:none}
+/* ---------- type scale (Apple-like) ---------- */
+.headline{font-size:clamp(40px,7vw,80px);line-height:1.05;font-weight:700;letter-spacing:-.025em}
+.title{font-size:clamp(32px,5vw,56px);line-height:1.07;letter-spacing:-.02em}
+.tagline{font-size:clamp(21px,2.6vw,28px);line-height:1.2;font-weight:500;color:var(--ink);max-width:30ch;margin:14px auto 0;letter-spacing:-.01em}
+.eyebrow{font-size:clamp(19px,2vw,24px);font-weight:600;color:var(--orange);margin:0 0 6px}
+.sub{color:var(--sub)}
 
-/* ---------- nameplate ---------- */
-.plate-zone{padding:44px 0 14px}
-.plate{
-  position:relative;
-  background:rgba(230,232,227,.025);
-  border:1px solid var(--hair);border-radius:3px;
-  padding:36px 28px 30px;
-}
+/* ---------- global nav + local nav ---------- */
+.gnav{background:rgba(22,22,23,.8);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);color:#e8e8ed;font-size:12px;height:44px}
+.gnav .wrap{display:flex;align-items:center;justify-content:space-between;height:100%}
+.gnav a{color:#e8e8ed;opacity:.85}
+.gnav a:hover{opacity:1;text-decoration:none}
+.gnav nav{display:flex;gap:28px}
+.lnav{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.72);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(0,0,0,.12)}
+.lnav .wrap{display:flex;align-items:center;height:52px;gap:24px}
+.lnav .name{font-size:21px;font-weight:600;color:var(--ink);letter-spacing:-.01em;margin-right:auto}
+.lnav .name:hover{text-decoration:none}
+.lnav nav{display:flex;gap:24px;font-size:12px}
+.lnav nav a{color:var(--ink);opacity:.8}
+.lnav nav a:hover{opacity:1;color:var(--link);text-decoration:none}
+.lnav nav a.pill{color:#fff;opacity:1;line-height:1.2}
+.lnav nav a.pill:hover{color:#fff}
 
-.eyebrow{
-  font-family:var(--data);font-size:10.5px;font-weight:600;
-  text-transform:uppercase;letter-spacing:.24em;color:var(--brass);
-  display:flex;align-items:center;gap:12px;
-}
-.eyebrow::after{content:"";flex:1;height:1px;background:var(--hair)}
+/* ---------- buttons ---------- */
+.pill{display:inline-flex;align-items:center;justify-content:center;font:400 17px/1 var(--font);letter-spacing:-.02em;padding:12px 22px;border-radius:980px;background:var(--blue);color:#fff;border:0;cursor:pointer}
+.pill:hover{background:var(--blue-hover);text-decoration:none}
+.pill.sm{font-size:12px;padding:5px 12px}
+.pill.ghost{background:transparent;color:var(--link);box-shadow:inset 0 0 0 1px var(--link)}
+.pill.ghost:hover{background:var(--link);color:#fff}
+.more{font-size:17px}
+.more::after{content:"";display:inline-block;width:7px;height:7px;border-top:1.6px solid currentColor;border-right:1.6px solid currentColor;transform:rotate(45deg);margin-left:6px;position:relative;top:-1px}
+.cta-row{display:flex;flex-wrap:wrap;gap:16px 34px;align-items:center;justify-content:center;margin-top:28px}
+.linkbtn{background:none;border:0;padding:0;font:inherit;color:var(--link);cursor:pointer;letter-spacing:inherit}
+.linkbtn:hover{text-decoration:underline}
 
-h1{
-  font-family:var(--display);font-weight:800;
-  font-size:clamp(31px,5.6vw,50px);line-height:1.04;
-  letter-spacing:-.028em;margin:24px 0 16px;max-width:19ch;
-  color:#F4F6F1;
+/* ---------- kit box (the product) ---------- */
+.kitbox{
+  position:relative;width:100%;aspect-ratio:3/4.4;border-radius:18px;overflow:hidden;
+  background:linear-gradient(160deg,#454a51 0%,var(--zinc) 55%,#1c1e21 100%);
+  color:var(--plate-hi);display:flex;flex-direction:column;
+  box-shadow:0 1px 1px rgba(255,255,255,.12) inset,0 40px 70px -30px rgba(0,0,0,.45),0 12px 24px -12px rgba(0,0,0,.25);
 }
-h1 em{font-style:normal;color:var(--brass)}
-.sub{font-size:18px;line-height:1.55;max-width:56ch;margin-bottom:30px;color:var(--dim)}
-.sub b{font-weight:500;color:var(--brass)}
+.kitbox .band{background:var(--orange);color:#1a0d00;display:flex;justify-content:space-between;align-items:center;padding:12px 16px;font-size:13px;font-weight:600;letter-spacing:0}
+.kitbox .band b{font-size:26px;font-weight:800;line-height:1;letter-spacing:-.02em}
+.kitbox .nameplate{
+  margin:16px 14px 0;padding:16px 16px 14px;border-radius:8px;color:var(--ink);
+  background:
+    var(--rivet) 4px 4px/14px 14px no-repeat,
+    var(--rivet) calc(100% - 4px) 4px/14px 14px no-repeat,
+    var(--rivet) 4px calc(100% - 4px)/14px 14px no-repeat,
+    var(--rivet) calc(100% - 4px) calc(100% - 4px)/14px 14px no-repeat,
+    repeating-linear-gradient(90deg,rgba(255,255,255,.22) 0 1px,rgba(0,0,0,.025) 1px 3px),
+    linear-gradient(160deg,#eef0f1,var(--plate));
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.18),inset 0 2px 0 rgba(255,255,255,.7);
+}
+.kitbox .nameplate strong{display:block;font-size:clamp(17px,2vw,24px);font-weight:700;line-height:1.08;letter-spacing:-.02em;padding:0 6px}
+.kitbox .glyph{flex:1;display:grid;place-items:center;min-height:0}
+.kitbox .glyph svg{width:clamp(38px,34%,88px);aspect-ratio:1;color:var(--plate)}
+.kitbox .foot{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;color:var(--plate)}
+.kitbox .foot b{font-size:22px;font-weight:700;color:#fff}
 
-.specs{border-top:1px solid var(--hair)}
-.spec{
-  display:grid;grid-template-columns:1fr;gap:3px;
-  padding:13px 0;border-bottom:1px solid var(--hair-soft);
+/* ---------- hero ---------- */
+.hero{background:var(--gray);padding:64px 0 0;overflow:hidden}
+.hero .kicker{font-size:21px;font-weight:600;margin:0 0 8px}
+.hero .headline{max-width:14ch;margin:0 auto}
+.lineup{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,3vw,40px);align-items:end;max-width:900px;margin:56px auto 0;padding:0 22px 64px}
+.lineup a{display:block;text-decoration:none;color:inherit;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.lineup a:hover{transform:translateY(-10px)}
+.lineup a:nth-child(2) .kitbox{transform:scale(1.1);transform-origin:bottom center}
+.lineup .cap{text-align:center;margin-top:22px;font-size:14px}
+.lineup a:nth-child(2) .cap{margin-top:34px}
+.lineup .cap b{display:block;font-size:17px;font-weight:600;color:var(--ink)}
+.lineup .cap span{color:var(--sub)}
+@media (prefers-reduced-motion:no-preference){
+  .hero .reveal{animation:rise 1s cubic-bezier(.2,.8,.2,1) both}
+  .lineup a{animation:rise 1s cubic-bezier(.2,.8,.2,1) both}
+  .lineup a:nth-child(1){animation-delay:.15s}.lineup a:nth-child(2){animation-delay:.25s}.lineup a:nth-child(3){animation-delay:.35s}
+  @keyframes rise{from{opacity:0;translate:0 30px}to{opacity:1;translate:0 0}}
 }
-.spec dt{
-  font-family:var(--data);font-size:10.5px;font-weight:600;
-  text-transform:uppercase;letter-spacing:.13em;color:var(--stamp);padding-top:4px;
-}
-.spec dd{font-size:15.5px;line-height:1.52}
-.spec dd b{font-weight:500;color:var(--brass)}
-.spec dd a{color:var(--brass);text-decoration:none;border-bottom:1px solid var(--rule)}
-.spec dd a:hover{border-color:var(--brass)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 
-/* ---------- sections ---------- */
-section{padding:58px 0;border-top:1px solid var(--rule)}
-.shead{
-  font-family:var(--data);font-size:10.5px;font-weight:600;
-  text-transform:uppercase;letter-spacing:.2em;color:var(--stamp);
-  display:flex;align-items:baseline;gap:14px;margin-bottom:22px;
-}
-.shead::after{content:"";flex:1;height:1px;background:var(--rule)}
-h2{
-  font-family:var(--display);font-weight:600;
-  font-size:clamp(22px,3.8vw,31px);line-height:1.18;
-  letter-spacing:-.016em;margin-bottom:16px;max-width:26ch;color:#F4F6F1;
-}
-p{max-width:64ch;margin-bottom:16px}
-p:last-child{margin-bottom:0}
-.lede{font-size:18.5px;line-height:1.55;color:var(--dim)}
-strong{font-weight:500;color:var(--brass)}
-a{color:var(--brass)}
+/* ---------- proof strip ---------- */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:72px 0;border-bottom:1px solid var(--line)}
+.stats div{text-align:center}
+.stats b{display:block;font-size:clamp(40px,5vw,56px);font-weight:700;letter-spacing:-.03em;line-height:1.05;
+  background:linear-gradient(90deg,#ff6b00,#ff9a3c);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stats span{display:block;margin-top:8px;color:var(--sub);font-size:17px;max-width:22ch;margin-inline:auto}
 
-/* ---------- the work ---------- */
-.list{margin-top:6px;border-top:1px solid var(--rule)}
-.item{
-  padding:22px 0;border-bottom:1px solid var(--rule);
-  display:grid;grid-template-columns:1fr;gap:6px;
-}
-.item .idx{
-  font-family:var(--data);font-size:10.5px;font-weight:600;
-  letter-spacing:.18em;color:var(--stamp);
-}
-.item h3{
-  font-family:var(--display);font-weight:600;font-size:19.5px;
-  letter-spacing:-.01em;line-height:1.3;max-width:38ch;color:var(--ink);
-}
-.item p{font-size:16px;margin-bottom:0;max-width:58ch;color:var(--dim)}
+/* ---------- product tiles ---------- */
+.tile{padding:100px 0 0;text-align:center;overflow:hidden}
+.tile.alt{background:var(--gray)}
+.tile .price-line{margin:18px 0 0;color:var(--sub)}
+.device{position:relative;max-width:900px;margin:56px auto 0;padding:0 22px}
+.screen{background:#1d1d1f;border-radius:22px 22px 0 0;padding:12px 12px 0;box-shadow:0 30px 60px -30px rgba(0,0,0,.35)}
+.screen .chrome{display:flex;align-items:center;gap:7px;padding:4px 6px 12px}
+.screen .chrome i{width:11px;height:11px;border-radius:50%;background:#3a3a3c}
+.screen .chrome i:nth-child(1){background:#ff5f57}.screen .chrome i:nth-child(2){background:#febc2e}.screen .chrome i:nth-child(3){background:#28c840}
+.screen .chrome span{margin:0 auto;font-size:12px;color:#a1a1a6;background:#2c2c2e;padding:5px 40px;border-radius:7px}
+.view{background:#fff;border-radius:10px 10px 0 0;overflow:hidden;min-height:360px;text-align:left}
+.device .kitbox{position:absolute;width:min(210px,26%);left:max(0px,calc(50% - 470px));bottom:-30px;z-index:2}
+.tile .device{margin-bottom:0}
 
-/* ---------- built ---------- */
-.domains{display:grid;gap:1px;background:var(--hair-soft);border:1px solid var(--hair-soft);margin-top:6px}
-.domains article{background:var(--zinc);padding:26px 24px}
-.dom-banner{
-  margin:-26px -24px 20px;border-bottom:1px solid var(--hair-soft);
-  overflow:hidden;background:#000;
-}
-.dom-banner img{display:block;width:100%;height:auto}
-.domains .dom{
-  font-family:var(--data);font-size:10px;font-weight:600;text-transform:uppercase;
-  letter-spacing:.18em;color:var(--hivis);display:block;margin-bottom:12px;
-}
-.domains h3{
-  font-family:var(--display);font-weight:600;font-size:18.5px;
-  letter-spacing:-.008em;line-height:1.3;margin-bottom:12px;color:var(--ink);
-}
-.domains p{font-size:15.5px;margin-bottom:12px;max-width:none;color:var(--dim)}
-.domains .row{
-  display:grid;grid-template-columns:70px 1fr;gap:12px;
-  padding:9px 0;border-top:1px solid var(--hair-soft);
-  font-size:15px;line-height:1.5;
-}
-.domains .row span{
-  font-family:var(--data);font-size:9.5px;font-weight:600;text-transform:uppercase;
-  letter-spacing:.14em;color:var(--stamp);padding-top:4px;
-}
-.domains .row p{margin:0;color:var(--dim)}
-.domains .link{
-  font-family:var(--data);font-size:11px;letter-spacing:.06em;
-  color:var(--stamp);margin-top:14px;display:block;
-}
-.domains .link a{color:var(--brass)}
-.tag{
-  font-family:var(--data);font-size:9.5px;font-weight:600;
-  text-transform:uppercase;letter-spacing:.14em;
-  border:1px solid var(--hair);border-radius:2px;
-  padding:3px 7px;color:var(--stamp);margin-left:8px;white-space:nowrap;
-}
-.tag.on{color:var(--hivis);border-color:rgba(242,100,25,.5)}
+.uses{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:900px;margin:0 auto;padding:64px 22px 100px;text-align:left}
+.uses div{background:#fff;border-radius:18px;padding:28px}
+.tile:not(.alt) .uses div{background:var(--gray)}
+.uses h4{font-size:12px;font-weight:600;color:var(--sub);letter-spacing:0;margin-bottom:8px}
+.uses p{margin:0;font-size:19px;line-height:1.35;font-weight:500;letter-spacing:-.015em}
+.uses .proof{grid-column:1/-1;background:none!important;padding:0;text-align:center;font-size:14px;color:var(--sub)}
 
-/* ---------- the loop — signature element ---------- */
-.loop{
-  margin-top:6px;border:1px solid var(--hair);border-radius:3px;
-  background:rgba(230,232,227,.02);padding:26px 22px 22px;position:relative;
-}
-.loopgrid{display:grid;gap:0}
-.move{
-  display:grid;grid-template-columns:44px 1fr;gap:0 16px;
-  padding:16px 0;border-bottom:1px dashed var(--hair-soft);
-}
-.move:last-of-type{border-bottom:none;padding-bottom:6px}
-.move .n{
-  font-family:var(--data);font-size:12px;font-weight:600;
-  letter-spacing:.12em;color:var(--hivis);padding-top:4px;
-}
-.move h3{
-  font-family:var(--display);font-weight:600;font-size:17.5px;
-  letter-spacing:-.006em;margin-bottom:5px;color:var(--ink);
-}
-.move p{font-size:15.5px;margin:0;max-width:56ch;color:var(--dim)}
-.loopback{
-  display:flex;align-items:center;gap:12px;margin-top:14px;
-  padding-top:16px;border-top:1px solid var(--rule);
-  font-family:var(--data);font-size:10.5px;font-weight:600;
-  text-transform:uppercase;letter-spacing:.15em;color:var(--stamp);
-}
-.loopback .arc{
-  flex:none;width:28px;height:14px;border:1px solid var(--stamp);
-  border-top:none;border-radius:0 0 16px 16px;position:relative;
-}
-.loopback .arc::after{
-  content:"";position:absolute;left:-4px;top:-1px;
-  border:4px solid transparent;border-bottom-color:var(--stamp);
-}
+/* publishing view */
+.pub{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1fr);gap:36px;align-items:center;padding:36px 44px 36px 34%}
+.pub img{width:100%;border-radius:4px;aspect-ratio:2/3;object-fit:cover;box-shadow:0 20px 40px -18px rgba(0,0,0,.5);background:var(--gray)}
+.pipe{list-style:none;margin:0;padding:0;font-size:15px}
+.pipe li{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #ececf0}
+.pipe li::before{content:"";width:20px;height:20px;border-radius:50%;flex:none;background:#34c759 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.2 8.4l2.4 2.4L11.8 5.6' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100%}
+.pipe li.live{font-weight:600}
+.pipe li.live::before{background-color:var(--orange)}
 
-/* ---------- missions ---------- */
-.missions{border-top:1px solid var(--rule);margin-top:6px}
-.mission{
-  display:grid;grid-template-columns:1fr;gap:5px;
-  padding:17px 0;border-bottom:1px solid var(--rule);
-}
-.mission dt{
-  font-family:var(--display);font-weight:600;font-size:17.5px;letter-spacing:-.008em;color:var(--ink);
-}
-.mission dd{font-size:15.5px;line-height:1.55;color:var(--dim);max-width:60ch}
-.mission dd em{
-  font-style:normal;font-family:var(--data);font-size:.86em;
-  letter-spacing:.06em;color:var(--stamp);display:block;margin-top:4px;
-}
+/* pricing view */
+.fri img{width:100%;aspect-ratio:16/6.5;object-fit:cover;background:var(--gray)}
+.fri .tiles{display:grid;grid-template-columns:repeat(4,1fr);margin-left:30%;border-top:1px solid #ececf0}
+.fri .tiles div{padding:22px 18px;border-left:1px solid #ececf0}
+.fri .tiles b{display:block;font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1}
+.fri .tiles span{font-size:13px;color:var(--sub)}
 
-/* ---------- honest ---------- */
-.hard{border-left:3px solid var(--hair);padding-left:24px;margin-top:6px}
-.hard h3{
-  font-family:var(--data);font-size:11px;font-weight:600;text-transform:uppercase;
-  letter-spacing:.16em;color:var(--stamp);margin:26px 0 8px;
-}
-.hard h3:first-child{margin-top:0}
-.hard p{font-size:16px;margin-bottom:0;color:var(--dim)}
+/* docs view */
+.docs{padding:36px 44px 20px 34%}
+.docs h5{margin:0 0 18px;font-size:22px;font-weight:700;letter-spacing:-.02em}
+.tl{list-style:none;margin:0;padding:0;position:relative}
+.tl::before{content:"";position:absolute;left:9px;top:12px;bottom:14px;width:2px;background:#e5e5ea}
+.tl li{position:relative;padding:4px 0 16px 34px;font-size:15px}
+.tl li::before{content:"";position:absolute;left:1px;top:7px;width:18px;height:18px;border-radius:50%;background:#e5e5ea;box-shadow:0 0 0 3px #fff}
+.tl li.done::before{background:#34c759}
+.tl li.due::before{background:var(--orange);box-shadow:0 0 0 3px #fff,0 0 0 7px rgba(255,107,0,.2)}
+.tl small{display:block;color:var(--sub);font-size:13px}
+.tl li.due{font-weight:600}
+.tl li.due small{color:#c44d00;font-weight:600}
+.illus{font-size:12px;color:var(--sub);padding:0 44px 20px 34%;margin:0}
 
-/* ---------- terms ---------- */
-.shapes{display:grid;gap:1px;background:var(--hair-soft);border:1px solid var(--hair-soft);margin-top:6px}
-.shapes div{background:var(--zinc);padding:26px 22px}
-.shapes h3{font-family:var(--display);font-weight:600;font-size:17.5px;margin-bottom:9px;color:var(--ink)}
-.shapes .len{
-  font-family:var(--data);font-size:10px;font-weight:600;text-transform:uppercase;
-  letter-spacing:.16em;color:var(--hivis);display:block;margin-bottom:9px;
-}
-.shapes p{font-size:15.5px;margin:0;color:var(--dim)}
+/* service view */
+.svc{padding:28px 36px 12px 34%;display:grid;gap:14px;position:relative}
+.svc-head b{display:block;font-size:20px;letter-spacing:-.02em}
+.svc-head span{font-size:13px;color:var(--sub)}
+.quote{background:var(--gray);border-radius:14px;padding:16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.field{background:#fff;border-radius:10px;padding:8px 10px;font-size:13px}
+.field small,.range small{display:block;font-size:11px;color:var(--sub)}
+.range{grid-column:1/-1;background:#fff;border-radius:10px;padding:12px}
+.range b{font-size:28px;letter-spacing:-.02em}
+.bar{height:6px;border-radius:3px;background:linear-gradient(90deg,#e5e5ea 0 25%,#34c759 25% 70%,#e5e5ea 70%);margin-top:8px;position:relative}
+.bar i{position:absolute;left:48%;top:-4px;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 0 0 2px #34c759}
+.book{grid-column:1/-1;text-align:center;background:var(--blue);color:#fff;border-radius:980px;padding:10px;font-size:14px}
+.toast{position:absolute;right:20px;top:18px;background:#fff;border-radius:14px;padding:10px 14px;font-size:12px;box-shadow:0 10px 30px -8px rgba(0,0,0,.25);border-left:4px solid var(--orange)}
+.toast b{display:block;font-size:13px}
+.toast span{color:var(--sub)}
 
-/* ---------- callout ---------- */
-.fit{border:1px solid var(--hair);border-left:3px solid var(--hivis);background:rgba(230,232,227,.02);padding:28px 24px;margin-top:6px}
-.fit p{font-size:16.5px;color:var(--dim)}
-.fit .go{
-  font-family:var(--display);font-weight:800;
-  font-size:clamp(20px,3.6vw,27px);letter-spacing:-.018em;
-  color:#F4F6F1;text-decoration:none;border-bottom:3px solid var(--hivis);
-  display:inline-block;padding-bottom:1px;margin-top:8px;
-}
-.fit .go:hover{color:var(--hivis)}
+/* shop view */
+.shop{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;padding:28px 36px 12px 34%;align-items:start}
+.product{display:grid;gap:6px}
+.product .art{aspect-ratio:1;border-radius:14px;display:flex;flex-direction:column;justify-content:flex-end;padding:18px;color:#fff;box-shadow:inset 0 -80px 60px -40px rgba(60,30,5,.55);background:radial-gradient(circle at 35% 35%,#f6d7a7,#d99a4e 55%,#a4642a)}
+.product b{font-size:15px;line-height:1.25}
+.product .p{font-size:20px;font-weight:700}
+.product .buy,.capture .go{background:var(--blue);color:#fff;border-radius:980px;padding:8px;text-align:center;font-size:13px}
+.side{display:grid;gap:14px}
+.capture{background:var(--gray);border-radius:14px;padding:14px;display:grid;gap:8px;font-size:13px}
+.capture .in{background:#fff;border:1px solid var(--line);border-radius:9px;padding:7px 10px;color:var(--sub)}
+.plan{list-style:none;margin:0;padding:0;font-size:13px}
+.plan li{display:flex;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid #ececf0}
+.plan li::before{content:"";width:16px;height:16px;border-radius:50%;flex:none;background:#e5e5ea}
+.plan li.ok::before{background:#34c759 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.2 8.4l2.4 2.4L11.8 5.6' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") center/100%}
+.plan li.now{font-weight:600}
+.plan li.now::before{background:var(--orange)}
 
-/* ---------- hire / payment callout ---------- */
-.signal{
-  border:1px solid var(--hair);border-left:3px solid var(--brass);
-  background:rgba(230,232,227,.02);padding:28px 24px;margin-top:6px;
-}
-.signal p{font-size:16.5px;color:var(--dim)}
-.signal .tagrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.signal .tagrow span{
-  font-family:var(--data);font-size:10.5px;font-weight:600;
-  text-transform:uppercase;letter-spacing:.1em;color:var(--brass);
-  border:1px solid rgba(201,162,75,.4);border-radius:2px;padding:5px 9px;
-}
+.product .art span{font:700 clamp(18px,2.2vw,28px)/1.02 Georgia,serif;letter-spacing:-.01em}
+.product .art em{font-style:normal;font-size:12px;opacity:.85;margin-top:6px}
+.device .kitbox .nameplate strong{font-size:clamp(13px,1.6vw,19px)}
+/* ---------- in the box ---------- */
+.box{padding:100px 0;text-align:center}
+.box-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:56px}
+.box-grid div{display:flex;flex-direction:column;align-items:center}
+.box-grid .ic{width:88px;height:88px;border-radius:22px;background:var(--gray);display:grid;place-items:center;margin-bottom:18px}
+.box-grid svg{width:40px;height:40px;color:var(--ink)}
+.box-grid b{font-size:19px;font-weight:600}
+.box-grid p{margin:6px 0 0;color:var(--sub);font-size:15px;max-width:22ch}
 
-/* ---------- the window into the night side ---------- */
-.window{
-  margin-top:6px;background:var(--vault);color:var(--ink);
-  border:1px solid var(--hair);border-radius:3px;padding:34px 26px 30px;position:relative;overflow:hidden;
-  background-image:radial-gradient(ellipse 80% 60% at 15% 0%,rgba(35,71,79,.4),transparent 70%);
-}
-.window .cap{
-  font-family:var(--data);font-size:10px;font-weight:600;text-transform:uppercase;
-  letter-spacing:.26em;color:var(--brass);margin-bottom:18px;
-}
-.window h3{
-  font-family:var(--display);font-weight:800;
-  font-size:clamp(26px,5vw,42px);line-height:.98;letter-spacing:-.03em;
-  text-transform:uppercase;color:#F4F6F1;margin-bottom:20px;
-}
-.window h3 .and{
-  display:block;font-size:.3em;letter-spacing:.02em;font-weight:600;
-  color:var(--dim);margin:6px 0 4px;
-}
-.wrule{
-  position:relative;height:24px;margin-bottom:22px;
-  border-top:1px solid var(--hair);
-  background-image:repeating-linear-gradient(90deg,
-    var(--hair) 0 1px, transparent 1px calc(100%/68));
-  background-size:100% 8px;background-repeat:no-repeat;
-}
-.wrule::after{content:"";position:absolute;top:0;right:0;width:2px;height:16px;background:var(--hivis)}
-.window p{color:var(--dim);font-size:16.5px;max-width:54ch;margin-bottom:16px}
-.window p b{color:#F4F6F1;font-weight:500}
-.window .enter{
-  font-family:var(--display);font-weight:800;font-size:clamp(17px,3vw,22px);
-  letter-spacing:-.016em;color:#F4F6F1;text-decoration:none;
-  border-bottom:3px solid var(--hivis);padding-bottom:2px;
-  display:inline-block;margin-top:8px;
-}
-.window .enter:hover{color:var(--hivis)}
-.window .note{
-  font-family:var(--data);font-size:10.5px;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--stamp);margin-top:20px;
-}
-.window-grid{display:grid;grid-template-columns:1fr;gap:28px;align-items:center}
-.window-cover{max-width:220px;margin:0 auto}
-.window-cover img{
-  display:block;width:100%;height:auto;border-radius:2px;
-  box-shadow:0 30px 60px -28px #000,0 0 0 1px rgba(230,232,227,.08);
-}
-@media (min-width:640px){
-  .window-grid{grid-template-columns:1.3fr .7fr;gap:34px}
-  .window-cover{max-width:none}
-}
+/* ---------- compare / prices ---------- */
+.compare{background:var(--gray);padding:100px 0}
+.cols{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:56px;border-top:1px solid var(--line)}
+.col{padding:36px 20px 0;text-align:center;display:flex;flex-direction:column;align-items:center}
+.col+.col{border-left:1px solid var(--line)}
+.col .tag{font-size:12px;font-weight:600;color:var(--orange);min-height:18px}
+.col h3{font-size:28px;margin-top:6px}
+.col .cost{font-size:19px;font-weight:600;margin:8px 0 18px}
+.col p{margin:0 0 24px;color:var(--sub);font-size:15px;max-width:24ch}
+.col .act{margin-top:auto;display:flex;flex-direction:column;gap:12px;align-items:center;width:100%}
+.signup{display:flex;flex-direction:column;gap:10px;width:100%;max-width:230px}
+.signup input{font:inherit;font-size:15px;padding:11px 16px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink)}
+.pay{text-align:center;color:var(--sub);font-size:12px;margin-top:40px}
 
-/* ---------- band ---------- */
-.band{
-  background:rgba(230,232,227,.02);
-  color:var(--ink);padding:58px 0 60px;
-  border-top:1px solid var(--brass);border-bottom:1px solid var(--rule);
-}
-.band .shead{color:var(--stamp)}
-.band .shead::after{background:var(--rule)}
-.band h2{color:#F4F6F1;margin-bottom:15px}
-.band p{color:var(--dim);max-width:58ch}
-.band strong{color:var(--brass);font-weight:500}
+/* ---------- quote ---------- */
+.voice{padding:100px 0;text-align:center}
+.voice p{font-size:clamp(28px,4vw,44px);font-weight:600;line-height:1.15;letter-spacing:-.02em;max-width:24ch;margin:0 auto}
+.voice cite{display:block;margin-top:22px;font-style:normal;color:var(--sub)}
 
-/* ---------- contact ---------- */
-.contact{border-top:none;padding:56px 0 80px}
-.ask{list-style:none;margin:0 0 28px;padding:0}
-.ask li{
-  font-family:var(--data);font-size:12.5px;letter-spacing:.04em;
-  color:var(--stamp);padding:8px 0 8px 19px;position:relative;
-  border-bottom:1px solid var(--hair-soft);max-width:46ch;
-}
-.ask li::before{content:"›";position:absolute;left:0;color:var(--hivis)}
-.actions{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center}
-.mailto{
-  font-family:var(--display);font-weight:800;
-  font-size:clamp(20px,4.2vw,34px);letter-spacing:-.022em;
-  color:#F4F6F1;text-decoration:none;border-bottom:3px solid var(--hivis);
-  display:inline-block;padding-bottom:2px;word-break:break-all;
-}
-.mailto:hover{color:var(--brass)}
-.book{
-  font-family:var(--data);font-size:12px;font-weight:600;
-  letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:var(--ink);
-  border:1px solid var(--hair);border-radius:2px;padding:12px 16px;white-space:nowrap;
-}
-.book:hover{border-color:var(--brass);color:var(--brass)}
-.meta{
-  font-family:var(--data);font-size:11.5px;letter-spacing:.06em;
-  color:var(--stamp);margin-top:28px;line-height:2;
-}
-.meta a{color:var(--stamp)}
-.meta a:hover{color:var(--brass)}
+/* ---------- bento: method + log ---------- */
+.bento-sec{padding:100px 0}
+.bento{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:56px}
+.card{background:var(--gray);border-radius:24px;padding:32px 28px;text-align:left}
+.card .n{font-size:48px;font-weight:700;letter-spacing:-.03em;line-height:1;background:linear-gradient(180deg,#ff6b00,#ffab5e);-webkit-background-clip:text;background-clip:text;color:transparent}
+.card h4{font-size:21px;margin:18px 0 6px}
+.card p{margin:0;color:var(--sub);font-size:15px}
+.card.dark{background:#1d1d1f;color:#f5f5f7;grid-column:span 2}
+.card.dark p{color:#a1a1a6}
+.card.dark h4{font-size:32px;margin:0 0 10px;letter-spacing:-.02em}
+.channels{list-style:none;margin:22px 0 0;padding:0}
+.channels li{display:flex;justify-content:space-between;padding:12px 0;border-top:1px solid #3a3a3c;font-size:15px}
+.channels a{color:#2997ff}
+.channels span{color:#a1a1a6}
+.card.also{grid-column:span 2;background:#fff;box-shadow:inset 0 0 0 1px var(--line)}
+.also-list{list-style:none;margin:14px 0 0;padding:0}
+.also-list li{padding:12px 0;border-top:1px solid #ececf0;font-size:15px;display:flex;justify-content:space-between;gap:12px}
+.also-list span{color:var(--sub);text-align:right}
 
-:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+/* ---------- contact / footer ---------- */
+.contact{background:var(--gray);padding:100px 0;text-align:center}
+.contact p{max-width:44ch;margin:18px auto 0;color:var(--sub);font-size:19px}
+footer{background:var(--gray);border-top:1px solid var(--line);font-size:12px;color:var(--sub);padding:20px 0 30px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+footer nav{display:flex;flex-wrap:wrap;gap:6px 18px}
+footer a{color:#424245}
 
-@media (min-width:640px){
-  .hide-sm{display:inline}
-  .plate{padding:48px 44px 36px}
-  .plate-zone{padding:64px 0 18px}
-  .spec{grid-template-columns:112px 1fr;gap:20px;align-items:baseline}
-  .item{grid-template-columns:44px 1fr;gap:0 18px}
-  .item .idx{padding-top:5px}
-  .mission{grid-template-columns:220px 1fr;gap:0 24px;align-items:baseline}
-  .fit{padding:34px 34px}
-  .signal{padding:30px 34px}
-  .window{padding:44px 42px 38px}
-  .loop{padding:30px 30px 26px}
+dialog{border:0;padding:0;background:#000;color:#f5f5f7;width:min(960px,94vw);border-radius:18px;overflow:hidden}
+dialog::backdrop{background:rgba(0,0,0,.8);backdrop-filter:blur(8px)}
+dialog .bar{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;font-size:14px}
+dialog video,dialog iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
+dialog button{font:inherit;background:#2c2c2e;border:0;color:inherit;cursor:pointer;padding:6px 14px;border-radius:980px}
+
+/* ---------- responsive ---------- */
+@media (max-width:834px){
+  .gnav nav a:not(:first-child){display:none}
+  .lnav nav a:not(.pill){display:none}
+  .box-grid,.bento{grid-template-columns:1fr 1fr}
+  .cols{grid-template-columns:1fr 1fr}
+  .col:nth-child(3){border-left:0}
+  .col{padding-bottom:36px}
+  .fri .tiles{grid-template-columns:1fr 1fr}
 }
-@media (min-width:800px){
-  .domains{grid-template-columns:repeat(2,1fr)}
-  .shapes{grid-template-columns:repeat(3,1fr)}
-}
-@media (prefers-reduced-motion:reduce){
-  .dot{animation:none}
-  html{scroll-behavior:auto}
+@media (max-width:600px){
+  body{font-size:16px}
+  .tile{padding-top:72px}
+  .lineup{gap:10px;padding-bottom:48px}
+  .lineup .cap span{display:none}
+  .lineup .cap{font-size:13px}
+  .kitbox{border-radius:12px}
+  .kitbox .band{padding:7px 8px;font-size:10px}
+  .kitbox .band b{font-size:16px}
+  .kitbox .nameplate{margin:8px 6px 0;padding:9px 6px}
+  .kitbox .nameplate strong{font-size:12.5px;padding:0 2px}
+  .kitbox .foot{padding:7px 8px}
+  .kitbox .foot span{display:none}
+  .kitbox .foot b{font-size:15px}
+  .stats{grid-template-columns:1fr;gap:36px;padding:56px 0}
+  .device .kitbox{width:30%;bottom:-18px;left:10px}
+  .pub{grid-template-columns:1fr;padding:22px 18px 22px 38%;gap:16px}
+  .pub img{max-width:140px}
+  .pipe{font-size:13px}
+  .pipe li{padding:7px 0}
+  .fri .tiles{margin-left:34%;grid-template-columns:1fr}
+  .fri .tiles div{padding:14px}
+  .fri .tiles b{font-size:24px}
+  .docs,.illus{padding-left:38%;padding-right:18px}
+  .docs h5{font-size:18px}
+  .svc,.shop{padding:18px 14px 10px 36%}
+  .shop{grid-template-columns:1fr}
+  .quote{grid-template-columns:1fr;padding:10px}
+  .range b{font-size:22px}
+  .toast{position:static}
+  .tl li{font-size:13px}
+  .uses{grid-template-columns:1fr;padding:48px 22px 72px}
+  .uses p{font-size:17px}
+  .box-grid,.bento,.cols{grid-template-columns:1fr}
+  .col+.col{border-left:0;border-top:1px solid var(--line)}
+  .card.dark,.card.also{grid-column:auto}
 }
 </style>
 </head>
 <body>
 
-<header class="bar">
-  <div class="wrap">
-    <span class="status"><span class="dot" aria-hidden="true"></span>Available now <span class="hide-sm">— full-time or contract</span></span>
-    <nav>
-      <a href="#work">The work</a>
-      <a href="#built">Built</a>
-      <!-- hidden for now, keep for later: <a href="yskaipe.html">Space Coast</a> -->
-      <a class="hide-sm" href="peakingwaters.html">Peaking Waters</a>
-      <a class="hide-sm" href="#missions">Where I fit</a>
-      <a class="hide-sm" href="#bitcoinbroham">@BitcoinBroham</a>
-      <a href="/writing/">The novels</a>
-      <a class="now" href="#contact">Get in touch</a>
-    </nav>
-  </div>
-</header>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="g-pub" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"><path d="M18 22h26a8 8 0 0 1 8 8v52a6 6 0 0 0-6-6H18z"/><path d="M82 22H56a8 8 0 0 0-8 8v52a6 6 0 0 1 6-6h28z"/><path d="M60 38h12M60 50h12M60 62h8M28 38h12M28 50h12"/></g></symbol>
+    <symbol id="g-price" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"><path d="M14 70h72"/><path d="M26 70V54M42 70V40M58 70V32M74 70V46"/><path d="M20 30h60" stroke-dasharray="4 6"/><circle cx="58" cy="24" r="5" fill="currentColor"/></g></symbol>
+    <symbol id="g-docs" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"><path d="M26 14h34l16 16v56H26z"/><path d="M60 14v16h16"/><path d="M36 46h28M36 58h28M36 70h16"/><circle cx="74" cy="74" r="12" fill="#26292d"/><path d="M74 67v8l5 3"/></g></symbol>
+    <symbol id="g-quote" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M16 48L50 20l34 28"/><path d="M26 42v38h48V42"/><path d="M42 80V60h16v20"/><circle cx="76" cy="26" r="10" fill="#26292d"/><path d="M76 20v12M72 23h6a2.5 2.5 0 0 1 0 5h-4a2.5 2.5 0 0 0 0 5h6"/></g></symbol>
+    <symbol id="g-shop" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M22 34h56l-5 50H27z"/><path d="M38 40V28a12 12 0 0 1 24 0v12"/><path d="M40 62l7 7 14-14"/></g></symbol>
+    <symbol id="i-people" viewBox="0 0 36 36"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="12" r="5"/><path d="M4 30a9 9 0 0 1 18 0"/><circle cx="25" cy="14" r="4"/><path d="M24 22a8 8 0 0 1 9 8"/></g></symbol>
+    <symbol id="i-tool" viewBox="0 0 36 36"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="28" height="20" rx="3"/><path d="M11 15l4 3-4 3M18 21h7M12 31h12"/></g></symbol>
+    <symbol id="i-guide" viewBox="0 0 36 36"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M6 7h10a3 3 0 0 1 3 3v19a2.5 2.5 0 0 0-2.5-2.5H6zM30 7H20a3 3 0 0 0-3 3v19a2.5 2.5 0 0 1 2.5-2.5H30z"/></g></symbol>
+    <symbol id="i-video" viewBox="0 0 36 36"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><circle cx="18" cy="18" r="13"/><path d="M15 12.5l8 5.5-8 5.5z" fill="currentColor"/></g></symbol>
+    <symbol id="i-upd" viewBox="0 0 36 36"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M29 17a11 11 0 0 0-20-5M7 19a11 11 0 0 0 20 5"/><path d="M8 6v6h6M28 30v-6h-6"/></g></symbol>
+  </defs>
+</svg>
+
+<!-- global nav -->
+<div class="gnav"><div class="wrap">
+  <a href="#" aria-label="Nick Conenna home" style="font-weight:600">Nick Conenna</a>
+  <nav aria-label="Site">
+    <a href="#kits">Kits</a>
+    <a href="#compare">Prices</a>
+    <a href="#log">Build log</a>
+    <a href="/writing/">Novels</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</div></div>
+
+<!-- local product nav -->
+<div class="lnav"><div class="wrap">
+  <a class="name" href="#">Build Kits</a>
+  <nav aria-label="Build Kits">
+    <a href="#kit-publishing">Publish</a>
+    <a href="#kit-service">Service</a>
+    <a href="#kit-shop">Shop</a>
+    <a href="#compare">Compare</a>
+    <a class="pill sm" href="#compare">Buy</a>
+  </nav>
+</div></div>
 
 <main>
-
-<!-- ================= NAMEPLATE ================= -->
-<div class="wrap plate-zone">
-  <div class="plate">
-    <p class="eyebrow">Nick Conenna — Applied AI Architect, Forward-Deployed — Cornelius, NC</p>
-
-    <h1>I build applied AI systems, and I'm open to <em>the right project.</em></h1>
-
-    <p class="sub">Five systems, five domains I had no background in, built over two years — the kind of work that has to hold up in front of real users, not a demo. In practice that makes me a forward-deployed engineer: I go sit where the work happens, build inside the real constraints, and stay until it holds. Currently splitting time between those builds and new client work. If your project is a good fit, I'd like to hear about it.</p>
-
-    <dl class="specs">
-      <div class="spec">
-        <dt>The work</dt>
-        <dd>Work out which parts of a real process a model can be trusted with, design the system around that answer, build it, and stay with it until it holds up in front of actual users.</dd>
-      </div>
-      <div class="spec">
-        <dt>Any stage</dt>
-        <dd>Deciding whether something is worth doing, scoping it, designing it, building it, or picking up something that stalled. I'm useful at all of them and have no preference about where I come in.</dd>
-      </div>
-      <div class="spec">
-        <dt>Domains so far</dt>
-        <dd>Pricing and knowledge modeling for the trades. Agentic legal research and drafting. Consumer hardware and companion software for full-sphere imaging, earth and space. Long-form narrative built as a structured, versioned human/AI system. A consumer product built primarily on Claude. <b>None fields I had worked in before.</b> <a href="#built">What they are ↓</a></dd>
-      </div>
-      <div class="spec">
-        <dt>Shape</dt>
-        <dd>Generalist by design. The transferable skill is not the domain — it's finding the part of a process where a model is trustworthy and building hard borders around the part where it isn't.</dd>
-      </div>
-      <div class="spec">
-        <dt>On-chain</dt>
-        <dd>Seasoned Bitcoin hodler and self-custodian — in the asset since early, still holding, still building around it. Runs as <b>@BitcoinBroham</b> on X, its own body of work here, not a footnote. <a href="#bitcoinbroham">Where it fits ↓</a></dd>
-      </div>
-      <div class="spec">
-        <dt>Terms</dt>
-        <dd>Full-time or contract. Remote, on site, or travelling. Based in Cornelius, North Carolina.</dd>
-      </div>
-    </dl>
+<!-- ================= HERO ================= -->
+<section class="hero center" aria-labelledby="hero-title">
+  <div class="wrap reveal">
+    <p class="kicker">Build Kits</p>
+    <h1 id="hero-title" class="headline">Launch a real business with AI that already works.</h1>
+    <p class="tagline">Each kit is a working business setup, not a course. Follow the guide, go live, get your first customers.</p>
+    <div class="cta-row">
+      <a class="pill" href="#compare">Buy a kit</a>
+      <a class="more" href="#contact">Hire me to build yours</a>
+    </div>
   </div>
-</div>
 
+  <div class="lineup" aria-label="The three kits">
+    <a href="#kit-publishing">
+      <div class="kitbox"><div class="band"><span>Build kit</span><b>01</b></div>
+        <div class="nameplate"><strong>Publish a book</strong></div>
+        <div class="glyph"><svg><use href="#g-pub"/></svg></div>
+        <div class="foot"><span>Pipeline, guide, video</span><b data-price="publishing">$49</b></div></div>
+      <div class="cap"><b>Publish a book</b><span>Manuscript to Amazon</span></div>
+    </a>
+    <a href="#kit-service">
+      <div class="kitbox"><div class="band"><span>Build kit</span><b>02</b></div>
+        <div class="nameplate"><strong>Service business</strong></div>
+        <div class="glyph"><svg><use href="#g-quote"/></svg></div>
+        <div class="foot"><span>Site, pricing, booking</span><b data-price="service">$49</b></div></div>
+      <div class="cap"><b>Open a service business</b><span>Quote, book, and get paid</span></div>
+    </a>
+    <a href="#kit-shop">
+      <div class="kitbox"><div class="band"><span>Build kit</span><b>03</b></div>
+        <div class="nameplate"><strong>Sell online</strong></div>
+        <div class="glyph"><svg><use href="#g-shop"/></svg></div>
+        <div class="foot"><span>Shop, checkout, list</span><b data-price="shop">$39</b></div></div>
+      <div class="cap"><b>Sell online</b><span>Shop page, checkout, email list</span></div>
+    </a>
+  </div>
+</section>
+
+<!-- ================= PROOF ================= -->
 <div class="wrap">
-
-  <!-- ================= THE WORK ================= -->
-  <section id="work">
-    <p class="shead">The work</p>
-    <h2>What I do on a project</h2>
-    <p class="lede">Most engagements are some mix of these. They're listed separately because teams tend to need them in different proportions.</p>
-
-    <div class="list">
-      <div class="item">
-        <span class="idx">01</span>
-        <div>
-          <h3>Build the product</h3>
-          <p>Take a piece from data model through integrations through the interface, and ship it. On small teams this is usually the whole job, and it's the shape I've been working in for two years.</p>
-        </div>
-      </div>
-      <div class="item">
-        <span class="idx">02</span>
-        <div>
-          <h3>Write and fix the software</h3>
-          <p>The unglamorous half: it breaks on real data, it's slow, the edge cases pile up, the payment path has a race in it. Most of what determines whether an AI feature survives contact with users is ordinary engineering done carefully.</p>
-        </div>
-      </div>
-      <div class="item">
-        <span class="idx">03</span>
-        <div>
-          <h3>Run agentic systems, not just prompts</h3>
-          <p>Wire a model up to tools, memory, and a task loop so it can actually do the work — not answer questions about the work. Most of my day-to-day, across all four systems, runs through agentic coding loops rather than one-shot prompting.</p>
-        </div>
-      </div>
-      <div class="item">
-        <span class="idx">04</span>
-        <div>
-          <h3>Work out the business problem underneath</h3>
-          <p>The stated ask and the actual problem are often different. Twenty years running operations before this means I can usually tell which one I'm looking at, and say so early enough for it to matter.</p>
-        </div>
-      </div>
-      <div class="item">
-        <span class="idx">05</span>
-        <div>
-          <h3>Sit with the customer</h3>
-          <p>Go where the work happens, learn the constraints that were never written down, build inside their environment, and leave it documented so their team runs it without me.</p>
-        </div>
-      </div>
-      <div class="item">
-        <span class="idx">06</span>
-        <div>
-          <h3>Pick up something that stalled</h3>
-          <p>Find where it's actually failing, cut scope to what holds, get one path working the whole way through, and be clear about which parts still shouldn't ship.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= BUILT ================= -->
-  <section id="built">
-    <p class="shead">Built</p>
-    <h2>Five systems, five domains, one architect</h2>
-    <p class="lede">These are the primary work samples. Pricing has to get a number right. Legal research has to get a citation right. A camera has to actually capture the sphere. A novel has to get a voice right. Five different failure modes, same underlying discipline — structure the domain knowledge, then decide exactly what the model is trusted to do with it.</p>
-
-    <div class="domains">
-
-      <article>
-        <span class="dom">Pricing &amp; knowledge infrastructure</span>
-        <div class="dom-banner">
-          <img src="/img/fairrateindex-banner.jpg" alt="FairRateIndex.com — Global Rate Benchmarking Platform banner">
-        </div>
-        <h3>Fair Rate Index <span class="tag on">Live · v0.1</span></h3>
-        <p>A free, public reference for what the eight core home and auto trades should cost, in all 50 states — built entirely on structured domain knowledge: task time, local labor rates from BLS data, material costs, and a regional index, published as a range rather than a false single number. A correction loop lets homeowners submit real invoices, and every verified submission pulls the band toward reality. The whole thing is exposed as an open API and JSON-LD so the numbers are machine-readable, not just a page.</p>
-        <div class="row"><span>Started</span><p>With no background in price modeling, trade economics, or turning a shop's cost structure into data a model can reason over.</p></div>
-        <div class="row"><span>My role</span><p>Architect and sole builder: the task dictionary, the pricing model, the correction loop, and the API that makes it queryable by anyone.</p></div>
-        <span class="link"><a href="https://fairrateindex.com">See it live at fairrateindex.com →</a> · <a href="fairrateindex.html">The build in detail →</a> · 8 trades · 50 states · 400+ priced tasks · open API</span>
-      </article>
-
-      <article>
-        <span class="dom">Legal research &amp; drafting</span>
-        <h3>heyamicus <span class="tag on">Live</span></h3>
-        <p>An agentic legal-research and drafting platform for civil and probate matters — document intake and timeline construction, statute and case research, deadline tracking, and drafting assistance, built out from a real active case rather than a hypothetical one. Live now, and in daily use by my co-builder, Julianna, pre-law at UNCW.</p>
-        <div class="row"><span>Started</span><p>With no background in civil procedure, probate practice, or turning statute and case law into structured, model-usable research.</p></div>
-        <div class="row"><span>My role</span><p>Architect and co-builder, alongside Julianna, who's working the underlying case from the client side and running the platform day to day.</p></div>
-        <span class="link"><a href="https://heyamicus.com">See it live at heyamicus.com →</a></span>
-      </article>
-
-      <article>
-        <span class="dom">Consumer hardware &amp; AI</span>
-        <h3>YSKAIPE <span class="tag">Building</span></h3>
-        <p>A spherical camera and companion mobile app, built for both terrestrial and space use — full-sphere capture paired with an AI-driven app for shooting, reviewing, and sharing, rather than a 360° camera bolted onto a generic gallery app.</p>
-        <p>The hardware spec leans on the same extreme-environment instincts as my earlier field work: thermal regulation, redundancy planning, comms with no infrastructure to fall back on — what SpaceX's own Build Reliability org exists to do for avionics hardware. A camera meant to survive a spacecraft can't assume what a consumer camera assumes.</p>
-        <div class="row"><span>Started</span><p>With no background in optical hardware, embedded imaging pipelines, or designing a camera system meant to survive both a backyard and a spacecraft.</p></div>
-        <div class="row"><span>My role</span><p>Architect and builder: the hardware spec, the companion app, and the software stack tying capture, processing, and sharing into one system.</p></div>
-        <span class="link">Not live yet — a dedicated build page is next.</span>
-      </article>
-
-      <article>
-        <span class="dom">Narrative systems</span>
-        <div class="dom-banner">
-          <img src="/img/cubit-quark-banner.jpg" alt="THE PACE — The Cubit and the Quark, Book I. A hooded figure walks toward the Wardenclyffe tower under a clouded sky.">
-        </div>
-        <h3>The Cubit and the Quark <span class="tag on">Book I published</span></h3>
-        <p>A four-book roman-à-clef series — measurement, money, and who decides what counts — built as a structured, versioned production, not a single long draft. Book I, <em>The Pace</em>, is published: a prologue and 93 chapters across three parts, live as an ebook and paperback on Amazon, with an audiobook in production, byline Nicholas Conenna.</p>
-        <div class="row"><span>Started</span><p>With no background in fiction craft, series structure, or directing a model through a hundred-chapter continuity problem.</p></div>
-        <div class="row"><span>My role</span><p>Architect and author: the plot spine, the world's internal rules, and the editorial pass that keeps a hundred chapters consistent with each other.</p></div>
-        <span class="link"><a href="#novels">Read more about the series ↓</a> · Book I: The Pace · ebook &amp; paperback live · audiobook in production</span>
-      </article>
-
-      <article>
-        <span class="dom">Applied AI, built for fit</span>
-        <h3>Built on Claude <span class="tag">Building</span></h3>
-        <p>A consumer product, hardware and software as one system. The software layer runs end to end on Claude; the hardware layer is being prototyped and fabricated through Grok Build's tooling, because that's the right tool for that layer, not a brand statement. Less a pitch than a demonstration — the clearest evidence I have of how I think and build, made for the team whose mission I actually want to work inside.</p>
-        <div class="row"><span>Started</span><p>With no fixed spec yet — built to show a way of working, not to sell a finished product.</p></div>
-        <div class="row"><span>My role</span><p>Architect and sole builder, across the Claude-driven software and the physical build.</p></div>
-        <span class="link">Working name: TBD · not live yet — details to follow as the build firms up</span>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- ================= THE LOOP ================= -->
-  <section id="method">
-    <p class="shead">Method</p>
-    <h2>Four moves, in order, in any domain — and then again</h2>
-    <p class="lede">This is a loop, not a checklist, and I mean that literally — every system above runs on agentic loops, not single passes. The fourth move returns to the first, and the reason most applied AI work stalls is that nobody ever closes it. The iteration is the product; I'd rather run twenty short passes than one long one.</p>
-
-    <div class="loop">
-      <div class="loopgrid">
-        <div class="move">
-          <span class="n">01</span>
-          <div>
-            <h3>Say it in their words</h3>
-            <p>State the job the way the person who does it would state it. If I can't, I don't understand it yet, and no amount of clever prompting covers that up.</p>
-          </div>
-        </div>
-        <div class="move">
-          <span class="n">02</span>
-          <div>
-            <h3>Give it the real material</h3>
-            <p>Actual records, actual constraints, the thing everyone in the room knows and nobody wrote down. Systems underperform mostly because they were built against a description of the work instead of the work.</p>
-          </div>
-        </div>
-        <div class="move">
-          <span class="n">03</span>
-          <div>
-            <h3>Build the check first</h3>
-            <p>Before the interesting part: how will we know when this is wrong? A test, a known-good answer, a person who'd notice. Without one you can't improve a system, only hold opinions about it.</p>
-          </div>
-        </div>
-        <div class="move">
-          <span class="n">04</span>
-          <div>
-            <h3>Correct in short passes</h3>
-            <p>Run it again with what failed, visible each time, stop when it holds twice. Short passes beat one long unattended run.</p>
-          </div>
-        </div>
-      </div>
-      <p class="loopback"><span class="arc" aria-hidden="true"></span> Back to 01 — every pass changes how the job should be stated</p>
-    </div>
-  </section>
-
-  <!-- ================= WHERE I FIT ================= -->
-  <section id="missions">
-    <p class="shead">Where I fit</p>
-    <h2>The same job, under a dozen different titles</h2>
-    <p class="lede">Postings call this different things depending on who wrote them. These are the ones that describe what I actually do — including the literal titles Anthropic, Coinbase, and SpaceX use for it.</p>
-
-    <dl class="missions">
-      <div class="mission">
-        <dt>Forward Deployed Engineer (FDE)</dt>
-        <dd>Embedded with the customer, building inside their environment against their real constraints, and leaving something their team can run. The exact title both Anthropic and Coinbase use for this work.<em>The shape I'm best at</em></dd>
-      </div>
-      <div class="mission">
-        <dt>Applied AI Engineer</dt>
-        <dd>Taking a capability and turning it into a product surface that holds up when the inputs are messy and the user is in a hurry. Anthropic's FDE org sits inside its Applied AI team; SpaceX runs the parallel role as AI Software Engineer.<em>Product, evals, integration, the failure paths</em></dd>
-      </div>
-      <div class="mission">
-        <dt>Solutions Architect</dt>
-        <dd>Deciding what should be built before anything gets built, and being willing to say the honest answer is nothing. Coinbase runs this exact title on its Sales, Trading, and Prime team.<em>Scoping, feasibility, the paid look</em></dd>
-      </div>
-      <div class="mission">
-        <dt>Founding Engineer</dt>
-        <dd>Whole product, one person, from data model to support inbox. Two years of doing exactly this — the same language Coinbase's own Forward Deployed Engineer postings use for someone embedded from day one inside a new team.<em>Small teams, early stage</em></dd>
-      </div>
-      <div class="mission">
-        <dt>Application Software / Build Reliability Engineer</dt>
-        <dd>Where the work sits closer to hardware, this is SpaceX's own vocabulary: Application Software Engineer for the software layer, Build Reliability Engineer for making the physical layer underneath it hold up. YSKAIPE's camera system needs both.<em>The SpaceX-shaped version of the same job</em></dd>
-      </div>
-      <div class="mission">
-        <dt>Technical generalist</dt>
-        <dd>Where the org needs someone who can move across pricing, legal research, physical systems, and narrative without a six-month ramp each time.<em>Fintech and crypto infrastructure, aerospace and defense, hard tech, marketplaces, professional services</em></dd>
-      </div>
-      <div class="mission">
-        <dt>Crypto-native builder</dt>
-        <dd>A hodler and self-custodian since early in the asset, not a recent convert — I use the rails I'd be building, and I publish on Bitcoin and the space frontier as @BitcoinBroham. Fair Rate Index is the technical half of that: an open API and a public correction loop, where every number has to be right and auditable, not just plausible.<em>Fit for any team building crypto-native products, not just watching the space</em></dd>
-      </div>
-    </dl>
-  </section>
-
-  <!-- ================= HONESTLY ================= -->
-  <section id="hard">
-    <p class="shead">Honestly</p>
-    <h2>What's hard about this work, and where I'm short</h2>
-    <div class="hard">
-
-      <h3>The last thirty percent isn't written down</h3>
-      <p>Every domain has rules that live in one person's judgment. You don't get them by asking; you get them by building something slightly wrong and watching the expert react. That's why I'd rather start building at seventy percent understanding than wait for a complete specification that isn't coming.</p>
-
-      <h3>I'm not a research engineer</h3>
-      <p>My depth is applied — putting models to work. Training, fine-tuning, and evaluating at the frontier are other people's expertise, and I'd defer to them.</p>
-
-      <h3>I haven't operated at very large scale</h3>
-      <p>My production experience is systems with real users and real money in them, not millions of users. I know the difference between those two problems and I'm not going to pretend I've solved the second.</p>
-
-      <h3>I've worked alone</h3>
-      <p>Two years as the only engineer on everything I've built. I want the review culture of a strong team, and I expect the first month of that to cost me some ego.</p>
-
-      <h3>I'm not hiding the toolchain, including the parts that aren't Anthropic's</h3>
-      <p>The build made specifically to show fit with Anthropic runs its software on Claude and its hardware through Grok Build's fabrication tooling — because that was the right tool for that layer, not because of any hedge. I'd rather be visibly honest about tool choice than pretend the whole stack is one vendor's.</p>
-
-      <h3>Not everything above is finished</h3>
-      <p>Fair Rate Index and heyamicus are both live, and Book I of The Cubit and the Quark is published. YSKAIPE and the Anthropic-aligned build are real, active builds, not concepts — but they haven't yet been tested against anyone's constraints but my own. heyamicus is the exception: it's already in daily use against a real case, by someone other than me. That's the honest state of the rest, and it's exactly what a role or a serious contract would change.</p>
-    </div>
-  </section>
-
-  <!-- ================= TERMS ================= -->
-  <section id="terms">
-    <p class="shead">Terms</p>
-    <h2>Three ways this usually starts</h2>
-    <div class="shapes">
-      <div>
-        <span class="len">Two weeks</span>
-        <h3>A paid look</h3>
-        <p>Find out whether the thing is worth doing, and say so plainly if it isn't. The cheapest way to learn you were about to spend six months on the wrong problem.</p>
-      </div>
-      <div>
-        <span class="len">Six to twelve weeks</span>
-        <h3>A defined piece</h3>
-        <p>One process, one integration, one path to production. Scoped at the start, working at the end, handed over so your team owns it.</p>
-      </div>
-      <div>
-        <span class="len">Full-time</span>
-        <h3>On the team</h3>
-        <p>Where the work is ongoing and the relationships matter more than any single project. This is the one I'd prefer, for the right mission.</p>
-      </div>
-    </div>
-
-    <div class="signal">
-      <p><strong>Getting started:</strong> a short call to confirm scope, a one-page statement of work with a fixed price or day rate, then an invoice before kickoff on anything under six weeks — net 15 on longer engagements. No procurement maze on my end, and no separate "let's discuss pricing" round trip if you already know the shape of the work.</p>
-      <div class="tagrow">
-        <span>Rate on request</span>
-        <span>Fixed price or day rate</span>
-        <span>Wire / ACH</span>
-        <span>USDC</span>
-        <span>BTC</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= EXTREME-ENVIRONMENT DETAIL ================= -->
-  <section id="fit">
-    <p class="shead">More detail</p>
-    <h2>If you're building at SpaceX or a Musk company</h2>
-    <div class="fit">
-      <p>The instincts under YSKAIPE's camera hardware — designing for a device that can't assume gravity, light, or orientation, and has to keep working with no one nearby to fix it — came out of earlier field work built explicitly around extreme-environment constraints: thermal regulation, redundancy planning, comms with no infrastructure to fall back on. That's the same short list of problems hardware teams solve at the vacuum end of the spectrum, at very different stakes.</p>
-      <a class="go" href="yskaipe.html">See the mission →</a>
-    </div>
-  </section>
-
-  <!-- ================= BITCOINBROHAM UNIT ================= -->
-  <section id="bitcoinbroham">
-    <p class="shead">Work sample 03</p>
-    <h2>@BitcoinBroham — the same question, outside the fiction</h2>
-
-    <div class="window">
-      <p class="cap">An ongoing public ledger, not a brand account</p>
-      <h3>Money<span class="and">and</span>Measurement</h3>
-
-      <div class="wrule" aria-hidden="true"></div>
-
-      <p>The novels ask who decides what counts. <b>@BitcoinBroham</b> is where I ask the same question in public, in real time, about an asset I've actually held since early — Bitcoin, self-custody, and the space frontier, written by a seasoned hodler rather than someone discovering the topic on camera.</p>
-
-      <p>It isn't a side account. It runs on the same discipline as the other systems on this page: a structured body of work, built in public, over years — and the clearest place to see how I actually think about money, trust, and verification before any of it shows up in client work.</p>
-
-      <a class="enter" href="https://x.com/BitcoinBroham">Follow @BitcoinBroham →</a>
-
-      <p class="note">Bitcoin · self-custody · the space frontier</p>
-    </div>
-  </section>
-
-  <!-- ================= THE WINDOW ================= -->
-  <section id="novels">
-    <p class="shead">Work sample 02</p>
-    <h2>I write a novel series about measurement</h2>
-
-    <div class="window">
-      <div class="window-grid">
-        <div class="window-copy">
-          <p class="cap">A novel series in four volumes</p>
-          <h3>The Cubit<span class="and">and the</span>Quark</h3>
-
-          <div class="wrule" aria-hidden="true"></div>
-
-          <p>Measurement, money, and who decides what counts. A man is shot at four in the morning at the foot of Tesla's tower, and spends his last eleven minutes <b>walking in a straight line, counting.</b></p>
-
-          <p>The research behind the fiction is the research behind the work: standards bodies, cryptography, energy, and the physics of the next fifty years. It is also where I do my reading.</p>
-
-          <a class="enter" href="/writing/">Enter the series →</a>
-
-          <p class="note">Book I: The Pace · published, ebook &amp; paperback on Amazon · audiobook in production</p>
-        </div>
-        <div class="window-cover">
-          <img src="/img/the-pace-cover.jpg" alt="THE PACE, by Nick Conenna — a hooded figure walks toward the Wardenclyffe tower under a clouded sky, ringed by faint geometric equations">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= YSKAIPE WINDOW ================= -->
-  <section id="yskaipe-window">
-    <p class="shead">Work sample 04</p>
-    <h2>One sphere, two environments</h2>
-
-    <div class="window">
-      <p class="cap">A camera system built to work in both</p>
-      <h3>Earth<span class="and">and</span>Space</h3>
-
-      <div class="wrule" aria-hidden="true"></div>
-
-      <p>Capture the whole sphere, not a framed slice of it — the same problem whether the thing behind the lens is a backyard or the inside of a spacecraft. <b>A camera built for one environment quietly assumes gravity, light, and orientation; a camera meant for both can't.</b></p>
-
-      <p>YSKAIPE pairs the hardware with a companion app built to do the AI-heavy parts — capture guidance, review, and sharing — so the system is judged as a whole product, not a sensor with an afterthought of an app.</p>
-
-      <p>That discipline isn't new to me — it's the same one that shaped earlier field work in the Blue Ridge: thermal regulation, redundancy planning, and comms with no infrastructure to fall back on. A spherical camera meant for both a backyard and a spacecraft inherits the same constraints.</p>
-
-      <a class="enter" href="yskaipe.html">See the mission →</a>
-
-      <p class="note">Spherical camera · companion mobile app · earth and space</p>
-    </div>
-  </section>
-
-  <!-- ================= ANTHROPIC-ALIGNED BUILD WINDOW =================
-  Working name still TBD — swap "Untitled" and the description paragraph once the build
-  is far enough along to say plainly what it does and who it's for. -->
-  <section id="anthropic-build">
-    <p class="shead">Work sample 05</p>
-    <h2>Built to show fit, not to sell a product</h2>
-
-    <div class="window">
-      <p class="cap">Hardware and software as one system</p>
-      <h3>Untitled<span class="and">built on</span>Claude</h3>
-
-      <div class="wrule" aria-hidden="true"></div>
-
-      <p>Software end to end on Claude. Hardware prototyped through Grok Build's tooling, because that's the right toolchain for the physical layer — not a co-sign. <b>The clearest evidence I have of how I actually think and build</b>, made specifically for the team whose mission I want to work inside, not to sell anyone a product.</p>
-
-      <p>Full specifics are still firming up — this card will carry the real name and description once the build is far enough along to say plainly what it does and who it's for.</p>
-
-      <p class="note">Consumer hardware + software · Claude-driven, Grok Build-fabricated</p>
-    </div>
-  </section>
-
-</div>
-
-<!-- ================= BAND ================= -->
-<div class="band">
-  <div class="wrap">
-    <p class="shead">Why this work</p>
-    <h2>The gains should reach the many</h2>
-    <p>Most of the value in this technology is still sitting unclaimed inside ordinary work — the processes nobody writes conference talks about, in organizations that will never have a research team. Moving it there is a design problem and a translation problem, and both are solved by people willing to go sit where the work happens.</p>
-    <p><strong>More advantage for a handful is an uninteresting outcome, and always was.</strong></p>
+  <div class="stats" role="list">
+    <div role="listitem"><b>Live</b><span>Books selling on Amazon from this pipeline</span></div>
+    <div role="listitem"><b>50 states</b><span>Of real trade pricing behind the service kit</span></div>
+    <div role="listitem"><b>100% yours</b><span>Your site, your customers, your money</span></div>
   </div>
 </div>
+
+<!-- ================= KIT 01 ================= -->
+<section id="kits" aria-label="The kits">
+<article class="tile" id="kit-publishing">
+  <div class="wrap">
+    <p class="eyebrow">Kit 01</p>
+    <h2 class="title">Publish a book.</h2>
+    <p class="tagline">Manuscript to a live Amazon listing. One person. No team.</p>
+    <p class="price-line">$<span data-num="publishing">49</span>, yours to keep</p>
+    <div class="cta-row">
+      <a class="pill" data-buy="publishing" href="#contact">Buy</a>
+      <button class="linkbtn more" type="button" data-video="publishing" hidden>Watch it run</button>
+      <a class="more" href="/writing/">See the books</a>
+    </div>
+  </div>
+  <div class="device">
+    <div class="screen"><div class="chrome"><i></i><i></i><i></i><span>YSKAIPE Studio</span></div>
+      <div class="view"><div class="pub">
+        <img src="/img/the-pace-cover.jpg" alt="Cover of The Pace by Nick Conenna" width="400" height="600">
+        <ul class="pipe" aria-label="Pipeline stages">
+          <li>Manuscript structured</li><li>Continuity pass, 93 chapters</li><li>Cover brief</li>
+          <li>Amazon listing</li><li>X-Ray entries</li><li class="live">Live on Amazon</li>
+        </ul>
+      </div></div></div>
+    <div class="kitbox" aria-hidden="true"><div class="band"><span>Build kit</span><b>01</b></div><div class="nameplate"><strong>Publish a book</strong></div><div class="glyph"><svg><use href="#g-pub"/></svg></div></div>
+  </div>
+  <div class="uses">
+    <div><h4>You finish with</h4><p>A book live on Amazon in ebook and paperback, with the listing, X-Ray, and launch copy done.</p></div>
+    <div><h4>Good for</h4><p>First-time authors, experts turning know-how into a book, or starting a small press.</p></div>
+    <p class="proof">The Pace and Stoppage Time are on Amazon now.</p>
+  </div>
+</article>
+
+<!-- ================= KIT 02 ================= -->
+<article class="tile alt" id="kit-service">
+  <div class="wrap">
+    <p class="eyebrow">Kit 02</p>
+    <h2 class="title">Open a service business.</h2>
+    <p class="tagline">A website that quotes a fair price, books the job, and takes a deposit.</p>
+    <p class="price-line">$<span data-num="service">49</span>, yours to keep</p>
+    <div class="cta-row">
+      <a class="pill" data-buy="service" href="#contact">Buy</a>
+      <button class="linkbtn more" type="button" data-video="service" hidden>Watch it run</button>
+      <a class="more" href="https://fairrateindex.com">See the price data</a>
+    </div>
+  </div>
+  <div class="device">
+    <div class="screen"><div class="chrome"><i></i><i></i><i></i><span>yourbusiness.com</span></div>
+      <div class="view"><div class="svc">
+        <div class="svc-head"><b>Lakeside Wash Co.</b><span>Pressure washing, Lake Norman</span></div>
+        <div class="quote">
+          <div class="field"><small>Job</small><span>House, driveway, and deck</span></div>
+          <div class="field"><small>Size</small><span>About 2,800 sq ft</span></div>
+          <div class="field"><small>ZIP</small><span>28031</span></div>
+          <div class="range">
+            <small>Your fair price</small>
+            <b>$210 – $310</b>
+            <div class="bar"><i></i></div>
+          </div>
+          <span class="book">Book with a $50 deposit</span>
+        </div>
+        <div class="toast"><b>New booking</b><span>Saturday 9:00 AM, deposit paid</span></div>
+      </div><p class="illus">Example site</p></div></div>
+    <div class="kitbox" aria-hidden="true"><div class="band"><span>Build kit</span><b>02</b></div><div class="nameplate"><strong>Service business</strong></div><div class="glyph"><svg><use href="#g-quote"/></svg></div></div>
+  </div>
+  <div class="uses">
+    <div><h4>You finish with</h4><p>Your own site with instant quotes, online booking, card deposits, and confirmation emails. Plus a script for landing your first ten customers.</p></div>
+    <div><h4>Good for</h4><p>Pressure washing, lawn care, cleaning, handyman, detailing, and other local trades.</p></div>
+    <p class="proof">Quotes come from the same engine behind fairrateindex.com.</p>
+  </div>
+</article>
+
+<!-- ================= KIT 03 ================= -->
+<article class="tile" id="kit-shop">
+  <div class="wrap">
+    <p class="eyebrow">Kit 03</p>
+    <h2 class="title">Sell online.</h2>
+    <p class="tagline">A shop page, a checkout, and an email list. Open for business in a weekend.</p>
+    <p class="price-line">$<span data-num="shop">39</span>, yours to keep</p>
+    <div class="cta-row">
+      <a class="pill" data-buy="shop" href="#contact">Buy</a>
+      <button class="linkbtn more" type="button" data-video="shop" hidden>Watch it run</button>
+    </div>
+  </div>
+  <div class="device">
+    <div class="screen"><div class="chrome"><i></i><i></i><i></i><span>yourshop.com</span></div>
+      <div class="view"><div class="shop">
+        <div class="product">
+          <div class="art" aria-hidden="true"><span>Weekend<br>Sourdough</span><em>A 2-day guide</em></div>
+          <b>The Weekend Sourdough Guide</b>
+          <span class="p">$19</span>
+          <span class="buy">Buy now</span>
+        </div>
+        <div class="side">
+          <div class="capture"><b>Get the free first chapter</b><span class="in">you@email.com</span><span class="go">Send it</span></div>
+          <ol class="plan">
+            <li class="ok">Shop page live</li>
+            <li class="ok">Checkout connected</li>
+            <li class="ok">Welcome email set</li>
+            <li class="now">Launch post goes out Friday</li>
+          </ol>
+        </div>
+      </div><p class="illus">Example shop</p></div></div>
+    <div class="kitbox" aria-hidden="true"><div class="band"><span>Build kit</span><b>03</b></div><div class="nameplate"><strong>Sell online</strong></div><div class="glyph"><svg><use href="#g-shop"/></svg></div></div>
+  </div>
+  <div class="uses">
+    <div><h4>You finish with</h4><p>A live shop page, card checkout, an email list with a free sample to grow it, and a launch-week posting plan.</p></div>
+    <div><h4>Good for</h4><p>Digital guides, templates, prints, merch, courses, or anything you make and want to sell.</p></div>
+    <p class="proof">It's the same setup that runs this page.</p>
+  </div>
+</article>
+</section>
+
+<!-- ================= IN THE BOX ================= -->
+<section class="box" aria-labelledby="box-title" style="background:var(--gray)">
+  <div class="wrap">
+    <h2 id="box-title" class="title">What's in every box.</h2>
+    <p class="tagline">Everything to go from nothing to open. Nothing to piece together yourself.</p>
+    <div class="box-grid">
+      <div><span class="ic"><svg><use href="#i-tool"/></svg></span><b>The working setup</b><p>Ready to copy, fill in, and launch.</p></div>
+      <div><span class="ic"><svg><use href="#i-guide"/></svg></span><b>Step-by-step guide</b><p>Plain English, in the order you do it.</p></div>
+      <div><span class="ic"><svg><use href="#i-video"/></svg></span><b>Setup video</b><p>Zero to running, start to finish.</p></div>
+      <div><span class="ic"><svg><use href="#i-people"/></svg></span><b>First-customers playbook</b><p>Who to reach, what to say, and when.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= QUOTE (hidden until CONFIG.quote is set) ================= -->
+<section class="voice" id="voice" hidden aria-label="What founders say">
+  <div class="wrap"><blockquote style="margin:0"><p id="quote-text"></p><cite id="quote-by"></cite></blockquote></div>
+</section>
+
+<!-- ================= COMPARE ================= -->
+<section class="compare center" id="compare" aria-labelledby="compare-title" style="background:#fff">
+  <div class="wrap">
+    <h2 id="compare-title" class="title">Which is right for you?</h2>
+    <div class="cols">
+      <div class="col">
+        <span class="tag"></span><h3>Build log</h3><div class="cost">Free</div>
+        <p>A new tool every Friday, plus a free starter kit.</p>
+        <div class="act">
+          <form class="signup" id="signup" method="post" target="_blank">
+            <label for="email" class="vh">Email address</label>
+            <input id="email" name="email" type="email" required placeholder="Email address" autocomplete="email">
+            <button class="pill" type="submit">Join</button>
+          </form>
+        </div>
+      </div>
+      <div class="col">
+        <span class="tag">Most popular</span><h3>Build kit</h3><div class="cost">$39–49</div>
+        <p>A working business setup, guide, video, and first-customers playbook.</p>
+        <div class="act"><a class="pill" href="#kits">Choose a kit</a></div>
+      </div>
+      <div class="col">
+        <span class="tag"></span><h3>Build sprint</h3><div class="cost">From $1,500</div>
+        <p>Two weeks with me. We launch your business together and you own it.</p>
+        <div class="act"><a class="pill" data-buy="sprint" href="#contact">Book a sprint</a></div>
+      </div>
+      <div class="col">
+        <span class="tag"></span><h3>Contract</h3><div class="cost">On request</div>
+        <p>A paid look, a 6–12 week build, or a full-time seat on your team.</p>
+        <div class="act"><a class="more" href="#contact">Start a conversation</a></div>
+      </div>
+    </div>
+    <p class="pay"><span id="guarantee"></span>Kits and sprints by card. Contracts by wire, ACH, USDC, or BTC.</p>
+  </div>
+</section>
+
+<!-- ================= BENTO: method + log ================= -->
+<section class="bento-sec" aria-labelledby="how-title" style="padding-top:0">
+  <div class="wrap center">
+    <h2 id="how-title" class="title">How every kit got built.</h2>
+    <p class="tagline">Four moves, in order, in any field. The guides teach you to run them.</p>
+    <div class="bento">
+      <div class="card"><div class="n">1</div><h4>Say it in their words</h4><p>State the job the way the person who does it would.</p></div>
+      <div class="card"><div class="n">2</div><h4>Use the real material</h4><p>Actual records and the rules nobody wrote down.</p></div>
+      <div class="card"><div class="n">3</div><h4>Build the check first</h4><p>Know how you'll spot a wrong answer before you build.</p></div>
+      <div class="card"><div class="n">4</div><h4>Fix it in short passes</h4><p>Run, correct, repeat. Stop when it holds twice.</p></div>
+      <div class="card dark" id="log">
+        <h4>A new tool every Friday.</h4>
+        <p>I build in public. The best ones become kits.</p>
+        <ul class="channels">
+          <li><a href="https://www.linkedin.com/in/nickconenna/">LinkedIn</a><span>Daily build notes</span></li>
+          <li><a href="https://x.com/BitcoinBroham">X</a><span>Each build as a thread</span></li>
+          <li><a data-link="youtube" href="#">YouTube</a><span>60-second demos</span></li>
+          <li><a href="#compare">Email</a><span>New kits land here first</span></li>
+        </ul>
+      </div>
+      <div class="card also">
+        <h4 style="margin-top:0">Also from Nick</h4>
+        <ul class="also-list">
+          <li><a href="https://heyamicus.com">heyamicus</a><span>Legal research assistant</span></li>
+          <li><a href="/yskaipe.html">YSKAIPE camera</a><span>Earth and space</span></li>
+          <li><a href="/writing/">The Cubit and the Quark</a><span>Book I is out</span></li>
+          <li><a href="https://x.com/BitcoinBroham">@BitcoinBroham</a><span>Bitcoin, self-custody</span></li>
+          <li><a href="/peakingwaters.html">Peaking Waters</a><span>The parent company</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ================= CONTACT ================= -->
-<div class="wrap contact" id="contact">
-  <p class="shead">Get in touch</p>
-  <h2>Tell me what you're working on</h2>
-  <p>One paragraph is plenty. I answer email, and I'll tell you straight whether I'm the right person — including when I'm not.</p>
-  <ul class="ask">
-    <li>The problem, in your own words</li>
-    <li>Role or project, and roughly when</li>
-    <li>What's already been tried</li>
-    <li>Rough budget or day-rate range, if you have one</li>
-  </ul>
-  <div class="actions">
-    <a class="mailto" href="mailto:nanonicholas@protonmail.com?subject=Project&amp;body=The%20problem%3A%0A%0ARole%20or%20project%3A%0A%0ATiming%3A%0A%0AWhat%27s%20already%20been%20tried%3A%0A">nanonicholas@protonmail.com</a>
-    <a class="book" href="mailto:nanonicholas@protonmail.com?subject=20%20minutes%3F">Book 20 minutes →</a>
+<section class="contact" id="contact" aria-labelledby="contact-title">
+  <div class="wrap">
+    <h2 id="contact-title" class="title">Tell me what you're building.</h2>
+    <p>One paragraph is plenty: the problem, where you are, what you've tried, and a rough budget. I'll tell you straight whether a kit, a sprint, or a contract fits.</p>
+    <div class="cta-row">
+      <a class="pill" href="mailto:nanonicholas@protonmail.com?subject=Project&body=The%20problem%3A%0A%0AWhere%20I%20am%3A%0A%0AWhat%20I%27ve%20tried%3A%0A%0ABudget%3A%0A">Email me</a>
+      <a class="more" data-link="booking" href="mailto:nanonicholas@protonmail.com?subject=20%20minutes%3F">Book 20 minutes</a>
+    </div>
   </div>
-  <p class="meta">
-    Cornelius, North Carolina · full-time or contract · remote, on site, will travel<br>
-    <!-- hidden for now, keep for later: <a href="yskaipe.html">Space Coast</a> · -->
-    <a href="peakingwaters.html">Peaking Waters</a> ·
-    <a href="/writing/">The novels</a> ·
-    <a href="https://fairrateindex.com">Fair Rate Index</a> ·
-    <a href="https://github.com/NickConenna/applied-ai-architecture">GitHub</a> ·
-    <a href="https://www.linkedin.com/in/nickconenna/">LinkedIn</a> ·
-    <a href="https://x.com/BitcoinBroham">X</a>
-  </p>
-</div>
-
+</section>
 </main>
+
+<footer>
+  <div class="wrap">
+    <span>Nick Conenna, applied AI architect. Cornelius, North Carolina.</span>
+    <nav aria-label="Footer">
+      <a href="https://fairrateindex.com">Fair Rate Index</a>
+      <a href="https://heyamicus.com">heyamicus</a>
+      <a href="/writing/">Novels</a>
+      <a href="https://github.com/NickConenna/applied-ai-architecture">GitHub</a>
+      <a href="https://www.linkedin.com/in/nickconenna/">LinkedIn</a>
+      <a href="https://x.com/BitcoinBroham">X</a>
+    </nav>
+  </div>
+</footer>
+
+<dialog id="player" aria-label="Demo video">
+  <div class="bar"><span id="player-title">Demo</span><button type="button" id="player-close">Close</button></div>
+  <div id="player-slot"></div>
+</dialog>
+
+<script>
+/* =====================================================
+   EDIT HERE — the only block you need to touch.
+   Empty values hide the feature or fall back to email.
+   ===================================================== */
+const CONFIG = {
+  stripe: { publishing: "", service: "", shop: "", sprint: "" },   // Stripe Payment Links
+  prices: { publishing: 49, service: 49, shop: 39 },
+  buttondown: "",      // Buttondown embed-subscribe URL
+  videos: { publishing: "", service: "", shop: "" },  // YouTube embed URL or .mp4
+  youtube: "",         // channel URL
+  booking: "",         // Cal.com / Calendly link
+  quote: { text: "", by: "" },   // a founder's words, with permission
+  guarantee: ""        // e.g. "Not a fit? Full refund within 14 days. "
+};
+
+(function(){
+  document.querySelectorAll("[data-buy]").forEach(a=>{
+    const url = CONFIG.stripe[a.dataset.buy];
+    if(url){ a.href = url; a.rel = "noopener"; }
+  });
+  document.querySelectorAll("[data-price]").forEach(s=>{ const p=CONFIG.prices[s.dataset.price]; if(p) s.textContent="$"+p; });
+  document.querySelectorAll("[data-num]").forEach(s=>{ const p=CONFIG.prices[s.dataset.num]; if(p) s.textContent=p; });
+
+  const form = document.getElementById("signup");
+  if(CONFIG.buttondown){ form.action = CONFIG.buttondown; }
+  else form.addEventListener("submit", e=>{
+    e.preventDefault();
+    location.href = "mailto:nanonicholas@protonmail.com?subject=Add%20me%20to%20the%20build%20log&body=" + encodeURIComponent(document.getElementById("email").value);
+  });
+
+  const yt = document.querySelector('[data-link="youtube"]');
+  if(CONFIG.youtube) yt.href = CONFIG.youtube; else yt.closest("li").remove();
+  if(CONFIG.booking) document.querySelector('[data-link="booking"]').href = CONFIG.booking;
+  if(CONFIG.guarantee) document.getElementById("guarantee").textContent = CONFIG.guarantee;
+  if(CONFIG.quote.text){
+    document.getElementById("quote-text").textContent = "\u201C" + CONFIG.quote.text + "\u201D";
+    document.getElementById("quote-by").textContent = CONFIG.quote.by;
+    document.getElementById("voice").hidden = false;
+  }
+
+  document.querySelectorAll(".view img").forEach(img=>{
+    const off=()=>{img.style.visibility="hidden"};
+    if(img.complete && !img.naturalWidth) off(); else img.addEventListener("error",off);
+  });
+
+  const dlg=document.getElementById("player"), slot=document.getElementById("player-slot");
+  document.querySelectorAll("[data-video]").forEach(b=>{
+    const src=CONFIG.videos[b.dataset.video]; if(!src) return;
+    b.hidden=false;
+    b.addEventListener("click",()=>{
+      slot.innerHTML = /\.mp4($|\?)/.test(src)
+        ? `<video src="${src}" controls autoplay playsinline></video>`
+        : `<iframe src="${src}" allow="autoplay; fullscreen" allowfullscreen title="Demo video"></iframe>`;
+      document.getElementById("player-title").textContent = b.closest(".tile").querySelector("h2").textContent;
+      dlg.showModal();
+    });
+  });
+  const close=()=>{ slot.innerHTML=""; dlg.close(); };
+  document.getElementById("player-close").addEventListener("click", close);
+  dlg.addEventListener("click", e=>{ if(e.target===dlg) close(); });
+  dlg.addEventListener("close", ()=>{ slot.innerHTML=""; });
+})();
+</script>
 </body>
 </html>
