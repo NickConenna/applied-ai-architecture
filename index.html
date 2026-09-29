@@ -561,16 +561,19 @@ dialog button{font:inherit;background:#2c2c2e;border:0;color:inherit;cursor:poin
       </div>
       <div class="col">
         <span class="tag"></span><h3>Build sprint</h3><div class="cost">From $1,500</div>
-        <p>Two weeks with me. We launch your business together and you own it.</p>
+        <p>Two weeks with me. We launch your business together and you own it. A $750 deposit reserves your start.</p>
         <div class="act"><a class="pill" data-buy="sprint" href="#contact">Book a sprint</a></div>
       </div>
       <div class="col">
-        <span class="tag"></span><h3>Contract</h3><div class="cost">On request</div>
-        <p>A paid look, a 6–12 week build, or a full-time seat on your team.</p>
-        <div class="act"><a class="more" href="#contact">Start a conversation</a></div>
+        <span class="tag"></span><h3>Contract</h3><div class="cost">From $2,500</div>
+        <p>Start with a paid look at your business or build. From there, a 6–12 week build or a full-time seat on your team.</p>
+        <div class="act">
+          <a class="pill" data-buy="look" href="#contact">Book a paid look</a>
+          <a class="more" href="#contact">Start a conversation</a>
+        </div>
       </div>
     </div>
-    <p class="pay"><span id="guarantee"></span>Kits and sprints by card. Contracts by wire, ACH, USDC, or BTC.</p>
+    <p class="pay"><span id="guarantee"></span>Kits, sprints, and paid looks by card. Contracts by wire, ACH, USDC, or BTC.</p>
   </div>
 </section>
 
@@ -646,7 +649,13 @@ dialog button{font:inherit;background:#2c2c2e;border:0;color:inherit;cursor:poin
    Empty values hide the feature or fall back to email.
    ===================================================== */
 const CONFIG = {
-  stripe: { publishing: "", service: "", shop: "", sprint: "" },   // Stripe Payment Links
+  stripe: {                                                        // Stripe Payment Links (Peaking Waters account)
+    publishing: "https://buy.stripe.com/14A7sMe2pb6q3reb8A2Ry00",  // NC · Kit 01, $49
+    service:    "https://buy.stripe.com/fZu9AUgax6QaaTG2C42Ry01",  // NC · Kit 02, $49
+    shop:       "https://buy.stripe.com/8x2dRa7E12zU8LyekM2Ry02",  // NC · Kit 03, $39
+    sprint:     "https://buy.stripe.com/7sY00kcYla2m2naekM2Ry03",  // NC · Build sprint deposit, $750
+    look:       "https://buy.stripe.com/7sY6oI1fD0rM9PC4Kc2Ry04"   // NC · Paid look, $2,500
+  },
   prices: { publishing: 49, service: 49, shop: 39 },
   buttondown: "",      // Buttondown embed-subscribe URL
   videos: { publishing: "", service: "", shop: "" },  // YouTube embed URL or .mp4
