@@ -8,8 +8,11 @@
 # Add WEBHOOK_URL=https://YOUR-PROJECT.supabase.co/functions/v1/stripe-webhook
 # to also register the webhook that unlocks the member area (prints its secret once).
 #
-# Safe to re-run: any price that already has the lookup key is reused, and any
-# link already in stripe/links.<mode>.json is kept. Needs curl and jq.
+# Safe to re-run, and the way to change prices: edit assets/config.js, rebuild
+# stripe/catalog.json, run this again. Unchanged prices are left alone; changed ones
+# get a new Stripe price and Payment Link, and the old ones are archived.
+# Promotions don't need any of this: create a coupon + promotion code in Stripe,
+# every link already accepts codes. Needs curl and jq.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -32,15 +35,34 @@ for i in $(seq 0 $((count-1))); do
   every=$(jq -r '.recurring // empty' <<<"$row")
   public=$(jq -r .public_link <<<"$row")
 
-  price=$(s -G "$API/prices" -d "lookup_keys[]=$key" -d active=true | jq -r '.data[0].id // empty')
+  existing=$(s -G "$API/prices" -d "lookup_keys[]=$key" -d active=true)
+  price=$(jq -r '.data[0].id // empty' <<<"$existing")
+  old_amt=$(jq -r '.data[0].unit_amount // empty' <<<"$existing")
+  old_every=$(jq -r '.data[0].recurring.interval // empty' <<<"$existing")
+  prod=$(jq -r '.data[0].product // empty' <<<"$existing")
+
+  new_price() {
+    local args=(-d "product=$prod" -d "currency=usd" -d "unit_amount=$cents" -d "lookup_key=$key" -d "transfer_lookup_key=true" -d "nickname=$name")
+    [[ -n "$every" ]] && args+=(-d "recurring[interval]=$every")
+    s "$API/prices" "${args[@]}" | jq -r .id
+  }
+
   if [[ -z "$price" ]]; then
     prod=$(s "$API/products" -d "name=$name" -d "description=$desc" -d "metadata[lookup_key]=$key" | jq -r .id)
-    args=(-d "product=$prod" -d "currency=usd" -d "unit_amount=$cents" -d "lookup_key=$key" -d "nickname=$name")
-    [[ -n "$every" ]] && args+=(-d "recurring[interval]=$every")
-    price=$(s "$API/prices" "${args[@]}" | jq -r .id)
-    echo "  created  $key  $price"
+    price=$(new_price)
+    echo "  created  $key  \$$((cents/100))"
+  elif [[ "$old_amt" != "$cents" || "$old_every" != "$every" ]]; then
+    # Price changed in config.js: new price takes over the lookup key, old one is archived,
+    # and the old Payment Link is switched off so a fresh one is made below.
+    old_price=$price
+    price=$(new_price)
+    s "$API/prices/$old_price" -d active=false >/dev/null
+    old_link_id=$(jq -r --arg k "$key" '.["_id_" + $k] // empty' "$STORE")
+    [[ -n "$old_link_id" ]] && s "$API/payment_links/$old_link_id" -d active=false >/dev/null
+    tmp=$(mktemp); jq --arg k "$key" 'del(.[$k]) | del(.["_id_" + $k])' "$STORE" > "$tmp" && mv "$tmp" "$STORE"
+    echo "  updated  $key  \$$((old_amt/100)) -> \$$((cents/100))"
   else
-    echo "  reused   $key  $price"
+    echo "  same     $key  \$$((cents/100))"
   fi
 
   [[ "$public" == "true" ]] || { echo "           (no public link: invoice after acceptance)"; continue; }
@@ -52,8 +74,9 @@ for i in $(seq 0 $((count-1))); do
       $([[ -z "$every" ]] && echo '-d customer_creation=always') \
       -d "after_completion[type]=redirect" \
       -d "after_completion[redirect][url]=$SITE_URL/thanks.html?item=$key" \
-      -d "metadata[lookup_key]=$key" | jq -r .url)
-    tmp=$(mktemp); jq --arg k "$key" --arg v "$link" '.[$k]=$v' "$STORE" > "$tmp" && mv "$tmp" "$STORE"
+      -d "metadata[lookup_key]=$key")
+    link_id=$(jq -r .id <<<"$link"); link=$(jq -r .url <<<"$link")
+    tmp=$(mktemp); jq --arg k "$key" --arg v "$link" --arg i "$link_id" '.[$k]=$v | .["_id_" + $k]=$i' "$STORE" > "$tmp" && mv "$tmp" "$STORE"
     echo "           link  $link"
   fi
 done
@@ -73,7 +96,7 @@ fi
 
 {
   echo "/* Written by stripe/create-catalog.sh ($MODE mode, $(date -u +%F)). */"
-  echo -n "window.SITE_LINKS = "; jq . "$STORE"; echo ";"
+  echo -n "window.SITE_LINKS = "; jq 'with_entries(select(.key | startswith("_id_") | not))' "$STORE"; echo ";"
 } > assets/links.js
 echo "Wrote assets/links.js with $MODE-mode links."
 [[ "$MODE" == test ]] && echo "Test links take test cards only (4242 4242 4242 4242). Re-run with sk_live_ before you deploy."
