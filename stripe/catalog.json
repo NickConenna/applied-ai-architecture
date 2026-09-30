@@ -1,0 +1,128 @@
+[
+  {
+    "lookup_key": "core_kit",
+    "product": "Core Kit",
+    "description": "Core Kit: a working business setup baselined to your industry, delivered in a private member area with an AI partner.",
+    "amount_usd": 99,
+    "recurring": null,
+    "public_link": true,
+    "group": "core"
+  },
+  {
+    "lookup_key": "addon_catalysts",
+    "product": "Catalysts",
+    "description": "We become your first fans and customers. We buy, review honestly, share you with our audience, and tell you what to fix.",
+    "amount_usd": 250,
+    "recurring": null,
+    "public_link": true,
+    "group": "grow"
+  },
+  {
+    "lookup_key": "addon_brand",
+    "product": "Brand",
+    "description": "Name check, logo, colors, domain, and social handles, so customers take you seriously on day one.",
+    "amount_usd": 500,
+    "recurring": null,
+    "public_link": true,
+    "group": "grow"
+  },
+  {
+    "lookup_key": "addon_crew_monthly",
+    "product": "Crew",
+    "description": "Monthly office hours, fixes, and upgrades as you grow. Cancel anytime.",
+    "amount_usd": 199,
+    "recurring": "month",
+    "public_link": true,
+    "group": "grow"
+  },
+  {
+    "lookup_key": "addon_mapping",
+    "product": "Mapping",
+    "description": "A complete business plan on real-world baseline models: startup costs, pricing, break-even, and a first-year forecast.",
+    "amount_usd": 750,
+    "recurring": null,
+    "public_link": true,
+    "group": "plan"
+  },
+  {
+    "lookup_key": "addon_benchmarks_deposit",
+    "product": "Benchmarks (deposit)",
+    "description": "Deposit to start Benchmarks. Balance invoiced on delivery.",
+    "amount_usd": 500,
+    "recurring": null,
+    "public_link": true,
+    "group": "plan"
+  },
+  {
+    "lookup_key": "build_customization",
+    "product": "Customization",
+    "description": "Two weeks side by side, shaping your kit around your brand, features, and way of working.",
+    "amount_usd": 1500,
+    "recurring": null,
+    "public_link": true,
+    "group": "build"
+  },
+  {
+    "lookup_key": "build_website_deposit",
+    "product": "Website (deposit)",
+    "description": "Deposit to start Website. Balance invoiced on delivery.",
+    "amount_usd": 1250,
+    "recurring": null,
+    "public_link": true,
+    "group": "build"
+  },
+  {
+    "lookup_key": "build_webapp_deposit",
+    "product": "Web app (deposit)",
+    "description": "Deposit to start Web app. Balance invoiced on delivery.",
+    "amount_usd": 2500,
+    "recurring": null,
+    "public_link": true,
+    "group": "build"
+  },
+  {
+    "lookup_key": "build_mobile_deposit",
+    "product": "Mobile app (deposit)",
+    "description": "Deposit to start Mobile app. Balance invoiced on delivery.",
+    "amount_usd": 4000,
+    "recurring": null,
+    "public_link": true,
+    "group": "build"
+  },
+  {
+    "lookup_key": "build_agent_deposit",
+    "product": "AI agent (deposit)",
+    "description": "Deposit to start AI agent. Balance invoiced on delivery.",
+    "amount_usd": 2000,
+    "recurring": null,
+    "public_link": true,
+    "group": "build"
+  },
+  {
+    "lookup_key": "studio_discovery",
+    "product": "Discovery",
+    "description": "I learn your problem, prototype the riskiest part, and hand you a written plan and fixed quote. Credited toward the build.",
+    "amount_usd": 1500,
+    "recurring": null,
+    "public_link": true,
+    "group": "studio"
+  },
+  {
+    "lookup_key": "studio_retainer_monthly",
+    "product": "Studio retainer",
+    "description": "A standing slot of development every month: new features, fixes, and priority response. Cancel with 30 days' notice.",
+    "amount_usd": 3000,
+    "recurring": "month",
+    "public_link": true,
+    "group": "studio"
+  },
+  {
+    "lookup_key": "journey_deposit",
+    "product": "Journey (deposit)",
+    "description": "Deposit to start Journey. Balance invoiced on delivery.",
+    "amount_usd": 2500,
+    "recurring": null,
+    "public_link": false,
+    "group": "journey"
+  }
+]
