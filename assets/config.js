@@ -10,9 +10,9 @@ window.SITE = {
 
   /* Supabase powers sign-in, the member area, and the AI partner.
      The anon key is safe in the browser: row-level security guards the data. */
-  supabaseUrl: "",       // https://YOUR-PROJECT.supabase.co
-  supabaseAnonKey: "",   // Project Settings > API > anon public
-  buttondown: "",   // Buttondown embed-subscribe URL
+supabaseUrl: "https://vjyflheljusxvocjpnhk.supabase.co",
+supabaseAnonKey: "sb_publishable_hjTfJNDwdxCyULAKgbHMKw_D2u2nVg5",
+   buttondown: "",   // Buttondown embed-subscribe URL
   youtube: "",      // channel URL
   booking: "",      // Cal.com / Calendly URL
   guarantee: "",    // e.g. "Core Kit not a fit? Full refund within 14 days. "
