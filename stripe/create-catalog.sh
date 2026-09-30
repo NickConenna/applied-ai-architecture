@@ -18,7 +18,7 @@ cd "$(dirname "$0")/.."
 
 : "${STRIPE_SECRET_KEY:?Set STRIPE_SECRET_KEY (sk_test_... or sk_live_...)}"
 SITE_URL="${SITE_URL:-https://nickconenna.com}"
-MODE=$([[ "$STRIPE_SECRET_KEY" == sk_live_* ]] && echo live || echo test)
+MODE=$([[ "$STRIPE_SECRET_KEY" == *_live_* ]] && echo live || echo test)
 STORE="stripe/links.$MODE.json"
 [[ -f "$STORE" ]] || echo '{}' > "$STORE"
 API="https://api.stripe.com/v1"
