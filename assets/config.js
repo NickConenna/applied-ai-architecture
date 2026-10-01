@@ -5,7 +5,7 @@
    for you. Keys match the Stripe lookup keys in STRIPE-CODES.md.
    ========================================================= */
 window.SITE = {
-  email: "nanonicholas@protonmail.com",
+  email: "nick@peakingwaters.com",
   siteUrl: "https://nickconenna.com",
 
   /* Supabase powers sign-in, the member area, and the AI partner.
@@ -15,7 +15,7 @@ supabaseAnonKey: "sb_publishable_hjTfJNDwdxCyULAKgbHMKw_D2u2nVg5",
    buttondown: "",   // Buttondown embed-subscribe URL
   youtube: "",      // channel URL
   booking: "",      // Cal.com / Calendly URL
-  guarantee: "",    // e.g. "Core Kit not a fit? Full refund within 14 days. "
+  guarantee: "Core Kit not a fit? Full refund within 14 days. ",  // matches refunds.html
   quote: { text: "", by: "" },               // a founder's words, with permission
   videos: { publishing: "", service: "", shop: "" }, // YouTube embed URL or .mp4
 
