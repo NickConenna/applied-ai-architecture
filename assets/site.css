@@ -583,3 +583,29 @@ a.screenlink:hover{text-decoration:none}
 
 .stack .tot .due{display:block;font-size:13px;font-weight:500;color:var(--sub);letter-spacing:0;margin-top:2px}
 [aria-busy="true"]{opacity:.7;pointer-events:none}
+
+/* ---------- Member baseline ---------- */
+#baseline h3{font-size:18px;margin:26px 0 10px}
+.bl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.bl{width:100%;border-collapse:collapse;font-size:15px;min-width:460px}
+.bl th,.bl td{text-align:left;padding:10px 8px;border-bottom:1px solid #ececf0;vertical-align:middle}
+.bl thead th{font-size:12px;font-weight:600;color:var(--sub);text-transform:none;border-bottom:1px solid var(--line)}
+.bl tbody th{font-weight:600}
+.bl tbody th small{display:block;font-weight:400;color:var(--sub);font-size:13px;margin-top:2px}
+.bl input,.bl select,.bl-be input{width:100%;max-width:130px;font:inherit;font-size:16px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+.bl input:focus,.bl select:focus,.bl-be input:focus{outline:2px solid var(--blue);outline-offset:1px}
+.bl-flag{font-size:13px;font-weight:600;color:var(--sub);white-space:nowrap}
+.bl-flag.low{color:#c00000}
+.bl-flag.ok{color:#1a7f37}
+.bl-total{display:flex;gap:24px;flex-wrap:wrap;margin:14px 0 0;font-size:15px;color:var(--sub)}
+.bl-total b{color:var(--ink);margin-left:6px}
+.bl-be{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bl-be label{font-size:13px;font-weight:600;color:var(--sub);display:grid;gap:6px}
+.bl-be p{grid-column:1/-1;margin:0;font-size:15px}
+.bl-be .bl-big{font-size:20px;font-weight:700;color:var(--ink)}
+.bl-note{background:var(--gray);border-radius:16px;padding:16px 18px;margin:4px 0 8px}
+.bl-note p{margin:6px 0 0;font-size:15px}
+.bl-switch{font-size:15px;background:#fff8e6;border-radius:12px;padding:10px 14px}
+.bl-switch button{background:none;border:0;color:var(--link);font:inherit;cursor:pointer;padding:0}
+.bl-fine{font-size:12px;color:var(--sub);margin:16px 0 0}
+@media (max-width:600px){.bl-be{grid-template-columns:1fr}}
