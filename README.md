@@ -71,3 +71,19 @@ git add -A && git commit -m "Core Kit on Supabase + Claude: member area, AI part
 - **See who bought what** in `purchases`. **Read intakes** in `intake` before kickoff calls.
 - **Costs:** Supabase free tier covers early members; the AI partner bills to your Anthropic account per question, capped by `DAILY_LIMIT`.
 - Every Buy button falls back to an email to you until its Stripe link exists, so nothing is ever a dead end.
+
+## Cart checkout and instant delivery (Oct 1, 2026)
+
+The add-on builder is now a real cart: everything picked goes into one Stripe Checkout, and the buyer lands signed in to their member area seconds after paying.
+
+```bash
+supabase db push                                          # adds checkout_claims + user_id_by_email
+supabase functions deploy create-checkout --no-verify-jwt
+supabase functions deploy claim-order --no-verify-jwt
+supabase functions deploy stripe-webhook --no-verify-jwt  # now shares _shared/fulfill.ts
+```
+
+No new secrets: they reuse STRIPE_SECRET_KEY, SITE_URL, and SITE_ORIGIN.
+In Stripe, add `checkout.session.async_payment_succeeded` to the webhook's events.
+
+How it works: create-checkout prices the cart from Stripe lookup keys (deposits for builds, monthly items make it a subscription checkout). The thanks page calls claim-order, which records the purchase immediately, prefills intake from the configurator answers, and returns a one-time sign-in link. Each session can be claimed once, within 2 hours. The webhook still records everything, so nothing depends on the buyer staying on the page. Single-item Payment Links in assets/links.js remain as the fallback.

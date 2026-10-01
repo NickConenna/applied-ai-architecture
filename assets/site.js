@@ -5,6 +5,28 @@
   const money = n => "$" + Number(n).toLocaleString();
   const mail = (subject, body) => `mailto:${S.email}?subject=${encodeURIComponent(subject)}` + (body ? `&body=${encodeURIComponent(body)}` : "");
 
+  /* One Stripe Checkout for the whole cart (supabase/functions/create-checkout). */
+  async function checkout(keys, btn, fallback) {
+    const label = btn.textContent;
+    btn.textContent = "Opening secure checkout..."; btn.setAttribute("aria-busy", "true");
+    try {
+      if (!S.supabaseUrl) throw new Error("no backend");
+      const r = await fetch(`${S.supabaseUrl}/functions/v1/create-checkout`, {
+        method: "POST",
+        headers: { "content-type": "application/json", apikey: S.supabaseAnonKey, Authorization: `Bearer ${S.supabaseAnonKey}` },
+        body: JSON.stringify({ items: keys, track: state.key, where: state.where, stage: state.stage, goal: state.goal })
+      });
+      const d = await r.json();
+      if (!r.ok || !d.url) throw new Error(d.error || "checkout");
+      location.href = d.url;
+    } catch (e) {
+      console.warn("Checkout fell back:", e.message);
+      btn.textContent = label; btn.removeAttribute("aria-busy");
+      location.href = fallback;
+    }
+  }
+  const dueNow = it => it.deposit ? it.deposit : (it.price || 0);
+
   const priceText = it => {
     if (!it) return "";
     if (it.price == null) return it.apply ? "By application" : "Quoted per target";
@@ -91,6 +113,8 @@
     const body = `Core Kit: ${state.t.label}\nWhere: ${state.where || "-"}\nStage: ${state.stage}\nGoal: ${state.goal}`;
     $("#r-buy").href = L.core_kit || mail("Core Kit: " + state.t.label, body);
   }
+  const rb = $("#r-buy");
+  if (rb) rb.addEventListener("click", e => { e.preventDefault(); checkout(["core_kit"], rb, rb.href); });
   if (form) {
     form.addEventListener("input", () => { seed(); stack(); });
     $$("[data-track]").forEach(a => a.addEventListener("click", () => {
@@ -110,11 +134,18 @@
     const tot = all ? "Apply" : (from ? "From " : "") + money(once) + (monthly ? ` + ${money(monthly)}/mo` : "") + (quoted.length ? " + quote" : "");
     $("#st-title").textContent = "Core Kit" + (state.t ? `, ${state.t.label}` : "");
     $("#st-list").textContent = all ? "Journey: all in" : (items.length ? "+ " + items.map(([,it]) => it.name).join(", ") : "Nothing added yet");
-    $("#st-tot").textContent = tot;
-    $("#st-go").textContent = all ? "Apply for Journey" : (items.length ? "Send me this plan" : "Buy the Core Kit");
+    const due = C.core_kit.price + items.reduce((n, [, it]) => n + dueNow(it), 0);
+    const showDue = !all && (from || monthly || quoted.length || items.some(([, it]) => it.deposit));
+    $("#st-tot").innerHTML = tot + (showDue ? `<small class="due">${money(due)} due today</small>` : "");
+    $("#st-go").textContent = all ? "Apply for Journey" : "Check out";
+    cart = all ? null : ["core_kit", ...items.map(([k]) => k)];
     const body = `Core Kit: ${state.t ? state.t.label : "-"}\nWhere: ${state.where || "-"}\nStage: ${state.stage}\nGoal: ${state.goal}\nAdd-ons: ${all ? "Journey (all in)" : (items.map(([,it]) => it.name).join(", ") || "none")}\nEstimate: ${tot}\n\nAbout my business:\n`;
-    $("#st-go").href = (!all && !items.length && L.core_kit) ? L.core_kit : mail(all ? "Journey application" : "My Core Kit plan", body);
+    $("#st-go").href = all ? mail("Journey application", body) : (!items.length && L.core_kit ? L.core_kit : mail("My Core Kit plan", body));
   }
+  let cart = null;
+  const go = $("#st-go");
+  if (go) go.addEventListener("click", e => { if (!cart) return; e.preventDefault(); checkout(cart, go, go.href); });
+  window.addEventListener("pageshow", () => { seed(); stack(); }); // reset button labels after Back from Stripe
   if (grid) {
     const card = (k,it,cls="") => `<label class="ao ${cls}"><input type="checkbox" value="${k}">
       <div class="top"><h3>${it.name}</h3><span class="tick" aria-hidden="true"></span></div>
@@ -134,7 +165,24 @@
 
   /* ---------- thanks page ---------- */
   const th = $("#thanks");
-  if (th) {
+  const sid = new URLSearchParams(location.search).get("session_id");
+  if (th && sid && S.supabaseUrl) {
+    $("#th-item-wrap").hidden = true;
+    $("#th-steps").innerHTML = "<li>Opening your member area...</li>";
+    fetch(`${S.supabaseUrl}/functions/v1/claim-order`, {
+      method: "POST",
+      headers: { "content-type": "application/json", apikey: S.supabaseAnonKey, Authorization: `Bearer ${S.supabaseAnonKey}` },
+      body: JSON.stringify({ session_id: sid })
+    }).then(r => r.json()).then(d => {
+      if (d.keys) { $("#th-item").textContent = d.keys.map(k => (C[k] || {}).name || k).join(", "); $("#th-item-wrap").hidden = false; }
+      if (d.link) { location.replace(d.link); return; }
+      $("#th-steps").innerHTML = ["Stripe emails your receipt now.",
+        `Your purchase is recorded${d.email ? " for " + d.email.replace(/</g, "") : ""}. Sign in at the member area with that email for a one-tap link.`]
+        .map(x => `<li>${x}</li>`).join("");
+    }).catch(() => {
+      $("#th-steps").innerHTML = "<li>Stripe emails your receipt now.</li><li>Check your inbox for a sign-in link to your member area.</li>";
+    });
+  } else if (th) {
     const key = new URLSearchParams(location.search).get("item") || "";
     const it = C[key];
     if (it) $("#th-item").textContent = it.name;

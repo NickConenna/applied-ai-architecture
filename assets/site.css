@@ -580,3 +580,6 @@ a.screenlink:hover{text-decoration:none}
   .tabs{justify-content:flex-start}
 }
 @media (prefers-reduced-motion:reduce){.msg{animation:none}}
+
+.stack .tot .due{display:block;font-size:13px;font-weight:500;color:var(--sub);letter-spacing:0;margin-top:2px}
+[aria-busy="true"]{opacity:.7;pointer-events:none}
