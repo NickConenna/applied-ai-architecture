@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Channel map</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"><style id="css">
+:root{--bg:#E9E9EC;--plate:#F8F8F9;--ink:#18181B;--muted:#5B5B63;--line:#C8C8CE;--oxide:#9A4A22;--hivis:#FF6A00;--rivet:#B4B4BB;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141416;--plate:#1F1F23;--ink:#EDEDEF;--muted:#A1A1AA;--line:#38383F;--oxide:#D9844F;--hivis:#FF7A1A;--rivet:#4A4A52}}
+:root[data-theme="dark"]{--bg:#141416;--plate:#1F1F23;--ink:#EDEDEF;--muted:#A1A1AA;--line:#38383F;--oxide:#D9844F;--hivis:#FF7A1A;--rivet:#4A4A52}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:24px 16px 120px}
+h1{font:800 clamp(28px,6vw,44px)/1.05 Archivo,"Arial Narrow",Arial,sans-serif;letter-spacing:-.01em;margin:0 0 8px}
+.lede{color:var(--muted);margin:0 0 4px;max-width:60ch}
+.stamp{color:var(--muted);font-size:13px;margin:0 0 24px}
+.plates{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px}
+@media (max-width:720px){.plates{grid-template-columns:1fr 1fr}}
+.plate{position:relative;background:var(--plate);border:1px solid var(--line);border-radius:6px;padding:16px 16px 14px}
+.plate::before,.plate::after{content:"";position:absolute;top:7px;width:6px;height:6px;border-radius:50%;background:var(--rivet)}
+.plate::before{left:7px}.plate::after{right:7px}
+.plate h2{font:800 18px/1.1 Archivo,Arial,sans-serif;margin:4px 0 2px}
+.plate .dom{color:var(--muted);font-size:12px;margin:0 0 12px;overflow-wrap:anywhere}
+.pct{font:800 30px/1 Archivo,Arial,sans-serif}
+.bar{height:6px;background:var(--line);border-radius:3px;margin:8px 0 10px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--hivis)}
+.next{font-size:13px;color:var(--muted);margin:0}
+.next b{color:var(--ink);font-weight:600}
+.scroller{overflow-x:auto;background:var(--plate);border:1px solid var(--line);border-radius:6px}
+table{border-collapse:collapse;width:100%;min-width:520px}
+th,td{text-align:left;padding:0}
+thead th{font:600 13px/1.2 Archivo,Arial,sans-serif;padding:12px 6px;text-align:center;border-bottom:2px solid var(--ink);position:sticky;top:0;background:var(--plate)}
+thead th:first-child{text-align:left;padding-left:14px}
+.grp td.gp{font:600 12px/1 "IBM Plex Sans",system-ui,sans-serif;color:var(--muted);text-align:center;padding:18px 4px 6px}
+.grp th{font:700 13px/1 Archivo,Arial,sans-serif;color:var(--oxide);padding:18px 14px 6px;text-align:left}
+tbody td.lbl,tbody th.lbl{padding:8px 8px 8px 14px;font-weight:500;font-size:14px;position:sticky;left:0;background:var(--plate);min-width:170px;border-top:1px solid var(--line)}
+tbody td.c{border-top:1px solid var(--line);text-align:center}
+.cellbtn{all:unset;box-sizing:border-box;display:flex;align-items:center;justify-content:center;width:100%;min-height:46px;cursor:pointer;position:relative}
+.cellbtn:focus-visible{outline:2px solid var(--hivis);outline-offset:-3px}
+.cellbtn:hover .mk{transform:scale(1.12)}
+.mk{width:18px;height:18px;border-radius:50%;border:2px solid var(--ink);display:inline-block;transition:transform .12s}
+.mk[data-s="none"]{border-color:var(--line)}
+.mk[data-s="progress"]{background:linear-gradient(90deg,var(--ink) 50%,transparent 50%)}
+.mk[data-s="done"]{background:var(--ink)}
+.mk[data-s="live"]{background:var(--hivis);border-color:var(--hivis);box-shadow:0 0 0 3px var(--plate),0 0 0 4px var(--hivis)}
+.mk[data-s="check"]{border-style:dashed;border-color:var(--oxide)}
+.note-dot{position:absolute;top:9px;right:calc(50% - 18px);width:5px;height:5px;border-radius:50%;background:var(--oxide)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:16px 2px 0;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend .mk{width:14px;height:14px}
+.hint{font-size:13px;color:var(--muted);margin:10px 2px 0}
+.savebar{position:fixed;left:0;right:0;bottom:0;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);display:flex;align-items:center;gap:10px;justify-content:center;flex-wrap:wrap}
+.savebar[hidden]{display:none}
+.savebar p{margin:0;font-size:14px}
+button.b{font:600 14px "IBM Plex Sans",system-ui,sans-serif;border-radius:4px;padding:10px 16px;cursor:pointer;border:1px solid currentColor;background:transparent;color:inherit}
+button.b.pri{background:var(--hivis);border-color:var(--hivis);color:#1A0E00}
+button.b:focus-visible{outline:2px solid var(--hivis);outline-offset:2px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));background:var(--plate);color:var(--ink);border:1px solid var(--line);padding:8px 14px;border-radius:4px;font-size:14px}
+dialog{border:1px solid var(--line);border-radius:8px;background:var(--plate);color:var(--ink);padding:0;width:min(440px,calc(100% - 24px));max-height:calc(100% - 40px)}
+dialog::backdrop{background:rgba(0,0,0,.45)}
+.sheet{padding:20px}
+.sheet .proj{font-size:13px;color:var(--oxide);font-weight:600;margin:0}
+.sheet h3{font:800 22px/1.15 Archivo,Arial,sans-serif;margin:4px 0 6px}
+.sheet .h{color:var(--muted);font-size:14px;margin:0 0 16px}
+.opts{display:grid;gap:6px;margin-bottom:16px}
+.opt{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--line);border-radius:4px;cursor:pointer;font-size:15px}
+.opt[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.opt:focus-visible{outline:2px solid var(--hivis)}
+label.nl{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+input.note{width:100%;font:15px "IBM Plex Sans",system-ui,sans-serif;padding:10px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink)}
+.sheet .row{display:flex;justify-content:space-between;align-items:center;margin-top:16px;gap:10px}
+.sheet .upd{font-size:12px;color:var(--muted)}
+.ro{font-size:13px;color:var(--oxide);margin:0 0 16px}
+@media (prefers-reduced-motion:reduce){.mk{transition:none}}
+</style></head><body><div id="root"></div><script type="application/json" id="state">{"updated":"2026-10-02","projects":[{"id":"nick","short":"Nick","domain":"nickconenna.com"},{"id":"amicus","short":"Amicus","domain":"heyamicus.com"},{"id":"fri","short":"FRI","domain":"fairrateindex.com"},{"id":"ysk","short":"YSKAIPE","domain":"yskaipe.com"}],"groups":[{"name":"Foundation","rows":[{"id":"site","label":"Site live","hint":"Deployed, fast, and works on a phone."},{"id":"brand","label":"Name and brand settled","hint":"Name, logo, and colors you won't change this quarter."},{"id":"analytics","label":"Analytics on","hint":"Weekly visitors, sources, and conversions visible."}]},{"name":"Offer and payments","rows":[{"id":"product","label":"Product 1 shippable","hint":"One thing a stranger can buy or use today without you in the loop."},{"id":"pricing","label":"Pricing published","hint":"Prices are visible on the site."},{"id":"payments","label":"Accepting payments","hint":"Checkout tested end to end with a real transaction."},{"id":"delivery","label":"Delivery works","hint":"Buyers get what they paid for, automatically or on a stated timeline."}]},{"name":"Owned channels","rows":[{"id":"seo","label":"Search (SEO)","hint":"Titles, descriptions, sitemap, Search Console; active means pages ranking and new ones shipping."},{"id":"email","label":"Email capture","hint":"Signup form wired to a list you own."},{"id":"newsletter","label":"Newsletter","hint":"Active means it goes out on a set schedule."},{"id":"cadence","label":"Articles and blog","hint":"Active means something new ships publicly every week."}]},{"name":"Social channels","rows":[{"id":"linkedin","label":"LinkedIn","hint":"Profile or page set up; active means campaign running with weekly posts."},{"id":"x","label":"X","hint":"Account set up; active means posting and replying weekly."},{"id":"youtube","label":"YouTube","hint":"Channel set up; active means a video or Short every week."},{"id":"instagram","label":"Instagram","hint":"Account set up; active means posts or Reels weekly."},{"id":"tiktok","label":"TikTok","hint":"Account set up; active means short videos weekly."},{"id":"facebook","label":"Facebook","hint":"Page set up; active means posting weekly or running a group."},{"id":"reddit","label":"Reddit","hint":"Account with history in the right subreddits; active means useful participation weekly."},{"id":"pinterest","label":"Pinterest","hint":"Boards set up; active means pins weekly. Strong for books, home, and travel."}]},{"name":"Earned media","rows":[{"id":"pr","label":"PR and press","hint":"Press kit ready; active means pitching journalists or outlets on a schedule."},{"id":"podcasts","label":"Podcast guesting","hint":"Pitch list built; active means booking and recording appearances."},{"id":"reviews","label":"Reviews and ratings","hint":"Customer reviews collected where buyers look (Amazon, Google, G2)."},{"id":"listings","label":"Directories and awards","hint":"Listed in the directories and award programs your buyers check."}]},{"name":"Direct","rows":[{"id":"outreach","label":"Direct outreach","hint":"A target list contacted by email or DM on a schedule."},{"id":"networking","label":"Networking and events","hint":"Showing up at meetups, conferences, and local groups regularly."},{"id":"partners","label":"Partnerships and affiliates","hint":"Partners or affiliates sending you customers."},{"id":"communities","label":"Online communities","hint":"Active in Slack, Discord, or Facebook groups where buyers gather."}]},{"name":"Paid","rows":[{"id":"searchads","label":"Search ads","hint":"Google or Amazon ads running with a tracked budget."},{"id":"socialads","label":"Social ads","hint":"Meta, LinkedIn, or TikTok ads running with a tracked budget."},{"id":"sponsor","label":"Sponsorships","hint":"Paid placements in newsletters, podcasts, or events."}]},{"name":"Marketplaces","rows":[{"id":"market","label":"Marketplace listings","hint":"Listed where buyers already shop: Amazon, app stores, Product Hunt, Google Business."}]},{"name":"Traction","rows":[{"id":"firstsale","label":"First paying customer","hint":"Money from someone you didn't already know."},{"id":"proof","label":"First testimonial or case study","hint":"A real result you can show."},{"id":"referral","label":"Referral loop","hint":"Happy customers have an easy way to send others."}]}],"cells":{"nick:site":{"s":"live","n":"Retrofitting around demo apps and build kits"},"nick:brand":{"s":"progress","n":"Name still treated as temporary"},"nick:analytics":{"s":"check"},"nick:product":{"s":"progress","n":"Build kits; book-publishing kit kept"},"nick:pricing":{"s":"progress"},"nick:payments":{"s":"check"},"nick:seo":{"s":"check"},"nick:email":{"s":"check"},"nick:cadence":{"s":"progress","n":"Writing hub and essay series"},"amicus:site":{"s":"live","n":"In daily use on the estate case"},"amicus:brand":{"s":"done"},"amicus:analytics":{"s":"check"},"amicus:product":{"s":"progress","n":"Free estate-planning prototype"},"amicus:seo":{"s":"check"},"amicus:outreach":{"s":"none","n":"UNC Law; attorney partner needed before paid services"},"fri:site":{"s":"progress","n":"Supabase down, needs rebuild"},"fri:brand":{"s":"done"},"fri:analytics":{"s":"check"},"fri:product":{"s":"progress","n":"Fair-price ranges, 8 trades, 50 states"},"fri:seo":{"s":"check"},"ysk:site":{"s":"live","n":"Homepage plus two trip guides"},"ysk:brand":{"s":"done"},"ysk:analytics":{"s":"check"},"ysk:product":{"s":"done","n":"Stoppage Time live on Amazon"},"ysk:pricing":{"s":"done","n":"Set on Amazon"},"ysk:payments":{"s":"done","n":"Through KDP"},"ysk:delivery":{"s":"done","n":"Ebook and paperback via Amazon"},"ysk:seo":{"s":"check"},"ysk:email":{"s":"done","n":"Buttondown wired to signup"},"ysk:cadence":{"s":"progress"},"ysk:firstsale":{"s":"check"},"nick:linkedin":{"s":"done","n":"\"The Techniques Are Free\" article; no campaign yet"},"nick:x":{"s":"done","n":"@BitcoinBroham"},"fri:linkedin":{"s":"progress","n":"Company page and banner"},"ysk:x":{"s":"live","n":"@yskaipe"},"ysk:instagram":{"s":"live","n":"@yskaipe"},"ysk:market":{"s":"live","n":"Amazon: ebook, paperback, Kindle Unlimited"},"ysk:reviews":{"s":"check","n":"Amazon reviews on Stoppage Time"},"ysk:newsletter":{"s":"check","n":"Buttondown list exists; is it sending?"},"amicus:networking":{"s":"progress","n":"UNC Law connections"},"ysk:pinterest":{"s":"none","n":"Good fit for the trip guides"}}}</script><script id="app">
+(function(){
+var HEAD='<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Channel map</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">';
+var ST=[{k:'none',l:'Not started'},{k:'progress',l:'Setting up'},{k:'done',l:'Set up'},{k:'live',l:'Active weekly'},{k:'check',l:'Needs a check'}];
+var W={none:0,progress:.5,done:1,live:1,check:0};
+var state=JSON.parse(document.getElementById('state').textContent);
+var art=null,readOnly=false,dirty=false,cur=null;
+var root=document.getElementById('root');
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function cell(p,r){return state.cells[p+':'+r]||{s:'none'}}
+function gp(g,p){var t=0;g.rows.forEach(function(r){t+=W[cell(p,r.id).s]||0});return Math.round(100*t/g.rows.length)}
+function rows(){var a=[];state.groups.forEach(function(g){g.rows.forEach(function(r){a.push(r)})});return a}
+function pct(p){var t=0,rs=rows();rs.forEach(function(r){t+=W[cell(p,r.id).s]||0});return Math.round(100*t/rs.length)}
+function next(p){var rs=rows();for(var i=0;i<rs.length;i++){var s=cell(p,rs[i].id).s;if(s!=='done'&&s!=='live')return rs[i].label}return 'Every benchmark met'}
+function fmt(d){return new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}
+function lbl(k){for(var i=0;i<ST.length;i++)if(ST[i].k===k)return ST[i].l;return k}
+function render(){
+ var h='<div class="wrap"><h1>Channel map</h1><p class="lede">Every project against every channel: built, selling, and showing up where buyers are. Tap any mark to update it.</p><p class="stamp">Last saved '+esc(fmt(state.updated))+'</p>';
+ if(readOnly)h+='<p class="ro">This view is read-only. Changes stay on this screen.</p>';
+ h+='<div class="plates">';
+ state.projects.forEach(function(p){var v=pct(p.id);h+='<section class="plate"><h2>'+esc(p.short)+'</h2><p class="dom">'+esc(p.domain)+'</p><div class="pct">'+v+'%</div><div class="bar"><i style="width:'+v+'%"></i></div><p class="next">Next up: <b>'+esc(next(p.id))+'</b></p></section>'});
+ h+='</div><div class="scroller"><table><thead><tr><th scope="col">Benchmark</th>';
+ state.projects.forEach(function(p){h+='<th scope="col">'+esc(p.short)+'</th>'});
+ h+='</tr></thead><tbody>';
+ state.groups.forEach(function(g){
+  h+='<tr class="grp"><th scope="colgroup">'+esc(g.name)+'</th>';state.projects.forEach(function(p){h+='<td class="gp">'+gp(g,p.id)+'%</td>'});h+='</tr>';
+  g.rows.forEach(function(r){
+   h+='<tr><th scope="row" class="lbl">'+esc(r.label)+'</th>';
+   state.projects.forEach(function(p){var c=cell(p.id,r.id);h+='<td class="c"><button class="cellbtn" data-p="'+p.id+'" data-r="'+r.id+'" aria-label="'+esc(p.short+', '+r.label+': '+lbl(c.s))+'"><span class="mk" data-s="'+c.s+'"></span>'+(c.n?'<span class="note-dot"></span>':'')+'</button></td>'});
+   h+='</tr>'})});
+ h+='</tbody></table></div><div class="legend">';
+ ST.forEach(function(s){h+='<span><i class="mk" data-s="'+s.k+'"></i>'+s.l+'</span>'});
+ h+='</div><p class="hint">Set up and Active both count as complete; Setting up counts half. Percentages beside each group show how ready each project is to serve that space. A small dot means the mark has a note.</p></div>';
+ h+='<div class="savebar"'+(dirty?'':' hidden')+'><p>Unsaved changes</p><button class="b" id="discard">Discard</button><button class="b pri" id="save">Save changes</button></div>';
+ h+='<dialog id="dlg"></dialog>';
+ root.innerHTML=h;
+ root.querySelectorAll('.cellbtn').forEach(function(b){b.addEventListener('click',function(){openSheet(b.dataset.p,b.dataset.r)})});
+ var s=document.getElementById('save');if(s)s.addEventListener('click',save);
+ var d=document.getElementById('discard');if(d)d.addEventListener('click',function(){location.reload()});
+}
+function openSheet(p,r){
+ cur={p:p,r:r};var pr=state.projects.filter(function(x){return x.id===p})[0];var rw=rows().filter(function(x){return x.id===r})[0];var c=cell(p,r);
+ var dlg=document.getElementById('dlg');
+ var h='<div class="sheet"><p class="proj">'+esc(pr.domain)+'</p><h3>'+esc(rw.label)+'</h3><p class="h">'+esc(rw.hint)+'</p><div class="opts">';
+ ST.forEach(function(s){h+='<button class="opt" data-k="'+s.k+'" aria-pressed="'+(c.s===s.k)+'"><i class="mk" data-s="'+s.k+'"></i>'+s.l+'</button>'});
+ h+='</div><label class="nl" for="nt">Note</label><input class="note" id="nt" maxlength="140" value="'+esc(c.n||'')+'" placeholder="What\'s left, or a link"><div class="row"><span class="upd">'+(c.d?'Updated '+esc(fmt(c.d)):'')+'</span><button class="b pri" id="close">Done</button></div></div>';
+ dlg.innerHTML=h;
+ dlg.querySelectorAll('.opt').forEach(function(o){o.addEventListener('click',function(){dlg.querySelectorAll('.opt').forEach(function(x){x.setAttribute('aria-pressed',x===o)})})});
+ document.getElementById('close').addEventListener('click',function(){apply(dlg)});
+ dlg.addEventListener('cancel',function(e){e.preventDefault();apply(dlg)});
+ dlg.showModal();
+}
+function apply(dlg){
+ var sel=dlg.querySelector('.opt[aria-pressed="true"]');var k=sel?sel.dataset.k:'none';var n=document.getElementById('nt').value.trim();
+ var key=cur.p+':'+cur.r;var old=cell(cur.p,cur.r);
+ if(old.s!==k||(old.n||'')!==n){var c={s:k};if(n)c.n=n;c.d=today();state.cells[key]=c;dirty=true}
+ dlg.close();render();
+}
+function today(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function toast(m){var t=document.createElement('div');t.className='toast';t.setAttribute('role','status');t.textContent=m;document.body.appendChild(t);setTimeout(function(){t.remove()},2800)}
+function buildDoc(){
+ var S='scr'+'ipt';var json=JSON.stringify(state).replace(/</g,'\\u003c');
+ return '<!doctype html>\n<html lang="en"><head>'+HEAD+'<style id="css">'+document.getElementById('css').textContent+'</style></head><body><div id="root"></div><'+S+' type="application/json" id="state">'+json+'</'+S+'><'+S+' id="app">'+document.getElementById('app').textContent+'</'+S+'></body></html>';
+}
+var RO=['not_writer','not_granted','not_declared','consent_required','capability_disabled','capability_removed'];
+function save(){
+ state.updated=today();
+ if(art&&!readOnly){
+  var btn=document.getElementById('save');if(btn){btn.disabled=true;btn.textContent='Saving'}
+  art.publish(buildDoc()).then(function(){dirty=false}).catch(function(e){
+   var code=e&&e.code;
+   if(code==='conflict'){toast('A newer version was saved elsewhere. Reloading it.');return}
+   if(RO.indexOf(code)>=0){readOnly=true;toast('This view is read-only.')}
+   else if(code==='rate_limited'){toast('Saving too often. Try again in a minute.')}
+   else{toast('Save failed. Try again.')}
+   render();
+  });
+ }else{
+  try{localStorage.setItem('bm-state',JSON.stringify(state));dirty=false;render();toast('Saved in this browser')}catch(_){toast('Saving is unavailable here')}
+ }
+}
+function fallback(){try{var s=localStorage.getItem('bm-state');if(s){state=JSON.parse(s);render()}}catch(_){}}
+render();
+if(window.claude&&typeof window.claude.use==='function'){window.claude.use('artifact').then(function(a){art=a;if(!a)fallback()}).catch(fallback)}else{fallback()}
+})();
+</script></body></html>
