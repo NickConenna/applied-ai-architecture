@@ -668,3 +668,22 @@ a.screenlink:hover{text-decoration:none}
 .add-item small{display:block;color:var(--sub);font-size:14px;margin-top:2px}
 .add-total{font-weight:600;margin:14px 0 12px}
 .member-note{font-size:15px;color:var(--sub);margin:-6px auto 18px;max-width:640px}
+
+/* ---------- Add-on briefs ---------- */
+.brief{border-top:1px solid #ececf0;padding:18px 0 4px}
+.brief:first-of-type{border-top:0;padding-top:4px}
+.brief-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.brief-head h3{margin:0;font-size:19px}
+.pill-st{font-size:13px;font-weight:600;padding:4px 10px;border-radius:99px;white-space:nowrap}
+.pill-st.need{background:#fff4e5;color:#b45309}
+.pill-st.got{background:#e8f0fe;color:#1a56db}
+.pill-st.work{background:#f3e8ff;color:#7e22ce}
+.pill-st.done{background:#e8f5ec;color:#1a7f37}
+.brief-form{margin-top:12px}
+.brief-form small{color:var(--sub);font-weight:400}
+.brief-next{font-size:15px;background:var(--gray);border-radius:12px;padding:12px 14px;margin:12px 0 0}
+.ad-brief{border:1px solid #ececf0;border-radius:14px;padding:12px 14px;margin:0 0 10px}
+.ad-brief select{font:inherit;font-size:14px;padding:6px 10px;border:1px solid var(--line);border-radius:10px}
+.ad-brief dl{margin:8px 0 0}
+.ad-brief dt{font-size:12px;color:var(--sub);text-transform:capitalize;margin-top:8px}
+.ad-brief dd{margin:2px 0 0;font-size:15px;white-space:pre-wrap}

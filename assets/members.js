@@ -58,7 +58,7 @@ if (!S.supabaseUrl || !S.supabaseAnonKey) {
 
   async function dashboard(user) {
     root.innerHTML = `<p class="m-note">Loading your kit...</p>`;
-    const [{ data: buys }, { data: mods }, { data: intake }, { data: base0 }, { data: note }, { data: prog }, { data: past }, { data: files }] = await Promise.all([
+    const [{ data: buys }, { data: mods }, { data: intake }, { data: base0 }, { data: note }, { data: prog }, { data: past }, { data: files }, { data: briefs }] = await Promise.all([
       sb.from("purchases").select("lookup_key, created_at").eq("active", true).order("created_at"),
       sb.from("kit_modules").select("id, required_key, track, title, body, video_url, sort").order("sort"),
       sb.from("intake").select("*").eq("user_id", user.id).maybeSingle(),
@@ -66,7 +66,8 @@ if (!S.supabaseUrl || !S.supabaseAnonKey) {
       sb.from("baseline_notes").select("note").eq("user_id", user.id).maybeSingle(),
       sb.from("step_progress").select("module_id").eq("user_id", user.id),
       sb.from("ai_messages").select("role, content, created_at").eq("user_id", user.id).order("created_at", { ascending: false }).limit(30),
-      sb.from("member_files").select("id, title, kind, storage_path, body, created_by, created_at").eq("user_id", user.id).order("created_at", { ascending: false })
+      sb.from("member_files").select("id, title, kind, storage_path, body, created_by, created_at").eq("user_id", user.id).order("created_at", { ascending: false }),
+      sb.from("addon_briefs").select("addon_key, answers, status, updated_at").eq("user_id", user.id)
     ]);
     const done = new Set((prog || []).map(r => String(r.module_id)));
     const owned = [...new Set((buys || []).map(b => b.lookup_key))];
@@ -85,6 +86,7 @@ if (!S.supabaseUrl || !S.supabaseAnonKey) {
             ${owned.length ? `<div class="owned">${owned.map(k => `<span>${esc(C[k]?.name || k)}</span>`).join("")}</div>`
               : `<p class="m-empty">No purchases on ${esc(user.email)} yet. If you paid with a different email, sign in with that one, or <a href="/#seed">get your Core Kit</a>.</p>`}
           </div>
+          <div id="briefs"></div>
           <div class="m-card"><h2>Your steps</h2>
             <p class="hint">${intake ? "Matched to your answers. Change them any time on the right." : "Fill in the intake on the right and your steps match your business."}</p>
             ${modules.length ? `<div class="prog" id="prog"></div>` + modules.map(m => `<article class="module ${done.has(String(m.id)) ? "is-done" : ""}" data-mod="${esc(m.id)}"><h3>${esc(m.title)}</h3><div class="body">${md(m.body)}</div>${embed(m.video_url)}
@@ -137,6 +139,53 @@ if (!S.supabaseUrl || !S.supabaseAnonKey) {
       $("#intake-msg").textContent = error ? "Couldn't save. Try again." : "Saved.";
       if (!error) { rendered = null; dashboard(user); }
     });
+
+    /* your add-ons: a brief for each one bought, with status */
+    const B = window.ADDON_BRIEFS || {};
+    const mine = owned.filter(k => B[k]);
+    const briefRows = Object.fromEntries((briefs || []).map(b => [b.addon_key, b]));
+    const STATUS = { none: ["Needs your brief", "need"], submitted: ["Received", "got"], in_progress: ["In progress", "work"], delivered: ["Delivered", "done"] };
+    const drawBriefs = () => {
+      const el = $("#briefs"); if (!el || !mine.length) return;
+      el.innerHTML = `<div class="m-card"><h2>Your add-ons</h2><p class="hint">Tell me what I need for each one. You can edit until I start.</p>
+        ${mine.map(k => {
+          const b = briefRows[k], st = b?.status || "none", [label, cls] = STATUS[st], spec = B[k];
+          const field = f => {
+            const v = esc(b?.answers?.[f.id] ?? ""), id = `bf-${k}-${f.id}`, req = f.required ? "required" : "";
+            const ph = f.placeholder ? `placeholder="${esc(f.placeholder)}"` : "";
+            return `<label for="${id}">${esc(f.label)}${f.required ? "" : " <small>(optional)</small>"}</label>` +
+              (f.type === "textarea" ? `<textarea id="${id}" name="${f.id}" ${req} ${ph}>${v}</textarea>`
+                                     : `<input id="${id}" name="${f.id}" type="${f.type === "url" ? "url" : "text"}" value="${v}" ${req} ${ph}>`);
+          };
+          const editable = st === "none" || st === "submitted";
+          return `<section class="brief">
+            <div class="brief-head"><h3>${esc(C[k]?.name || k)}</h3><span class="pill-st ${cls}">${label}</span></div>
+            ${editable ? `<form class="m-form brief-form" data-key="${esc(k)}">${spec.fields.map(field).join("")}
+                <button class="pill" type="submit">${st === "none" ? "Send my brief" : "Update my brief"}</button>
+                <p class="m-note" aria-live="polite"></p></form>`
+              : st === "in_progress" ? `<p>I'm working on it. ${esc(spec.promise)}</p>`
+              : `<p>Done. Your delivery is in <a href="#files">Your files</a>. Reply to any of my emails if you want changes.</p>`}
+            ${st === "submitted" ? `<p class="brief-next"><b>What happens next:</b> ${esc(spec.promise)}</p>` : ""}
+          </section>`;
+        }).join("")}</div>`;
+      el.querySelectorAll(".brief-form").forEach(f => f.addEventListener("submit", async e => {
+        e.preventDefault();
+        const k = f.dataset.key, msg = f.querySelector(".m-note"), btn = f.querySelector("button");
+        const answers = Object.fromEntries([...new FormData(f)].map(([n, v]) => [n, String(v).trim()]).filter(([, v]) => v));
+        btn.disabled = true; msg.textContent = "Sending...";
+        const row = { user_id: user.id, addon_key: k, answers, status: "submitted", updated_at: new Date().toISOString() };
+        const { error } = briefRows[k]
+          ? await sb.from("addon_briefs").update({ answers, updated_at: row.updated_at }).eq("user_id", user.id).eq("addon_key", k)
+          : await sb.from("addon_briefs").insert(row);
+        btn.disabled = false;
+        if (error) { msg.textContent = "Couldn't send. Try again, or email me."; return; }
+        briefRows[k] = { ...(briefRows[k] || {}), ...row };
+        sb.functions.invoke("notify-brief", { body: { addon_key: k } }).catch(() => {});
+        drawBriefs();
+        const sent = $(`.brief-form[data-key="${k}"] .m-note`); if (sent) sent.textContent = "Got it. I'll be in touch.";
+      }));
+    };
+    drawBriefs();
 
     /* add-ons for members who own the Core Kit */
     const addBox = $("#add-list");

@@ -42,7 +42,7 @@ if (!S.supabaseUrl) {
       const joined = m.joined_at ? new Date(m.joined_at).getTime() : null;
       const idle = last ? Math.floor((now - last) / DAY) : null;
       return { ...m, idle, quiet: joined != null && now - joined > 3 * DAY && (idle == null || idle >= 3) };
-    }).sort((a, b) => (b.quiet - a.quiet) || (!a.note - !b.note));
+    }).sort((a, b) => ((b.briefs_waiting > 0) - (a.briefs_waiting > 0)) || (b.quiet - a.quiet) || (!a.note - !b.note));
     root.innerHTML = `<div class="m-top"><div><p class="eyebrow" style="font-size:17px">Admin</p><h1>Members</h1></div>
         <button class="pill ghost" id="signout" type="button">Sign out</button></div>
       <div class="ad-grid"><div class="m-card ad-list" id="list"></div><div class="m-card" id="detail"><p class="m-note">Pick a member.</p></div></div>`;
@@ -57,6 +57,7 @@ if (!S.supabaseUrl) {
       <button type="button" class="ad-item ${current === m.user_id ? "on" : ""}" data-id="${m.user_id}">
         <b>${esc(m.business_name || m.email)}</b>
         <span>${esc(TRACKS[m.track] || "No intake yet")}${m.location ? " · " + esc(m.location) : ""} · ${m.steps_done || 0} steps done</span>
+        ${m.briefs_waiting ? `<span class="ad-tag quiet">${m.briefs_waiting} brief${m.briefs_waiting > 1 ? "s" : ""} waiting</span>` : ""}
         ${m.quiet ? `<span class="ad-tag quiet">Quiet ${m.idle == null ? "since joining" : m.idle + " days"}</span>` : ""}
         <span class="ad-tag ${m.note ? "done" : ""}">${m.note ? "Note sent" : "Needs note"}</span>
       </button>`).join("") : `<h2>Members</h2><p class="m-note">No paying members yet.</p>`;
@@ -84,7 +85,7 @@ if (!S.supabaseUrl) {
     if (!base) {
       box.innerHTML = head + (m.track
         ? `<p class="m-note">They haven't opened their baseline yet.</p><button class="pill" id="mk" type="button">Create their ${esc(TRACKS[m.track])} baseline</button>`
-        : `<p class="m-note">No intake yet, so there's no track to build a baseline from. Their note still works.</p>`) + noteForm(m) + filesBox();
+        : `<p class="m-note">No intake yet, so there's no track to build a baseline from. Their note still works.</p>`) + briefsBox() + noteForm(m) + filesBox();
       const mk = $("#mk");
       if (mk) mk.addEventListener("click", async () => {
         const { data: t } = await sb.from("baseline_templates").select("prices, costs").eq("track", m.track).maybeSingle();
@@ -92,7 +93,7 @@ if (!S.supabaseUrl) {
         if (error) { $("#ad-msg").textContent = "Couldn't create it: " + error.message; return; }
         open(id);
       });
-      wireNote(m); wireFiles(m);
+      wireNote(m); wireFiles(m); wireBriefs(m);
       return;
     }
 
@@ -112,8 +113,8 @@ if (!S.supabaseUrl) {
           <td>${p.yours != null ? usd(p.yours) : "-"}</td><td>${flag(p)}</td></tr>`).join("")}
       </tbody></table></div>
       <p class="bl-total"><span>Needed now <b>${usd(nowTotal) || "$0"}</b></span><span>Cost per sale <b>${usd(base.cost_per_sale) || "-"}</b></span><span>Monthly <b>${usd(base.monthly_costs) || "-"}</b></span><span>Break-even <b>${esc(be)}</b></span></p>
-      <p class="bl-fine">Last edited ${new Date(base.updated_at).toLocaleString()}</p>` + noteForm(m) + filesBox();
-    wireNote(m, true); wireFiles(m);
+      <p class="bl-fine">Last edited ${new Date(base.updated_at).toLocaleString()}</p>` + briefsBox() + noteForm(m) + filesBox();
+    wireNote(m, true); wireFiles(m); wireBriefs(m);
   }
 
   const checkin = m => {
@@ -121,6 +122,29 @@ if (!S.supabaseUrl) {
     const body = `Hi,\n\nChecking in on how things are going${name}. What's the one thing standing between you and your next step?\n\nIf you're stuck, reply with where, or open your member area and ask your AI partner:\n${location.origin}/members.html\n\nNick`;
     return `mailto:${encodeURIComponent(m.email)}?subject=${encodeURIComponent("Quick check-in" + name)}&body=${encodeURIComponent(body)}`;
   };
+
+  const briefsBox = () => `<h3>Add-on briefs</h3><div id="ad-briefs"><p class="m-note">Loading...</p></div>`;
+  async function wireBriefs(m) {
+    const { data } = await sb.from("addon_briefs").select("*").eq("user_id", m.user_id).order("updated_at", { ascending: false });
+    const el = $("#ad-briefs"); if (!el) return;
+    const C = S.catalog || {};
+    const bought = (m.kits || []).filter(k => (window.ADDON_BRIEFS || {})[k]);
+    const missing = bought.filter(k => !(data || []).some(b => b.addon_key === k));
+    el.innerHTML = ((data || []).map(b => `<div class="ad-brief">
+        <div class="brief-head"><b>${esc(C[b.addon_key]?.name || b.addon_key)}</b>
+          <label class="vh" for="st-${esc(b.addon_key)}">Status</label>
+          <select id="st-${esc(b.addon_key)}" data-st="${esc(b.addon_key)}">
+            ${[["submitted", "Received"], ["in_progress", "In progress"], ["delivered", "Delivered"]].map(([v, l]) => `<option value="${v}" ${b.status === v ? "selected" : ""}>${l}</option>`).join("")}
+          </select></div>
+        <dl>${Object.entries(b.answers || {}).map(([k, v]) => `<dt>${esc(k.replace(/_/g, " "))}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
+        <p class="bl-fine">Updated ${new Date(b.updated_at).toLocaleString()}</p></div>`).join("")
+      + (missing.length ? `<p class="m-note">Waiting on their brief for: ${missing.map(k => esc(C[k]?.name || k)).join(", ")}</p>` : ""))
+      || `<p class="m-note">No add-ons bought.</p>`;
+    el.querySelectorAll("[data-st]").forEach(sel => sel.addEventListener("change", async () => {
+      const { error } = await sb.from("addon_briefs").update({ status: sel.value, updated_at: new Date().toISOString() }).eq("user_id", m.user_id).eq("addon_key", sel.dataset.st);
+      sel.insertAdjacentHTML("afterend", `<span class="bl-fine"> ${error ? "Couldn't save" : "Saved"}</span>`);
+    }));
+  }
 
   const filesBox = () => `<h3>Files</h3><div id="ad-files"><p class="m-note">Loading...</p></div>
     <div class="ad-upload"><label class="vh" for="ad-ftitle">File title</label><input id="ad-ftitle" placeholder="Title, e.g. Your brand kit">

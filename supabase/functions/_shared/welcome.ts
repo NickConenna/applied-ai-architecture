@@ -12,20 +12,21 @@ const NOTIFY = Deno.env.get("NOTIFY_EMAIL");
 export const welcomeReady = () => Boolean(RESEND && FROM);
 
 // What each purchase is, and what happens next. Keep in step with kit_modules content.
+const BRIEF = "Fill in your brief under \"Your add-ons\" in your member area. It takes a few minutes, and I'm notified right away.";
 const ITEMS: Record<string, { name: string; next: string }> = {
   core_kit: { name: "Core Kit", next: "Fill in \"About your business\" in your member area. Within one business day I add a note to your baseline with the one number to watch." },
-  addon_catalysts: { name: "Catalysts", next: "Email me the link to buy from you, and where reviews and shares help you most." },
-  addon_brand: { name: "Brand", next: "Email me three businesses whose look you love, one you don't, and any name ideas." },
-  addon_crew_monthly: { name: "Crew", next: "Email me to book your first monthly office hours." },
-  addon_mapping: { name: "Mapping", next: "Finish your intake, then email me any prices, quotes, or costs you already have." },
-  addon_benchmarks_deposit: { name: "Benchmarks", next: "Email me to book the kickoff call where we pick your target number." },
-  build_customization: { name: "Customization", next: "Email me to book the kickoff call." },
-  build_website_deposit: { name: "Website build", next: "Email me to book the kickoff call. Bring sites you like and your domain login." },
-  build_webapp_deposit: { name: "Web app build", next: "Email me to book the kickoff call. We fix scope and price in writing first." },
-  build_mobile_deposit: { name: "Mobile app build", next: "Email me to book the kickoff call. We fix scope and price in writing first." },
-  build_agent_deposit: { name: "AI agent build", next: "Email me to book the kickoff call. Bring examples of the real work you want it to do." },
-  studio_discovery: { name: "Discovery", next: "Email me a paragraph on the problem and anything I should read first." },
-  studio_retainer_monthly: { name: "Studio retainer", next: "Email me your first request. I reply within one business day." },
+  addon_catalysts: { name: "Catalysts", next: BRIEF },
+  addon_brand: { name: "Brand", next: BRIEF },
+  addon_crew_monthly: { name: "Crew", next: BRIEF },
+  addon_mapping: { name: "Mapping", next: BRIEF },
+  addon_benchmarks_deposit: { name: "Benchmarks", next: BRIEF },
+  build_customization: { name: "Customization", next: BRIEF },
+  build_website_deposit: { name: "Website build", next: BRIEF },
+  build_webapp_deposit: { name: "Web app build", next: BRIEF },
+  build_mobile_deposit: { name: "Mobile app build", next: BRIEF },
+  build_agent_deposit: { name: "AI agent build", next: BRIEF },
+  studio_discovery: { name: "Discovery", next: BRIEF },
+  studio_retainer_monthly: { name: "Studio retainer", next: BRIEF },
   journey_deposit: { name: "Journey", next: "Email me to book the kickoff call where we map the whole path." },
 };
 
