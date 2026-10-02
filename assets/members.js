@@ -58,13 +58,17 @@ if (!S.supabaseUrl || !S.supabaseAnonKey) {
 
   async function dashboard(user) {
     root.innerHTML = `<p class="m-note">Loading your kit...</p>`;
-    const [{ data: buys }, { data: mods }, { data: intake }, { data: base0 }, { data: note }] = await Promise.all([
+    const [{ data: buys }, { data: mods }, { data: intake }, { data: base0 }, { data: note }, { data: prog }, { data: past }, { data: files }] = await Promise.all([
       sb.from("purchases").select("lookup_key, created_at").eq("active", true).order("created_at"),
       sb.from("kit_modules").select("id, required_key, track, title, body, video_url, sort").order("sort"),
       sb.from("intake").select("*").eq("user_id", user.id).maybeSingle(),
       sb.from("baselines").select("*").eq("user_id", user.id).maybeSingle(),
-      sb.from("baseline_notes").select("note").eq("user_id", user.id).maybeSingle()
+      sb.from("baseline_notes").select("note").eq("user_id", user.id).maybeSingle(),
+      sb.from("step_progress").select("module_id").eq("user_id", user.id),
+      sb.from("ai_messages").select("role, content, created_at").eq("user_id", user.id).order("created_at", { ascending: false }).limit(30),
+      sb.from("member_files").select("id, title, kind, storage_path, body, created_by, created_at").eq("user_id", user.id).order("created_at", { ascending: false })
     ]);
+    const done = new Set((prog || []).map(r => String(r.module_id)));
     const owned = [...new Set((buys || []).map(b => b.lookup_key))];
     const track = intake?.track || "all";
     const modules = (mods || []).filter(m => m.track === "all" || m.track === track);
@@ -74,6 +78,7 @@ if (!S.supabaseUrl || !S.supabaseAnonKey) {
     root.innerHTML = `
       <div class="m-top"><div><p class="eyebrow" style="font-size:17px">Member area</p><h1>${intake?.business_name ? "Welcome, " + esc(intake.business_name).replace(/\.$/, "") + "." : "Welcome."}</h1></div>
         <button class="pill ghost" id="signout" type="button">Sign out</button></div>
+      ${!intake ? `<a class="m-first" href="#intake"><b>First step:</b> tell us about your business. It takes two minutes, and your steps, baseline, and AI partner all use it.<span>Start →</span></a>` : ""}
       <div class="m-grid">
         <div>
           <div class="m-card"><h2>Your kit</h2>
@@ -82,7 +87,8 @@ if (!S.supabaseUrl || !S.supabaseAnonKey) {
           </div>
           <div class="m-card"><h2>Your steps</h2>
             <p class="hint">${intake ? "Matched to your answers. Change them any time on the right." : "Fill in the intake on the right and your steps match your business."}</p>
-            ${modules.length ? modules.map(m => `<article class="module"><h3>${esc(m.title)}</h3><div class="body">${md(m.body)}</div>${embed(m.video_url)}</article>`).join("")
+            ${modules.length ? `<div class="prog" id="prog"></div>` + modules.map(m => `<article class="module ${done.has(String(m.id)) ? "is-done" : ""}" data-mod="${esc(m.id)}"><h3>${esc(m.title)}</h3><div class="body">${md(m.body)}</div>${embed(m.video_url)}
+              <button type="button" class="done-btn" data-done="${esc(m.id)}" aria-pressed="${done.has(String(m.id))}">${done.has(String(m.id)) ? "✓ Done" : "Mark done"}</button></article>`).join("")
               : `<p class="m-empty">Your steps appear here once your purchase is linked to this email.</p>`}
           </div>
           ${owned.includes("core_kit") ? `<div class="m-card" id="baseline"><h2>Your baseline</h2>
@@ -96,7 +102,8 @@ if (!S.supabaseUrl || !S.supabaseAnonKey) {
                 <textarea id="q" placeholder="What should I do first this week?" ${owned.length ? "" : "disabled"}></textarea>
                 <button class="pill" type="submit" ${owned.length ? "" : "disabled"}>Ask</button></form></div>
           </div>
-          <div class="m-card"><h2>About your business</h2>
+          <div class="m-card" id="files"><h2>Your files</h2><p class="hint">Drafts you save from your AI partner, and everything I deliver to you.</p><div id="file-list"></div></div>
+          <div class="m-card" id="about-card"><h2>About your business</h2>
             <p class="hint">Your answers shape your steps and your AI partner.</p>
             <form class="m-form" id="intake">
               <label>Business name<input name="business_name" value="${esc(intake?.business_name)}"></label>
@@ -130,9 +137,79 @@ if (!S.supabaseUrl || !S.supabaseAnonKey) {
       if (!error) { rendered = null; dashboard(user); }
     });
 
+    /* progress */
+    const drawProg = () => {
+      const el = $("#prog"); if (!el) return;
+      const n = modules.filter(m => done.has(String(m.id))).length;
+      el.innerHTML = `<div class="prog-bar"><span style="width:${modules.length ? Math.round(100 * n / modules.length) : 0}%"></span></div><p>${n} of ${modules.length} steps done${n === modules.length && n ? ". Nice work." : ""}</p>`;
+    };
+    drawProg();
+    root.querySelectorAll("[data-done]").forEach(b => b.addEventListener("click", async () => {
+      const id = b.dataset.done, on = !done.has(id);
+      b.disabled = true;
+      const { error } = on
+        ? await sb.from("step_progress").insert({ user_id: user.id, module_id: id })
+        : await sb.from("step_progress").delete().eq("user_id", user.id).eq("module_id", id);
+      b.disabled = false;
+      if (error) { b.textContent = "Couldn't save"; return; }
+      on ? done.add(id) : done.delete(id);
+      b.textContent = on ? "✓ Done" : "Mark done"; b.setAttribute("aria-pressed", on);
+      b.closest(".module").classList.toggle("is-done", on);
+      drawProg();
+    }));
+
+    /* files */
+    let fileRows = files || [];
+    const drawFiles = () => {
+      const el = $("#file-list");
+      el.innerHTML = fileRows.length ? fileRows.map(f => `<div class="file" data-file="${esc(f.id)}">
+          <div class="file-head"><b>${esc(f.title)}</b><span>${f.created_by === "nick" ? "From Nick" : "Draft"} · ${new Date(f.created_at).toLocaleDateString()}</span></div>
+          ${f.kind === "draft" ? `<details><summary>Open</summary><div class="file-body">${esc(f.body)}</div>
+              <button type="button" class="more" data-copy="${esc(f.id)}">Copy</button> <button type="button" class="more del" data-del="${esc(f.id)}">Delete</button></details>`
+            : `<button type="button" class="more" data-get="${esc(f.id)}">Download</button>`}
+        </div>`).join("") : `<p class="m-empty">Nothing here yet. Save an answer from your AI partner and it lands here.</p>`;
+      el.querySelectorAll("[data-get]").forEach(b => b.addEventListener("click", async () => {
+        const f = fileRows.find(x => x.id === b.dataset.get);
+        const { data, error } = await sb.storage.from("member-files").createSignedUrl(f.storage_path, 120);
+        if (error) { b.textContent = "Couldn't open. Try again."; return; }
+        window.open(data.signedUrl, "_blank", "noopener");
+      }));
+      el.querySelectorAll("[data-copy]").forEach(b => b.addEventListener("click", async () => {
+        const f = fileRows.find(x => x.id === b.dataset.copy);
+        try { await navigator.clipboard.writeText(f.body); b.textContent = "Copied"; } catch { b.textContent = "Select and copy"; }
+      }));
+      el.querySelectorAll("[data-del]").forEach(b => b.addEventListener("click", async () => {
+        if (!confirm("Delete this draft?")) return;
+        const { error } = await sb.from("member_files").delete().eq("id", b.dataset.del);
+        if (!error) { fileRows = fileRows.filter(x => x.id !== b.dataset.del); drawFiles(); }
+      }));
+    };
+    drawFiles();
+    const saveDraft = async (text, btn) => {
+      const title = (text.split("\n").find(l => l.trim()) || "Draft").replace(/^[#*\-\s]+/, "").slice(0, 70);
+      btn.disabled = true;
+      const { data, error } = await sb.from("member_files").insert({ user_id: user.id, title, kind: "draft", body: text, created_by: "ai" }).select().single();
+      btn.disabled = false;
+      if (error) { btn.textContent = "Couldn't save"; return; }
+      btn.textContent = "Saved to Your files"; fileRows.unshift(data); drawFiles();
+    };
+
+    /* AI partner, with history */
     const history = [];
     const log = $("#log");
-    const bubble = (role, text) => { const d = document.createElement("div"); d.className = "bubble " + (role === "user" ? "user" : "ai"); d.textContent = text; log.appendChild(d); log.scrollTop = log.scrollHeight; return d; };
+    const bubble = (role, text) => {
+      const d = document.createElement("div"); d.className = "bubble " + (role === "user" ? "user" : "ai"); d.textContent = text;
+      log.appendChild(d); log.scrollTop = log.scrollHeight; return d;
+    };
+    const addSave = (d, text) => {
+      const b = document.createElement("button"); b.type = "button"; b.className = "save-draft"; b.textContent = "Save to my files";
+      b.addEventListener("click", () => saveDraft(text, b)); d.appendChild(b);
+    };
+    (past || []).slice().reverse().forEach(m => {
+      const d = bubble(m.role, m.content); history.push({ role: m.role, content: m.content });
+      if (m.role === "assistant") addSave(d, m.content);
+    });
+    if (past?.length) { const sep = document.createElement("p"); sep.className = "chat-sep"; sep.textContent = "Earlier conversation above"; log.appendChild(sep); log.scrollTop = log.scrollHeight; }
     $("#ask").addEventListener("submit", async e => {
       e.preventDefault();
       const q = $("#q").value.trim(); if (!q) return;
@@ -141,7 +218,7 @@ if (!S.supabaseUrl || !S.supabaseAnonKey) {
       const { data, error } = await sb.functions.invoke("kit-assistant", { body: { messages: history.slice(-12) } });
       const reply = error ? "I couldn't answer just now. Try again in a minute." : data.reply;
       wait.textContent = reply;
-      if (!error) history.push({ role: "assistant", content: reply });
+      if (!error) { history.push({ role: "assistant", content: reply }); addSave(wait, reply); }
     });
   }
 

@@ -6,7 +6,7 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 const URL = Deno.env.get("SUPABASE_URL")!;
 const ANON = Deno.env.get("SUPABASE_ANON_KEY")!;
 const admin = createClient(URL, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
-const MODEL = Deno.env.get("ANTHROPIC_MODEL") ?? "claude-sonnet-5";
+const MODEL = Deno.env.get("ANTHROPIC_MODEL") ?? "claude-sonnet-5-5";
 const DAILY_LIMIT = Number(Deno.env.get("DAILY_LIMIT") ?? "40");
 const cors = {
   "Access-Control-Allow-Origin": Deno.env.get("SITE_ORIGIN") ?? "*",
@@ -31,9 +31,13 @@ Deno.serve(async (req) => {
   const { data: { user } } = await member.auth.getUser();
   if (!user) return json({ error: "Sign in first" }, 401);
 
-  const [{ data: buys }, { data: intake }] = await Promise.all([
+  const [{ data: buys }, { data: intake }, { data: base }, { data: note }, { data: mods }, { data: prog }] = await Promise.all([
     member.from("purchases").select("lookup_key").eq("active", true),
     member.from("intake").select("*").eq("user_id", user.id).maybeSingle(),
+    member.from("baselines").select("*").eq("user_id", user.id).maybeSingle(),
+    member.from("baseline_notes").select("note").eq("user_id", user.id).maybeSingle(),
+    member.from("kit_modules").select("id, title, track, sort").order("sort"),
+    member.from("step_progress").select("module_id").eq("user_id", user.id),
   ]);
   if (!buys?.length) return json({ error: "Your AI partner comes with a kit" }, 403);
 
@@ -50,22 +54,51 @@ Deno.serve(async (req) => {
   if (!messages.length || messages[messages.length - 1].role !== "user") return json({ error: "Ask a question" }, 400);
 
   const owned = [...new Set(buys.map((b) => b.lookup_key))].join(", ");
+  const STAGE: Record<string, string> = { idea: "just an idea", first: "getting first customers", running: "already running" };
+  const GOAL: Record<string, string> = { side: "side income", full: "a full-time living", big: "building something big" };
+  const usd = (n: unknown) => typeof n === "number" ? "$" + n.toLocaleString("en-US") : "not set";
+  const doneIds = new Set((prog ?? []).map((r: any) => String(r.module_id)));
+  const steps = (mods ?? []).filter((m: any) => m.track === "all" || m.track === intake?.track)
+    .map((m: any) => `${m.title} (${doneIds.has(String(m.id)) ? "done" : "not done"})`).join("; ");
+  let numbers = "They haven't opened their baseline yet.";
+  if (base) {
+    const prices = (base.prices ?? []).map((p: any) =>
+      `  - ${p.name}: their price ${usd(p.yours)}; standard ${p.low != null && p.high != null ? usd(p.low) + " to " + usd(p.high) : "not set by Nick yet"}`).join("\n");
+    const cost = (c: any) => c.need === "Skip" ? 0 : Number(c.yours ?? c.typical ?? 0) || 0;
+    const nowTotal = (base.costs ?? []).filter((c: any) => c.need === "Now").reduce((a: number, c: any) => a + cost(c), 0);
+    const later = (base.costs ?? []).filter((c: any) => c.need === "Later").map((c: any) => c.item).join(", ") || "none";
+    const price = base.prices?.[0]?.yours;
+    const keep = typeof price === "number" ? price - (base.cost_per_sale ?? 0) - (price * 0.029 + 0.3) : null;
+    const be = keep == null ? "not enough numbers yet" : keep <= 0 ? "they lose money on each sale" : `${Math.ceil((base.monthly_costs ?? 0) / keep)} sale(s) a month (keeps about $${keep.toFixed(2)} per sale after the card fee)`;
+    numbers = `Prices:\n${prices}\n- Startup cost needed now: $${nowTotal.toLocaleString("en-US")}\n- Deferred until sales: ${later}\n- Cost per sale: ${usd(base.cost_per_sale)}; monthly costs: ${usd(base.monthly_costs)}\n- Break-even: ${be}`;
+  }
   const system = `You are the AI partner inside Nick Conenna's Core Kit, helping a founder launch and grow a real business the way they want.
 
 About this founder:
 - Business: ${intake?.business_name || "not named yet"}
 - Starting: ${LABELS[intake?.track ?? "other"] ?? "a new business"}
 - Based in: ${intake?.location || "not given"}
-- Stage: ${intake?.stage || "not given"}
-- Goal: ${intake?.goal || "not given"}
+- Stage: ${STAGE[intake?.stage ?? ""] || "not given"}
+- Goal: ${GOAL[intake?.goal ?? ""] || "not given"}
 - In their words: ${intake?.about || "not given"}
 - What they own: ${owned}
+- Their kit steps, in order: ${steps || "none yet"}
+
+Their baseline numbers (live, they edit these on their member page):
+${numbers}
+
+Nick's note to them: ${note?.note || "none yet"}
 
 How to help:
 - Be practical and specific to their business. Give the next concrete step, not a lecture.
 - Keep answers short: a few sentences or a short list. Offer to go deeper.
 - Respect their vision. Suggest, don't overrule.
+- Use their real numbers above. If a price is below the standard range, or break-even looks hard, say so plainly and suggest one fix.
+- If a number you need isn't set, ask for it or point them to "Your baseline" on their member page.
 - When numbers matter, show your reasoning and say what they should check locally.
+- Point to their kit steps by name when one answers the question. Steps marked done are behind them; the first step not done is usually where to focus.
+- When you write something they'll reuse (a message, a description, a plan), write it complete and ready to use, so they can save it to their files.
+- Never contradict Nick's note; build on it.
 - For legal, tax, licensing, or financial decisions, give general orientation and tell them to confirm with the right professional or local office.
 - If they need hands-on help, mention they can email Nick or add Customization, Mapping, or a build from their member area.
 - If intake is missing, ask them to fill in "About your business" on the member page.`;
