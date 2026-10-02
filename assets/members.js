@@ -102,6 +102,7 @@ if (!S.supabaseUrl || !S.supabaseAnonKey) {
                 <textarea id="q" placeholder="What should I do first this week?" ${owned.length ? "" : "disabled"}></textarea>
                 <button class="pill" type="submit" ${owned.length ? "" : "disabled"}>Ask</button></form></div>
           </div>
+          ${owned.includes("core_kit") ? `<div class="m-card" id="add"><h2>Add to your kit</h2><div id="add-list"></div></div>` : ""}
           <div class="m-card" id="files"><h2>Your files</h2><p class="hint">Drafts you save from your AI partner, and everything I deliver to you.</p><div id="file-list"></div></div>
           <div class="m-card" id="about-card"><h2>About your business</h2>
             <p class="hint">Your answers shape your steps and your AI partner.</p>
@@ -136,6 +137,47 @@ if (!S.supabaseUrl || !S.supabaseAnonKey) {
       $("#intake-msg").textContent = error ? "Couldn't save. Try again." : "Saved.";
       if (!error) { rendered = null; dashboard(user); }
     });
+
+    /* add-ons for members who own the Core Kit */
+    const addBox = $("#add-list");
+    if (addBox) {
+      const C = S.catalog || {};
+      const avail = Object.entries(C).filter(([k, it]) => k !== "core_kit" && !it.apply && ["grow", "plan", "build", "studio"].includes(it.group) && !(owned.includes(k) && k.startsWith("addon_")));
+      const due = it => it.deposit || it.price || 0;
+      const label = it => it.deposit ? `$${it.deposit.toLocaleString()} deposit` : `$${(it.price || 0).toLocaleString()}${it.unit === "/mo" ? "/mo" : ""}`;
+      if (!avail.length) addBox.innerHTML = `<p class="m-empty">You have every add-on. Email me if you want something custom.</p>`;
+      else {
+        addBox.innerHTML = `<p class="hint">Add any of these to your kit. Your answers and steps carry over.</p>
+          ${avail.map(([k, it]) => `<label class="add-item"><input type="checkbox" value="${esc(k)}">
+            <span><b>${esc(it.name)}</b> <em>${esc(label(it))}</em><small>${esc(it.text || it.kind || "")}</small></span></label>`).join("")}
+          <p class="add-total" id="add-total">Pick one or more.</p>
+          <button class="pill" type="button" id="add-go" disabled>Add to my kit</button>
+          <p class="m-note" id="add-msg" aria-live="polite"></p>`;
+        const picks = () => [...addBox.querySelectorAll("input:checked")].map(i => i.value);
+        addBox.addEventListener("change", () => {
+          const ks = picks(), total = ks.reduce((n, k) => n + due(C[k]), 0);
+          $("#add-total").textContent = ks.length ? `Due today: $${total.toLocaleString()}` : "Pick one or more.";
+          $("#add-go").disabled = !ks.length;
+        });
+        $("#add-go").addEventListener("click", async () => {
+          const btn = $("#add-go"); btn.disabled = true; btn.textContent = "Opening secure checkout...";
+          try {
+            const { data: { session } } = await sb.auth.getSession();
+            const r = await fetch(`${S.supabaseUrl}/functions/v1/create-checkout`, {
+              method: "POST",
+              headers: { "content-type": "application/json", apikey: S.supabaseAnonKey, Authorization: `Bearer ${session.access_token}` },
+              body: JSON.stringify({ items: picks() })
+            });
+            const d = await r.json();
+            if (!r.ok || !d.url) throw new Error(d.error || "Checkout unavailable");
+            location.href = d.url;
+          } catch (e) {
+            btn.disabled = false; btn.textContent = "Add to my kit";
+            $("#add-msg").textContent = `${e.message}. Try again, or email me.`;
+          }
+        });
+      }
+    }
 
     /* progress */
     const drawProg = () => {

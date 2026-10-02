@@ -2,7 +2,7 @@
 // Deploy with:  supabase functions deploy create-checkout --no-verify-jwt
 // Secrets:      STRIPE_SECRET_KEY, SITE_URL, SITE_ORIGIN (already set for the other functions)
 import Stripe from "npm:stripe@17";
-import { stripe, SITE_URL } from "../_shared/fulfill.ts";
+import { stripe, admin, SITE_URL } from "../_shared/fulfill.ts";
 
 const cors = {
   "Access-Control-Allow-Origin": Deno.env.get("SITE_ORIGIN") ?? "*",
@@ -26,8 +26,31 @@ Deno.serve(async (req) => {
 
   try {
     const body = await req.json().catch(() => ({}));
-    const keys = [...new Set<string>((Array.isArray(body.items) ? body.items : []).map(String))].filter((k) => SELLABLE.has(k));
+    let keys = [...new Set<string>((Array.isArray(body.items) ? body.items : []).map(String))].filter((k) => SELLABLE.has(k));
     if (!keys.length) return json({ error: "Nothing to check out" }, 400);
+
+    // Who's buying? Signed-in members send their own session token; visitors send the public key.
+    let memberEmail: string | undefined;
+    const token = (req.headers.get("authorization") ?? "").replace(/^Bearer\s+/i, "");
+    if (token) {
+      const { data } = await admin.auth.getUser(token);
+      memberEmail = data?.user?.email?.toLowerCase() ?? undefined;
+    }
+    let owned = new Set<string>();
+    if (memberEmail) {
+      const { data: rows } = await admin.from("purchases").select("lookup_key").eq("email", memberEmail).eq("active", true);
+      owned = new Set((rows ?? []).map((r: { lookup_key: string }) => r.lookup_key));
+    }
+    const ownsKit = owned.has("core_kit");
+
+    // Never charge twice: members don't rebuy the Core Kit or an add-on they already have.
+    keys = keys.filter((k) => !(owned.has(k) && (k === "core_kit" || k.startsWith("addon_"))));
+    if (!keys.length) return json({ error: "You already have everything in this order", code: "already_owned" }, 400);
+
+    // For now, add-ons come with or after the Core Kit, never alone.
+    if (!keys.includes("core_kit") && !ownsKit) {
+      return json({ error: "Add-ons need the Core Kit first", code: "needs_core_kit" }, 403);
+    }
 
     const prices = await stripe.prices.list({ lookup_keys: keys, active: true, limit: 20 });
     const missing = keys.filter((k) => !prices.data.some((p) => p.lookup_key === k));
@@ -38,14 +61,15 @@ Deno.serve(async (req) => {
       track: clip(body.track, 20), where: clip(body.where), stage: clip(body.stage, 20), goal: clip(body.goal, 20),
       items: keys.join(","),
     };
-    const email = typeof body.email === "string" && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(body.email) ? body.email : undefined;
+    // Members check out under their account email, so the purchase lands on their kit.
+    const email = memberEmail ?? (typeof body.email === "string" && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(body.email) ? body.email : undefined);
 
     const params: Stripe.Checkout.SessionCreateParams = {
       mode: recurring ? "subscription" : "payment",
       // keep the order the visitor saw: Core Kit first
       line_items: keys.map((k) => ({ price: prices.data.find((p) => p.lookup_key === k)!.id, quantity: 1 })),
       success_url: `${SITE_URL}/thanks.html?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${SITE_URL}/#addons`,
+      cancel_url: memberEmail && ownsKit ? `${SITE_URL}/members.html#add` : `${SITE_URL}/#addons`,
       allow_promotion_codes: true,
       billing_address_collection: "auto",
       customer_email: email,

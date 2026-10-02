@@ -659,3 +659,12 @@ a.screenlink:hover{text-decoration:none}
 .ad-upload input:not([type=file]){padding:10px 14px;border:1px solid var(--line);border-radius:12px}
 .ad-file{margin:0 0 6px;font-size:15px}
 .ad-file span{color:var(--sub);font-size:13px}
+
+/* ---------- Add to your kit ---------- */
+.add-item{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid #ececf0;cursor:pointer}
+.add-item:first-of-type{border-top:0}
+.add-item input{margin-top:4px;width:18px;height:18px;accent-color:var(--blue);flex:none}
+.add-item em{font-style:normal;color:var(--sub);font-size:15px;margin-left:6px}
+.add-item small{display:block;color:var(--sub);font-size:14px;margin-top:2px}
+.add-total{font-weight:600;margin:14px 0 12px}
+.member-note{font-size:15px;color:var(--sub);margin:-6px auto 18px;max-width:640px}
