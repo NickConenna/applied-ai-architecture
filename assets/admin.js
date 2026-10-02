@@ -80,7 +80,7 @@ if (!S.supabaseUrl) {
       </dl>
       ${m.about ? `<p class="ad-about">${esc(m.about)}</p>` : ""}
       <p class="bl-fine">Last active: ${m.last_active ? new Date(m.last_active).toLocaleDateString() : "never"}${m.joined_at ? " · Joined " + new Date(m.joined_at).toLocaleDateString() : ""} · ${m.steps_done || 0} steps done · ${m.files || 0} files</p>
-      ${m.quiet ? `<a class="ad-checkin" href="${checkin(m)}">Send a check-in email</a>` : ""}`;
+      ${m.quiet ? `<a class="ad-checkin" href="${checkin(m)}">Send a check-in email</a>` : ""}` + fileBox();
 
     if (!base) {
       box.innerHTML = head + (m.track
@@ -93,7 +93,7 @@ if (!S.supabaseUrl) {
         if (error) { $("#ad-msg").textContent = "Couldn't create it: " + error.message; return; }
         open(id);
       });
-      wireNote(m); wireFiles(m); wireBriefs(m);
+      wireNote(m); wireFiles(m); wireBriefs(m); wireProfile(m);
       return;
     }
 
@@ -114,7 +114,7 @@ if (!S.supabaseUrl) {
       </tbody></table></div>
       <p class="bl-total"><span>Needed now <b>${usd(nowTotal) || "$0"}</b></span><span>Cost per sale <b>${usd(base.cost_per_sale) || "-"}</b></span><span>Monthly <b>${usd(base.monthly_costs) || "-"}</b></span><span>Break-even <b>${esc(be)}</b></span></p>
       <p class="bl-fine">Last edited ${new Date(base.updated_at).toLocaleString()}</p>` + briefsBox() + noteForm(m) + filesBox();
-    wireNote(m, true); wireFiles(m); wireBriefs(m);
+    wireNote(m, true); wireFiles(m); wireBriefs(m); wireProfile(m);
   }
 
   const checkin = m => {
@@ -122,6 +122,28 @@ if (!S.supabaseUrl) {
     const body = `Hi,\n\nChecking in on how things are going${name}. What's the one thing standing between you and your next step?\n\nIf you're stuck, reply with where, or open your member area and ask your AI partner:\n${location.origin}/members.html\n\nNick`;
     return `mailto:${encodeURIComponent(m.email)}?subject=${encodeURIComponent("Quick check-in" + name)}&body=${encodeURIComponent(body)}`;
   };
+
+  const fileBox = () => `<h3>Customer file</h3><div id="ad-profile"><p class="m-note">Loading...</p></div>`;
+  async function wireProfile(m) {
+    const el = $("#ad-profile"); if (!el) return;
+    const draw = p => {
+      const facts = Object.entries(p?.facts || {}).filter(([, v]) => Array.isArray(v) ? v.length : v);
+      el.innerHTML = (p?.summary
+        ? `<div class="ad-file-summary">${esc(p.summary)}</div>
+           ${facts.length ? `<dl class="ad-facts">${facts.map(([k, v]) => `<div><dt>${esc(k.replace(/_/g, " "))}</dt><dd>${esc(Array.isArray(v) ? v.join("; ") : v)}</dd></div>`).join("")}</dl>` : ""}
+           <p class="bl-fine">Updated ${new Date(p.updated_at).toLocaleString()}</p>`
+        : `<p class="m-note">No customer file yet. It writes itself as they fill in their intake, briefs, and chat.</p>`)
+        + `<button class="pill ghost" type="button" id="ad-refresh">Refresh now</button> <span class="bl-fine" id="ad-rmsg"></span>`;
+      $("#ad-refresh").addEventListener("click", async () => {
+        $("#ad-rmsg").textContent = "Reading everything they've shared...";
+        const { data, error } = await sb.functions.invoke("refresh-profile", { body: { user_id: m.user_id, force: true } });
+        if (error || !data?.summary) { $("#ad-rmsg").textContent = "Couldn't refresh. Try again."; return; }
+        draw(data);
+      });
+    };
+    const { data } = await sb.from("customer_profiles").select("summary, facts, updated_at").eq("user_id", m.user_id).maybeSingle();
+    draw(data);
+  }
 
   const briefsBox = () => `<h3>Add-on briefs</h3><div id="ad-briefs"><p class="m-note">Loading...</p></div>`;
   async function wireBriefs(m) {

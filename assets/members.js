@@ -58,7 +58,7 @@ if (!S.supabaseUrl || !S.supabaseAnonKey) {
 
   async function dashboard(user) {
     root.innerHTML = `<p class="m-note">Loading your kit...</p>`;
-    const [{ data: buys }, { data: mods }, { data: intake }, { data: base0 }, { data: note }, { data: prog }, { data: past }, { data: files }, { data: briefs }] = await Promise.all([
+    const [{ data: buys }, { data: mods }, { data: intake }, { data: base0 }, { data: note }, { data: prog }, { data: past }, { data: files }, { data: briefs }, { data: profile0 }] = await Promise.all([
       sb.from("purchases").select("lookup_key, created_at").eq("active", true).order("created_at"),
       sb.from("kit_modules").select("id, required_key, track, title, body, video_url, sort").order("sort"),
       sb.from("intake").select("*").eq("user_id", user.id).maybeSingle(),
@@ -67,8 +67,10 @@ if (!S.supabaseUrl || !S.supabaseAnonKey) {
       sb.from("step_progress").select("module_id").eq("user_id", user.id),
       sb.from("ai_messages").select("role, content, created_at").eq("user_id", user.id).order("created_at", { ascending: false }).limit(30),
       sb.from("member_files").select("id, title, kind, storage_path, body, created_by, created_at").eq("user_id", user.id).order("created_at", { ascending: false }),
-      sb.from("addon_briefs").select("addon_key, answers, status, updated_at").eq("user_id", user.id)
+      sb.from("addon_briefs").select("addon_key, answers, status, updated_at").eq("user_id", user.id),
+      sb.from("customer_profiles").select("summary, facts, updated_at").eq("user_id", user.id).maybeSingle()
     ]);
+    let profile = profile0;
     const done = new Set((prog || []).map(r => String(r.module_id)));
     const owned = [...new Set((buys || []).map(b => b.lookup_key))];
     const track = intake?.track || "all";
@@ -98,7 +100,8 @@ if (!S.supabaseUrl || !S.supabaseAnonKey) {
         </div>
         <div>
           <div class="m-card"><h2>Your AI partner</h2>
-            <p class="hint">Claude, set up with your intake. Ask about pricing, first customers, what to do this week.</p>
+            <p class="hint">Claude, set up with everything you've shared: your answers, numbers, briefs, and saved work. Ask about pricing, first customers, what to do this week.</p>
+            <details class="knows" id="knows"><summary>What I know about your business</summary><div id="knows-body"></div></details>
             <div class="chat"><div class="chat-log" id="log" aria-live="polite"></div>
               <form id="ask" class="m-form"><label class="vh" for="q">Your question</label>
                 <textarea id="q" placeholder="What should I do first this week?" ${owned.length ? "" : "disabled"}></textarea>
@@ -137,8 +140,43 @@ if (!S.supabaseUrl || !S.supabaseAnonKey) {
       const f = Object.fromEntries(new FormData(e.target));
       const { error } = await sb.from("intake").upsert({ user_id: user.id, ...f, updated_at: new Date().toISOString() });
       $("#intake-msg").textContent = error ? "Couldn't save. Try again." : "Saved.";
-      if (!error) { rendered = null; dashboard(user); }
+      if (!error) { sb.functions.invoke("refresh-profile", { body: {} }).catch(() => {}); rendered = null; dashboard(user); }
     });
+
+    /* customer file: one running profile that every part of the kit shares */
+    const drawKnows = () => {
+      const el = $("#knows-body"); if (!el) return;
+      el.innerHTML = profile?.summary
+        ? `${md(profile.summary)}<p class="bl-fine">Updated ${new Date(profile.updated_at).toLocaleString()}. Something wrong? Tell your AI partner and it updates.</p>`
+        : `<p class="m-empty">I'm still getting to know you. Fill in "About your business" and talk with me, and this fills in.</p>`;
+    };
+    drawKnows();
+    let refreshing = null;
+    const refreshProfile = () => {
+      if (refreshing) return refreshing;
+      refreshing = sb.functions.invoke("refresh-profile", { body: {} })
+        .then(({ data }) => { if (data?.summary) { profile = data; drawKnows(); } })
+        .catch(() => {}).finally(() => { setTimeout(() => { refreshing = null; }, 5000); });
+      return refreshing;
+    };
+
+    /* what we already know, so no one types the same thing twice */
+    const known = () => {
+      const k = {};
+      const f = profile?.facts || {};
+      const map = { buy_link: "buy_link", domain: "domain", colors: "colors", brand_likes: "love", budget: "budget", goals: "goal" };
+      for (const [from, to] of Object.entries(map)) if (f[from] && typeof f[from] === "string") k[to] = f[from];
+      if (base0?.costs?.length) {
+        const cost = c => c.need === "Skip" ? 0 : Number(c.yours ?? c.typical ?? 0) || 0;
+        const now = base0.costs.filter(c => c.need === "Now").reduce((a, c) => a + cost(c), 0);
+        if (now) k.budget = k.budget || `$${now.toLocaleString()} needed now (from your baseline)`;
+      }
+      if (base0?.prices?.some(p => p.yours != null)) {
+        k.numbers = k.numbers || base0.prices.filter(p => p.yours != null).map(p => `${p.name}: $${p.yours}`).join("\n");
+      }
+      for (const b of Object.values(briefRows)) for (const [id, v] of Object.entries(b.answers || {})) if (v && !k[id]) k[id] = v;
+      return k;
+    };
 
     /* your add-ons: a brief for each one bought, with status */
     const B = window.ADDON_BRIEFS || {};
@@ -150,10 +188,12 @@ if (!S.supabaseUrl || !S.supabaseAnonKey) {
       el.innerHTML = `<div class="m-card"><h2>Your add-ons</h2><p class="hint">Tell me what I need for each one. You can edit until I start.</p>
         ${mine.map(k => {
           const b = briefRows[k], st = b?.status || "none", [label, cls] = STATUS[st], spec = B[k];
+          const K = known();
           const field = f => {
-            const v = esc(b?.answers?.[f.id] ?? ""), id = `bf-${k}-${f.id}`, req = f.required ? "required" : "";
+            const mineV = b?.answers?.[f.id], pre = mineV == null && K[f.id] != null;
+            const v = esc(mineV ?? K[f.id] ?? ""), id = `bf-${k}-${f.id}`, req = f.required ? "required" : "";
             const ph = f.placeholder ? `placeholder="${esc(f.placeholder)}"` : "";
-            return `<label for="${id}">${esc(f.label)}${f.required ? "" : " <small>(optional)</small>"}</label>` +
+            return `<label for="${id}">${esc(f.label)}${f.required ? "" : " <small>(optional)</small>"}${pre ? ' <small class="prefill">Filled in from what you\'ve shared. Edit if needed.</small>' : ""}</label>` +
               (f.type === "textarea" ? `<textarea id="${id}" name="${f.id}" ${req} ${ph}>${v}</textarea>`
                                      : `<input id="${id}" name="${f.id}" type="${f.type === "url" ? "url" : "text"}" value="${v}" ${req} ${ph}>`);
           };
@@ -181,6 +221,7 @@ if (!S.supabaseUrl || !S.supabaseAnonKey) {
         if (error) { msg.textContent = "Couldn't send. Try again, or email me."; return; }
         briefRows[k] = { ...(briefRows[k] || {}), ...row };
         sb.functions.invoke("notify-brief", { body: { addon_key: k } }).catch(() => {});
+        refreshProfile();
         drawBriefs();
         const sent = $(`.brief-form[data-key="${k}"] .m-note`); if (sent) sent.textContent = "Got it. I'll be in touch.";
       }));
@@ -282,10 +323,11 @@ if (!S.supabaseUrl || !S.supabaseAnonKey) {
       const { data, error } = await sb.from("member_files").insert({ user_id: user.id, title, kind: "draft", body: text, created_by: "ai" }).select().single();
       btn.disabled = false;
       if (error) { btn.textContent = "Couldn't save"; return; }
-      btn.textContent = "Saved to Your files"; fileRows.unshift(data); drawFiles();
+      btn.textContent = "Saved to Your files"; fileRows.unshift(data); drawFiles(); refreshProfile();
     };
 
     /* AI partner, with history */
+    let replies = 0;
     const history = [];
     const log = $("#log");
     const bubble = (role, text) => {
@@ -309,7 +351,7 @@ if (!S.supabaseUrl || !S.supabaseAnonKey) {
       const { data, error } = await sb.functions.invoke("kit-assistant", { body: { messages: history.slice(-12) } });
       const reply = error ? "I couldn't answer just now. Try again in a minute." : data.reply;
       wait.textContent = reply;
-      if (!error) { history.push({ role: "assistant", content: reply }); addSave(wait, reply); }
+      if (!error) { history.push({ role: "assistant", content: reply }); addSave(wait, reply); if (++replies % 4 === 0) refreshProfile(); }
     });
   }
 

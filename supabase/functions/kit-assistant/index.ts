@@ -2,6 +2,7 @@
 // Deploy with:  supabase functions deploy kit-assistant
 // Secrets:      ANTHROPIC_API_KEY, optional ANTHROPIC_MODEL, optional DAILY_LIMIT, SITE_ORIGIN
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { customerContext } from "../_shared/context.ts";
 
 const URL = Deno.env.get("SUPABASE_URL")!;
 const ANON = Deno.env.get("SUPABASE_ANON_KEY")!;
@@ -16,10 +17,6 @@ const cors = {
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { ...cors, "content-type": "application/json" } });
 
-const LABELS: Record<string, string> = {
-  service: "a local service business", products: "selling products online", food: "a food and drink business",
-  publishing: "publishing books", app: "an app or software product", other: "a new business",
-};
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
@@ -31,15 +28,8 @@ Deno.serve(async (req) => {
   const { data: { user } } = await member.auth.getUser();
   if (!user) return json({ error: "Sign in first" }, 401);
 
-  const [{ data: buys }, { data: intake }, { data: base }, { data: note }, { data: mods }, { data: prog }] = await Promise.all([
-    member.from("purchases").select("lookup_key").eq("active", true),
-    member.from("intake").select("*").eq("user_id", user.id).maybeSingle(),
-    member.from("baselines").select("*").eq("user_id", user.id).maybeSingle(),
-    member.from("baseline_notes").select("note").eq("user_id", user.id).maybeSingle(),
-    member.from("kit_modules").select("id, title, track, sort").order("sort"),
-    member.from("step_progress").select("module_id").eq("user_id", user.id),
-  ]);
-  if (!buys?.length) return json({ error: "Your AI partner comes with a kit" }, 403);
+  const ctx = await customerContext(member, user);
+  if (!ctx.owned.length) return json({ error: "Your AI partner comes with a kit" }, 403);
 
   const since = new Date(Date.now() - 86_400_000).toISOString();
   const { count } = await admin.from("ai_messages").select("id", { count: "exact", head: true })
@@ -53,41 +43,9 @@ Deno.serve(async (req) => {
     .map((m: any) => ({ role: m.role, content: m.content.slice(0, 4000) }));
   if (!messages.length || messages[messages.length - 1].role !== "user") return json({ error: "Ask a question" }, 400);
 
-  const owned = [...new Set(buys.map((b) => b.lookup_key))].join(", ");
-  const STAGE: Record<string, string> = { idea: "just an idea", first: "getting first customers", running: "already running" };
-  const GOAL: Record<string, string> = { side: "side income", full: "a full-time living", big: "building something big" };
-  const usd = (n: unknown) => typeof n === "number" ? "$" + n.toLocaleString("en-US") : "not set";
-  const doneIds = new Set((prog ?? []).map((r: any) => String(r.module_id)));
-  const steps = (mods ?? []).filter((m: any) => m.track === "all" || m.track === intake?.track)
-    .map((m: any) => `${m.title} (${doneIds.has(String(m.id)) ? "done" : "not done"})`).join("; ");
-  let numbers = "They haven't opened their baseline yet.";
-  if (base) {
-    const prices = (base.prices ?? []).map((p: any) =>
-      `  - ${p.name}: their price ${usd(p.yours)}; standard ${p.low != null && p.high != null ? usd(p.low) + " to " + usd(p.high) : "not set by Nick yet"}`).join("\n");
-    const cost = (c: any) => c.need === "Skip" ? 0 : Number(c.yours ?? c.typical ?? 0) || 0;
-    const nowTotal = (base.costs ?? []).filter((c: any) => c.need === "Now").reduce((a: number, c: any) => a + cost(c), 0);
-    const later = (base.costs ?? []).filter((c: any) => c.need === "Later").map((c: any) => c.item).join(", ") || "none";
-    const price = base.prices?.[0]?.yours;
-    const keep = typeof price === "number" ? price - (base.cost_per_sale ?? 0) - (price * 0.029 + 0.3) : null;
-    const be = keep == null ? "not enough numbers yet" : keep <= 0 ? "they lose money on each sale" : `${Math.ceil((base.monthly_costs ?? 0) / keep)} sale(s) a month (keeps about $${keep.toFixed(2)} per sale after the card fee)`;
-    numbers = `Prices:\n${prices}\n- Startup cost needed now: $${nowTotal.toLocaleString("en-US")}\n- Deferred until sales: ${later}\n- Cost per sale: ${usd(base.cost_per_sale)}; monthly costs: ${usd(base.monthly_costs)}\n- Break-even: ${be}`;
-  }
   const system = `You are the AI partner inside Nick Conenna's Core Kit, helping a founder launch and grow a real business the way they want.
 
-About this founder:
-- Business: ${intake?.business_name || "not named yet"}
-- Starting: ${LABELS[intake?.track ?? "other"] ?? "a new business"}
-- Based in: ${intake?.location || "not given"}
-- Stage: ${STAGE[intake?.stage ?? ""] || "not given"}
-- Goal: ${GOAL[intake?.goal ?? ""] || "not given"}
-- In their words: ${intake?.about || "not given"}
-- What they own: ${owned}
-- Their kit steps, in order: ${steps || "none yet"}
-
-Their baseline numbers (live, they edit these on their member page):
-${numbers}
-
-Nick's note to them: ${note?.note || "none yet"}
+${ctx.text}
 
 How to help:
 - Be practical and specific to their business. Give the next concrete step, not a lecture.
@@ -99,6 +57,8 @@ How to help:
 - Point to their kit steps by name when one answers the question. Steps marked done are behind them; the first step not done is usually where to focus.
 - When you write something they'll reuse (a message, a description, a plan), write it complete and ready to use, so they can save it to their files.
 - Never contradict Nick's note; build on it.
+- Use their add-on briefs, saved drafts, and customer file. Don't ask for something they've already told Nick; build on it.
+- If something they say now conflicts with what's on file, go with what they say now and mention the change.
 - For legal, tax, licensing, or financial decisions, give general orientation and tell them to confirm with the right professional or local office.
 - If they need hands-on help, mention they can email Nick or add Customization, Mapping, or a build from their member area.
 - If intake is missing, ask them to fill in "About your business" on the member page.`;
