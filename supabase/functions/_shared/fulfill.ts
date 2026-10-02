@@ -34,9 +34,16 @@ export async function fulfill(sessionOrId: Stripe.Checkout.Session | string): Pr
   const { error } = await admin.from("purchases").upsert(rows, { onConflict: "stripe_session_id,lookup_key", ignoreDuplicates: true });
   if (error) throw error;
 
-  // 2. Make sure they have an account. New buyers get an invite email as a backup way in.
-  const { error: inviteError } = await admin.auth.admin.inviteUserByEmail(email, { redirectTo: `${SITE_URL}/members.html` });
-  if (inviteError && !/already|registered|exists/i.test(inviteError.message)) console.error("invite:", inviteError.message);
+  // 2. Make sure they have an account. With Resend configured, the welcome pack (below) is their way in;
+  //    without it, fall back to Supabase's invite email.
+  const { welcomeReady, sendWelcome } = await import("./welcome.ts");
+  if (welcomeReady()) {
+    const { error: createError } = await admin.auth.admin.createUser({ email, email_confirm: true });
+    if (createError && !/already|registered|exists/i.test(createError.message)) console.error("create user:", createError.message);
+  } else {
+    const { error: inviteError } = await admin.auth.admin.inviteUserByEmail(email, { redirectTo: `${SITE_URL}/members.html` });
+    if (inviteError && !/already|registered|exists/i.test(inviteError.message)) console.error("invite:", inviteError.message);
+  }
 
   // 3. Find their user id (server-only lookup; see migrations/20261001_checkout_claims.sql).
   const { data: userId } = await admin.rpc("user_id_by_email", { e: email });
@@ -52,6 +59,10 @@ export async function fulfill(sessionOrId: Stripe.Checkout.Session | string): Pr
       goal: ["side", "full", "big"].includes(m.goal) ? m.goal : null,
     }, { onConflict: "user_id", ignoreDuplicates: true });
   }
+
+  // 5. Welcome pack, once per checkout. Never blocks sign-in: on failure the claim is released,
+  //    so the other path (webhook or thanks page) sends it instead.
+  await sendWelcome(s.id, email, rows.map((r) => r.lookup_key)).catch((e) => console.error("welcome failed:", e.message));
 
   return { email, userId, keys: rows.map((r) => r.lookup_key) };
 }
