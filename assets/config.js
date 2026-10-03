@@ -6,7 +6,7 @@
    ========================================================= */
 window.SITE = {
   email: "nick@peakingwaters.com",
-  siteUrl: "https://nickconenna.com",
+  siteUrl: "https://corekitai.com",
 
   /* Supabase powers sign-in, the member area, and the AI partner.
      The anon key is safe in the browser: row-level security guards the data. */
@@ -27,7 +27,7 @@ supabaseAnonKey: "sb_publishable_hjTfJNDwdxCyULAKgbHMKw_D2u2nVg5",
     core_kit:                { group:"core",  name:"Core Kit", price:99 },
 
     addon_catalysts:         { group:"grow",  name:"Catalysts", kind:"Us, in your corner", price:250,
-      text:"We become your first fans and customers. We buy, review honestly, share you with our audience, and tell you what to fix." },
+      text:"We become your first real customers: we buy, use it, and send you a candid written report on what to fix. Then we share you with our audience, clearly disclosed. We never post paid reviews." },
     addon_brand:             { group:"grow",  name:"Brand", kind:"Look the part", price:500,
       text:"Name check, logo, colors, domain, and social handles, so customers take you seriously on day one." },
     addon_crew_monthly:      { group:"grow",  name:"Crew", kind:"Ongoing support", price:199, unit:"/mo",

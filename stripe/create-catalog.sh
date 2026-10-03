@@ -17,7 +17,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 : "${STRIPE_SECRET_KEY:?Set STRIPE_SECRET_KEY (sk_test_... or sk_live_...)}"
-SITE_URL="${SITE_URL:-https://nickconenna.com}"
+SITE_URL="${SITE_URL:-https://corekitai.com}"
 MODE=$([[ "$STRIPE_SECRET_KEY" == *_live_* ]] && echo live || echo test)
 STORE="stripe/links.$MODE.json"
 [[ -f "$STORE" ]] || echo '{}' > "$STORE"
@@ -86,7 +86,7 @@ if [[ -n "${WEBHOOK_URL:-}" ]]; then
   if [[ -z "$existing" ]]; then
     secret=$(s "$API/webhook_endpoints" -d "url=$WEBHOOK_URL" \
       -d "enabled_events[]=checkout.session.completed" -d "enabled_events[]=customer.subscription.deleted" \
-      -d "description=nickconenna.com member area" | jq -r .secret)
+      -d "description=corekitai.com member area" | jq -r .secret)
     echo "Webhook created. Set this in Supabase now (shown only once):"
     echo "  supabase secrets set STRIPE_WEBHOOK_SECRET=$secret"
   else

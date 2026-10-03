@@ -1,6 +1,6 @@
 // Welcome pack: one email per paid checkout, sent through Resend from Nick.
 // Explains how the member area works, tailored to what they bought, with a one-tap sign-in link.
-// Secrets: RESEND_API_KEY, WELCOME_FROM (e.g. "Nick Conenna <nick@nickconenna.com>", domain verified in Resend),
+// Secrets: RESEND_API_KEY, WELCOME_FROM (e.g. "Nick Conenna <nick@corekitai.com>", domain verified in Resend),
 // optional WELCOME_REPLY_TO, optional NOTIFY_EMAIL (you get a short "new order" note).
 import { admin, SITE_URL } from "./fulfill.ts";
 

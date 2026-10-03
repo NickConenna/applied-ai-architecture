@@ -6,7 +6,7 @@ import { createClient, SupabaseClient } from "npm:@supabase/supabase-js@2";
 
 export const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY")!, { httpClient: Stripe.createFetchHttpClient() });
 export const admin: SupabaseClient = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
-export const SITE_URL = Deno.env.get("SITE_URL") ?? "https://nickconenna.com";
+export const SITE_URL = Deno.env.get("SITE_URL") ?? "https://corekitai.com";
 
 const TRACKS = ["service", "products", "food", "publishing", "app", "other"];
 

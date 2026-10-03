@@ -10,7 +10,7 @@ const cors = {
 };
 const json = (b: unknown, s = 200) => new Response(JSON.stringify(b), { status: s, headers: { ...cors, "content-type": "application/json" } });
 const admin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
-const SITE_URL = Deno.env.get("SITE_URL") ?? "https://nickconenna.com";
+const SITE_URL = Deno.env.get("SITE_URL") ?? "https://corekitai.com";
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });

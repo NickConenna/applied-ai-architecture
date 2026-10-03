@@ -1,10 +1,10 @@
 /* What each add-on asks for after payment, and what happens next.
    Edit freely: field ids are stored with each member's answers. */
 window.ADDON_BRIEFS = {
-  addon_catalysts: { promise: "Within a week we buy, use it, and review honestly where you asked. Within two weeks you get a short note on what to fix first.",
+  addon_catalysts: { promise: "Within a week we buy and use it like real first customers. Within two weeks you get a candid written report on what to fix first, and we share you with our audience, clearly disclosed.",
     fields: [
       { id: "buy_link", label: "Link to buy from you", type: "url", required: true, placeholder: "https://" },
-      { id: "review_where", label: "Where do reviews and shares help most?", placeholder: "Google, Amazon, Instagram..." },
+      { id: "share_where", label: "Where should we share you?", placeholder: "Instagram, X, LinkedIn, local groups..." },
       { id: "notes", label: "Anything we should know first?", type: "textarea" } ] },
   addon_brand: { promise: "Within three business days: name and domain check, plus two or three directions for your look. One round of changes, then your files within a week of your pick.",
     fields: [

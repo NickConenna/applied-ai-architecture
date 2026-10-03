@@ -1,4 +1,4 @@
-# nickconenna.com update kit: Core Kit, Build, and the member area
+# corekitai.com update kit: Core Kit, Build, and the member area
 
 We weave AI into your business: every kit is delivered in a private member area on **Supabase**, with an AI partner on **Claude**, paid through **Stripe**. You own all of it. This is not a storefront template.
 
@@ -36,12 +36,12 @@ supabase db push              # runs the migration
 
 Then paste `supabase/seed.sql` into the dashboard's SQL editor and run it to load the starter content.
 
-In the dashboard, under **Authentication, URL Configuration**, set Site URL to `https://nickconenna.com` and add `https://nickconenna.com/members.html` as a redirect URL.
+In the dashboard, under **Authentication, URL Configuration**, set Site URL to `https://corekitai.com` and add `https://corekitai.com/members.html` as a redirect URL.
 
 **2. Functions and secrets**
 
 ```bash
-supabase secrets set ANTHROPIC_API_KEY=sk-ant-... SITE_URL=https://nickconenna.com SITE_ORIGIN=https://nickconenna.com STRIPE_SECRET_KEY=sk_test_...
+supabase secrets set ANTHROPIC_API_KEY=sk-ant-... SITE_URL=https://corekitai.com SITE_ORIGIN=https://corekitai.com STRIPE_SECRET_KEY=sk_test_...
 supabase functions deploy stripe-webhook --no-verify-jwt
 supabase functions deploy kit-assistant
 ```
