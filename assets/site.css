@@ -743,3 +743,4 @@ a.screenlink:hover{text-decoration:none}
 .diy-grid p{margin:6px 0 0;font-size:15px;color:var(--sub)}
 @media (max-width:900px){.diy-grid{grid-template-columns:1fr 1fr}}
 @media (max-width:520px){.diy-grid{grid-template-columns:1fr}}
+.checkout-note{font-size:14px;color:#c00000;margin:8px 0 0;flex-basis:100%}

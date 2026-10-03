@@ -22,7 +22,12 @@
     } catch (e) {
       console.warn("Checkout fell back:", e.message);
       btn.textContent = label; btn.removeAttribute("aria-busy");
-      location.href = fallback;
+      // A single item with its own Stripe payment link can still check out there.
+      if (fallback && /^https:\/\/(buy|checkout)\.stripe\.com\//.test(fallback)) { location.href = fallback; return; }
+      // Otherwise stay on the page and say so; never bounce a cart to email.
+      let note = btn.parentElement.querySelector(".checkout-note");
+      if (!note) { note = document.createElement("p"); note.className = "checkout-note"; note.setAttribute("role", "status"); btn.insertAdjacentElement("afterend", note); }
+      note.innerHTML = `Checkout didn't open. Please try again in a moment. Still stuck? <a href="${mail("Checkout help")}">Email me</a> and I'll send a direct link.`;
     }
   }
   const dueNow = it => it.deposit ? it.deposit : (it.price || 0);
