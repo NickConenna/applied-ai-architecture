@@ -26,6 +26,9 @@ if (!S.supabaseUrl || !S.supabaseAnonKey) {
   root.innerHTML = `<div class="m-card m-login"><h1 class="title" style="font-size:32px">Member area</h1>
     <p class="m-note">Almost ready. Add your Supabase URL and anon key to assets/config.js to switch on sign-in.</p></div>`;
 } else {
+  // If a sign-in link came back with an error (expired, already used, wrong address), say so.
+  const back = new URLSearchParams((location.hash || "").replace(/^#/, "") || location.search);
+  const linkError = back.get("error_description") || back.get("error");
   const sb = createClient(S.supabaseUrl, S.supabaseAnonKey);
   sb.auth.onAuthStateChange((_e, session) => render(session));
   sb.auth.getSession().then(({ data }) => render(data.session));
@@ -45,14 +48,16 @@ if (!S.supabaseUrl || !S.supabaseAnonKey) {
       <form id="login"><label class="vh" for="m-email">Email</label>
         <input id="m-email" type="email" required autocomplete="email" placeholder="you@email.com">
         <button class="pill" type="submit">Email me a sign-in link</button></form>
-      <p class="m-note" id="login-msg" aria-live="polite"></p>
+      <p class="m-note" id="login-msg" aria-live="polite">${linkError ? `That sign-in link didn't work (${esc(linkError.replace(/\+/g, " "))}). Links work once and expire after an hour. Enter your email for a fresh one.` : ""}</p>
       <p class="m-note">Not a member yet? <a href="/#seed">Build your Core Kit</a>.</p></div>`;
     $("#login").addEventListener("submit", async e => {
       e.preventDefault();
       const email = $("#m-email").value.trim();
       $("#login-msg").textContent = "Sending...";
       const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: location.origin + "/members.html" } });
-      $("#login-msg").textContent = error ? "That didn't send. Check the address and try again." : "Check your inbox for the sign-in link.";
+      $("#login-msg").textContent = !error ? "Check your inbox for the sign-in link. Open it in this same browser."
+        : /rate|seconds/i.test(error.message) ? "A link was just sent. Wait a minute, then try again."
+        : "That didn't send. Check the address and try again.";
     });
   }
 

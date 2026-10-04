@@ -1,3 +1,8 @@
+/* Sign-in links that land anywhere but the member area get handed to it (with their details). */
+(function () {
+  var h = location.hash || "", p = location.pathname;
+  if (/(access_token|error_description)=/.test(h) && !/^\/(members|admin)\.html/.test(p)) location.replace("/members.html" + h);
+})();
 /* Shared behaviour for every page. No edits needed here: change assets/config.js. */
 (function(){
   const S = window.SITE || {}, L = window.SITE_LINKS || {}, C = S.catalog || {};
