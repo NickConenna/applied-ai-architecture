@@ -10,6 +10,15 @@ export const SITE_URL = Deno.env.get("SITE_URL") ?? "https://corekitai.com";
 
 const TRACKS = ["service", "products", "food", "publishing", "app", "other"];
 
+
+// The Stripe account is shared with FRI and other sites, so their sales arrive here too.
+// Only these keys are CoreKit products; anything else is ignored.
+const COREKIT_KEYS = new Set([
+  "core_kit", "addon_catalysts", "addon_brand", "addon_crew_monthly", "addon_mapping", "addon_benchmarks_deposit",
+  "build_customization", "build_website_deposit", "build_webapp_deposit", "build_mobile_deposit", "build_agent_deposit",
+  "studio_discovery", "studio_retainer_monthly", "journey_deposit",
+]);
+
 export type Fulfilled = { email: string; userId: string | null; keys: string[] };
 
 export async function fulfill(sessionOrId: Stripe.Checkout.Session | string): Promise<Fulfilled | null> {
@@ -28,9 +37,13 @@ export async function fulfill(sessionOrId: Stripe.Checkout.Session | string): Pr
       amount_cents: li.amount_total,
       currency: li.currency,
       stripe_session_id: s.id,
-      stripe_subscription_id: typeof s.subscription === "string" ? s.subscription : s.subscription?.id ?? null,
+     
+        stripe_subscription_id: typeof s.subscription === "string" ? s.subscription : s.subscription?.id ?? null,
     };
-  });
+  }).filter((r) => COREKIT_KEYS.has(r.lookup_key));
+  if (!rows.length) return null; // not a CoreKit sale: no purchase, no account, no email
+
+
   const { error } = await admin.from("purchases").upsert(rows, { onConflict: "stripe_session_id,lookup_key", ignoreDuplicates: true });
   if (error) throw error;
 
