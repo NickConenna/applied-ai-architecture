@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI for industrial and distribution companies | CoreKit AI</title>
+<meta name="description" content="Where AI moves margin in industrial and distribution companies: quoting, order entry, supplier spend, and order-status questions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light;
+  --paper:#F6F8FB; --surface:#FFFFFF; --ink:#142033; --muted:#5A6678; --line:#DCE2EA;
+  --blue:#1F5FD1; --blue-ink:#FFFFFF; --signal:#FFC23D; --signal-ink:#2A1E00;
+  --ok:#1E8A5A; --miss:#C2412D; --soft:#EAF0FA;
+  --display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --body:"Inter",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    color-scheme: dark;
+    --paper:#0F1724; --surface:#172234; --ink:#E8EDF5; --muted:#9AA6B8; --line:#2A374C;
+    --blue:#6E9CFF; --blue-ink:#0F1724; --signal:#FFC23D; --signal-ink:#2A1E00;
+    --ok:#4CC38A; --miss:#FF7A63; --soft:#1C2A42;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 var(--body);-webkit-font-smoothing:antialiased}
+a{color:var(--blue)}
+img{max-width:100%}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.narrow{max-width:68ch}
+h1,h2,h3{font-family:var(--display);font-stretch:85%;line-height:1.08;letter-spacing:-.01em;margin:0}
+h1{font-size:clamp(2.4rem,5.6vw,4.1rem);font-weight:800}
+h2{font-size:clamp(1.9rem,3.6vw,2.7rem);font-weight:750}
+h3{font-size:1.3rem;font-weight:700}
+p{margin:0}
+.lede{font-size:1.15rem;color:var(--muted);max-width:56ch;margin-top:18px}
+section{padding:96px 0}
+.sec-head{margin-bottom:44px}
+.sec-head p{color:var(--muted);margin-top:14px;max-width:60ch}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:var(--blue-ink);font-weight:600;text-decoration:none;padding:14px 22px;border-radius:999px;border:0;font:600 1rem var(--body);cursor:pointer}
+.btn:hover{filter:brightness(1.08)}
+.btn.quiet{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;align-items:center}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:62px;gap:16px}
+.brand{font-family:var(--display);font-weight:800;font-size:1.2rem;color:var(--ink);text-decoration:none;font-stretch:85%}
+.nav nav{display:flex;align-items:center;gap:22px}
+.nav nav a{color:var(--ink);text-decoration:none;font-size:.95rem}
+.nav nav a.btn{color:var(--blue-ink);padding:9px 16px;font-size:.9rem}
+@media (max-width:760px){.nav nav a:not(.btn){display:none}}
+
+/* hero */
+.hero{padding:80px 0 88px}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr}}
+.promise{margin-top:22px;font-weight:600}
+.fine{font-size:.92rem;color:var(--muted);margin-top:14px}
+
+.log{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 24px 60px -30px rgba(20,32,51,.35)}
+.log-head{display:flex;justify-content:space-between;align-items:baseline;padding:0 4px 14px;border-bottom:1px solid var(--line)}
+.log-head b{font-family:var(--display);font-size:1.1rem;font-stretch:85%}
+.log-head span{font-size:.85rem;color:var(--muted)}
+.log ul{list-style:none;margin:0;padding:0}
+.log li{display:grid;grid-template-columns:62px 1fr auto;gap:12px;align-items:center;padding:14px 4px;border-bottom:1px solid var(--line)}
+.log li:last-child{border-bottom:0}
+.log time{font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.log .who b{display:block;font-size:.95rem}
+.log .who span{font-size:.85rem;color:var(--muted)}
+.tag{font-size:.8rem;font-weight:600;padding:5px 10px;border-radius:999px;white-space:nowrap;transition:background .35s,color .35s}
+.tag.miss{background:color-mix(in srgb,var(--miss) 14%,transparent);color:var(--miss)}
+.tag.booked{background:var(--signal);color:var(--signal-ink)}
+.log-pick{display:flex;gap:6px;overflow-x:auto;padding:0 2px 14px;margin:0 -4px 6px;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent)}
+.log-pick::-webkit-scrollbar{display:none}
+.log-pick button{flex:none;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:7px 13px;font:600 .85rem var(--body);cursor:pointer}
+.log-pick button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.log-found{margin:12px 4px 2px;padding:10px 12px;border-radius:10px;background:var(--soft);font-size:.88rem}
+.log-found b{color:var(--blue)}
+.log-foot{margin-top:12px;padding:12px 4px 0;border-top:1px solid var(--line);font-size:.9rem;display:flex;justify-content:space-between}
+.log-foot b{font-variant-numeric:tabular-nums}
+
+/* leak calculator */
+.leak{background:var(--ink);color:var(--paper)}
+.leak h2{color:var(--paper)}
+.leak .sec-head p{color:color-mix(in srgb,var(--paper) 72%,transparent)}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+@media (max-width:860px){.calc{grid-template-columns:1fr}}
+.presets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.presets button{background:transparent;color:var(--paper);border:1.5px solid color-mix(in srgb,var(--paper) 30%,transparent);border-radius:999px;padding:8px 14px;font:500 .9rem var(--body);cursor:pointer}
+.presets button[aria-pressed="true"]{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.field{margin-bottom:26px}
+.field label{display:flex;justify-content:space-between;font-weight:600;margin-bottom:10px}
+.field output{font-variant-numeric:tabular-nums;color:var(--signal)}
+.field input[type=range]{width:100%;accent-color:var(--signal)}
+.field small{display:block;color:color-mix(in srgb,var(--paper) 60%,transparent);margin-top:6px}
+.result{border-left:4px solid var(--signal);padding:6px 0 6px 28px}
+.result small{font-size:.95rem;color:color-mix(in srgb,var(--paper) 70%,transparent)}
+.big{font-family:var(--display);font-stretch:80%;font-weight:800;font-size:clamp(3.4rem,8vw,5.6rem);line-height:1;color:var(--signal);font-variant-numeric:tabular-nums;margin:8px 0 12px}
+.result p{max-width:40ch}
+.result .btn{margin-top:26px;background:var(--signal);color:var(--signal-ink)}
+
+/* jobs */
+.jobs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:0;counter-reset:j;border-top:2px solid var(--ink)}
+@media (max-width:900px){.jobs{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.jobs{grid-template-columns:1fr}}
+.jobs li{padding:22px 20px 26px 0;counter-increment:j}
+.jobs li::before{content:counter(j);display:block;font-family:var(--display);font-weight:800;font-size:1rem;color:var(--blue);margin-bottom:10px}
+.jobs h3{font-size:1.15rem;margin-bottom:8px}
+.jobs p{color:var(--muted);font-size:.95rem}
+.jobs-note{margin-top:28px;color:var(--muted)}
+
+.tryline{margin-top:18px;font-weight:600}
+.tryline a{font-variant-numeric:tabular-nums}
+.tryline.dark{color:var(--paper)}
+.tryline.dark a{color:var(--signal)}
+
+.ind3{grid-template-columns:repeat(3,1fr)}
+@media (max-width:860px){.ind3{grid-template-columns:1fr}}
+a.indcard{text-decoration:none;color:var(--ink);display:block}
+a.indcard:hover{border-color:var(--blue)}
+.indcard .more{color:var(--blue);font-weight:600}
+.check.owner{border-style:solid}
+
+/* core offers */
+.offers{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media (max-width:820px){.offers{grid-template-columns:1fr}}
+.offer{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--blue);border-radius:6px 6px 18px 18px;padding:30px}
+.offer-n{font-family:var(--display);font-weight:800;color:var(--blue);margin-bottom:6px}
+.offer h3{font-size:1.9rem;margin-bottom:12px}
+.offer-why{color:var(--muted);margin-bottom:18px}
+.offer ul{margin:0;padding-left:20px}
+.offer li{margin-bottom:8px}
+.report{margin-top:24px;padding:20px 24px;border-left:4px solid var(--signal);background:var(--soft);border-radius:0 12px 12px 0}
+.report b{font-family:var(--display);font-stretch:85%;font-size:1.2rem}
+.report p{color:var(--muted);margin-top:4px}
+.check{margin-top:24px;display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between;padding:24px 28px;border:1.5px dashed var(--blue);border-radius:18px}
+.check b{font-family:var(--display);font-stretch:85%;font-size:1.35rem}
+.check p{color:var(--muted);max-width:58ch;margin-top:4px}
+
+/* segments */
+.segs{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:30px}
+.tabs button{background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:10px 18px;font:600 .95rem var(--body);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.panel{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.panel[hidden]{display:none}
+@media (max-width:800px){.panel{grid-template-columns:1fr}}
+.panel h3{font-size:1.7rem;margin-bottom:14px}
+.panel p{color:var(--muted)}
+.flow{list-style:none;margin:0;padding:0}
+.flow li{padding:14px 0 14px 28px;border-bottom:1px solid var(--line);position:relative}
+.flow li::before{content:"";position:absolute;left:4px;top:22px;width:10px;height:10px;border-radius:50%;background:var(--blue)}
+.flow li:last-child::before{background:var(--signal)}
+
+/* demo */
+.demo .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+@media (max-width:860px){.demo .wrap{grid-template-columns:1fr}}
+.chat{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:12px}
+.chat .meta{font-size:.85rem;color:var(--muted);padding-bottom:10px;border-bottom:1px solid var(--line)}
+.msg{max-width:84%;padding:11px 15px;border-radius:16px;font-size:.95rem}
+.msg.c{background:var(--soft);align-self:flex-start;border-bottom-left-radius:4px}
+.msg.a{background:var(--blue);color:var(--blue-ink);align-self:flex-end;border-bottom-right-radius:4px}
+.msg.sys{align-self:center;background:var(--signal);color:var(--signal-ink);font-weight:600;font-size:.85rem;border-radius:999px;padding:7px 14px}
+.demo-note{font-size:.88rem;color:var(--muted);margin-top:12px}
+.demo-pick{margin:26px 0 0}
+.demo-pick button{color:var(--ink);border-color:var(--line)}
+.demo-pick button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* timeline */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+@media (max-width:860px){.steps{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+.steps li{border-top:4px solid var(--blue);padding-top:16px}
+.steps .when{font-size:.88rem;font-weight:600;color:var(--blue)}
+.steps h3{margin:6px 0 8px}
+.steps p{color:var(--muted);font-size:.95rem}
+
+/* pricing */
+.pricing{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+@media (max-width:900px){.plans{grid-template-columns:1fr}}
+.plan{border:1px solid var(--line);border-radius:18px;padding:28px;display:flex;flex-direction:column;background:var(--paper)}
+.plan.main{border:2px solid var(--blue);background:var(--surface)}
+.plan .pick{font-size:.85rem;font-weight:600;color:var(--blue);margin-bottom:6px;min-height:1.3em}
+.plan h3{font-size:1.5rem}
+.plan .for{color:var(--muted);font-size:.95rem;margin:8px 0 18px}
+.price{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:2.2rem;line-height:1}
+.price small{font-family:var(--body);font-weight:500;font-size:.95rem;color:var(--muted)}
+.setup{color:var(--muted);font-size:.92rem;margin:8px 0 20px}
+.plan ul{margin:0 0 24px;padding-left:20px;flex:1}
+.plan li{margin-bottom:8px}
+.plan .btn{justify-content:center}
+.founding{margin-top:28px;background:var(--signal);color:var(--signal-ink);border-radius:18px;padding:24px 28px;display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between}
+.founding b{font-family:var(--display);font-stretch:85%;font-size:1.35rem}
+.founding p{max-width:60ch}
+.founding .btn{background:var(--signal-ink);color:var(--signal)}
+.terms{margin-top:18px;font-size:.9rem;color:var(--muted)}
+
+/* diy + proof */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+@media (max-width:860px){.two{grid-template-columns:1fr}}
+.diy dl{margin:0}
+.diy dt{font-weight:700;margin-top:18px}
+.diy dd{margin:4px 0 0;color:var(--muted)}
+.proof ul{list-style:none;padding:0;margin:18px 0 0}
+.proof li{padding:14px 0;border-bottom:1px solid var(--line)}
+.proof li a{font-weight:600}
+.proof li span{display:block;color:var(--muted);font-size:.95rem}
+
+/* faq */
+.faq details{border-bottom:1px solid var(--line);padding:18px 0}
+.faq summary{font-weight:600;cursor:pointer;font-size:1.05rem;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:1.4rem;line-height:1;color:var(--blue)}
+.faq details[open] summary::after{content:"\2212"}
+.faq details p{color:var(--muted);margin-top:10px;max-width:70ch}
+
+/* contact */
+.contact{background:var(--ink);color:var(--paper);text-align:left}
+.contact h2{color:var(--paper)}
+.contact p{color:color-mix(in srgb,var(--paper) 75%,transparent);max-width:60ch;margin-top:16px}
+.contact .btn{background:var(--signal);color:var(--signal-ink)}
+.contact .btn.quiet{background:transparent;color:var(--paper);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--paper) 35%,transparent)}
+
+footer{padding:32px 0;font-size:.88rem;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
+footer nav{display:flex;flex-wrap:wrap;gap:18px}
+footer a{color:var(--muted)}
+
+.pays{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media (max-width:900px){.pays{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.pays{grid-template-columns:1fr}}
+.pay{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px}
+.pay h3{font-size:1.25rem;margin-bottom:8px}
+.pay p{color:var(--muted);font-size:.95rem}
+.pay .ba{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:.9rem;color:var(--ink)}
+.pay .ba b{color:var(--ok)}
+.whos{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+@media (max-width:860px){.whos{grid-template-columns:1fr}}
+.who3 h3{font-size:1.5rem;margin-bottom:10px}
+.who3 p{color:var(--muted);margin-bottom:12px}
+.who3 ul{margin:0;padding-left:20px}
+.who3 li{margin-bottom:6px}
+.ways{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:stretch}
+@media (max-width:1000px){.ways{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.ways{grid-template-columns:1fr}}
+.diff dl{margin:0}
+.diff dt{font-weight:700;margin-top:18px;font-size:1.05rem}
+.diff dd{margin:4px 0 0;color:var(--muted)}
+.scanband{background:var(--signal);color:var(--signal-ink);border-radius:20px;padding:36px;display:flex;flex-wrap:wrap;gap:20px 40px;align-items:center;justify-content:space-between}
+.scanband h2{color:var(--signal-ink);font-size:clamp(1.6rem,3vw,2.2rem)}
+.scanband p{max-width:58ch;margin-top:8px}
+.scanband .btn{background:var(--signal-ink);color:var(--signal)}
+
+.hero h1{font-size:clamp(2.6rem,6.4vw,4.8rem);max-width:13ch}
+.truth{background:var(--ink);color:var(--paper)}
+.truth h2{color:var(--paper)}
+.truths{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:8px}
+@media (max-width:860px){.truths{grid-template-columns:1fr;gap:28px}}
+.truths h3{font-size:1.7rem;color:var(--signal);margin-bottom:10px}
+.truths p{color:color-mix(in srgb,var(--paper) 78%,transparent)}
+.truths small{display:block;margin-top:10px;font-size:.82rem;color:color-mix(in srgb,var(--paper) 55%,transparent)}
+.closer{margin-top:44px;font-family:var(--display);font-stretch:85%;font-weight:700;font-size:clamp(1.4rem,2.6vw,1.9rem);max-width:30ch}
+.caps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2px solid var(--ink)}
+@media (max-width:900px){.caps{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.caps{grid-template-columns:1fr}}
+.cap{padding:26px 26px 30px 0;border-bottom:1px solid var(--line)}
+.cap h3{font-size:1.35rem;margin-bottom:8px}
+.cap p{color:var(--muted);font-size:.97rem}
+.cap .del{margin-top:12px;font-size:.9rem;color:var(--ink)}
+.eng3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media (max-width:900px){.eng3{grid-template-columns:1fr}}
+.stds{display:grid;grid-template-columns:repeat(3,1fr);gap:28px 40px}
+@media (max-width:860px){.stds{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.stds{grid-template-columns:1fr}}
+.stds b{display:block;font-family:var(--display);font-stretch:85%;font-size:1.2rem;margin-bottom:6px}
+.stds p{color:var(--muted)}
+.hires{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.hires span{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;font-weight:600;font-size:.92rem}
+.scanband{background:var(--signal);color:var(--signal-ink);border-radius:20px;padding:36px;display:flex;flex-wrap:wrap;gap:20px 40px;align-items:center;justify-content:space-between}
+.scanband h2{color:var(--signal-ink);font-size:clamp(1.6rem,3vw,2.2rem)}
+.scanband p{max-width:58ch;margin-top:8px}
+.scanband .btn{background:var(--signal-ink);color:var(--signal)}
+.log li{grid-template-columns:1fr auto}
+
+.eng4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media (max-width:1040px){.eng4{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.eng4{grid-template-columns:1fr}}
+.lever{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
+.imp{font-size:.78rem;font-weight:700;padding:4px 9px;border-radius:999px;background:var(--soft);color:var(--blue);white-space:nowrap}
+
+.page-hero{padding:80px 0 48px}
+.page-hero h1{max-width:20ch}
+.label{display:inline-block;font-size:.85rem;font-weight:600;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 12px;margin-bottom:18px}
+.plays{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media (max-width:820px){.plays{grid-template-columns:1fr}}
+.play{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--blue);border-radius:6px 6px 16px 16px;padding:26px}
+.play h3{font-size:1.4rem;margin-bottom:10px}
+.play dl{margin:0}
+.play dt{font-weight:700;margin-top:12px;font-size:.92rem}
+.play dd{margin:2px 0 0;color:var(--muted)}
+.pressures{columns:2;column-gap:40px;padding-left:20px;margin:0}
+@media (max-width:700px){.pressures{columns:1}}
+.pressures li{margin-bottom:10px;break-inside:avoid}
+</style>
+</head>
+<body>
+<header class="nav"><div class="wrap">
+  <a class="brand" href="/">CoreKit AI</a>
+  <nav aria-label="Site">
+    <a href="/#levers">Where AI moves margin</a>
+    <a href="/#industries">Industries</a>
+    <a href="/#playbook">Playbook</a>
+    <a href="/#engage">Engagements</a>
+    <a href="/brief.html">One-page brief</a>
+    <a class="btn" data-link="booking" href="/#contact">Talk to Nick</a>
+  </nav>
+</div></header>
+<main>
+<section class="page-hero" aria-labelledby="pg-title">
+  <div class="wrap">
+    <p class="label">Industrial and distribution</p>
+    <h1 id="pg-title">AI for industrial and distribution companies.</h1>
+    <p class="lede">Distributors, specialty manufacturers, building products, and industrial services. Speed to quote wins orders, and margin leaks through manual order entry and unmanaged supplier pricing.</p>
+    <div class="cta-row">
+      <a class="btn" data-link="booking" href="/#contact">Pick a company. Talk to Nick.</a>
+      <a class="btn quiet" href="/scan.html">Run the free scan</a>
+    </div>
+  </div>
+</section>
+<section class="segs" aria-labelledby="pr-title">
+  <div class="wrap">
+    <div class="sec-head"><h2 id="pr-title">The pressure on margin.</h2></div>
+    <ul class="pressures"><li>Quotes built by hand from RFQs, drawings, and price lists</li><li>Purchase orders arriving by email and PDF, keyed into the ERP manually</li><li>Supplier price changes not caught before they hit margin</li><li>Inside sales and customer service fielding the same order-status questions</li><li>Experienced estimators and inside sales hard to replace</li><li>Pricing inconsistent across reps and branches</li></ul>
+  </div>
+</section>
+<section aria-labelledby="pl-title">
+  <div class="wrap">
+    <div class="sec-head"><h2 id="pl-title">Where we’d start.</h2><p>Example plays, not client results. The diagnostic ranks which of these, or others, pays most for a specific company.</p></div>
+    <div class="plays"><article class="play"><h3>Quote generation</h3><dl><dt>What AI does</dt><dd>Reads RFQs and specs, matches items to your catalog and price rules, and drafts the quote for an estimator to approve.</dd><dt>What changes</dt><dd>Faster quote turnaround, more quotes per estimator, consistent pricing.</dd><dt>Typical effort</dt><dd>Three to six weeks</dd></dl></article><article class="play"><h3>Order entry from email</h3><dl><dt>What AI does</dt><dd>Extracts line items from emailed and PDF purchase orders and stages them in the ERP for review.</dd><dt>What changes</dt><dd>Fewer keying errors, inside sales freed for selling.</dd><dt>Typical effort</dt><dd>Two to four weeks</dd></dl></article><article class="play"><h3>Supplier spend and price variance</h3><dl><dt>What AI does</dt><dd>Compares supplier invoices with agreed pricing and flags variances and consolidation opportunities.</dd><dt>What changes</dt><dd>Margin protected before price increases flow through.</dd><dt>Typical effort</dt><dd>Two to four weeks</dd></dl></article><article class="play"><h3>Order-status and product answers</h3><dl><dt>What AI does</dt><dd>Answers customer questions on order status, lead times, and specifications from your ERP and product data, routing exceptions to staff.</dd><dt>What changes</dt><dd>Faster answers, fewer interruptions for the team.</dd><dt>Typical effort</dt><dd>Three to five weeks</dd></dl></article></div>
+    <p class="terms" style="margin-top:22px">We work with your existing ERP and systems rather than replacing them, and hand everything over documented.</p>
+  </div>
+</section>
+<section class="pricing" aria-labelledby="pb2-title">
+  <div class="wrap">
+    <div class="sec-head"><h2 id="pb2-title">How it starts.</h2></div>
+    <ol class="steps">
+      <li><span class="when">Week 1</span><h3>Diagnose</h3><p>$6,000. Ranked, sized opportunities and a baseline. Credited toward a build.</p></li>
+      <li><span class="when">Weeks 2 to 6</span><h3>Build</h3><p>From $25,000. The top play, built with the team and tested on real cases.</p></li>
+      <li><span class="when">After launch</span><h3>Measure</h3><p>Results against the baseline agreed before the build.</p></li>
+      <li><span class="when">Next</span><h3>Roll out</h3><p>Across sites, business lines, or portfolio companies.</p></li>
+    </ol>
+  </div>
+</section>
+<section class="contact" aria-labelledby="pg-contact">
+  <div class="wrap">
+    <h2 id="pg-contact">Pick one company. We’ll show you where AI moves the number.</h2>
+    <p>Twenty minutes with Nick. Bring the company and its biggest operating headache.</p>
+    <div class="cta-row">
+      <a class="btn" data-link="booking" href="mailto:nick@peakingwaters.com?subject=CoreKit%20AI%20industrial-distribution">Book 20 minutes</a>
+      <a class="btn quiet" href="/brief.html">Read the one-page brief</a>
+    </div>
+  </div>
+</section>
+</main>
+<footer>
+  <div class="wrap">
+    <span>CoreKit AI, led by Nick Conenna. A Peaking Waters LLC company, Cornelius, North Carolina.</span>
+    <nav aria-label="Footer">
+      <a href="/brief.html">One-page brief</a>
+      <a href="/scan.html">AI scan</a>
+      <a href="/how-we-build.html">How the work runs</a>
+      <a href="https://www.linkedin.com/in/nickconenna/">LinkedIn</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+    </nav>
+  </div>
+</footer>
+<script src="assets/config.js"></script>
+<script src="assets/links.js"></script>
+<script>
+(function(){
+  var BOOKING_URL = "";   // keep in sync with index.html
+  if (BOOKING_URL) document.querySelectorAll('[data-link="booking"]').forEach(function(a){ a.href = BOOKING_URL; a.target = "_blank"; a.rel = "noopener"; });
+})();
+</script>
+</body>
+</html>
