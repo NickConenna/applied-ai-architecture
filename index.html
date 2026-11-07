@@ -3,513 +3,708 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CoreKit AI — AI that answers, follows up, and books</title>
-<meta name="description" content="AI that answers, quotes, follows up, and books for trade shops, local services, professional firms, and agencies. Live in two weeks.">
-<meta property="og:title" content="CoreKit AI — AI that answers, follows up, and books">
-<meta property="og:description" content="AI that answers, quotes, follows up, and books for trade shops, local services, professional firms, and agencies. Live in two weeks.">
+<title>CoreKit AI | Get recommended by AI. Answer every customer.</title>
+<meta name="description" content="Done-for-you AI for med spas, dentists, auto shops, professional firms, and trade shops. Get found on Google and in ChatGPT, answer every call, text, and form, and see the results every month.">
+<meta property="og:title" content="CoreKit AI | Get found. Get answered. Get booked.">
+<meta property="og:description" content="Get recommended by AI and answer every customer. Done for you, live in two weeks.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light;
+  --paper:#F6F8FB; --surface:#FFFFFF; --ink:#142033; --muted:#5A6678; --line:#DCE2EA;
+  --blue:#1F5FD1; --blue-ink:#FFFFFF; --signal:#FFC23D; --signal-ink:#2A1E00;
+  --ok:#1E8A5A; --miss:#C2412D; --soft:#EAF0FA;
+  --display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --body:"Inter",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    color-scheme: dark;
+    --paper:#0F1724; --surface:#172234; --ink:#E8EDF5; --muted:#9AA6B8; --line:#2A374C;
+    --blue:#6E9CFF; --blue-ink:#0F1724; --signal:#FFC23D; --signal-ink:#2A1E00;
+    --ok:#4CC38A; --miss:#FF7A63; --soft:#1C2A42;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 var(--body);-webkit-font-smoothing:antialiased}
+a{color:var(--blue)}
+img{max-width:100%}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.narrow{max-width:68ch}
+h1,h2,h3{font-family:var(--display);font-stretch:85%;line-height:1.08;letter-spacing:-.01em;margin:0}
+h1{font-size:clamp(2.4rem,5.6vw,4.1rem);font-weight:800}
+h2{font-size:clamp(1.9rem,3.6vw,2.7rem);font-weight:750}
+h3{font-size:1.3rem;font-weight:700}
+p{margin:0}
+.lede{font-size:1.15rem;color:var(--muted);max-width:56ch;margin-top:18px}
+section{padding:96px 0}
+.sec-head{margin-bottom:44px}
+.sec-head p{color:var(--muted);margin-top:14px;max-width:60ch}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:var(--blue-ink);font-weight:600;text-decoration:none;padding:14px 22px;border-radius:999px;border:0;font:600 1rem var(--body);cursor:pointer}
+.btn:hover{filter:brightness(1.08)}
+.btn.quiet{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;align-items:center}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:62px;gap:16px}
+.brand{font-family:var(--display);font-weight:800;font-size:1.2rem;color:var(--ink);text-decoration:none;font-stretch:85%}
+.nav nav{display:flex;align-items:center;gap:22px}
+.nav nav a{color:var(--ink);text-decoration:none;font-size:.95rem}
+.nav nav a.btn{color:var(--blue-ink);padding:9px 16px;font-size:.9rem}
+@media (max-width:760px){.nav nav a:not(.btn){display:none}}
+
+/* hero */
+.hero{padding:80px 0 88px}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr}}
+.promise{margin-top:22px;font-weight:600}
+.fine{font-size:.92rem;color:var(--muted);margin-top:14px}
+
+.log{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 24px 60px -30px rgba(20,32,51,.35)}
+.log-head{display:flex;justify-content:space-between;align-items:baseline;padding:0 4px 14px;border-bottom:1px solid var(--line)}
+.log-head b{font-family:var(--display);font-size:1.1rem;font-stretch:85%}
+.log-head span{font-size:.85rem;color:var(--muted)}
+.log ul{list-style:none;margin:0;padding:0}
+.log li{display:grid;grid-template-columns:62px 1fr auto;gap:12px;align-items:center;padding:14px 4px;border-bottom:1px solid var(--line)}
+.log li:last-child{border-bottom:0}
+.log time{font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.log .who b{display:block;font-size:.95rem}
+.log .who span{font-size:.85rem;color:var(--muted)}
+.tag{font-size:.8rem;font-weight:600;padding:5px 10px;border-radius:999px;white-space:nowrap;transition:background .35s,color .35s}
+.tag.miss{background:color-mix(in srgb,var(--miss) 14%,transparent);color:var(--miss)}
+.tag.booked{background:var(--signal);color:var(--signal-ink)}
+.log-pick{display:flex;gap:6px;overflow-x:auto;padding:0 2px 14px;margin:0 -4px 6px;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent)}
+.log-pick::-webkit-scrollbar{display:none}
+.log-pick button{flex:none;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:7px 13px;font:600 .85rem var(--body);cursor:pointer}
+.log-pick button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.log-found{margin:12px 4px 2px;padding:10px 12px;border-radius:10px;background:var(--soft);font-size:.88rem}
+.log-found b{color:var(--blue)}
+.log-foot{margin-top:12px;padding:12px 4px 0;border-top:1px solid var(--line);font-size:.9rem;display:flex;justify-content:space-between}
+.log-foot b{font-variant-numeric:tabular-nums}
+
+/* leak calculator */
+.leak{background:var(--ink);color:var(--paper)}
+.leak h2{color:var(--paper)}
+.leak .sec-head p{color:color-mix(in srgb,var(--paper) 72%,transparent)}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+@media (max-width:860px){.calc{grid-template-columns:1fr}}
+.presets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.presets button{background:transparent;color:var(--paper);border:1.5px solid color-mix(in srgb,var(--paper) 30%,transparent);border-radius:999px;padding:8px 14px;font:500 .9rem var(--body);cursor:pointer}
+.presets button[aria-pressed="true"]{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.field{margin-bottom:26px}
+.field label{display:flex;justify-content:space-between;font-weight:600;margin-bottom:10px}
+.field output{font-variant-numeric:tabular-nums;color:var(--signal)}
+.field input[type=range]{width:100%;accent-color:var(--signal)}
+.field small{display:block;color:color-mix(in srgb,var(--paper) 60%,transparent);margin-top:6px}
+.result{border-left:4px solid var(--signal);padding:6px 0 6px 28px}
+.result small{font-size:.95rem;color:color-mix(in srgb,var(--paper) 70%,transparent)}
+.big{font-family:var(--display);font-stretch:80%;font-weight:800;font-size:clamp(3.4rem,8vw,5.6rem);line-height:1;color:var(--signal);font-variant-numeric:tabular-nums;margin:8px 0 12px}
+.result p{max-width:40ch}
+.result .btn{margin-top:26px;background:var(--signal);color:var(--signal-ink)}
+
+/* jobs */
+.jobs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:0;counter-reset:j;border-top:2px solid var(--ink)}
+@media (max-width:900px){.jobs{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.jobs{grid-template-columns:1fr}}
+.jobs li{padding:22px 20px 26px 0;counter-increment:j}
+.jobs li::before{content:counter(j);display:block;font-family:var(--display);font-weight:800;font-size:1rem;color:var(--blue);margin-bottom:10px}
+.jobs h3{font-size:1.15rem;margin-bottom:8px}
+.jobs p{color:var(--muted);font-size:.95rem}
+.jobs-note{margin-top:28px;color:var(--muted)}
+
+/* core offers */
+.offers{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media (max-width:820px){.offers{grid-template-columns:1fr}}
+.offer{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--blue);border-radius:6px 6px 18px 18px;padding:30px}
+.offer-n{font-family:var(--display);font-weight:800;color:var(--blue);margin-bottom:6px}
+.offer h3{font-size:1.9rem;margin-bottom:12px}
+.offer-why{color:var(--muted);margin-bottom:18px}
+.offer ul{margin:0;padding-left:20px}
+.offer li{margin-bottom:8px}
+.report{margin-top:24px;padding:20px 24px;border-left:4px solid var(--signal);background:var(--soft);border-radius:0 12px 12px 0}
+.report b{font-family:var(--display);font-stretch:85%;font-size:1.2rem}
+.report p{color:var(--muted);margin-top:4px}
+.check{margin-top:24px;display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between;padding:24px 28px;border:1.5px dashed var(--blue);border-radius:18px}
+.check b{font-family:var(--display);font-stretch:85%;font-size:1.35rem}
+.check p{color:var(--muted);max-width:58ch;margin-top:4px}
+
+/* segments */
+.segs{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:30px}
+.tabs button{background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:10px 18px;font:600 .95rem var(--body);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.panel{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.panel[hidden]{display:none}
+@media (max-width:800px){.panel{grid-template-columns:1fr}}
+.panel h3{font-size:1.7rem;margin-bottom:14px}
+.panel p{color:var(--muted)}
+.flow{list-style:none;margin:0;padding:0}
+.flow li{padding:14px 0 14px 28px;border-bottom:1px solid var(--line);position:relative}
+.flow li::before{content:"";position:absolute;left:4px;top:22px;width:10px;height:10px;border-radius:50%;background:var(--blue)}
+.flow li:last-child::before{background:var(--signal)}
+
+/* demo */
+.demo .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+@media (max-width:860px){.demo .wrap{grid-template-columns:1fr}}
+.chat{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:12px}
+.chat .meta{font-size:.85rem;color:var(--muted);padding-bottom:10px;border-bottom:1px solid var(--line)}
+.msg{max-width:84%;padding:11px 15px;border-radius:16px;font-size:.95rem}
+.msg.c{background:var(--soft);align-self:flex-start;border-bottom-left-radius:4px}
+.msg.a{background:var(--blue);color:var(--blue-ink);align-self:flex-end;border-bottom-right-radius:4px}
+.msg.sys{align-self:center;background:var(--signal);color:var(--signal-ink);font-weight:600;font-size:.85rem;border-radius:999px;padding:7px 14px}
+.demo-note{font-size:.88rem;color:var(--muted);margin-top:12px}
+.demo-pick{margin:26px 0 0}
+.demo-pick button{color:var(--ink);border-color:var(--line)}
+.demo-pick button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* timeline */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+@media (max-width:860px){.steps{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+.steps li{border-top:4px solid var(--blue);padding-top:16px}
+.steps .when{font-size:.88rem;font-weight:600;color:var(--blue)}
+.steps h3{margin:6px 0 8px}
+.steps p{color:var(--muted);font-size:.95rem}
+
+/* pricing */
+.pricing{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+@media (max-width:900px){.plans{grid-template-columns:1fr}}
+.plan{border:1px solid var(--line);border-radius:18px;padding:28px;display:flex;flex-direction:column;background:var(--paper)}
+.plan.main{border:2px solid var(--blue);background:var(--surface)}
+.plan .pick{font-size:.85rem;font-weight:600;color:var(--blue);margin-bottom:6px;min-height:1.3em}
+.plan h3{font-size:1.5rem}
+.plan .for{color:var(--muted);font-size:.95rem;margin:8px 0 18px}
+.price{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:2.2rem;line-height:1}
+.price small{font-family:var(--body);font-weight:500;font-size:.95rem;color:var(--muted)}
+.setup{color:var(--muted);font-size:.92rem;margin:8px 0 20px}
+.plan ul{margin:0 0 24px;padding-left:20px;flex:1}
+.plan li{margin-bottom:8px}
+.plan .btn{justify-content:center}
+.founding{margin-top:28px;background:var(--signal);color:var(--signal-ink);border-radius:18px;padding:24px 28px;display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between}
+.founding b{font-family:var(--display);font-stretch:85%;font-size:1.35rem}
+.founding p{max-width:60ch}
+.founding .btn{background:var(--signal-ink);color:var(--signal)}
+.terms{margin-top:18px;font-size:.9rem;color:var(--muted)}
+
+/* diy + proof */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+@media (max-width:860px){.two{grid-template-columns:1fr}}
+.diy dl{margin:0}
+.diy dt{font-weight:700;margin-top:18px}
+.diy dd{margin:4px 0 0;color:var(--muted)}
+.proof ul{list-style:none;padding:0;margin:18px 0 0}
+.proof li{padding:14px 0;border-bottom:1px solid var(--line)}
+.proof li a{font-weight:600}
+.proof li span{display:block;color:var(--muted);font-size:.95rem}
+
+/* faq */
+.faq details{border-bottom:1px solid var(--line);padding:18px 0}
+.faq summary{font-weight:600;cursor:pointer;font-size:1.05rem;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:1.4rem;line-height:1;color:var(--blue)}
+.faq details[open] summary::after{content:"\2212"}
+.faq details p{color:var(--muted);margin-top:10px;max-width:70ch}
+
+/* contact */
+.contact{background:var(--ink);color:var(--paper);text-align:left}
+.contact h2{color:var(--paper)}
+.contact p{color:color-mix(in srgb,var(--paper) 75%,transparent);max-width:60ch;margin-top:16px}
+.contact .btn{background:var(--signal);color:var(--signal-ink)}
+.contact .btn.quiet{background:transparent;color:var(--paper);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--paper) 35%,transparent)}
+
+footer{padding:32px 0;font-size:.88rem;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
+footer nav{display:flex;flex-wrap:wrap;gap:18px}
+footer a{color:var(--muted)}
+</style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <defs>
-    <symbol id="g-pub" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"><path d="M18 22h26a8 8 0 0 1 8 8v52a6 6 0 0 0-6-6H18z"/><path d="M82 22H56a8 8 0 0 0-8 8v52a6 6 0 0 1 6-6h28z"/><path d="M60 38h12M60 50h12M60 62h8M28 38h12M28 50h12"/></g></symbol>
-    <symbol id="g-price" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"><path d="M14 70h72"/><path d="M26 70V54M42 70V40M58 70V32M74 70V46"/><path d="M20 30h60" stroke-dasharray="4 6"/><circle cx="58" cy="24" r="5" fill="currentColor"/></g></symbol>
-    <symbol id="g-docs" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"><path d="M26 14h34l16 16v56H26z"/><path d="M60 14v16h16"/><path d="M36 46h28M36 58h28M36 70h16"/><circle cx="74" cy="74" r="12" fill="#26292d"/><path d="M74 67v8l5 3"/></g></symbol>
-    <symbol id="g-seed" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M50 84V46"/><path d="M50 56c0-14-10-24-26-24 0 16 10 24 26 24z"/><path d="M50 48c0-16 12-28 28-28 0 18-12 28-28 28z"/><path d="M28 84h44"/></g></symbol>
-    <symbol id="g-quote" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M16 48L50 20l34 28"/><path d="M26 42v38h48V42"/><path d="M42 80V60h16v20"/><circle cx="76" cy="26" r="10" fill="#26292d"/><path d="M76 20v12M72 23h6a2.5 2.5 0 0 1 0 5h-4a2.5 2.5 0 0 0 0 5h6"/></g></symbol>
-    <symbol id="g-shop" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M22 34h56l-5 50H27z"/><path d="M38 40V28a12 12 0 0 1 24 0v12"/><path d="M40 62l7 7 14-14"/></g></symbol>
-    <symbol id="i-people" viewBox="0 0 36 36"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="12" r="5"/><path d="M4 30a9 9 0 0 1 18 0"/><circle cx="25" cy="14" r="4"/><path d="M24 22a8 8 0 0 1 9 8"/></g></symbol>
-    <symbol id="i-web" viewBox="0 0 36 36"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><rect x="4" y="6" width="28" height="22" rx="3"/><path d="M4 12h28"/></g></symbol>
-    <symbol id="i-app" viewBox="0 0 36 36"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><rect x="10" y="3" width="16" height="30" rx="4"/><path d="M16 29h4"/></g></symbol>
-    <symbol id="i-agent" viewBox="0 0 36 36"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="11" width="22" height="17" rx="5"/><path d="M18 11V6"/><circle cx="18" cy="5" r="1.5"/><circle cx="14" cy="19" r="1.4" fill="currentColor"/><circle cx="22" cy="19" r="1.4" fill="currentColor"/><path d="M14 24h8"/></g></symbol>
-    <symbol id="i-lock" viewBox="0 0 36 36"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><rect x="7" y="15" width="22" height="16" rx="3"/><path d="M12 15v-4a6 6 0 0 1 12 0v4"/><circle cx="18" cy="23" r="1.6" fill="currentColor"/></g></symbol>
-    <symbol id="i-look" viewBox="0 0 36 36"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="15" cy="15" r="9"/><path d="M22 22l9 9"/></g></symbol>
-    <symbol id="i-tool" viewBox="0 0 36 36"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="28" height="20" rx="3"/><path d="M11 15l4 3-4 3M18 21h7M12 31h12"/></g></symbol>
-    <symbol id="i-guide" viewBox="0 0 36 36"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M6 7h10a3 3 0 0 1 3 3v19a2.5 2.5 0 0 0-2.5-2.5H6zM30 7H20a3 3 0 0 0-3 3v19a2.5 2.5 0 0 1 2.5-2.5H30z"/></g></symbol>
-    <symbol id="i-video" viewBox="0 0 36 36"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><circle cx="18" cy="18" r="13"/><path d="M15 12.5l8 5.5-8 5.5z" fill="currentColor"/></g></symbol>
-    <symbol id="i-upd" viewBox="0 0 36 36"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M29 17a11 11 0 0 0-20-5M7 19a11 11 0 0 0 20 5"/><path d="M8 6v6h6M28 30v-6h-6"/></g></symbol>
-  </defs>
-</svg>
-<div class="gnav"><div class="wrap">
-  <a href="/" style="font-weight:600">CoreKit AI</a>
-  <nav aria-label="Site">
-    <a href="/#seed">Core Kit</a>
-    <a href="/build.html">Build</a>
-    <a href="/#addons">Add-ons</a>
-    <a href="/menu.html">Menu</a>
-    <a href="https://www.yskaipe.com/">Novels</a>
-    <a href="#contact">Contact</a>
-    <a href="/members.html">Sign in</a>
-  </nav>
-</div></div>
 
-<div class="lnav"><div class="wrap">
-  <a class="name" href="/">Core Kit</a>
-  <nav aria-label="Core Kit">
-    <a href="#seed">Build yours</a>
-    <a href="#tracks">Tracks</a>
-    <a href="#how">How it works</a>
-    <a href="#demos">Demos</a>
-    <a href="#box">What's inside</a>
-    <a href="#addons">Add-ons</a>
-    <a class="pill sm" href="#seed">Buy</a>
+<header class="nav"><div class="wrap">
+  <a class="brand" href="/">CoreKit AI</a>
+  <nav aria-label="Site">
+    <a href="#how">What we do</a>
+    <a href="#found">Free AI check</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">Questions</a>
+    <a href="/members.html">Sign in</a>
+    <a class="btn" data-link="booking" href="#contact">Book a call</a>
   </nav>
-</div></div>
+</div></header>
 
 <main>
-<section class="hero center" aria-labelledby="hero-title">
-  <div class="wrap reveal">
-    <p class="kicker">CoreKit AI</p>
-    <h1 id="hero-title" class="headline">AI that answers, follows up, and books, so you never lose the next customer.</h1>
-    <p class="tagline">Live in two weeks. Fixed price, deposit up front. A real person checks every number and stands behind what you get.</p>
-    <div class="cta-row">
-      <a class="pill" data-link="booking" data-track="hero_call" href="#contact">Book 20 minutes</a>
-      <a class="more" href="#how">See who it's for</a>
-    </div>
-  </div>
-  <div class="core" aria-label="The Core Kit and its add-ons">
-    <div class="kitbox"><div class="band"><span>Core kit</span><b>01</b></div>
-      <div class="nameplate"><strong>Your business, seeded</strong></div>
-      <div class="glyph"><svg><use href="#g-seed"/></svg></div>
-      <div class="foot"><span>Setup, baseline, guide</span><b data-key="core_kit" data-show="amount">$99</b></div></div>
-    <a class="chip c1" href="#addons"><b><span class="plus" aria-hidden="true">+</span>Customization</b><span>Built around your vision</span></a>
-    <a class="chip c2" href="#addons"><b><span class="plus" aria-hidden="true">+</span>Catalysts</b><span>Honest first-customer feedback</span></a>
-    <a class="chip c3" href="#addons"><b><span class="plus" aria-hidden="true">+</span>Mapping</b><span>A full business plan</span></a>
-    <a class="chip c4" href="#addons"><b><span class="plus" aria-hidden="true">+</span>Benchmarks</b><span>Execution to a real number</span></a>
-    <a class="chip c5" href="/build.html"><b><span class="plus" aria-hidden="true">+</span>Web and app builds</b><span>Sites, apps, AI agents</span></a>
-    <a class="chip c6" href="#addons"><b><span class="plus" aria-hidden="true">+</span>Journey</b><span>All in, together</span></a>
-  </div>
-</section>
 
-<div class="wrap">
-  <div class="stats" role="list">
-    <div role="listitem"><b>2 weeks</b><span>From first call to your AI answering, quoting, and booking</span></div>
-    <div role="listitem"><b>50 states</b><span>Of real trade pricing behind the services track</span></div>
-    <div role="listitem"><b>100% yours</b><span>Your code, your data, your customers</span></div>
-  </div>
-</div>
-
-
-<!-- ================= WHY NOT JUST USE AI YOURSELF ================= -->
-<section class="diy center" aria-labelledby="diy-title">
+<!-- HERO -->
+<section class="hero" aria-labelledby="hero-title">
   <div class="wrap">
-    <h2 id="diy-title" class="title">Why not just use ChatGPT or Claude yourself?</h2>
-    <p class="tagline">You can, and you should. Here's what a $20 subscription doesn't come with.</p>
-    <div class="diy-grid">
-      <div><b>Real numbers</b><p>Your prices and costs start from a real baseline for your kind of business, not a guess the chat made up.</p></div>
-      <div><b>A person who checks</b><p>I review the work, make the judgment calls, and catch what AI gets confidently wrong.</p></div>
-      <div><b>It remembers your business</b><p>One customer file grows with every answer, brief, and draft. Your AI partner starts every conversation already knowing you.</p></div>
-      <div><b>Done for you, when needed</b><p>Brand, plan, site, or AI agent, delivered. Vetted partners step in when a job needs hands.</p></div>
+    <div>
+      <h1 id="hero-title">Get recommended by AI. Answer every customer. Book the next one.</h1>
+      <p class="lede">For med spas, dentists, auto shops, professional firms, and trade shops. We get your business found on Google and in AI answers like ChatGPT, then make sure every call, text, and form that comes in gets answered and booked.</p>
+      <p class="promise">Done for you, live in two weeks, with a monthly report that shows what it brought in.</p>
+      <div class="cta-row">
+        <a class="btn" data-link="booking" data-track="hero_call" href="#contact">Book a 20-minute call</a>
+        <a class="btn quiet" href="#found">Get a free AI visibility check</a>
+      </div>
+    </div>
+
+    <div class="log" aria-label="Example: last night after hours at a business like yours">
+      <div class="log-pick" role="group" aria-label="Pick your kind of business">
+        <button type="button" data-log="spa" aria-pressed="true">Med spa</button>
+        <button type="button" data-log="dental" aria-pressed="false">Dental</button>
+        <button type="button" data-log="auto" aria-pressed="false">Auto shop</button>
+        <button type="button" data-log="firm" aria-pressed="false">Law office</button>
+        <button type="button" data-log="trade" aria-pressed="false">Trades</button>
+      </div>
+      <div class="log-head"><b>Last night, after hours</b><span id="log-name">Glow Med Spa</span></div>
+      <p class="log-found" id="log-found"></p>
+      <ul id="calllog" aria-live="polite"></ul>
+      <div class="log-foot"><span>Waiting for you in the morning</span><b id="log-sum"></b></div>
     </div>
   </div>
 </section>
 
-<!-- ================= WHO IT'S FOR + HOW IT STACKS ================= -->
-<section class="how" id="how" aria-labelledby="how-h">
+<!-- LEAK CALCULATOR -->
+<section class="leak" id="leak" aria-labelledby="leak-title">
   <div class="wrap">
-    <div class="center">
-      <h2 id="how-h" class="title">Built for businesses that<br>can't miss a customer.</h2>
-      <p class="tagline">Most people know AI is powerful. Few know how to make it do real work. This is guided building, on AI.</p>
+    <div class="sec-head">
+      <h2 id="leak-title">What are missed calls costing you?</h2>
+      <p>Use your own numbers. Pick your kind of business to start, then move the sliders until they look like your week.</p>
     </div>
-    <div class="who" role="list">
-      <div role="listitem"><b>Trade shops</b><p>HVAC, plumbing, electrical, handyman. Every call answered and every caller quoted, even when your whole crew is out.</p></div>
-      <div role="listitem"><b>Med spas, dentists, auto shops</b><p>Turn missed calls and no-shows into booked appointments.</p></div>
-      <div role="listitem"><b>Professional firms</b><p>Accountants, insurance agencies, law offices. Intake, paperwork, and follow-up handled before you open the file.</p></div>
-      <div role="listitem"><b>Agencies</b><p>Add AI builds to your services. We build, you resell under your name.</p></div>
-    </div>
-    <div class="ladder">
-      <ol>
-        <li><div><h3>Leverage AI for your goal</h3><p>The Core Kit, <span data-key="core_kit" data-show="amount">$99</span>. Four answers baseline your business to the standard setup for its type, and Claude is set up to know it.</p></div></li>
-        <li><div><h3>Build your stack</h3><p>Add only what you need: customers, a plan, a brand, a number to hit. Each add-on snaps onto your core kit, priced on its own. Nothing is bundled you didn't ask for.</p><a class="more" href="#addons">See every add-on and price</a></div></li>
-        <li><div><h3>Build on top, guided</h3><p>Grow it with us step by step, or hand it over and have it built. Either way, the code, data, and customers stay yours.</p><a class="more" href="/build.html">See builds</a></div></li>
-      </ol>
-      <div class="tower" aria-hidden="true">
-        <div class="pl">AI agent<small>Build</small></div>
-        <div class="pl">Mapping<small>Plan</small></div>
-        <div class="pl">Catalysts<small>Grow</small></div>
-        <div class="pl base">Core Kit<small>Your business, seeded</small></div>
-        <p>Start with the core. Add the rest when you're ready.</p>
+    <div class="calc">
+      <div>
+        <div class="presets" role="group" aria-label="Kind of business">
+          <button type="button" data-ticket="400" aria-pressed="true">Med spa</button>
+          <button type="button" data-ticket="300" aria-pressed="false">Dental</button>
+          <button type="button" data-ticket="550" aria-pressed="false">Auto shop</button>
+          <button type="button" data-ticket="1200" aria-pressed="false">Law office</button>
+          <button type="button" data-ticket="450" aria-pressed="false">Trades</button>
+        </div>
+        <div class="field">
+          <label for="c-calls">Calls you miss in a week <output id="o-calls" for="c-calls">8</output></label>
+          <input id="c-calls" type="range" min="1" max="60" value="8">
+          <small>After hours, during jobs, on lunch, on the other line.</small>
+        </div>
+        <div class="field">
+          <label for="c-ticket">Average job or visit <output id="o-ticket" for="c-ticket">$400</output></label>
+          <input id="c-ticket" type="range" min="50" max="5000" step="25" value="400">
+          <small>Presets are a starting guess. Change it to yours.</small>
+        </div>
+        <div class="field">
+          <label for="c-rate">Missed callers who would have booked <output id="o-rate" for="c-rate">40%</output></label>
+          <input id="c-rate" type="range" min="5" max="90" step="5" value="40">
+          <small>Most people who can’t reach you call the next business on the list.</small>
+        </div>
+      </div>
+      <div class="result" aria-live="polite">
+        <small>Walking out the door every month</small>
+        <div class="big" id="r-loss">$5,542</div>
+        <p id="r-line">That’s about 14 lost bookings a month. Found + Front Desk pays for itself after 2 recovered bookings.</p>
+        <a class="btn" data-link="booking" data-track="calc_call" href="#contact">Stop the leak: book a call</a>
       </div>
     </div>
   </div>
 </section>
 
-<section class="weave center" aria-labelledby="weave-title">
+<!-- WHAT IT DOES -->
+<section id="how" aria-labelledby="how-title">
   <div class="wrap">
-    <h2 id="weave-title" class="title">AI isn't an add-on here. It's woven in.</h2>
-    <p class="tagline">Every kit runs on Claude and Supabase: a private member area, your own database, and an AI partner that knows your business. You decide where the business goes. We build the AI into how you get there.</p>
-    <div class="weave-grid">
-      <div><b>Your way</b><p>You set the vision and the pace. We build around it, not around a template.</p></div>
-      <div><b>AI in the work</b><p>Quoting, answering, planning, and follow-up, done with Claude inside your business.</p></div>
-      <div><b>Together</b><p>You're not handed software and left alone. We grow it with you, step by step.</p></div>
+    <div class="sec-head">
+      <h2 id="how-title">Two things every local business needs right now.</h2>
+      <p>Customers are changing how they find you and how fast they expect an answer. Most businesses haven’t caught up on either.</p>
     </div>
-  </div>
-</section>
-
-<section class="seed center" id="seed" aria-labelledby="seed-title">
-  <div class="wrap">
-    <h2 id="seed-title" class="title">Seed your core kit.</h2>
-    <p class="tagline">Four answers. Your kit is baselined to the standard setup for your kind of business.</p>
-    <div class="seed-grid">
-      <form class="panel" id="seedform" onsubmit="return false">
-        <h3>About your business</h3>
-        <p class="hint">Change any answer and your kit updates.</p>
-        <fieldset class="q"><legend>What are you starting?</legend>
-          <div class="seg">
-            <input type="radio" name="track" id="t-publishing" value="publishing"><label for="t-publishing">Publishing</label>
-            <input type="radio" name="track" id="t-service" value="service" checked><label for="t-service">Local service</label>
-            <input type="radio" name="track" id="t-products" value="products"><label for="t-products">Products online</label>
-            <input type="radio" name="track" id="t-food" value="food"><label for="t-food">Food and drink</label>
-            <input type="radio" name="track" id="t-app" value="app"><label for="t-app">App or software</label>
-            <input type="radio" name="track" id="t-other" value="other"><label for="t-other">Something else</label>
-          </div>
-        </fieldset>
-        <div class="q"><label for="where">Where are you based?</label><input type="text" id="where" placeholder="City or ZIP" autocomplete="postal-code"></div>
-        <fieldset class="q"><legend>Where are you now?</legend>
-          <div class="seg">
-            <input type="radio" name="stage" id="s-idea" value="idea" checked><label for="s-idea">Just an idea</label>
-            <input type="radio" name="stage" id="s-first" value="first"><label for="s-first">First customers</label>
-            <input type="radio" name="stage" id="s-run" value="running"><label for="s-run">Already running</label>
-          </div>
-        </fieldset>
-        <fieldset class="q" style="margin-bottom:0"><legend>What's the goal?</legend>
-          <div class="seg">
-            <input type="radio" name="goal" id="g-side" value="side" checked><label for="g-side">Side income</label>
-            <input type="radio" name="goal" id="g-full" value="full"><label for="g-full">Full-time living</label>
-            <input type="radio" name="goal" id="g-big" value="big"><label for="g-big">Build something big</label>
-          </div>
-        </fieldset>
-      </form>
-      <div class="panel result" aria-live="polite">
-        <p class="rt" id="r-track"></p>
-        <h3 id="r-title">Your core kit</h3>
-        <p class="hint" id="r-where"></p>
-        <ul class="incl" id="r-incl"></ul>
-        <div class="next" id="r-next"></div>
-        <div class="buyrow">
-          <span class="amt" data-key="core_kit" data-show="amount">$99</span>
-          <a class="pill" id="r-buy" href="#contact">Get my core kit</a>
-          <a class="more" href="#addons">Add to it</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= TRACKS ================= -->
-<section id="tracks" aria-labelledby="tracks-title">
-  <div class="wrap center" style="padding-top:100px">
-    <h2 id="tracks-title" class="title">Every track runs on something real.</h2>
-    <p class="tagline">These are the working setups your core kit is built from.</p>
-  </div>
-<article class="tile" id="kit-service">
-  <div class="wrap">
-    <p class="eyebrow">Track: Local services</p>
-    <h2 class="title">Open a service business.</h2>
-    <p class="tagline">A website that quotes a fair price, books the job, and takes a deposit.</p>
-        <div class="cta-row">
-      <a class="pill" href="#seed" data-track="service">Start with this track</a>
-      <button class="linkbtn more" type="button" data-video="service" hidden>Watch it run</button>
-      <a class="more" href="https://fairrateindex.com">See the price data</a>
-    </div>
-  </div>
-  <div class="device">
-    <div class="screen"><div class="chrome"><i></i><i></i><i></i><span>yourbusiness.com</span></div>
-      <div class="view"><div class="svc">
-        <div class="svc-head"><b>Lakeside Wash Co.</b><span>Pressure washing, Lake Norman</span></div>
-        <div class="quote">
-          <div class="field"><small>Job</small><span>House, driveway, and deck</span></div>
-          <div class="field"><small>Size</small><span>About 2,800 sq ft</span></div>
-          <div class="field"><small>ZIP</small><span>28031</span></div>
-          <div class="range">
-            <small>Your fair price</small>
-            <b>$210 – $310</b>
-            <div class="bar"><i></i></div>
-          </div>
-          <span class="book">Book with a $50 deposit</span>
-        </div>
-        <div class="toast"><b>New booking</b><span>Saturday 9:00 AM, deposit paid</span></div>
-      </div><p class="illus">Example site</p></div></div>
-    <div class="kitbox" aria-hidden="true"><div class="band"><span>Track</span><b>01</b></div><div class="nameplate"><strong>Service business</strong></div><div class="glyph"><svg><use href="#g-quote"/></svg></div></div>
-  </div>
-  <div class="uses">
-    <div><h4>You finish with</h4><p>Your own site with instant quotes, online booking, card deposits, and confirmation emails. Plus a script for landing your first ten customers.</p></div>
-    <div><h4>Good for</h4><p>Pressure washing, lawn care, cleaning, handyman, detailing, and other local trades.</p></div>
-    <p class="proof">Quotes come from the same engine behind fairrateindex.com.</p>
-  </div>
-</article>
-<article class="tile alt" id="kit-shop">
-  <div class="wrap">
-    <p class="eyebrow">Track: Products</p>
-    <h2 class="title">Sell online.</h2>
-    <p class="tagline">A shop page, a checkout, and an email list. Open for business in a weekend.</p>
-        <div class="cta-row">
-      <a class="pill" href="#seed" data-track="products">Start with this track</a>
-      <button class="linkbtn more" type="button" data-video="shop" hidden>Watch it run</button>
-    </div>
-  </div>
-  <div class="device">
-    <div class="screen"><div class="chrome"><i></i><i></i><i></i><span>yourshop.com</span></div>
-      <div class="view"><div class="shop">
-        <div class="product">
-          <div class="art" aria-hidden="true"><span>Weekend<br>Sourdough</span><em>A 2-day guide</em></div>
-          <b>The Weekend Sourdough Guide</b>
-          <span class="p">$19</span>
-          <span class="buy">Buy now</span>
-        </div>
-        <div class="side">
-          <div class="capture"><b>Get the free first chapter</b><span class="in">you@email.com</span><span class="go">Send it</span></div>
-          <ol class="plan">
-            <li class="ok">Shop page live</li>
-            <li class="ok">Checkout connected</li>
-            <li class="ok">Welcome email set</li>
-            <li class="now">Launch post goes out Friday</li>
-          </ol>
-        </div>
-      </div><p class="illus">Example shop</p></div></div>
-    <div class="kitbox" aria-hidden="true"><div class="band"><span>Track</span><b>02</b></div><div class="nameplate"><strong>Sell online</strong></div><div class="glyph"><svg><use href="#g-shop"/></svg></div></div>
-  </div>
-  <div class="uses">
-    <div><h4>You finish with</h4><p>A live shop page, card checkout, an email list with a free sample to grow it, and a launch-week posting plan.</p></div>
-    <div><h4>Good for</h4><p>Digital guides, templates, prints, merch, courses, or anything you make and want to sell.</p></div>
-    <p class="proof">It's the same setup that runs this page.</p>
-  </div>
-</article>
-<article class="tile" id="kit-publishing">
-  <div class="wrap">
-    <p class="eyebrow">Track: Publishing · Most proven</p>
-    <h2 class="title">Publish a book.</h2>
-    <p class="tagline">Manuscript to a live Amazon listing. One person. No team.</p>
-        <div class="cta-row">
-      <a class="pill" href="#seed" data-track="publishing">Start with this track</a>
-      <button class="linkbtn more" type="button" data-video="publishing" hidden>Watch it run</button>
-      <a class="more" href="https://www.yskaipe.com/">See the books at YSKAIPE</a>
-    </div>
-  </div>
-  <div class="device">
-    <a class="screen screenlink" href="https://www.yskaipe.com/" aria-label="Open YSKAIPE Publishing"><div class="chrome"><i></i><i></i><i></i><span>yskaipe.com</span></div>
-      <div class="view"><div class="pub">
-        <img src="/img/the-pace-cover.jpg" alt="Cover of The Pace by Nick Conenna" width="400" height="600">
-        <ul class="pipe" aria-label="Pipeline stages">
-          <li>Manuscript structured</li><li>Continuity pass, 93 chapters</li><li>Cover brief</li>
-          <li>Amazon listing</li><li>X-Ray entries</li><li class="live">Live on Amazon</li>
+    <div class="offers">
+      <article class="offer" id="found">
+        <p class="offer-n">1</p>
+        <h3>Get found</h3>
+        <p class="offer-why">Nearly half of consumers now ask ChatGPT or Google’s AI for local recommendations, and it names only a few businesses. The ones it picks have strong, recent reviews and accurate listings.</p>
+        <ul>
+          <li>Automatic review requests after every visit or job</li>
+          <li>Your listings made accurate and consistent everywhere AI looks</li>
+          <li>Your site’s services, prices, and hours written so AI can read them</li>
+          <li>A monthly check of whether AI recommends you, and who it picks instead</li>
         </ul>
-      </div></div></a>
-    <div class="kitbox" aria-hidden="true"><div class="band"><span>Track</span><b>03</b></div><div class="nameplate"><strong>Publish a book</strong></div><div class="glyph"><svg><use href="#g-pub"/></svg></div></div>
+      </article>
+      <article class="offer">
+        <p class="offer-n">2</p>
+        <h3>Never miss a customer</h3>
+        <p class="offer-why">Many business calls go unanswered, and most missed calls never get a call back. Callers who can’t reach you call the next name on the list.</p>
+        <ul>
+          <li>Every call, text, and web form answered, day and night</li>
+          <li>Questions answered from information you approve</li>
+          <li>Appointments booked on your calendar, with reminders</li>
+          <li>Anything outside your rules sent to you with a summary</li>
+        </ul>
+      </article>
+    </div>
+    <div class="report">
+      <b>Included with both: a results report every month.</b>
+      <p>Calls answered, appointments booked, new reviews, and whether AI recommends you, compared with last month. You see exactly what you’re paying for, and what it’s building.</p>
+    </div>
+    <div class="check">
+      <div><b>Free AI visibility check</b><p>Tell us your business and city. We’ll ask ChatGPT and Google’s AI who they recommend for what you do, and send you the results.</p></div>
+      <a class="btn" data-mail="AI visibility check" data-track="ai_check" href="mailto:nick@peakingwaters.com?subject=Free%20AI%20visibility%20check&amp;body=Business%20name%3A%0ACity%3A%0AWhat%20you%20do%3A">Get my free check</a>
+    </div>
   </div>
-  <div class="uses">
-    <div><h4>You finish with</h4><p>A book live on Amazon in ebook and paperback, with the listing, X-Ray, and launch copy done.</p></div>
-    <div><h4>Good for</h4><p>First-time authors, experts turning know-how into a book, or starting a small press.</p></div>
-    <p class="proof">The Pace, To Stay, and Stoppage Time are on Amazon now from <a href="https://www.yskaipe.com/">YSKAIPE Publishing</a>, built on this track.</p>
-  </div>
-</article>
 </section>
 
-
-
-<!-- ================= DEMOS ================= -->
-<section class="demos" id="demos" aria-labelledby="demos-h">
+<!-- BY BUSINESS TYPE -->
+<section class="segs" aria-labelledby="segs-title">
   <div class="wrap">
-    <div class="center">
-      <h2 id="demos-h" class="title">Try it before you buy it.</h2>
-      <p class="tagline">Working pieces from real kits.</p>
-    </div>
-    <div class="tabs" role="tablist" aria-label="Demos">
-      <button class="tab" role="tab" aria-selected="true" aria-controls="dp-quote" id="dt-quote">Instant quote</button>
-      <button class="tab" role="tab" aria-selected="false" aria-controls="dp-ai" id="dt-ai" tabindex="-1">AI partner</button>
-      <button class="tab" role="tab" aria-selected="false" aria-controls="dp-live" id="dt-live" tabindex="-1">Running now</button>
-    </div>
-
-    <div class="dpanel" role="tabpanel" id="dp-quote" aria-labelledby="dt-quote">
-      <div class="copy">
-        <h3>The quote box from the service track</h3>
-        <p>A customer picks a job and a size and sees a fair range before they call. Then they book with a deposit.</p>
-        <p class="note">Demo numbers. Your live version prices from Fair Rate Index data for your ZIP.</p>
-      </div>
-      <div class="dev">
-        <b>Lakeside Wash Co.</b>
-        <label for="dq-job">Job</label>
-        <select id="dq-job">
-          <option value="0.07">House wash</option>
-          <option value="0.093" selected>House, driveway, and deck</option>
-          <option value="0.045">Driveway only</option>
-        </select>
-        <label for="dq-size">Size: <span id="dq-sizeout">2,800 sq ft</span></label>
-        <input id="dq-size" type="range" min="800" max="5000" step="100" value="2800">
-        <div class="dq-out" aria-live="polite"><small>Your fair price</small><strong id="dq-range">$210 – $310</strong><span>Book with a $50 deposit</span></div>
-      </div>
+    <div class="sec-head"><h2 id="segs-title">Set up for how your business runs.</h2></div>
+    <div class="tabs" role="tablist" aria-label="Business type">
+      <button role="tab" id="t-health" aria-controls="p-health" aria-selected="true">Med spas and dentists</button>
+      <button role="tab" id="t-auto" aria-controls="p-auto" aria-selected="false" tabindex="-1">Auto shops</button>
+      <button role="tab" id="t-firm" aria-controls="p-firm" aria-selected="false" tabindex="-1">Professional firms</button>
+      <button role="tab" id="t-trade" aria-controls="p-trade" aria-selected="false" tabindex="-1">Trade shops</button>
+      <button role="tab" id="t-agency" aria-controls="p-agency" aria-selected="false" tabindex="-1">Agencies</button>
     </div>
 
-    <div class="dpanel" role="tabpanel" id="dp-ai" aria-labelledby="dt-ai" hidden>
-      <div class="copy">
-        <h3>Claude, set up for your business</h3>
-        <p>Your kit ships with an AI partner that already knows your prices, services, and area.</p>
-        <p class="note">Recorded example from the service track, not a live chat.</p>
+    <div class="panel" role="tabpanel" id="p-trade" aria-labelledby="t-trade" hidden>
+      <div><h3>The crew’s on a roof. The phone still gets answered.</h3><p>HVAC, plumbing, electrical, roofing, and handyman shops lose the most work between 5 PM and 8 AM. Your front desk sorts emergencies from routine calls and fills tomorrow’s schedule overnight. Every finished job turns into a review request, so the next homeowner who asks AI finds you.</p></div>
+      <ol class="flow"><li>Caller describes the problem</li><li>Emergency? It alerts your on-call tech right away</li><li>Routine? It answers with your approved price range</li><li>Books the slot and reminds them the day before</li><li>Asks for a review after the job</li></ol>
+    </div>
+    <div class="panel" role="tabpanel" id="p-health" aria-labelledby="t-health">
+      <div><h3>Fewer no-shows. Fuller chairs.</h3><p>New patients get answered and booked while your front desk is busy with the people in the room. Reminders and easy rescheduling turn would-be no-shows into moved appointments, and happy patients are asked for a review while the visit is fresh.</p></div>
+      <ol class="flow"><li>New patient asks about a treatment</li><li>It answers from your approved info</li><li>Books a consult on your calendar</li><li>Confirms and reminds by text</li><li>Asks for a review after the visit</li></ol>
+    </div>
+    <div class="panel" role="tabpanel" id="p-auto" aria-labelledby="t-auto" hidden>
+      <div><h3>Book the bay, not just the call.</h3><p>Customers ask “how much” and “when can you take it.” Your front desk answers both and books the drop-off, so your service writers stay on the floor instead of on the phone.</p></div>
+      <ol class="flow"><li>Caller gives the car and the problem</li><li>It answers with your approved price range</li><li>Books a drop-off time</li><li>Texts a reminder the night before</li><li>Asks for a review after pickup</li></ol>
+    </div>
+    <div class="panel" role="tabpanel" id="p-firm" aria-labelledby="t-firm" hidden>
+      <div><h3>Intake done before you open the file.</h3><p>Accountants, insurance agencies, and law offices spend hours on calls that were never a fit. Your front desk asks your screening questions, books the ones that fit, and politely points the rest elsewhere.</p></div>
+      <ol class="flow"><li>Prospect calls, texts, or fills the form</li><li>It asks your screening questions</li><li>Not a fit? It refers them out politely</li><li>Books qualified prospects with you</li><li>Sends you a summary before the meeting</li></ol>
+    </div>
+    <div class="panel" role="tabpanel" id="p-agency" aria-labelledby="t-agency" hidden>
+      <div><h3>Sell Get Found and Front Desk under your name.</h3><p>Marketing and web agencies already have the clients. We build and run both services; you sell them as part of your offer at your own price, with your branding on the monthly report.</p></div>
+      <ol class="flow"><li>You bring the client</li><li>We build it to their rules</li><li>It goes live under your brand</li><li>You bill them monthly</li><li>We keep it running</li></ol>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section class="demo" aria-labelledby="demo-title">
+  <div class="wrap">
+    <div>
+      <h2 id="demo-title">After hours, handled.</h2>
+      <p class="lede">These are the conversations that usually go to voicemail, and then to your competitor. Pick yours.</p>
+      <div class="presets demo-pick" role="group" aria-label="Pick a business">
+        <button type="button" data-chat="spa" aria-pressed="true">Med spa</button>
+        <button type="button" data-chat="dental" aria-pressed="false">Dental</button>
+        <button type="button" data-chat="auto" aria-pressed="false">Auto shop</button>
+        <button type="button" data-chat="firm" aria-pressed="false">Law office</button>
+        <button type="button" data-chat="trade" aria-pressed="false">Trades</button>
       </div>
-      <div class="dev">
-        <div class="chat" id="dc-chat" aria-live="polite"></div>
-        <button class="pill ghost" type="button" id="dc-next">Next message</button>
+      <p class="demo-note">Recorded examples, not live chats. Prices and times are set by each business.</p>
+    </div>
+    <div class="chat" id="demo-chat" aria-live="polite" aria-label="Example conversation"></div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section aria-labelledby="steps-title" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head"><h2 id="steps-title">Live in two weeks.</h2></div>
+    <ol class="steps">
+      <li><span class="when">Day 1</span><h3>20-minute call</h3><p>We look at your calls, your calendar, and where customers slip away.</p></li>
+      <li><span class="when">Days 2 to 7</span><h3>Build</h3><p>Your listings get fixed, review requests get set up, and your services, prices, hours, and rules go in. You approve every answer it gives.</p></li>
+      <li><span class="when">Days 8 to 12</span><h3>Test</h3><p>We run it on real calls with you watching, and fix anything that’s off.</p></li>
+      <li><span class="when">Day 14</span><h3>Live</h3><p>It starts answering and asking for reviews. Your first results report arrives at the end of the month.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing" aria-labelledby="pricing-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="pricing-title">Simple pricing.</h2>
+      <p>A one-time setup, then monthly. Deposit up front, balance when it goes live.</p>
+    </div>
+    <div class="plans">
+      <div class="plan">
+        <p class="pick"></p>
+        <h3>Get Found</h3>
+        <p class="for">More reviews, accurate listings, and a shot at being the business AI recommends.</p>
+        <p class="price" data-price="found_mo">$297<small> / month</small></p>
+        <p class="setup" data-price="found_setup">$750 setup</p>
+        <ul><li>Automatic review requests</li><li>Listings cleaned up everywhere</li><li>Site made readable by AI</li><li>Monthly AI visibility check</li><li>Monthly results report</li></ul>
+        <a class="btn quiet" data-link="booking" data-track="plan_found" href="#contact">Book a call</a>
+      </div>
+      <div class="plan main">
+        <p class="pick">Most businesses start here</p>
+        <h3>Found + Front Desk</h3>
+        <p class="for">Get found, then answer and book everyone who reaches out.</p>
+        <p class="price" data-price="both_mo">$597<small> / month</small></p>
+        <p class="setup" data-price="both_setup">$2,000 setup</p>
+        <ul><li>Everything in Get Found</li><li>Every call, text, and form answered</li><li>Booking with reminders</li><li>Urgent issues sent straight to you</li><li>Monthly results report</li></ul>
+        <a class="btn" data-link="booking" data-track="plan_both" href="#contact">Book a call</a>
+      </div>
+      <div class="plan">
+        <p class="pick"></p>
+        <h3>Agency partner</h3>
+        <p class="for">Resell AI front desks to your clients under your brand.</p>
+        <p class="price">Wholesale<small> per client</small></p>
+        <p class="setup">Setup priced per client</p>
+        <ul><li>White-label, your branding</li><li>We build and maintain</li><li>You set the retail price</li></ul>
+        <a class="btn quiet" data-mail="Agency partner" href="mailto:nick@peakingwaters.com?subject=CoreKit%20AI%20agency%20partner">Talk partnership</a>
       </div>
     </div>
+    <div class="founding">
+      <div><b>Founding clients: half off setup.</b><p>The first five businesses get 50% off setup in exchange for letting us share their results as a case study.</p></div>
+      <a class="btn" data-link="booking" data-track="founding" href="#contact">Claim a founding spot</a>
+    </div>
+    <p class="terms">Month to month after setup. Paid by card or ACH. Larger custom builds are quoted separately on the <a href="/build.html">Build page</a>.</p>
+  </div>
+</section>
 
-    <div class="dpanel" role="tabpanel" id="dp-live" aria-labelledby="dt-live" hidden>
-      <div class="copy">
-        <h3>Built with the same four moves</h3>
-        <p>These aren't mockups. Each one runs on the setup your kit is built from.</p>
-      </div>
-      <ul class="livelist">
-        <li><a href="https://www.yskaipe.com/"><b>YSKAIPE Publishing</b><span>Three novels live on Amazon, built on the publishing track</span></a></li>
-        <li><a href="https://fairrateindex.com"><b>Fair Rate Index</b><span>Fair price ranges for 8 trades in all 50 states</span></a></li>
-        <li><a href="https://heyamicus.com"><b>heyamicus</b><span>An AI legal research assistant</span></a></li>
-        <li><a href="https://github.com/NickConenna/applied-ai-architecture"><b>This site, in public</b><span>The code behind every kit, on GitHub</span></a></li>
+<!-- WHY NOT DIY + PROOF -->
+<section aria-labelledby="diy-title">
+  <div class="wrap two">
+    <div class="diy">
+      <h2 id="diy-title">Why not an app or an answering service?</h2>
+      <p class="lede">Cheap AI answering apps and answering services handle calls. Neither gets you found, and both leave the setup to you.</p>
+      <dl>
+        <dt>Found and answered, together</dt><dd>The same system that answers your customers asks them for reviews, which is what AI looks at when it recommends a business.</dd>
+        <dt>A person who checks</dt><dd>I test it on real calls and catch what AI gets confidently wrong before your customers do.</dd>
+        <dt>Done for you</dt><dd>No software to learn. We set it up, connect it to your phone and calendar, and keep it current.</dd>
+        <dt>Proof every month</dt><dd>A results report, not a login you never open. Your data and customer list stay yours, even if you leave.</dd>
+      </dl>
+    </div>
+    <div class="proof">
+      <h2>Built by someone who ships.</h2>
+      <p class="lede">I’m Nick Conenna, an applied AI architect in Cornelius, North Carolina. Before AI, I spent a decade selling to medical offices, so I know how front desks really run. You work with me directly.</p>
+      <ul>
+        <li><a href="https://fairrateindex.com">Fair Rate Index</a><span>A national price index with automated intake and reports, running with almost no hands on it.</span></li>
+        <li><a href="https://heyamicus.com">heyamicus</a><span>An AI legal research assistant.</span></li>
       </ul>
     </div>
   </div>
 </section>
 
-<section class="vs center" aria-labelledby="vs-title">
-  <div class="wrap">
-    <h2 id="vs-title" class="title">This isn't Shopify.</h2>
-    <p class="tagline">Storefront platforms are great for renting a store. We build you something you own, with AI inside.</p>
-    <div class="vs-table" role="table" aria-label="Storefront platform compared with the Core Kit">
-      <div class="vs-row vs-head" role="row"><span role="columnheader"></span><span role="columnheader">Storefront platform</span><span role="columnheader">Core Kit</span></div>
-      <div class="vs-row" role="row"><span role="rowheader">Built around</span><span role="cell">Their templates</span><span role="cell">Your vision</span></div>
-      <div class="vs-row" role="row"><span role="rowheader">Your data</span><span role="cell">In their platform</span><span role="cell">In your own Supabase database</span></div>
-      <div class="vs-row" role="row"><span role="rowheader">AI</span><span role="cell">Plugins you bolt on</span><span role="cell">Claude, woven into how you work</span></div>
-      <div class="vs-row" role="row"><span role="rowheader">Members and gated content</span><span role="cell">Usually an extra app</span><span role="cell">Built in from day one</span></div>
-      <div class="vs-row" role="row"><span role="rowheader">What you sell</span><span role="cell">Mostly products</span><span role="cell">Services, products, content, software</span></div>
-      <div class="vs-row" role="row"><span role="rowheader">Who's with you</span><span role="cell">A help center</span><span role="cell">Us, growing it with you</span></div>
-    </div>
+<!-- FAQ -->
+<section class="faq" id="faq" aria-labelledby="faq-title" style="padding-top:0">
+  <div class="wrap narrow">
+    <h2 id="faq-title" style="margin-bottom:20px">Questions owners ask.</h2>
+    <details><summary>Can you guarantee ChatGPT will recommend us?</summary><p>No one can, and you should be wary of anyone who says otherwise. What we can do is strengthen what AI tools look at when they choose: recent reviews, accurate listings, and clear information about what you do and where. Then we check every month and show you where you stand. Google Maps still matters most for local searches, so the same work helps you there too.</p></details>
+    <details><summary>Will my customers know it’s AI?</summary><p>It introduces itself honestly as your business’s assistant. Most callers care that they got an answer and a time, not who typed it. If someone asks for a person, it takes a message and sends it to you right away.</p></details>
+    <details><summary>Do I need a new phone number?</summary><p>Usually not. In most setups, missed and after-hours calls forward from your existing number. We’ll confirm what works with your phone provider on the first call.</p></details>
+    <details><summary>What if it gets something wrong?</summary><p>It only answers from information you approve. Anything outside your rules goes to you with a summary instead of a guess. Every conversation is logged, so you can read exactly what was said.</p></details>
+    <details><summary>We’re a dental or medical practice. Is patient information handled properly?</summary><p>Setups that touch patient records need extra agreements and settings. We go through exactly what applies to your practice before anything goes live, and keep patient details out of the system until that’s in place.</p></details>
+    <details><summary>Is there a contract?</summary><p>No long contract. After setup it’s month to month, and your data stays yours if you cancel.</p></details>
+    <details><summary>What calendar and tools does it work with?</summary><p>Most common calendars and booking systems. Tell me what you use on the call and I’ll tell you straight whether it fits.</p></details>
   </div>
 </section>
 
-<section class="box" id="box" aria-labelledby="box-title" style="background:var(--gray)">
-  <div class="wrap">
-    <h2 id="box-title" class="title">What's in every core kit.</h2>
-    <p class="tagline">Everything to go from nothing to open, delivered in your own member area.</p>
-    <div class="box-grid six">
-      <div><span class="ic"><svg><use href="#i-tool"/></svg></span><b>Your working setup</b><p>Site, checkout or booking, and email, for your track.</p></div>
-      <div><span class="ic"><svg><use href="#i-lock"/></svg></span><b>Your member area</b><p>Private sign-in with your kit, guides, and videos.</p></div>
-      <div><span class="ic"><svg><use href="#i-agent"/></svg></span><b>Your AI partner</b><p>Claude, set up with what you told us about your business.</p></div>
-      <div><span class="ic"><svg><use href="#i-upd"/></svg></span><b>Your baseline</b><p>Standard pricing and startup costs for your industry.</p></div>
-      <div><span class="ic"><svg><use href="#i-guide"/></svg></span><b>Guide and video</b><p>Plain English, in order, from zero to live.</p></div>
-      <div><span class="ic"><svg><use href="#i-people"/></svg></span><b>First-customers playbook</b><p>Who to reach, what to say, and when.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="voice" id="voice" hidden aria-label="What founders say">
-  <div class="wrap"><blockquote style="margin:0"><p id="quote-text"></p><cite id="quote-by"></cite></blockquote></div>
-</section>
-
-<section class="addons center" id="addons" aria-labelledby="ao-title">
-  <div class="wrap">
-    <h2 id="ao-title" class="title">Build on your core kit.</h2>
-    <p class="tagline">Grow it, plan it, or have it built. Pick any to see your plan.</p>
-    <p class="member-note">Already have your Core Kit? <a href="/members.html#add">Add these from your member area</a> so you're not charged for the kit again.</p>
-    <div class="ao-grid" id="ao-grid"></div>
-    <div class="stack" id="stack">
-      <div class="sum"><b id="st-title">Core Kit</b><span id="st-list">Nothing added yet</span></div>
-      <span class="tot" id="st-tot"></span>
-      <a class="pill" id="st-go" href="#contact">Send me this plan</a>
-    </div>
-    <p class="pay"><span id="guarantee"></span>Kits by card. Builds start with a deposit; the balance is due on delivery. Larger work by card, wire, ACH, USDC, or BTC.</p>
-  </div>
-</section>
-
-<section class="studio" aria-labelledby="studio-title">
-  <div class="wrap">
-    <p class="eyebrow">Build</p>
-    <h2 id="studio-title" class="title">Need it built? I build it.</h2>
-    <p class="tagline" style="margin-inline:auto">Websites, web apps, mobile apps, and AI agents on Supabase and Claude, from the same AI architect behind every kit.</p>
-    <div class="svc-grid">
-      <div class="svc-card"><svg><use href="#i-web"/></svg><h3>Website</h3><p>Custom, fast, and selling on day one.</p><span class="from" data-key="build_website_deposit" data-show="price"></span></div>
-      <div class="svc-card"><svg><use href="#i-tool"/></svg><h3>Web app</h3><p>Accounts, dashboards, and payments.</p><span class="from" data-key="build_webapp_deposit" data-show="price"></span></div>
-      <div class="svc-card"><svg><use href="#i-app"/></svg><h3>Mobile app</h3><p>iPhone and Android from one codebase.</p><span class="from" data-key="build_mobile_deposit" data-show="price"></span></div>
-      <div class="svc-card"><svg><use href="#i-agent"/></svg><h3>AI agent</h3><p>Automation wired into your tools.</p><span class="from" data-key="build_agent_deposit" data-show="price"></span></div>
-    </div>
-    <div class="cta-row"><a class="pill" href="/build.html">Explore Build</a><a class="more" data-link="booking" href="#">Book a call</a></div>
-  </div>
-</section>
-
-<section class="bento-sec" aria-labelledby="how-title" style="padding-top:100px">
-  <div class="wrap center">
-    <h2 id="how-title" class="title">How everything gets built.</h2>
-    <p class="tagline">Four moves, in order, in any field. Your guide teaches you to run them.</p>
-    <div class="bento">
-      <div class="card"><div class="n">1</div><h4>Say it in their words</h4><p>State the job the way the person who does it would.</p></div>
-      <div class="card"><div class="n">2</div><h4>Use the real material</h4><p>Actual records and the rules nobody wrote down.</p></div>
-      <div class="card"><div class="n">3</div><h4>Build the check first</h4><p>Know how you'll spot a wrong answer before you build.</p></div>
-      <div class="card"><div class="n">4</div><h4>Fix it in short passes</h4><p>Run, correct, repeat. Stop when it holds twice.</p></div>
-      <div class="card dark" id="log">
-        <h4>A new build every Friday.</h4>
-        <p>I build in public. Join free and get a starter checklist.</p>
-        <form class="signup" id="signup" method="post" target="_blank" style="max-width:none;flex-direction:row;margin-top:18px">
-          <label for="email" class="vh">Email address</label>
-          <input id="email" name="email" type="email" required placeholder="Email address" autocomplete="email" style="flex:1;background:#2c2c2e;border-color:#3a3a3c;color:#f5f5f7">
-          <button class="pill" type="submit">Join</button>
-        </form>
-        <ul class="channels">
-          <li><a href="https://www.linkedin.com/in/nickconenna/">LinkedIn</a><span>Daily build notes</span></li>
-          <li><a href="https://x.com/BitcoinBroham">X</a><span>Each build as a thread</span></li>
-          <li><a data-link="youtube" href="#">YouTube</a><span>60-second demos</span></li>
-        </ul>
-      </div>
-      <div class="card also">
-        <h4 style="margin-top:0">Also from Nick</h4>
-        <ul class="also-list">
-          <li><a href="https://fairrateindex.com">Fair Rate Index</a><span>Fair prices, 50 states</span></li>
-          <li><a href="https://heyamicus.com">heyamicus</a><span>Legal research assistant</span></li>
-          <li><a href="https://www.yskaipe.com/">YSKAIPE Publishing</a><span>Fiction set in real places</span></li>
-          <li><a href="https://peakingwaters.com">Peaking Waters</a><span>The parent company</span></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
+<!-- CONTACT -->
 <section class="contact" id="contact" aria-labelledby="contact-title">
   <div class="wrap">
-    <h2 id="contact-title" class="title">Tell me what you're building.</h2>
-    <p>One paragraph is plenty. I'll tell you straight which kit, add-ons, or build fits, including when you need less than you think.</p>
-    <p class="founder">I'm Nick Conenna, an applied AI architect in Cornelius, North Carolina. I built Fair Rate Index, heyamicus, and the YSKAIPE publishing pipeline with the same four moves your kit teaches. You work with me directly.</p>
+    <h2 id="contact-title">Find out what you’re missing in 20 minutes.</h2>
+    <p>We’ll look at whether AI recommends you, where your calls and leads slip away, and whether this is worth it for you. If it isn’t, I’ll tell you.</p>
     <div class="cta-row">
-      <a class="pill" data-mail="Project" href="#">Email me</a>
-      <a class="more" data-link="booking" href="#">Book 20 minutes</a>
+      <a class="btn" data-link="booking" data-track="contact_call" href="mailto:nick@peakingwaters.com?subject=CoreKit%20AI%20call">Book a 20-minute call</a>
+      <a class="btn quiet" data-mail="AI visibility check" href="mailto:nick@peakingwaters.com?subject=Free%20AI%20visibility%20check&amp;body=Business%20name%3A%0ACity%3A%0AWhat%20you%20do%3A">Start with the free AI check</a>
     </div>
   </div>
 </section>
-</main>
 
-<dialog id="player" aria-label="Demo video">
-  <div class="bar"><span id="player-title">Demo</span><button type="button" id="player-close">Close</button></div>
-  <div id="player-slot"></div>
-</dialog>
+</main>
 
 <footer>
   <div class="wrap">
-    <span>CoreKit AI, by Nick Conenna, applied AI architect. A Peaking Waters LLC company, Cornelius, North Carolina.</span>
+    <span>CoreKit AI, a Peaking Waters LLC company, Cornelius, North Carolina.</span>
     <nav aria-label="Footer">
-      <a href="/build.html">Web and app development</a>
+      <a href="/build.html">Custom builds</a>
       <a href="/members.html">Member sign-in</a>
-      <a href="https://fairrateindex.com">Fair Rate Index</a>
-      <a href="https://heyamicus.com">heyamicus</a>
-      <a href="https://www.yskaipe.com/">Novels</a>
-      <a href="https://github.com/NickConenna/applied-ai-architecture">GitHub</a>
       <a href="https://www.linkedin.com/in/nickconenna/">LinkedIn</a>
-      <a href="https://x.com/BitcoinBroham">X</a>
       <a href="/privacy.html">Privacy</a>
       <a href="/terms.html">Terms</a>
       <a href="/refunds.html">Refunds</a>
     </nav>
   </div>
 </footer>
+
 <script src="assets/config.js"></script>
 <script src="assets/links.js"></script>
-<script src="assets/site.js"></script>
-<script src="assets/demos.js"></script>
+<script>
+(function(){
+  /* ---- Edit prices here ---- */
+  var PRICES = { found_mo: 297, found_setup: 750, both_mo: 597, both_setup: 2000 };
+  var fmt = function(n){ return "$" + Math.round(n).toLocaleString("en-US"); };
+  var put = function(key, html){ document.querySelectorAll('[data-price="'+key+'"]').forEach(function(el){ el.innerHTML = html; }); };
+  put("found_mo", fmt(PRICES.found_mo) + "<small> / month</small>");
+  put("both_mo", fmt(PRICES.both_mo) + "<small> / month</small>");
+  put("found_setup", fmt(PRICES.found_setup) + " setup");
+  put("both_setup", fmt(PRICES.both_setup) + " setup");
+
+  /* ---- Hero call log: missed turns to handled, once ---- */
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var LOGS = {
+    spa: { name: "Glow Med Spa", ask: "best med spa near me", sum: "3 consults booked", calls: [
+      ["6:12 PM", "Botox consult, new client", "Asked about price first", "Consult booked"],
+      ["7:40 PM", "Lip filler question", "Answered, sent prep info", "Answered"],
+      ["8:25 PM", "Move Saturday facial", "Existing client", "Moved to Sun"],
+      ["9:50 PM", "Laser hair removal", "Package pricing", "Consult booked"] ] },
+    dental: { name: "Lakeview Family Dental", ask: "dentist accepting new patients", sum: "3 patients booked", calls: [
+      ["6:05 PM", "Cracked tooth, can’t wait", "Current patient", "Booked 8 AM"],
+      ["7:15 PM", "New patient cleaning", "Asked about insurance", "Booked Tue"],
+      ["8:10 PM", "Whitening price", "Answered from your list", "Answered"],
+      ["9:30 PM", "Can’t make Friday", "Existing patient", "Moved to Mon"] ] },
+    auto: { name: "Northside Auto Care", ask: "honest mechanic near me", sum: "3 drop-offs booked", calls: [
+      ["6:20 PM", "Brakes grinding, price?", "2019 Accord", "Drop-off Thu"],
+      ["7:05 PM", "Check engine light", "Free code scan offered", "Booked Wed"],
+      ["8:45 PM", "Is my car ready?", "Service status", "Answered"],
+      ["9:35 PM", "Oil change Saturday", "Repeat customer", "Booked Sat"] ] },
+    firm: { name: "Harper & Lane Law", ask: "estate lawyer near me", sum: "2 consults, 1 intake", calls: [
+      ["6:30 PM", "Needs help with an estate", "Executor, has a will", "Consult booked"],
+      ["7:20 PM", "Update my will", "Existing client", "Intake sent"],
+      ["8:30 PM", "Do you handle DUIs?", "Not your practice area", "Referred out"],
+      ["9:10 PM", "LLC formation cost", "Flat-fee question", "Consult booked"] ] },
+    trade: { name: "Lakeside Heating & Air", ask: "HVAC repair near me", sum: "3 jobs on the calendar", calls: [
+      ["6:12 PM", "No heat, upstairs", "New customer", "Tech booked"],
+      ["7:48 PM", "Water heater quote", "Gave price range", "Booked Thu"],
+      ["8:30 PM", "Furnace making noise", "Urgent, sent to on-call", "On-call alerted"],
+      ["9:55 PM", "Thermostat question", "No visit needed", "Answered"] ] }
+  };
+  var timers = [];
+  function showLog(key){
+    var d = LOGS[key], ul = document.getElementById("calllog");
+    timers.forEach(clearTimeout); timers = [];
+    document.getElementById("log-name").textContent = d.name;
+    document.getElementById("log-found").innerHTML = "Asked ChatGPT: “" + d.ask + "” <b>Recommended you</b>";
+    document.getElementById("log-sum").textContent = d.sum;
+    ul.innerHTML = "";
+    d.calls.forEach(function(c, i){
+      var li = document.createElement("li");
+      li.innerHTML = '<time></time><div class="who"><b></b><span></span></div><span class="tag miss">Missed</span>';
+      li.querySelector("time").textContent = c[0];
+      li.querySelector(".who b").textContent = c[1];
+      li.querySelector(".who span").textContent = c[2];
+      var tag = li.querySelector(".tag");
+      var flip = function(){ tag.textContent = c[3]; tag.classList.remove("miss"); tag.classList.add("booked"); };
+      ul.appendChild(li);
+      if (reduce) flip(); else timers.push(setTimeout(flip, 500 + i * 450));
+    });
+  }
+  document.querySelectorAll(".log-pick button").forEach(function(b){
+    b.addEventListener("click", function(){
+      document.querySelectorAll(".log-pick button").forEach(function(x){ x.setAttribute("aria-pressed", "false"); });
+      b.setAttribute("aria-pressed", "true"); showLog(b.dataset.log);
+    });
+  });
+  showLog("spa");
+
+  /* ---- Leak calculator ---- */
+  var calls = document.getElementById("c-calls"),
+      ticket = document.getElementById("c-ticket"),
+      rate = document.getElementById("c-rate");
+  function calc(){
+    var c = +calls.value, t = +ticket.value, r = +rate.value / 100;
+    var jobs = c * 4.33 * r;
+    var loss = jobs * t;
+    document.getElementById("o-calls").textContent = c;
+    document.getElementById("o-ticket").textContent = fmt(t);
+    document.getElementById("o-rate").textContent = Math.round(r * 100) + "%";
+    document.getElementById("r-loss").textContent = fmt(loss);
+    var payback = Math.max(1, Math.ceil(PRICES.both_mo / t));
+    var jobsTxt = Math.round(jobs) === 1 ? "1 lost booking" : Math.round(jobs) + " lost bookings";
+    var payTxt = payback === 1 ? "after one recovered booking" : "after " + payback + " recovered bookings";
+    document.getElementById("r-line").textContent = "That’s about " + jobsTxt + " a month. Found + Front Desk pays for itself " + payTxt + ".";
+  }
+  [calls, ticket, rate].forEach(function(el){ el.addEventListener("input", calc); });
+  document.querySelectorAll(".leak .presets button").forEach(function(b){
+    b.addEventListener("click", function(){
+      document.querySelectorAll(".leak .presets button").forEach(function(x){ x.setAttribute("aria-pressed", "false"); });
+      b.setAttribute("aria-pressed", "true");
+      ticket.value = b.dataset.ticket; calc();
+    });
+  });
+  calc();
+
+  /* ---- Demo conversations, one per customer type ---- */
+  var CHATS = {
+    spa: ["Glow Med Spa, 8:41 PM", [
+      ["c","Do you do lip filler? How much is it?"],
+      ["a","We do. Lip filler starts at $650 per syringe, and most first-time clients use one. It begins with a free 15-minute consult. Want to book one?"],
+      ["c","Yes, Saturday if possible."],
+      ["a","I have Saturday at 10:30 AM or 2 PM. Which works?"],
+      ["c","10:30."],
+      ["a","You’re booked for 10:30 Saturday. I’ll text a reminder Friday with what to expect."],
+      ["sys","Consult booked, owner notified"]]],
+    dental: ["Lakeview Family Dental, 7:05 PM", [
+      ["c","I cracked a tooth at dinner. It hurts. Can I get in tomorrow?"],
+      ["a","I’m sorry, that sounds painful. Are you a current patient, and is there swelling or bleeding?"],
+      ["c","Current patient. No swelling, just sore."],
+      ["a","Thanks. We hold emergency slots each morning. I can put you in at 8 AM tomorrow. Does that work?"],
+      ["c","Yes, thank you."],
+      ["a","You’re booked for 8 AM. If swelling starts tonight, call our after-hours line and I’ll connect you to the on-call dentist."],
+      ["sys","Emergency slot booked, office notified"]]],
+    auto: ["Northside Auto Care, 7:48 PM", [
+      ["c","My brakes are grinding. How much for front brakes on a 2019 Accord?"],
+      ["a","Front pads and rotors on that car usually run $380 to $520 here. We’ll confirm after a free brake check. When can you drop it off?"],
+      ["c","Thursday morning before work."],
+      ["a","Thursday at 7:30 AM is open. Grinding can mean metal on metal, so drive gently until then."],
+      ["c","Book it."],
+      ["a","Booked for 7:30 AM Thursday. I’ll text you when it’s ready."],
+      ["sys","Drop-off booked, service desk notified"]]],
+    firm: ["Harper & Lane Law, 8:30 PM", [
+      ["c","My father passed and I think I’m the executor. I don’t know where to start."],
+      ["a","I’m sorry for your loss. I can set up a consultation with an attorney. A few quick questions first: which county did he live in, and did he leave a will?"],
+      ["c","Mecklenburg. Yes, there’s a will."],
+      ["a","Thank you. Please bring the will and the death certificate if you have it. I have Tuesday at 11 AM or Wednesday at 3 PM."],
+      ["c","Tuesday."],
+      ["a","You’re booked Tuesday at 11 AM. I’ve sent a short intake form so the attorney can review it before you meet."],
+      ["sys","Intake sent, consult booked"]]],
+    trade: ["Lakeside Heating & Air, 9:55 PM", [
+      ["c","Our heat stopped working upstairs. Can someone come tomorrow?"],
+      ["a","Sorry to hear that. Is the system running but blowing cold, or not turning on at all?"],
+      ["c","Running, just cold air."],
+      ["a","Thanks. A diagnostic visit is $89, and most fixes for this run $150 to $450. I have tomorrow at 8 AM or 1 PM. Which works?"],
+      ["c","8 AM please."],
+      ["a","You’re booked for 8 AM. I’ll text when the tech is on the way."],
+      ["sys","Tech booked, owner notified"]]]
+  };
+  var chatBox = document.getElementById("demo-chat");
+  function showChat(key){
+    var c = CHATS[key];
+    chatBox.innerHTML = "";
+    var meta = document.createElement("div"); meta.className = "meta"; meta.textContent = c[0]; chatBox.appendChild(meta);
+    c[1].forEach(function(m){ var d = document.createElement("div"); d.className = "msg " + m[0]; d.textContent = m[1]; chatBox.appendChild(d); });
+  }
+  document.querySelectorAll(".demo-pick button").forEach(function(b){
+    b.addEventListener("click", function(){
+      document.querySelectorAll(".demo-pick button").forEach(function(x){ x.setAttribute("aria-pressed", "false"); });
+      b.setAttribute("aria-pressed", "true"); showChat(b.dataset.chat);
+    });
+  });
+  showChat("spa");
+
+  /* ---- Business-type tabs ---- */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  function select(tab){
+    tabs.forEach(function(t){
+      var on = t === tab;
+      t.setAttribute("aria-selected", on); t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+    });
+  }
+  tabs.forEach(function(t, i){
+    t.addEventListener("click", function(){ select(t); });
+    t.addEventListener("keydown", function(e){
+      var n = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+      if (!n) return;
+      var next = tabs[(i + n + tabs.length) % tabs.length]; select(next); next.focus();
+    });
+  });
+})();
+</script>
 </body>
 </html>
