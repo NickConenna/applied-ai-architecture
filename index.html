@@ -7,6 +7,9 @@
 <meta name="description" content="CoreKit AI puts a senior applied AI architect on your portfolio: find where AI moves EBITDA, build it in weeks, and roll what works across companies. Charlotte-based, led by Nick Conenna.">
 <meta property="og:title" content="AI is the next value creation lever. CoreKit AI builds it inside your portfolio.">
 <meta property="og:description" content="Diagnose, build, measure, roll out. Applied AI for private equity sponsors and their management teams.">
+<link rel="icon" type="image/png" href="/img/ckai-logo.png">
+<link rel="apple-touch-icon" href="/img/ckai-logo.png">
+<meta property="og:image" content="https://corekitai.com/img/ckai-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -298,6 +301,10 @@ footer a{color:var(--muted)}
 @media (max-width:560px){.eng4{grid-template-columns:1fr}}
 .lever{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
 .imp{font-size:.78rem;font-weight:700;padding:4px 9px;border-radius:999px;background:var(--soft);color:var(--blue);white-space:nowrap}
+
+.brand{display:flex;align-items:center}
+.brand-logo{display:block;height:48px;width:101px;object-fit:cover;object-position:center;mix-blend-mode:multiply}
+@media (prefers-color-scheme: dark){.brand-logo{mix-blend-mode:normal;background:#fff;border-radius:8px;padding:2px 6px;width:113px}}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
@@ -313,7 +320,7 @@ footer a{color:var(--muted)}
 <body>
 
 <header class="nav"><div class="wrap">
-  <a class="brand" href="/">CoreKit AI</a>
+  <a class="brand" href="/" aria-label="CoreKit AI home"><img class="brand-logo" src="/img/ckai-logo.png" alt="CoreKit AI" width="101" height="48"></a>
   <nav aria-label="Site">
     <a href="#levers">Where AI moves margin</a>
     <a href="#industries">Industries</a>

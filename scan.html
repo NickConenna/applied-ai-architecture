@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Company AI scan | CoreKit AI</title>
 <meta name="description" content="Two minutes of questions about your company. Get your three best AI opportunities with realistic payoff, something you can do today, and what to build first.">
+<link rel="icon" type="image/png" href="/img/ckai-logo.png">
+<link rel="apple-touch-icon" href="/img/ckai-logo.png">
+<meta property="og:image" content="https://corekitai.com/img/ckai-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -281,11 +284,15 @@ footer a{color:var(--muted)}
 .opp h4{font-family:var(--display);font-stretch:85%;font-size:1.2rem;margin:0 0 6px}
 .opp p{margin:4px 0;color:var(--muted)}
 .opp p b{color:var(--ink)}
+
+.brand{display:flex;align-items:center}
+.brand-logo{display:block;height:48px;width:101px;object-fit:cover;object-position:center;mix-blend-mode:multiply}
+@media (prefers-color-scheme: dark){.brand-logo{mix-blend-mode:normal;background:#fff;border-radius:8px;padding:2px 6px;width:113px}}
 </style>
 </head>
 <body>
 <header class="nav"><div class="wrap">
-  <a class="brand" href="/">CoreKit AI</a>
+  <a class="brand" href="/" aria-label="CoreKit AI home"><img class="brand-logo" src="/img/ckai-logo.png" alt="CoreKit AI" width="101" height="48"></a>
   <nav aria-label="Site">
     <a href="/#levers">Where AI moves margin</a>
     <a href="/#industries">Industries</a>
